@@ -8,7 +8,6 @@
 
         </script>
 
-
         @include('statistics.demographics.partials.chart-script')
     @endpush
 </x-layouts.app-layout>
