@@ -38,7 +38,7 @@
 
                     <div x-show="openStatistik" x-collapse class="mt-2 ml-4 space-y-2 border-l border-third font-medium"
                         style="display: none;">
-                        <a href="#"
+                        <a href="{{ route('dashboard.statistics.demograph') }}"
                             class="px-8 py-2 text-sm hover:bg-secondary hover:text-white transition flex items-center gap-2"
                             x-bind:class="openSidebar ? 'block' : 'hidden'"><x-ionicon-people-sharp class="size-5" />
                             Demografi</a>
