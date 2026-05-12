@@ -2,10 +2,10 @@
 
 @php
     $colors = [
-        'primary' => 'bg-blue-500 text-white hover:bg-blue-600',
+        'primary' => 'bg-primary text-white hover:bg-secondary',
         'danger'  => 'bg-red-500 text-white hover:bg-red-600',
         'ghost'   => 'bg-transparent border border-gray-300',
-        'outline' => 'border-1 border-slate-400 text-slate-400'
+        'outline' => 'border-1 border-primary text-primary'
     ];
 
     $sizes = [

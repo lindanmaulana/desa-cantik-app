@@ -1,13 +1,18 @@
 <x-layouts.app>
     <div class="flex min-h-screen" x-data="{ openStatistik: false, openSidebar: false }">
-        <aside class=" bg-primary text-slate-300 shrink-0 animation ease-in-out duration-500"
+        <aside class=" bg-primary text-slate-300 shrink-0 transition-all ease-in-out duration-500"
             x-bind:class="openSidebar ? 'w-64' : 'w-20'">
-            <div class="p-4 min-h-16 flex items-center space-x-3 text-white border-b border-slate-700">
-                <div class="rounded-lg">
-                    <x-fab-dev class="size-7"/>
+            <div class="p-4 min-h-16 flex items-center border-b-2 border-third text-white"
+                x-bind:class="openSidebar ? 'space-x-3 justify-start' : 'justify-center space-x-0'">
+
+                <div class="rounded-lg shrink-0">
+                    <x-fab-dev class="size-7" />
                 </div>
+
                 <span class="font-bold tracking-wider uppercase text-sm"
-                    x-bind:class="openSidebar ? 'block truncate' : 'hidden'">Desa Sukaraja</span>
+                    x-bind:class="openSidebar ? 'block truncate' : 'hidden'">
+                    Desa Sukaraja
+                </span>
             </div>
 
             <nav class="w-full mt-6 px-4 space-y-2 text-base">
@@ -49,7 +54,7 @@
                 </div>
 
                 <a href="#"
-                    class="flex items-center gap-4 px-4 py-3 hover:bg-secondary rounded-lg transition text-slate-300">
+                    class="flex items-center gap-4 px-4 py-3 hover:bg-secondary hover:text-white rounded-lg transition text-slate-300">
                     <x-untitledui-star-06 class="size-5" />
                     <span class="" x-bind:class="openSidebar ? 'block' : 'hidden'">Pandawa - Analisis</span>
                 </a>
@@ -57,11 +62,12 @@
         </aside>
 
         <div class="flex-1 flex flex-col">
-            <header class="h-16 bg-white border-b flex items-center justify-between px-8">
+            <header class="h-16 bg-white border-b-2 border-primary flex items-center justify-between px-8">
                 <button @click="openSidebar = !openSidebar"
-                    class="text-slate-500 cursor-pointer"><x-solar-hamburger-menu-broken class="size-6" /></button>
+                    class="text-slate-500 cursor-pointer hover:text-primary"><x-solar-hamburger-menu-broken
+                        class="size-6" /></button>
                 <button
-                    class="bg-[#6366f1] text-white px-5 py-2 rounded-md text-sm font-semibold hover:bg-indigo-700 transition">
+                    class="bg-primary text-white px-5 py-2 rounded-md text-sm font-semibold hover:bg-secondary transition">
                     Login Petugas
                 </button>
             </header>
