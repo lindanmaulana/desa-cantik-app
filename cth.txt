@@ -1,0 +1,39 @@
+                <div class="relative">
+                    <button
+                        @click="openStatistik = !openStatistik"
+                        class="w-full flex items-center justify-between px-4 py-3 rounded-lg transition text-slate-300 hover:bg-slate-800"
+                        :class="openStatistik ? 'bg-slate-800 text-white' : ''">
+                        <div class="flex items-center">
+                            <x-bx-line-chart class="w-5 h-5 mr-3" />
+                            <span class="font-medium">Statistik</span>
+                        </div>
+                        <!-- <x-untitledui-chevron-down
+                            class="w-4 h-4 transition-transform duration-200"
+                            :class="openStatistik ? 'rotate-180' : ''" /> -->
+                    </button>
+
+                    <div
+                        x-show="openStatistik"
+                        x-collapse
+                        class="mt-2 ml-6 space-y-1 border-l border-slate-700"
+                        style="display: none;">
+                        <a href="#" class="flex items-center px-4 py-2 text-sm text-slate-400 hover:text-white transition">
+                            <x-untitledui-users-01-line class="w-4 h-4 mr-3" /> Demografi
+                        </a>
+                        <a href="#" class="flex items-center px-4 py-2 text-sm text-slate-400 hover:text-white transition">
+                            <x-untitledui-heart-line class="w-4 h-4 mr-3" /> Sosial
+                        </a>
+                        <a href="#" class="flex items-center px-4 py-2 text-sm text-slate-400 hover:text-white transition">
+                            <x-untitledui-coins-01-line class="w-4 h-4 mr-3" /> Ekonomi
+                        </a>
+                        <a href="#" class="flex items-center px-4 py-2 text-sm text-slate-400 hover:text-white transition">
+                            <x-untitledui-building-03-line class="w-4 h-4 mr-3" /> UMKM
+                        </a>
+                        <a href="#" class="flex items-center px-4 py-2 text-sm text-slate-400 hover:text-white transition">
+                            <x-untitledui-tool-01-line class="w-4 h-4 mr-3" /> Infrastruktur
+                        </a>
+                        <a href="#" class="flex items-center px-4 py-2 text-sm text-slate-400 hover:text-white transition">
+                            <x-untitledui-map-01-line class="w-4 h-4 mr-3" /> Data Spasial
+                        </a>
+                    </div>
+                </div>
