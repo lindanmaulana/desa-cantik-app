@@ -9,6 +9,6 @@ class DemographController extends Controller
 {
     public function index()
     {
-        return view('statistics.demographics.index');
+        return view('dashboard.statistics.demographics.index');
     }
 }

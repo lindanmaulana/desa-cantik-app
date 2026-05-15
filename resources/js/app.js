@@ -1,9 +1,7 @@
 import './bootstrap';
+
 import Alpine from 'alpinejs';
-import ApexCharts from 'apexcharts';
 
-window.Alpine = Alpine
-window.ApexCharts = ApexCharts
+window.Alpine = Alpine;
 
-
-Alpine.start()
+Alpine.start();
