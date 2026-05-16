@@ -1,25 +1,36 @@
-import defaultTheme from 'tailwindcss/defaultTheme';
-import forms from '@tailwindcss/forms';
+import defaultTheme from "tailwindcss/defaultTheme";
+import forms from "@tailwindcss/forms";
 
 /** @type {import('tailwindcss').Config} */
 export default {
     content: [
-        './vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php',
-        './storage/framework/views/*.php',
-        './resources/views/**/*.blade.php',
+        "./vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php",
+        "./storage/framework/views/*.php",
+        "./resources/views/**/*.blade.php",
     ],
 
     theme: {
         extend: {
             fontFamily: {
-                sans: ['Figtree', ...defaultTheme.fontFamily.sans],
+                sans: ["Figtree", ...defaultTheme.fontFamily.sans],
             },
 
             colors: {
-                primary: '#2FA084',
-                secondary: '#6FCF97',
-                third: '#EEEEEE',
-            }
+                primary: "#2FA084",
+                secondary: "#6FCF97",
+                third: "#EEEEEE",
+            },
+            keyframes: {
+                "wave-rotate": {
+                    from: { transform: "rotate(0deg)" },
+                    to: { transform: "rotate(360deg)" },
+                },
+            },
+            animation: {
+                wave: "wave-rotate 10s linear infinite",
+                "wave-slow": "wave-rotate 15s linear infinite",
+                "wave-slower": "wave-rotate 25s linear infinite",
+            },
         },
     },
 

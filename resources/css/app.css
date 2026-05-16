@@ -2,41 +2,23 @@
 @tailwind components;
 @tailwind utilities;
 
-@import "tailwindcss";
-
-@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
-@source '../../storage/framework/views/*.php';
-@source '../**/*.blade.php';
-@source '../**/*.js';
-
-@theme {
-    --font-sans:
-        "Instrument Sans", ui-sans-serif, system-ui, sans-serif,
-        "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
-        "Noto Color Emoji";
-    --color-primary: #023e8a;
-    --color-secondary: #0077b6;
-    --color-third: #edf6f9;
-
-    @keyframes wave-rotate {
-        from {
-            transform: rotate(0deg);
-        }
-        to {
-            transform: rotate(360deg);
-        }
+@layer components {
+    .wave-obj {
+        @apply absolute bg-primary;
+        width: 250vw;
+        height: 250vw;
+        will-change: transform;
     }
-
-    --animate-wave: wave-rotate 10s linear infinite;
-    --animate-wave-slow: wave-rotate 15s linear infinite;
-    --animate-wave-slower: wave-rotate 25s linear infinite;
 }
 
-.wave-obj {
-    @apply absolute bg-white;
-    width: 250vw;
-    height: 250vw;
-    will-change: transform;
+/* Animasi murni untuk kontrol penuh terhadap delay dan direction di v3 */
+@keyframes wave-rotate {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
 }
 
 .wave-1 {

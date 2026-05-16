@@ -3,9 +3,9 @@
 @php
     $colors = [
         'primary' => 'bg-primary text-white hover:bg-secondary',
-        'danger'  => 'bg-red-500 text-white hover:bg-red-600',
-        'ghost'   => 'bg-transparent border border-gray-300',
-        'outline' => 'border-1 border-primary text-primary'
+        'danger' => 'bg-red-500 text-white hover:bg-red-600',
+        'ghost' => 'bg-transparent border border-gray-300',
+        'outline' => 'border-1 border-primary text-primary',
     ];
 
     $sizes = [
@@ -15,6 +15,7 @@
     ];
 @endphp
 
-<button {{ $attributes->merge(['class' => "rounded-lg font-bold " . $colors[$variant] . " " . $sizes[$size]]) }}>
+<button
+    {{ $attributes->merge(['type' => 'button', 'class' => 'rounded-lg font-bold ' . $colors[$variant] . ' ' . $sizes[$size]]) }}>
     {{ $slot }}
 </button>

@@ -1,8 +1,7 @@
 <x-layouts.admin>
     <div class="grid grid-cols-2 container mx-auto">
         <div class="space-y-8">
-            <div
-                class="max-w-50 text-center bg-secondary/30 rounded-full px-4 py-1 text-sm font-medium text-primary">
+            <div class="max-w-52 text-center bg-secondary/30 rounded-full px-4 py-1 text-sm font-medium text-primary">
                 <p>
                     Pemerintah Desa Sukaraja
                 </p>
@@ -15,9 +14,9 @@
             <p class="text-lg text-slate-500 italic">Orchestrating local data for data-driven policies: Empowering
                 Villages through integrated, transparent, and evidence-based for impactful statistics.</p>
 
-            <div class="space-x-4">
+            <div class="space-x-4 flex items-center">
                 <x-button variant="primary" size="md">
-                    <a href="{{ route('auth.login') }}">Login Petugas</a>
+                    <a href="{{ route('auth.login') }}" class="block w-full h-full">Login Petugas</a>
                 </x-button>
                 <x-button variant="outline" size="md">Pelajari Lebih</x-button>
             </div>

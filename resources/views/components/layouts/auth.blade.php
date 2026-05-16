@@ -1,12 +1,16 @@
 <x-layouts.app>
-    <div class="flex flex-col items-center min-h-screen pt-6 bg-gray-100 sm:justify-center sm:pt-0">
-        <div>
-            <a href="/">
-                <x-application-logo class="w-20 h-20 text-gray-500 fill-current" />
-            </a>
+    <div
+        class="relative flex flex-col items-center justify-center min-h-screen px-4 overflow-hidden bg-third font-sans antialiased">
+
+        <div class="absolute inset-0 pointer-events-none overflow-hidden z-0">
+            <div class="wave-obj wave-1 bg-primary/60"></div>
+            <div class="wave-obj wave-2 bg-primary/40"></div>
+            <div class="wave-obj wave-3 bg-primary/50"></div>
+            <div class="wave-obj wave-4 bg-primary/30"></div>
+            <div class="wave-obj wave-5 bg-primary/20"></div>
         </div>
 
-        <div class="w-full px-6 py-4 mt-6 overflow-hidden bg-white shadow-md sm:max-w-md sm:rounded-lg">
+        <div class="relative z-10 w-full max-w-md">
             {{ $slot }}
         </div>
     </div>
