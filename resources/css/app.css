@@ -2,8 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-
-@import 'tailwindcss';
+@import "tailwindcss";
 
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 @source '../../storage/framework/views/*.php';
@@ -11,9 +10,81 @@
 @source '../**/*.js';
 
 @theme {
-    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-        'Segoe UI Symbol', 'Noto Color Emoji';
-    --color-primary: #2FA084;
-    --color-secondary: #6FCF97;
-    --color-third: #EEEEEE;
+    --font-sans:
+        "Instrument Sans", ui-sans-serif, system-ui, sans-serif,
+        "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
+        "Noto Color Emoji";
+    --color-primary: #023e8a;
+    --color-secondary: #0077b6;
+    --color-third: #edf6f9;
+
+    @keyframes wave-rotate {
+        from {
+            transform: rotate(0deg);
+        }
+        to {
+            transform: rotate(360deg);
+        }
+    }
+
+    --animate-wave: wave-rotate 10s linear infinite;
+    --animate-wave-slow: wave-rotate 15s linear infinite;
+    --animate-wave-slower: wave-rotate 25s linear infinite;
+}
+
+.wave-obj {
+    @apply absolute bg-white;
+    width: 250vw;
+    height: 250vw;
+    will-change: transform;
+}
+
+.wave-1 {
+    border-radius: 46% 54% 48% 52%;
+    bottom: -249.4vw;
+    left: -100%;
+    opacity: 0.8;
+    animation: wave-rotate 18s linear infinite;
+    animation-delay: -3s;
+    z-index: 50;
+}
+
+.wave-2 {
+    border-radius: 44% 56% 52% 48%;
+    bottom: -249.7vw;
+    left: -35%;
+    opacity: 0.5;
+    animation: wave-rotate 13s linear infinite reverse;
+    animation-delay: -7s;
+    z-index: 40;
+}
+
+.wave-3 {
+    border-radius: 48% 52% 50% 50%;
+    bottom: -249.2vw;
+    left: -75%;
+    opacity: 0.4;
+    animation: wave-rotate 25s linear infinite;
+    animation-delay: -1s;
+    z-index: 30;
+}
+
+.wave-4 {
+    border-radius: 42% 58% 45% 55%;
+    bottom: -249.5vw;
+    left: -120%;
+    opacity: 0.3;
+    animation: wave-rotate 11s linear infinite;
+    animation-delay: -5s;
+    z-index: 20;
+}
+
+.wave-5 {
+    border-radius: 40% 60% 40% 60%;
+    bottom: -249vw;
+    left: -50%;
+    opacity: 0.2;
+    animation: wave-rotate 20s linear infinite reverse;
+    animation-delay: -10s;
+    z-index: 10;
 }

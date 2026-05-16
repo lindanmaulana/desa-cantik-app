@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
+
 use App\Http\Controllers\Statistics\DemographController;
 use App\Http\Controllers\Statistics\SocialController;
 use Illuminate\Support\Facades\Route;
@@ -25,7 +26,6 @@ Route::prefix('dashboard')->group(function () {
         Route::get('/demograph', [DemographController::class, 'index'])->name('dashboard.statistics.demograph');
         Route::get('/social', [SocialController::class, 'index'])->name('dashboard.statistics.social');
     });
-
 })->middleware(['auth', 'verified']);
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
