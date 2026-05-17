@@ -2,7 +2,7 @@
     <div class="p-8 bg-white/80 backdrop-blur-lg rounded-2xl shadow-2xl border border-white/60">
 
         <div class="mb-8 text-center">
-            <h2 class="text-3xl font-extrabold text-primary tracking-tight">Selamat Datang</h2>
+            <h2 class="text-3xl font-bold text-primary tracking-tight">Selamat Datang</h2>
             <p class="mt-2 text-sm text-gray-500 font-medium">Silakan masuk untuk mengakses dashboard</p>
         </div>
 

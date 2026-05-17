@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Enums\UserRole;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
@@ -30,16 +31,21 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
-        $request->validate([
-            'fullname' => ['required', 'string', 'max:255'],
-            'username' => ['required', 'string', 'lowercase', 'max:255', 'unique:'.User::class],
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
-        ]);
-
+        try {
+            $request->validate([
+                'fullname' => ['required', 'string', 'max:255'],
+                'username' => ['required', 'string', 'lowercase', 'max:255', 'unique:' . User::class],
+                'password' => ['required', 'confirmed', \Illuminate\Validation\Rules\Password::defaults()],
+            ]);
+        } catch (ValidationException $e) {
+            dd($e->errors());
+        }
         $user = User::create([
             'fullname' => $request->fullname,
             'username' => $request->username,
             'password' => Hash::make($request->password),
+            'territory_id' => null,
+            'role' => UserRole::ADMIN,
         ]);
 
         event(new Registered($user));

@@ -1,4 +1,4 @@
-<x-layouts.admin>
+<x-layouts.dashboard>
     <div class="grid grid-cols-2 container mx-auto">
         <div class="space-y-8">
             <div class="max-w-52 text-center bg-secondary/30 rounded-full px-4 py-1 text-sm font-medium text-primary">
@@ -26,4 +26,4 @@
 
         </div>
     </div>
-</x-layouts.admin>
+</x-layouts.dashboard>
