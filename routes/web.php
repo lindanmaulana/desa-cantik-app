@@ -7,26 +7,17 @@ use App\Http\Controllers\Statistics\DemographController;
 use App\Http\Controllers\Statistics\SocialController;
 use Illuminate\Support\Facades\Route;
 
+
+require __DIR__ . '/auth.php';
+require __DIR__ . '/dashboard.php';
+
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-
-Route::middleware('auth')->group(function () {
-    Route::prefix('dashboard')->group(function () {
-        Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
-
-        Route::prefix('statistics')->group(function () {
-            Route::get('/demograph', [DemographController::class, 'index'])->name('dashboard.statistics.demograph');
-            Route::get('/social', [SocialController::class, 'index'])->name('dashboard.statistics.social');
-        });
-    });
-});
-
-require __DIR__ . '/auth.php';
