@@ -6,8 +6,10 @@
 ])
 
 <div {{ $attributes->merge(['class' => "$color p-6 rounded-2xl text-white shadow-lg flex flex-col justify-between min-w-[250px]"]) }}>
-    <div class="flex items-center space-x-2 opacity-80">
-        <i class="{{ $icon }} text-lg"></i>
+    <div class="flex items-center space-x-3 opacity-90">
+        <div class="flex items-center justify-center w-6 h-6 text-white">
+            <x-dynamic-component :component="$icon" class="w-full h-full" />
+        </div>
         <span class="text-sm font-medium">{{ $title }}</span>
     </div>
     <div class="mt-4">

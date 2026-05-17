@@ -16,7 +16,7 @@
             </div>
 
             <nav class="flex flex-col w-full gap-2 px-4 mt-6 text-base">
-                <a href="{{ route('dashboard') }} " class="flex items-center gap-4 px-4 py-3 rounded-lg {{ request()->routeIs('dashboard') ? 'bg-secondary text-white' : 'text-slate-300 hover:bg-secondary hover:text-white' }}">
+                <a href="{{ route('dashboard') }} " class="flex items-center gap-4 px-4 py-3 rounded-lg {{ request()->routeIs('dashboard') ? 'bg-secondary text-white border-l-4 rounded-l-md' : 'text-slate-300 hover:bg-secondary hover:text-white' }}">
                     <x-untitledui-home-line class="size-5" />
                     <span x-bind:class="openSidebar ? 'block' : 'hidden'">Beranda</span>
                 </a>
@@ -33,20 +33,20 @@
                             x-bind:class="openSidebar ? 'block' : 'hidden'" />
                     </button>
 
-                    <div x-show="openStatistik" x-collapse class="ml-4 space-y-2 font-medium border-l border-third">
+                    <div x-show="openStatistik" x-collapse class="ml-4 space-y-2 font-medium border-l border-third/50">
                         <a href="{{ route('dashboard.statistics.demograph') }}"
-                            class="flex items-center gap-2 px-8 py-2 text-sm transition {{ request()->routeIs('dashboard.statistics.demograph') ? 'bg-secondary text-white' : 'text-slate-300 hover:bg-secondary hover:text-white' }}"
+                            class="flex items-center gap-2 px-8 py-2 text-sm transition {{ request()->routeIs('dashboard.statistics.demograph') ? 'bg-secondary text-white border-l-4 rounded-l-md ml-1 rounded-r-md' : 'text-slate-300 hover:bg-secondary hover:text-white' }}"
                             x-show="openSidebar">
                             <x-ionicon-people-sharp class="size-5" /> Demografi
                         </a>
 
                         <a href="{{ route('dashboard.statistics.social') }}"
-                            class="flex items-center gap-2 px-8 py-2 text-sm transition {{ request()->routeIs('dashboard.statistics.social') ? 'bg-secondary text-white' : 'text-slate-300 hover:bg-secondary hover:text-white' }}"
+                            class="flex items-center gap-2 px-8 py-2 text-sm transition {{ request()->routeIs('dashboard.statistics.social') ? 'bg-secondary text-white border-l-4 rounded-l-md ml-1 rounded-r-md' : 'text-slate-300 hover:bg-secondary hover:text-white' }}"
                             x-bind:class="openSidebar ? 'block' : 'hidden'"> <x-ri-heart-pulse-line class="size-5" />
                             Sosial</a>
 
-                        <a href="#"
-                            class="flex items-center gap-2 px-8 py-2 text-sm transition {{ request()->routeIs('dashboard.statistics.economy') ? 'bg-secondary text-white' : 'text-slate-300 hover:bg-secondary hover:text-white' }}"
+                        <a href="{{ route('dashboard.statistics.economy') }}"
+                            class="flex items-center gap-2 px-8 py-2 text-sm transition {{ request()->routeIs('dashboard.statistics.economy') ? 'bg-secondary text-white border-l-4 rounded-l-md ml-1 rounded-r-md' : 'text-slate-300 hover:bg-secondary hover:text-white' }}"
                             x-bind:class="openSidebar ? 'block' : 'hidden'"> <x-phosphor-money class="size-5" />
                             Ekonomi</a>
                     </div>

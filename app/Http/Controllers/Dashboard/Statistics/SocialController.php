@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Statistics;
+namespace App\Http\Controllers\Dashboard\Statistics;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
