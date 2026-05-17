@@ -59,12 +59,17 @@
                             class="flex items-center gap-2 px-8 py-2 text-sm transition {{ request()->routeIs('dashboard.statistics.infrastructure') ? 'bg-secondary text-white border-l-4 rounded-l-md ml-1 rounded-r-md' : 'text-slate-300 hover:bg-secondary hover:text-white' }}"
                             x-bind:class="openSidebar ? 'block' : 'hidden'"> <x-bi-building-gear class="size-5" />
                             Infrastruktur</a>
+
+                        <a href="{{ route('dashboard.statistics.spatial-data') }}"
+                            class="flex items-center gap-2 px-8 py-2 text-sm transition {{ request()->routeIs('dashboard.statistics.spatial-data') ? 'bg-secondary text-white border-l-4 rounded-l-md ml-1 rounded-r-md' : 'text-slate-300 hover:bg-secondary hover:text-white' }}"
+                            x-bind:class="openSidebar ? 'block' : 'hidden'"> <x-iconsax-out-map class="size-5" />
+                            Data Spasial</a>
                     </div>
                 </div>
 
 
-                <a href="#"
-                    class="flex items-center gap-4 px-4 py-3 transition rounded-lg {{ request()->routeIs('dashboard.pandawa') ? 'bg-secondary text-white' : 'text-slate-300 hover:bg-secondary hover:text-white' }}">
+                <a href="{{ route('dashboard.pandawa-analysis') }}"
+                    class="flex items-center gap-4 px-4 py-3 transition rounded-lg {{ request()->routeIs('dashboard.pandawa-analysis') ? 'bg-secondary text-white' : 'text-slate-300 hover:bg-secondary hover:text-white' }}">
                     <x-untitledui-star-06 class="size-5" />
                     <span class="" x-bind:class="openSidebar ? 'block' : 'hidden'">Pandawa - Analisis</span>
                 </a>
