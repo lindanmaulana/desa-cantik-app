@@ -18,14 +18,15 @@ Route::middleware('auth')->group(function () {
 });
 
 
-Route::prefix('dashboard')->group(function () {
+Route::middleware('auth')->group(function () {
+    Route::prefix('dashboard')->group(function () {
+        Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
-    Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
-
-    Route::prefix('statistics')->group(function () {
-        Route::get('/demograph', [DemographController::class, 'index'])->name('dashboard.statistics.demograph');
-        Route::get('/social', [SocialController::class, 'index'])->name('dashboard.statistics.social');
+        Route::prefix('statistics')->group(function () {
+            Route::get('/demograph', [DemographController::class, 'index'])->name('dashboard.statistics.demograph');
+            Route::get('/social', [SocialController::class, 'index'])->name('dashboard.statistics.social');
+        });
     });
-})->middleware(['auth', 'verified']);
+});
 
 require __DIR__ . '/auth.php';

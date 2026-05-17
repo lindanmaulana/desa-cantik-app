@@ -27,7 +27,7 @@ export default {
                 },
             },
             animation: {
-                wave: "wave-rotate 10s linear infinite",
+                "wave": "wave-rotate 10s linear infinite",
                 "wave-slow": "wave-rotate 15s linear infinite",
                 "wave-slower": "wave-rotate 25s linear infinite",
             },

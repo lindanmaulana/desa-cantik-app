@@ -1,4 +1,4 @@
-<x-layouts.admin>
+<x-layouts.dashboard>
     <div class="space-y-6">
         <div class="flex items-center gap-4 pb-6 mb-10 border-b border-slate-200">
             <x-ionicon-people-sharp class="p-3 rounded-md size-12 bg-primary/20 text-primary" />
@@ -272,4 +272,4 @@
 
     @include('dashboard.statistics.demographics.partials.chart-script')
     @endpush
-</x-layouts.admin>
+</x-layouts.dashboard>
