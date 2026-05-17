@@ -12,7 +12,7 @@ class InfrastructureController extends Controller
      */
     public function index()
     {
-        //
+        return view('dashboard.statistics.infrastructure.index');
     }
 
     /**

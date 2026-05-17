@@ -54,6 +54,11 @@
                             class="flex items-center gap-2 px-8 py-2 text-sm transition {{ request()->routeIs('dashboard.statistics.msme') ? 'bg-secondary text-white border-l-4 rounded-l-md ml-1 rounded-r-md' : 'text-slate-300 hover:bg-secondary hover:text-white' }}"
                             x-bind:class="openSidebar ? 'block' : 'hidden'"> <x-bi-shop class="size-5" />
                             Umkm</a>
+
+                        <a href="{{ route('dashboard.statistics.infrastructure') }}"
+                            class="flex items-center gap-2 px-8 py-2 text-sm transition {{ request()->routeIs('dashboard.statistics.infrastructure') ? 'bg-secondary text-white border-l-4 rounded-l-md ml-1 rounded-r-md' : 'text-slate-300 hover:bg-secondary hover:text-white' }}"
+                            x-bind:class="openSidebar ? 'block' : 'hidden'"> <x-bi-building-gear class="size-5" />
+                            Infrastruktur</a>
                     </div>
                 </div>
 
