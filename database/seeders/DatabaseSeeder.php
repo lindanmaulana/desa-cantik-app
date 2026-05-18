@@ -5,22 +5,23 @@ namespace Database\Seeders;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Database\Seeders\TerritoriesSeeder;
 
 class DatabaseSeeder extends Seeder
 {
     use WithoutModelEvents;
 
-    /**
-     * Seed the application's database.
-     */
-
     public function run(): void
     {
         User::factory()->create([
-            'fullname' => 'Test User',
-            'username' => 'testuser',
-            'password' => bcrypt('password123'),
+            'fullname' => 'Admin User',
+            'username' => 'admin',
+            'password' => bcrypt('admin123'),
             'role'     => 'admin',
+        ]);
+
+        $this->call([
+            TerritoriesSeeder::class,
         ]);
     }
 }

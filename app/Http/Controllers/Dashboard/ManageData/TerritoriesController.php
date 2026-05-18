@@ -17,29 +17,48 @@ use Illuminate\Support\Str;
 
 class TerritoriesController extends Controller
 {
-    /**
-     * Display a listing of the resource.e
-     */
-    public function index()
+    public function index(Request $request)
     {
-        $territories = Territory::latest()->paginate(10);
+        $request->validate([
+            'search' => 'nullable|string|max:255',
+            'sub_village' => 'nullable|in:pahing,pon,wage',
+        ]);
 
-        // dd($territories->toArray());
+        $query = Territory::query();
 
-        return view('dashboard.manage-data.territories.index', compact('territories'));
+        if ($request->filled('search')) {
+            $search = $request->search;
+
+            $query->where(function ($q) use ($search) {
+                $q->whereAny([
+                    'sub_village',
+                    'area_name',
+                    'rw',
+                    'rt'
+                ], 'like', "%{$search}%");
+            });
+        }
+
+        if ($request->filled('sub_village')) {
+            $query->where('sub_village', $request->sub_village);
+        }
+
+        $territories = $query->latest()->paginate(10)->withQueryString();
+
+        $counts = Territory::selectRaw("
+            COUNT(DISTINCT sub_village) as total_SubVillage,
+            COUNT(DISTINCT rw) as total_RW,
+            COUNT(DISTINCT rt) as total_RT
+        ")->first();
+
+        return view('dashboard.manage-data.territories.index', compact('territories', 'counts'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(StoreTerritoryRequest $request)
     {
         $currentUser = Auth::user();
@@ -72,25 +91,17 @@ class TerritoriesController extends Controller
         }
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(string $id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
+
     public function edit(string $id)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(UpdateTerritoryRequest $request, Territory $territory): RedirectResponse
     {
         $currentUser = Auth::user();
@@ -117,11 +128,25 @@ class TerritoriesController extends Controller
         }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
+    public function destroy(Territory $territory)
     {
-        //
+        DB::beginTransaction();
+
+        try {
+            $territory->delete();
+
+            DB::commit();
+
+            return redirect()->route('dashboard.manage-data.territories')->with('success', 'Data Wilayah berhasil dihapus.');
+        } catch (\Throwable $err) {
+            DB::rollBack();
+
+            Log::error('Gagal menghapus territory: ' . $err->getMessage(), [
+                'territory_id' => $territory->id,
+                'trace'   => $err->getTraceAsString()
+            ]);
+
+            return back()->with('error', 'Gagal menghapus data wilayah. Data mungkin masih digunakan.');
+        }
     }
 }

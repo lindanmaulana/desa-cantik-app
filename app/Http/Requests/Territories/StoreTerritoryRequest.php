@@ -29,7 +29,8 @@ class StoreTerritoryRequest extends FormRequest
     {
         return [
             'sub_village.required' => 'Nama Dusun wajib diisi.',
-            'rw.required'          => 'Nomor RW wajib diisi.',
+            'sub_village.max' => 'Nama Dusun maksimal 100 karakter.',
+            'area_name.max' => 'Nama Wilayah maksimal 100 karakter.',            'rw.required'          => 'Nomor RW wajib diisi.',
             'rt.required'          => 'Nomor RT wajib diisi.',
         ];
     }

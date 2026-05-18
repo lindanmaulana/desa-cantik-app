@@ -10,7 +10,7 @@ use App\Http\Controllers\Dashboard\Statistics\MsmeController;
 use App\Http\Controllers\Dashboard\Statistics\SocialController;
 use App\Http\Controllers\Dashboard\Statistics\SpatialDataController;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\Dashboard\ManageData\FamiliesController;
 
 Route::middleware(['auth'])->group(function () {
     Route::prefix('dashboard')->group(function () {
@@ -30,6 +30,14 @@ Route::middleware(['auth'])->group(function () {
                 Route::get('/', [TerritoriesController::class, 'index'])->name('dashboard.manage-data.territories');
                 Route::post('/store', [TerritoriesController::class, 'store'])->name('territories.store');
                 Route::put('/{territory}/update', [TerritoriesController::class, 'update'])->name('territories.update');
+                Route::delete('/{territory}', [TerritoriesController::class, 'destroy'])->name('territories.destroy');
+            });
+
+            Route::prefix('families')->group(function () {
+                Route::get('/', [FamiliesController::class, 'index'])->name('dashboard.manage-data.families');
+                Route::post('/store', [FamiliesController::class, 'store'])->name('families.store');
+                Route::put('/{family}/update', [FamiliesController::class, 'update'])->name('families.update');
+                Route::delete('/{family}', [FamiliesController::class, 'destroy'])->name('families.destroy');
             });
         });
 
