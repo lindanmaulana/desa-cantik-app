@@ -16,12 +16,16 @@ class User extends Authenticatable
     /** @use HasFactory<UserFactory> */
     use HasFactory, Notifiable, HasUuids;
 
+    protected $keyType = 'string';
+
+    public $incrementing = false;
     /**
      * The attributes that are mass assignable.
      *
      * @var list<string>
      */
     protected $fillable = [
+        'id',
         'fullname',
         'username',
         'password',

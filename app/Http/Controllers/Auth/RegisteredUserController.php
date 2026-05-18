@@ -40,6 +40,8 @@ class RegisteredUserController extends Controller
         } catch (ValidationException $e) {
             dd($e->errors());
         }
+
+        
         $user = User::create([
             'fullname' => $request->fullname,
             'username' => $request->username,

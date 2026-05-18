@@ -10,6 +10,10 @@ class Territory extends Model
 {
     use HasFactory, HasUuids;
 
+    protected $keyType = 'string';
+
+    public $incrementing = false;
+
     protected $table = "territories";
 
     protected $fillable = [
