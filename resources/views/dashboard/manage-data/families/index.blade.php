@@ -29,8 +29,8 @@
                 <button @click="openData = !openData" class="inline-flex items-center px-4 py-2 text-sm font-medium text-white transition-colors bg-teal-600 rounded-lg shadow-sm hover:bg-teal-700">
                     <x-heroicon-o-eye class="w-4 h-4 mr-2" x-show="openData" />
                     <x-heroicon-o-eye-slash class="w-4 h-4 mr-2" x-show="!openData" />
-                    <span x-show="openData">Sembunyikan Data</span>
-                    <span x-show="!openData">Tampilkan Data</span>
+                    <span x-show="openData">Sembunyikan Data Sensitif</span>
+                    <span x-show="!openData">Tampilkan Data Sensitif</span>
                 </button>
             
                 <button @click="openCreate = true" class="inline-flex items-center px-4 py-2 text-sm font-medium text-white transition-colors bg-teal-600 rounded-lg shadow-sm hover:bg-teal-700">
@@ -156,8 +156,11 @@
                         @endforeach
                         @else
                         <tr>
-                            <td colspan="6" class="py-4 text-center text-red-500">
-                                <p class="flex items-center justify-center gap-2 py-4"><x-heroicon-o-folder-open class="size-5" /> Data Keluarga tidak tersedia.</p>
+                            <td colspan="8" class="py-10 text-center text-gray-500">
+                                <div class="flex flex-col items-center justify-center gap-2 py-4">
+                                    <x-heroicon-o-folder-open class="size-8 text-gray-300" />
+                                    <p class="text-sm font-medium">Data Keluarga tidak ditemukan.</p>
+                                </div>
                             </td>
                         </tr>
                         @endif

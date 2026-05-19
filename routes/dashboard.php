@@ -11,6 +11,7 @@ use App\Http\Controllers\Dashboard\Statistics\SocialController;
 use App\Http\Controllers\Dashboard\Statistics\SpatialDataController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Dashboard\ManageData\FamiliesController;
+use App\Http\Controllers\Dashboard\ManageData\CitizensController;
 
 Route::middleware(['auth'])->group(function () {
     Route::prefix('dashboard')->group(function () {
@@ -38,6 +39,13 @@ Route::middleware(['auth'])->group(function () {
                 Route::post('/store', [FamiliesController::class, 'store'])->name('families.store');
                 Route::put('/{family}/update', [FamiliesController::class, 'update'])->name('families.update');
                 Route::delete('/{family}', [FamiliesController::class, 'destroy'])->name('families.destroy');
+            });
+
+            Route::prefix('citizens')->group(function () {
+                Route::get('/', [CitizensController::class, 'index'])->name('dashboard.manage-data.citizens');
+                Route::post('/store', [CitizensController::class, 'store'])->name('citizens.store');
+                Route::put('/{citizen}/update', [CitizensController::class, 'update'])->name('citizens.update');
+                Route::delete('/{citizen}', [CitizensController::class, 'destroy'])->name('citizens.destroy');
             });
         });
 

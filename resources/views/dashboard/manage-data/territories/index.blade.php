@@ -135,8 +135,11 @@
                         @endforeach
                         @else
                         <tr>
-                            <td colspan="6" class="py-4 text-center text-red-500">
-                                <p class="flex items-center justify-center gap-2 py-4"><x-heroicon-o-folder-open class="size-5" /> Data Wilayah tidak tersedia.</p>
+                            <td colspan="8" class="py-10 text-center text-gray-500">
+                                <div class="flex flex-col items-center justify-center gap-2 py-4">
+                                    <x-heroicon-o-folder-open class="size-8 text-gray-300" />
+                                    <p class="text-sm font-medium">Data Wilayah tidak ditemukan.</p>
+                                </div>
                             </td>
                         </tr>
                         @endif
