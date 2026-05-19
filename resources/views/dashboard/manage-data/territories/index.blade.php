@@ -27,14 +27,26 @@
             </div>
         </div>
 
-        @include('dashboard.manage-data.territories.partials.create')
-        @include('dashboard.manage-data.territories.partials.update')
+        @if(session('success'))
+        <div class="p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50" role="alert">
+            <span class="font-medium">Berhasil!</span> {{ session('success') }}
+        </div>
+        @endif
+
+        @if(session('error'))
+        <div class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50" role="alert">
+            <span class="font-medium">Gagal!</span> {{ session('error') }}
+        </div>
+        @endif
+
+        @include('dashboard.manage-data.territories.partials.modal.create')
+        @include('dashboard.manage-data.territories.partials.modal.update')
 
         <div class="grid grid-cols-1 gap-4 mb-6 sm:grid-cols-3">
             <div class="flex items-center justify-between p-4 bg-white border border-gray-100 shadow-sm rounded-xl">
                 <div>
                     <p class="text-xs font-semibold text-gray-400 uppercase">Total Dusun</p>
-                    <h3 class="mt-1 text-2xl font-bold text-gray-800">4</h3>
+                    <h3 class="mt-1 text-2xl font-bold text-gray-800">{{ $counts->total_SubVillage }}</h3>
                 </div>
                 <div class="p-3 text-teal-600 rounded-lg bg-teal-50">
                     <x-heroicon-o-flag class="w-6 h-6" />
@@ -43,7 +55,7 @@
             <div class="flex items-center justify-between p-4 bg-white border border-gray-100 shadow-sm rounded-xl">
                 <div>
                     <p class="text-xs font-semibold text-gray-400 uppercase">Total RW</p>
-                    <h3 class="mt-1 text-2xl font-bold text-gray-800">12</h3>
+                    <h3 class="mt-1 text-2xl font-bold text-gray-800">{{ $counts->total_RW }}</h3>
                 </div>
                 <div class="p-3 text-blue-600 rounded-lg bg-blue-50">
                     <x-heroicon-o-squares-2x2 class="w-6 h-6" />
@@ -52,7 +64,7 @@
             <div class="flex items-center justify-between p-4 bg-white border border-gray-100 shadow-sm rounded-xl">
                 <div>
                     <p class="text-xs font-semibold text-gray-400 uppercase">Total RT</p>
-                    <h3 class="mt-1 text-2xl font-bold text-gray-800">36</h3>
+                    <h3 class="mt-1 text-2xl font-bold text-gray-800">{{ $counts->total_RT }}</h3>
                 </div>
                 <div class="p-3 text-indigo-600 rounded-lg bg-indigo-50">
                     <x-heroicon-o-home class="w-6 h-6" />
@@ -60,23 +72,26 @@
             </div>
         </div>
 
-        <div class="flex flex-col items-center justify-between gap-4 p-4 mb-6 bg-white border border-gray-100 shadow-sm rounded-xl md:flex-row">
+        <form action="{{ route('dashboard.manage-data.territories') }}" method="GET" class="flex flex-col items-center justify-between gap-4 p-4 mb-6 bg-white border border-gray-100 shadow-sm rounded-xl md:flex-row">
             <div class="relative w-full md:w-72">
                 <span class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                     <x-heroicon-o-magnifying-glass class="w-5 h-5 text-gray-400" />
                 </span>
-                <input type="text" placeholder="Cari nama dusun atau wilayah..." class="w-full py-2 pl-10 pr-4 text-sm border border-gray-200 rounded-lg focus:outline-none focus:border-teal-500 focus:ring-1 focus:ring-teal-500">
+                <input type="text" name="search" value="{{ request('search') }}" placeholder="Cari nama dusun atau wilayah..." class="w-full py-2 pl-10 pr-4 text-sm border border-gray-200 rounded-lg focus:outline-none focus:border-teal-500 focus:ring-1 focus:ring-teal-500">
             </div>
 
             <div class="flex items-center justify-end w-full gap-2 md:w-auto">
-                <select class="w-full px-3 py-2 text-sm text-gray-700 bg-white border border-gray-200 rounded-lg md:w-44 focus:outline-none focus:border-teal-500">
+                <select name="sub_village" onchange="this.form.submit()" class="w-full px-3 py-2 text-sm text-gray-700 bg-white border border-gray-200 rounded-lg md:w-44 focus:outline-none focus:border-teal-500">
                     <option value="">Semua Dusun</option>
-                    <option value="pahing">Pahing</option>
-                    <option value="pon">Pon</option>
-                    <option value="wage">Wage</option>
+                    <option value="pahing" {{ request('sub_village') == 'pahing' ? 'selected' : '' }}>Pahing</option>
+                    <option value="pon" {{ request('sub_village') == 'pon' ? 'selected' : '' }}>Pon</option>
+                    <option value="wage" {{ request('sub_village') == 'wage' ? 'selected' : '' }}>Wage</option>
                 </select>
+                <button type="submit" class="px-4 py-2 text-sm font-medium text-white transition-colors bg-teal-600 rounded-lg shadow-sm hover:bg-teal-700">
+                    Filter
+                </button>
             </div>
-        </div>
+        </form>
 
         <div class="overflow-hidden bg-white border border-gray-100 shadow-sm rounded-xl">
             <div class="overflow-x-auto">
@@ -107,9 +122,13 @@
                                     <button @click='openModal(@json($territory))' class="p-1.5 text-blue-600 hover:bg-blue-50 rounded-md transition-colors" title="Edit Data">
                                         <x-heroicon-o-pencil-square class="w-4 h-4" />
                                     </button>
-                                    <button class="p-1.5 text-red-600 hover:bg-red-50 rounded-md transition-colors" title="Hapus Data" onclick="confirm('Apakah Anda yakin ingin menghapus wilayah ini?')">
-                                        <x-heroicon-o-trash class="w-4 h-4" />
-                                    </button>
+                                    <form action="{{ route('territories.destroy', $territory->id) }}" method="POST" class="inline" onsubmit="return confirm('Apakah Anda yakin ingin menghapus wilayah ini? Data yang terhubung mungkin akan ikut terhapus atau menyebabkan error.');">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="p-1.5 text-red-600 hover:bg-red-50 rounded-md transition-colors" title="Hapus Data">
+                                            <x-heroicon-o-trash class="w-4 h-4" />
+                                        </button>
+                                    </form>
                                 </div>
                             </td>
                         </tr>
