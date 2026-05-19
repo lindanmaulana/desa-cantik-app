@@ -12,7 +12,7 @@ require __DIR__ . '/auth.php';
 require __DIR__ . '/dashboard.php';
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('index');
 });
 
 Route::middleware(['auth', 'role:admin'])->group(function () {

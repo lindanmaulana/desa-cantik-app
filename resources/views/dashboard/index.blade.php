@@ -1,7 +1,7 @@
 <x-layouts.dashboard>
     <div class="grid grid-cols-2">
         <div class="space-y-8">
-            <div class="px-4 py-1 text-sm font-medium text-center bg-green-100 rounded-full max-w-50 text-primary">
+            <div class="px-4 py-1 w-fit text-sm font-medium text-center bg-green-100 rounded-full max-w-50 text-primary">
                 Pemerintah Desa Sukaraja</div>
 
             <h2 class="text-5xl font-bold line-clamp-6">PANDAWA STATISTIKA <span
