@@ -2,7 +2,8 @@
 
 namespace App\Enums;
 
-enum EconomicStatus: string {
+enum EconomicStatus: string
+{
     case VERY_POOR = 'very_poor';
     case POOR = 'poor';
     case NEAR_POOR = 'near_poor';

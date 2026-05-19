@@ -175,14 +175,47 @@
                             </span>
                         </a>
 
-                        <a href="{{ route('dashboard.statistics.economy') }}"
-                            class="flex items-center gap-2 px-4 py-2 text-sm transition-all duration-500 {{ request()->routeIs('dashboard.statistics.economy') ? 'bg-secondary text-white border-l-4 rounded-l-md ml-1 rounded-r-md' : 'text-slate-300 hover:bg-secondary hover:text-white' }}"
+                        <a href="{{ route('dashboard.manage-data.social-economics') }}"
+                            class="flex items-center gap-2 px-4 py-2 text-sm transition-all duration-500 {{ request()->routeIs('dashboard.manage-data.social-economics') ? 'bg-secondary text-white border-l-4 rounded-l-md ml-1 rounded-r-md' : 'text-slate-300 hover:bg-secondary hover:text-white' }}"
+                            x-bind:class="openSidebar ? 'justify-start pl-4' : 'justify-center py-3'">
+                            <x-ri-heart-pulse-line class="transition-all duration-500 size-5 shrink-0" />
+                            <span class="truncate origin-left transform"
+                                x-bind:class="openSidebar ? 'opacity-100 max-w-xs scale-100 transition-all duration-500 delay-200' :
+                                    'opacity-0 max-w-0 scale-95 absolute pointer-events-none invisible transition-all duration-150'">
+                                Sosial Ekonomi
+                            </span>
+                        </a>
+
+                        <a href="{{ route('dashboard.manage-data.msmes') }}"
+                            class="flex items-center gap-2 px-4 py-2 text-sm transition-all duration-500 {{ request()->routeIs('dashboard.manage-data.msmes') ? 'bg-secondary text-white border-l-4 rounded-l-md ml-1 rounded-r-md' : 'text-slate-300 hover:bg-secondary hover:text-white' }}"
+                            x-bind:class="openSidebar ? 'justify-start pl-4' : 'justify-center py-3'">
+                            <x-bi-shop class="transition-all duration-500 size-5 shrink-0" />
+                            <span class="truncate origin-left transform"
+                                x-bind:class="openSidebar ? 'opacity-100 max-w-xs scale-100 transition-all duration-500 delay-200' :
+                                    'opacity-0 max-w-0 scale-95 absolute pointer-events-none invisible transition-all duration-150'">
+                                Data UMKM (MSMEs)
+                            </span>
+                        </a>
+
+                        <a href="{{ route('dashboard.manage-data.infrastructures') }}"
+                            class="flex items-center gap-2 px-4 py-2 text-sm transition-all duration-500 {{ request()->routeIs('dashboard.manage-data.infrastructures') ? 'bg-secondary text-white border-l-4 rounded-l-md ml-1 rounded-r-md' : 'text-slate-300 hover:bg-secondary hover:text-white' }}"
                             x-bind:class="openSidebar ? 'justify-start pl-4' : 'justify-center py-3'">
                             <x-iconsax-lin-buildings class="transition-all duration-500 size-5 shrink-0" />
                             <span class="truncate origin-left transform"
                                 x-bind:class="openSidebar ? 'opacity-100 max-w-xs scale-100 transition-all duration-500 delay-200' :
                                     'opacity-0 max-w-0 scale-95 absolute pointer-events-none invisible transition-all duration-150'">
                                 Data Infrastruktur
+                            </span>
+                        </a>
+
+                        <a href="{{ route('dashboard.manage-data.spatial-data') }}"
+                            class="flex items-center gap-2 px-4 py-2 text-sm transition-all duration-500 {{ request()->routeIs('dashboard.manage-data.spatial-data') ? 'bg-secondary text-white border-l-4 rounded-l-md ml-1 rounded-r-md' : 'text-slate-300 hover:bg-secondary hover:text-white' }}"
+                            x-bind:class="openSidebar ? 'justify-start pl-4' : 'justify-center py-3'">
+                            <x-iconsax-lin-map class="transition-all duration-500 size-5 shrink-0" />
+                            <span class="truncate origin-left transform"
+                                x-bind:class="openSidebar ? 'opacity-100 max-w-xs scale-100 transition-all duration-500 delay-200' :
+                                    'opacity-0 max-w-0 scale-95 absolute pointer-events-none invisible transition-all duration-150'">
+                                Data Spasial (GIS)
                             </span>
                         </a>
                     </div>

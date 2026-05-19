@@ -12,6 +12,10 @@ use App\Http\Controllers\Dashboard\Statistics\SpatialDataController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Dashboard\ManageData\FamiliesController;
 use App\Http\Controllers\Dashboard\ManageData\CitizensController;
+use App\Http\Controllers\Dashboard\ManageData\SocialEconomicsController;
+use App\Http\Controllers\Dashboard\ManageData\MsmesController;
+use App\Http\Controllers\Dashboard\ManageData\InfrastructuresController;
+use App\Http\Controllers\Dashboard\ManageData\SpatialDataController as ManageSpatialDataController;
 
 Route::middleware(['auth'])->group(function () {
     Route::prefix('dashboard')->group(function () {
@@ -46,6 +50,34 @@ Route::middleware(['auth'])->group(function () {
                 Route::post('/store', [CitizensController::class, 'store'])->name('citizens.store');
                 Route::put('/{citizen}/update', [CitizensController::class, 'update'])->name('citizens.update');
                 Route::delete('/{citizen}', [CitizensController::class, 'destroy'])->name('citizens.destroy');
+            });
+
+            Route::prefix('social-economics')->group(function () {
+                Route::get('/', [SocialEconomicsController::class, 'index'])->name('dashboard.manage-data.social-economics');
+                Route::post('/store', [SocialEconomicsController::class, 'store'])->name('social-economics.store');
+                Route::put('/{social_economic}/update', [SocialEconomicsController::class, 'update'])->name('social-economics.update');
+                Route::delete('/{social_economic}', [SocialEconomicsController::class, 'destroy'])->name('social-economics.destroy');
+            });
+
+            Route::prefix('msmes')->group(function () {
+                Route::get('/', [MsmesController::class, 'index'])->name('dashboard.manage-data.msmes');
+                Route::post('/store', [MsmesController::class, 'store'])->name('msmes.store');
+                Route::put('/{msme}/update', [MsmesController::class, 'update'])->name('msmes.update');
+                Route::delete('/{msme}', [MsmesController::class, 'destroy'])->name('msmes.destroy');
+            });
+
+            Route::prefix('infrastructures')->group(function () {
+                Route::get('/', [InfrastructuresController::class, 'index'])->name('dashboard.manage-data.infrastructures');
+                Route::post('/store', [InfrastructuresController::class, 'store'])->name('infrastructures.store');
+                Route::put('/{infrastructure}/update', [InfrastructuresController::class, 'update'])->name('infrastructures.update');
+                Route::delete('/{infrastructure}', [InfrastructuresController::class, 'destroy'])->name('infrastructures.destroy');
+            });
+
+            Route::prefix('spatial-data')->group(function () {
+                Route::get('/', [ManageSpatialDataController::class, 'index'])->name('dashboard.manage-data.spatial-data');
+                Route::post('/store', [ManageSpatialDataController::class, 'store'])->name('spatial-data.store');
+                Route::put('/{spatial_data}/update', [ManageSpatialDataController::class, 'update'])->name('spatial-data.update');
+                Route::delete('/{spatial_data}', [ManageSpatialDataController::class, 'destroy'])->name('spatial-data.destroy');
             });
         });
 
