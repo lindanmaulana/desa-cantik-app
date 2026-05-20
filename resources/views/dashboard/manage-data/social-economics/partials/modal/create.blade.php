@@ -42,8 +42,8 @@
                     <select id="education_level" name="education_level" required
                         class="w-full px-3 py-2 text-sm transition-all border border-gray-200 rounded-lg bg-gray-50/50 focus:outline-none focus:bg-white focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500">
                         <option value="">-- Pilih Pendidikan --</option>
-                        @foreach($educationLabels as $val => $lbl)
-                            <option value="{{ $val }}">{{ $lbl }}</option>
+                        @foreach($educationLevel as $val)
+                            <option value="{{ $val->value }}">{{ $val->label() }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -90,8 +90,8 @@
                     <select id="house_condition" name="house_condition" required
                         class="w-full px-3 py-2 text-sm transition-all border border-gray-200 rounded-lg bg-gray-50/50 focus:outline-none focus:bg-white focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500">
                         <option value="">-- Pilih Kelayakan --</option>
-                        @foreach($houseLabels as $val => $lbl)
-                            <option value="{{ $val }}">{{ $lbl }}</option>
+                        @foreach($houseCondition as $val)
+                            <option value="{{ $val->value }}">{{ $val->label() }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -101,8 +101,8 @@
                     <select id="economic_status" name="economic_status" required
                         class="w-full px-3 py-2 text-sm transition-all border border-gray-200 rounded-lg bg-gray-50/50 focus:outline-none focus:bg-white focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500">
                         <option value="">-- Pilih Klasifikasi --</option>
-                        @foreach($economicLabels as $val => $lbl)
-                            <option value="{{ $val }}">{{ $lbl }}</option>
+                        @foreach($economicStatus as $val)
+                            <option value="{{ $val->value }}">{{ $val->label() }}</option>
                         @endforeach
                     </select>
                 </div>

@@ -4,7 +4,7 @@
 
         <div class="flex items-center justify-between px-6 py-4 border-b border-gray-100 bg-gray-50">
             <div class="flex items-center gap-2">
-                <div class="p-2 text-emerald-600 rounded-lg bg-emerald-50">
+                <div class="p-2 rounded-lg text-emerald-600 bg-emerald-50">
                     <x-heroicon-o-pencil-square class="w-5 h-5" />
                 </div>
                 <div>
@@ -47,8 +47,8 @@
                     <select id="update_business_category" name="business_category" required x-model="msme.business_category"
                         class="w-full px-3 py-2 text-sm transition-all border border-gray-200 rounded-lg bg-gray-50/50 focus:outline-none focus:bg-white focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500">
                         <option value="">-- Pilih Kategori --</option>
-                        @foreach($categoryLabels as $val => $lbl)
-                            <option value="{{ $val }}">{{ $lbl }}</option>
+                        @foreach($businessCategory::cases() as $val )
+                            <option value="{{ $val->value }}">{{ $val->label() }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -71,7 +71,7 @@
             <div>
                 <label for="update_mothly_revenue" class="block mb-1 text-xs font-semibold tracking-wider text-gray-600 uppercase">Estimasi Omset Bulanan Usaha (Rupiah)</label>
                 <div class="relative">
-                    <span class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-xs text-gray-400 font-bold">
+                    <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-xs font-bold text-gray-400 pointer-events-none">
                         Rp.
                     </span>
                     <input type="number" id="update_mothly_revenue" name="mothly_revenue" min="0" x-model="msme.mothly_revenue" placeholder="0"
@@ -83,7 +83,7 @@
                 <button type="button" @click="openUpdate = false" class="px-4 py-2 text-sm font-medium text-gray-700 transition-colors bg-white border border-gray-200 rounded-lg hover:bg-gray-50 focus:outline-none">
                     Batal
                 </button>
-                <button type="submit" class="px-4 py-2 text-sm font-medium text-white transition-colors bg-emerald-600 rounded-lg shadow-sm hover:bg-emerald-700 focus:outline-none">
+                <button type="submit" class="px-4 py-2 text-sm font-medium text-white transition-colors rounded-lg shadow-sm bg-emerald-600 hover:bg-emerald-700 focus:outline-none">
                     Simpan Perubahan
                 </button>
             </div>

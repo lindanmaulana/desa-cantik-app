@@ -34,9 +34,9 @@
                         class="w-full px-3 py-2 text-sm transition-all border border-gray-200 rounded-lg bg-gray-50/50 focus:outline-none focus:bg-white focus:border-teal-500 focus:ring-1 focus:ring-teal-500">
                         <option value="">-- Pilih Nomor KK --</option>
                         @foreach($families as $fam)
-                            <option value="{{ $fam->id }}">
-                                {{ $fam->family_card_number }} ({{ $fam->address_detail }})
-                            </option>
+                        <option value="{{ $fam->id }}">
+                            {{ $fam->family_card_number }} ({{ $fam->address_detail }})
+                        </option>
                         @endforeach
                     </select>
                 </div>
@@ -54,8 +54,8 @@
                     <select id="update_gender" name="gender" required x-model="citizen.gender"
                         class="w-full px-3 py-2 text-sm transition-all border border-gray-200 rounded-lg bg-gray-50/50 focus:outline-none focus:bg-white focus:border-teal-500 focus:ring-1 focus:ring-teal-500">
                         <option value="">-- Pilih Jenis Kelamin --</option>
-                        @foreach($genderLabels as $val => $lbl)
-                            <option value="{{ $val }}">{{ $lbl }}</option>
+                        @foreach(App\Enums\Gender::cases() as $val)
+                        <option value="{{ $val->value }}">{{ $val->label() }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -65,8 +65,8 @@
                     <select id="update_family_role" name="family_role" required x-model="citizen.family_role"
                         class="w-full px-3 py-2 text-sm transition-all border border-gray-200 rounded-lg bg-gray-50/50 focus:outline-none focus:bg-white focus:border-teal-500 focus:ring-1 focus:ring-teal-500">
                         <option value="">-- Pilih Hubungan --</option>
-                        @foreach($roleLabels as $val => $lbl)
-                            <option value="{{ $val }}">{{ $lbl }}</option>
+                        @foreach(App\Enums\FamilyRole::cases() as $val)
+                        <option value="{{ $val->value }}">{{ $val->label() }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -92,8 +92,8 @@
                     <select name="religion" required x-model="citizen.religion"
                         class="w-full px-3 py-2 text-sm transition-all border border-gray-200 rounded-lg bg-gray-50/50 focus:outline-none focus:bg-white focus:border-teal-500 focus:ring-1 focus:ring-teal-500">
                         <option value="">-- Pilih Agama --</option>
-                        @foreach($religionLabels as $val => $lbl)
-                            <option value="{{ $val }}">{{ $lbl }}</option>
+                        @foreach(App\Enums\Religion::cases() as $val)
+                        <option value="{{ $val->value }}">{{ $val->label() }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -103,8 +103,8 @@
                     <select name="marital_status" required x-model="citizen.marital_status"
                         class="w-full px-3 py-2 text-sm transition-all border border-gray-200 rounded-lg bg-gray-50/50 focus:outline-none focus:bg-white focus:border-teal-500 focus:ring-1 focus:ring-teal-500">
                         <option value="">-- Pilih Status --</option>
-                        @foreach($maritalLabels as $val => $lbl)
-                            <option value="{{ $val }}">{{ $lbl }}</option>
+                        @foreach(App\Enums\MaritalStatus::cases() as $val)
+                        <option value="{{ $val->value }}">{{ $val->label() }}</option>
                         @endforeach
                     </select>
                 </div>
