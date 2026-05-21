@@ -39,10 +39,10 @@ class SpatialDataController extends Controller
         $msmes = Msme::orderBy('business_name')->get();
 
         return view('dashboard.manage-data.spatial-data.index', compact(
-            'spatialDataList', 
-            'counts', 
-            'citizens', 
-            'infrastructures', 
+            'spatialDataList',
+            'counts',
+            'citizens',
+            'infrastructures',
             'msmes'
         ));
     }
@@ -63,7 +63,6 @@ class SpatialDataController extends Controller
         DB::beginTransaction();
 
         try {
-            // Generate primary UUID
             $validated['id'] = Str::uuid()->toString();
 
             SpatialData::create($validated);

@@ -22,29 +22,29 @@
                           @if($item->feature_type->value === 'resident_house')
                           <span class="inline-flex items-center px-2.5 py-1 text-xs font-semibold rounded-full bg-blue-50 text-blue-700 border border-blue-100">
                               <x-heroicon-o-home class="w-3.5 h-3.5 mr-1" />
-                              {{ $typeLabels[$item->feature_type->value] }}
+                              {{ $featureType::tryFrom($item->feature_type->value) }}
                           </span>
                           @elseif($item->feature_type->value === 'public_facility')
                           <span class="inline-flex items-center px-2.5 py-1 text-xs font-semibold rounded-full bg-amber-50 text-amber-700 border border-amber-100">
                               <x-iconsax-lin-buildings class="w-3.5 h-3.5 mr-1" />
-                              {{ $typeLabels[$item->feature_type->value] }}
+                              {{ $featureType::tryFrom($item->feature_type->value) }}
                           </span>
                           @elseif($item->feature_type->value === 'msme_location')
                           <span class="inline-flex items-center px-2.5 py-1 text-xs font-semibold rounded-full bg-purple-50 text-purple-700 border border-purple-100">
                               <x-bi-shop class="w-3.5 h-3.5 mr-1" />
-                              {{ $typeLabels[$item->feature_type->value] }}
+                              {{ $featureType::tryFrom($item->feature_type->value) }}
                           </span>
                           @else
                           <span class="inline-flex items-center px-2.5 py-1 text-xs font-semibold rounded-full bg-slate-50 text-slate-700 border border-slate-100">
                               <x-heroicon-o-map class="w-3.5 h-3.5 mr-1" />
-                              {{ $typeLabels[$item->feature_type->value] }}
+                              {{ $featureType::tryFrom($item->feature_type->value) }}
                           </span>
                           @endif
                       </td>
                       <td class="px-6 py-4">
                           @if($item->feature_type->value === 'resident_house' && $item->feature)
                           <div class="font-semibold text-gray-900">{{ $item->feature->name }}</div>
-                          <div class="text-xs text-gray-400">NIK: {{ $item->feature->nik }}</div>
+                          <div class="text-xs text-gray-400">NIK: {{ $item->feature->id_number }}</div>
                           @elseif($item->feature_type->value === 'public_facility' && $item->feature)
                           <div class="font-semibold text-gray-900">{{ $item->feature->facility_name }}</div>
                           <div class="text-xs text-gray-400">Pendanaan: {{ $item->feature->funding_source }}</div>
@@ -58,7 +58,7 @@
                           @endif
                       </td>
                       <td class="px-6 py-4 font-mono text-center text-gray-700">{{ number_format($item->latitude, 8) }}</td>
-                      <td class="px-6 py-4 font-mono text-center text-gray-700">{{ number_format($item->longtitude, 8) }}</td>
+                      <td class="px-6 py-4 font-mono text-center text-gray-700">{{ number_format($item->longitude, 8) }}</td>
                       <td class="px-6 py-4 text-center">
                           @if($item->geojson)
                           <span class="inline-flex items-center px-2 py-0.5 text-xs font-semibold rounded-md bg-emerald-50 text-emerald-700 border border-emerald-100" title="{{ json_encode($item->geojson) }}">

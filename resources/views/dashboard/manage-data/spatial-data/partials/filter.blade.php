@@ -4,7 +4,7 @@
              <label class="block mb-1 text-xs font-medium text-gray-500">Filter Jenis Objek Geografis</label>
              <select name="feature_type" onchange="this.form.submit()" class="w-full px-3 py-2 text-sm text-gray-700 bg-white border border-gray-200 rounded-lg focus:outline-none focus:border-emerald-500">
                  <option value="">Semua Jenis Objek</option>
-                 @foreach($featureType::casses() as $val)
+                 @foreach($featureType::cases() as $val)
                  <option value="{{ $val->value }}" {{ request('feature_type') == $val->value ? 'selected' : '' }}>{{ $val->label() }}</option>
                  @endforeach
              </select>

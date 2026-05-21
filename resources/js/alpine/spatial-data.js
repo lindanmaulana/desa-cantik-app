@@ -1,4 +1,6 @@
-export function spatialData() {
+import Alpine from "alpinejs";
+
+function spatialData() {
     return {
         openCreate: false,
         openUpdate: false,
@@ -7,7 +9,7 @@ export function spatialData() {
             feature_type: "",
             feature_id: "",
             latitude: "",
-            longtitude: "",
+            longitude: "",
             geojson: "",
         },
 
@@ -17,7 +19,7 @@ export function spatialData() {
                 feature_type: data.feature_type || "",
                 feature_id: data.feature_id || "",
                 latitude: data.latitude || "",
-                longtitude: data.longtitude || "",
+                longitude: data.longitude || "",
                 geojson: data.geojson ? JSON.stringify(data.geojson) : "",
             };
             this.openUpdate = true;
@@ -25,7 +27,7 @@ export function spatialData() {
     };
 }
 
-export function spatialDataCreate() {
+function spatialDataCreate() {
     return {
         featureType: "",
         featureId: "",
@@ -40,4 +42,9 @@ export function spatialDataCreate() {
             });
         },
     };
+}
+
+export default function initSpatialModule() {
+    Alpine.data("spatialData", spatialData);
+    Alpine.data("spatialDataCreate", spatialDataCreate);
 }

@@ -42,7 +42,7 @@
                             class="w-full px-3 py-2 text-sm transition-all border border-gray-200 rounded-lg bg-gray-50/50 focus:outline-none focus:bg-white focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500">
                             <option value="">-- Pilih Penduduk / Rumah --</option>
                             @foreach($citizens as $c)
-                                <option value="{{ $c->id }}">{{ $c->name }} (NIK: {{ $c->nik }})</option>
+                                <option value="{{ $c->id }}">{{ $c->name }} (NIK: {{ $c->id_number }})</option>
                             @endforeach
                         </select>
                     </div>
@@ -93,8 +93,8 @@
                 </div>
 
                 <div>
-                    <label for="update_longtitude" class="block mb-1 text-xs font-semibold tracking-wider text-gray-600 uppercase">Garis Bujur (Longitude) <span class="text-red-500">*</span></label>
-                    <input type="number" step="any" min="-180" max="180" id="update_longtitude" name="longtitude" required x-model="spatial.longtitude" placeholder="Contoh: 106.12345678"
+                    <label for="update_longitude" class="block mb-1 text-xs font-semibold tracking-wider text-gray-600 uppercase">Garis Bujur (Longitude) <span class="text-red-500">*</span></label>
+                    <input type="number" step="any" min="-180" max="180" id="update_longitude" name="longitude" required x-model="spatial.longitude" placeholder="Contoh: 106.12345678"
                         class="w-full px-3 py-2 text-sm transition-all border border-gray-200 rounded-lg bg-gray-50/50 focus:outline-none focus:bg-white focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500">
                 </div>
             </div>

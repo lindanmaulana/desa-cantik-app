@@ -27,7 +27,7 @@
                         class="w-full px-3 py-2 text-sm transition-all border border-gray-200 rounded-lg bg-gray-50/50 focus:outline-none focus:bg-white focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500">
                         <option value="">-- Pilih Jenis Objek --</option>
                         @foreach($featureType::cases() as $val)
-                        <option value="{{ $val->value }}">{{ $val->label() }}</option>
+                            <option value="{{ $val->value }}">{{ $val->label() }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -92,8 +92,8 @@
                 </div>
 
                 <div>
-                    <label for="longtitude" class="block mb-1 text-xs font-semibold tracking-wider text-gray-600 uppercase">Garis Bujur (Longitude) <span class="text-red-500">*</span></label>
-                    <input type="number" step="any" min="-180" max="180" id="longtitude" name="longtitude" required placeholder="Contoh: 106.12345678"
+                    <label for="longitude" class="block mb-1 text-xs font-semibold tracking-wider text-gray-600 uppercase">Garis Bujur (Longitude) <span class="text-red-500">*</span></label>
+                    <input type="number" step="any" min="-180" max="180" id="longitude" name="longitude" required placeholder="Contoh: 106.12345678"
                         class="w-full px-3 py-2 text-sm transition-all border border-gray-200 rounded-lg bg-gray-50/50 focus:outline-none focus:bg-white focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500">
                 </div>
             </div>

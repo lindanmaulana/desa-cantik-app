@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Msmes\StoreMsmeRequest;
 use App\Http\Requests\Msmes\UpdateMsmeRequest;
 use App\Models\Citizen;
-use App\Models\Msmes;
+use App\Models\Msme;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -22,18 +22,18 @@ class MsmesController extends Controller
      */
     public function index(Request $request): View
     {
-        $query = Msmes::with('citizen');
+        $query = Msme::with('citizen');
 
         // Apply filters
         if ($request->filled('search')) {
             $search = $request->input('search');
             $query->where(function ($q) use ($search) {
                 $q->where('business_name', 'like', "%{$search}%")
-                  ->orWhere('license_number', 'like', "%{$search}%")
-                  ->orWhereHas('citizen', function ($qc) use ($search) {
-                      $qc->where('full_name', 'like', "%{$search}%")
-                         ->orWhere('id_number', 'like', "%{$search}%");
-                  });
+                    ->orWhere('license_number', 'like', "%{$search}%")
+                    ->orWhereHas('citizen', function ($qc) use ($search) {
+                        $qc->where('full_name', 'like', "%{$search}%")
+                            ->orWhere('id_number', 'like', "%{$search}%");
+                    });
             });
         }
 
@@ -46,9 +46,9 @@ class MsmesController extends Controller
 
         // Calculate card statistics
         $counts = (object) [
-            'total_Msmes' => Msmes::count(),
-            'total_Employees' => Msmes::sum('employee_count'),
-            'total_Revenue' => Msmes::sum('mothly_revenue') ?? 0.00,
+            'total_Msmes' => Msme::count(),
+            'total_Employees' => Msme::sum('employee_count'),
+            'total_Revenue' => Msme::sum('mothly_revenue') ?? 0.00,
         ];
 
         // Fetch all citizens to populate owner dropdown selections
@@ -71,7 +71,7 @@ class MsmesController extends Controller
             // Generate primary UUID
             $validated['id'] = Str::uuid()->toString();
 
-            Msmes::create($validated);
+            Msme::create($validated);
 
             DB::commit();
 
@@ -94,7 +94,7 @@ class MsmesController extends Controller
     /**
      * Update the specified MSME business profile.
      */
-    public function update(UpdateMsmeRequest $request, Msmes $msme): RedirectResponse
+    public function update(UpdateMsmeRequest $request, Msme $msme): RedirectResponse
     {
         $currentUser = Auth::user();
         $validated = $request->validated();
@@ -125,7 +125,7 @@ class MsmesController extends Controller
     /**
      * Remove the specified MSME business profile from storage (soft delete).
      */
-    public function destroy(Msmes $msme): RedirectResponse
+    public function destroy(Msme $msme): RedirectResponse
     {
         DB::beginTransaction();
 

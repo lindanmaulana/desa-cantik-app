@@ -42,14 +42,14 @@ class StoreSpatialDataRequest extends FormRequest
                             $fail('Data infrastruktur fisik yang Anda pilih tidak valid atau tidak ditemukan.');
                         }
                     } elseif ($type === 'msme') {
-                        if (!\App\Models\Msmes::where('id', $value)->exists()) {
+                        if (!\App\Models\Msme::where('id', $value)->exists()) {
                             $fail('Data unit usaha UMKM yang Anda pilih tidak valid atau tidak ditemukan.');
                         }
                     }
                 }
             ],
             'latitude' => ['required', 'numeric', 'between:-90,90'],
-            'longtitude' => ['required', 'numeric', 'between:-180,180'],
+            'longitude' => ['required', 'numeric', 'between:-180,180'],
             'geojson' => ['nullable', 'string'],
         ];
     }
@@ -67,9 +67,9 @@ class StoreSpatialDataRequest extends FormRequest
             'latitude.required' => 'Koordinat garis lintang (latitude) wajib diisi.',
             'latitude.numeric' => 'Garis lintang harus berupa angka koordinat.',
             'latitude.between' => 'Garis lintang harus bernilai antara -90 sampai 90 derajat.',
-            'longtitude.required' => 'Koordinat garis bujur (longitude) wajib diisi.',
-            'longtitude.numeric' => 'Garis bujur harus berupa angka koordinat.',
-            'longtitude.between' => 'Garis bujur harus bernilai antara -180 sampai 180 derajat.',
+            'longitude.required' => 'Koordinat garis bujur (longitude) wajib diisi.',
+            'longitude.numeric' => 'Garis bujur harus berupa angka koordinat.',
+            'longitude.between' => 'Garis bujur harus bernilai antara -180 sampai 180 derajat.',
         ];
     }
 }
