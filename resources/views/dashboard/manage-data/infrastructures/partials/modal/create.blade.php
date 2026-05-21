@@ -4,7 +4,7 @@
 
         <div class="flex items-center justify-between px-6 py-4 border-b border-gray-100 bg-gray-50">
             <div class="flex items-center gap-2">
-                <div class="p-2 text-emerald-600 rounded-lg bg-emerald-50">
+                <div class="p-2 rounded-lg text-emerald-600 bg-emerald-50">
                     <x-iconsax-lin-buildings class="w-5 h-5" />
                 </div>
                 <div>
@@ -32,8 +32,8 @@
                     <select id="facility_type" name="facility_type" required
                         class="w-full px-3 py-2 text-sm transition-all border border-gray-200 rounded-lg bg-gray-50/50 focus:outline-none focus:bg-white focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500">
                         <option value="">-- Pilih Jenis Fasilitas --</option>
-                        @foreach($typeLabels as $val => $lbl)
-                            <option value="{{ $val }}">{{ $lbl }}</option>
+                        @foreach($facilityType::cases() as $val)
+                            <option value="{{ $val->value }}">{{ $val->label() }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -43,8 +43,8 @@
                     <select id="condition" name="condition"
                         class="w-full px-3 py-2 text-sm transition-all border border-gray-200 rounded-lg bg-gray-50/50 focus:outline-none focus:bg-white focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500">
                         <option value="">-- Pilih Kondisi (Default: Baik / Layak) --</option>
-                        @foreach($conditionLabels as $val => $lbl)
-                            <option value="{{ $val }}">{{ $lbl }}</option>
+                        @foreach($conditionInfrastructure::cases() as $val)
+                            <option value="{{ $val->value }}">{{ $val->label() }}</option>
                         @endforeach
                     </select>
                     <p class="mt-1 text-[10px] text-gray-400">Jika dikosongkan, sistem akan otomatis menetapkannya ke status "Baik / Layak" sesuai aturan kelayakan default.</p>
@@ -69,7 +69,7 @@
                 <button type="button" @click="openCreate = false" class="px-4 py-2 text-sm font-medium text-gray-700 transition-colors bg-white border border-gray-200 rounded-lg hover:bg-gray-50 focus:outline-none">
                     Batal
                 </button>
-                <button type="submit" class="px-4 py-2 text-sm font-medium text-white transition-colors bg-emerald-600 rounded-lg shadow-sm hover:bg-emerald-700 focus:outline-none">
+                <button type="submit" class="px-4 py-2 text-sm font-medium text-white transition-colors rounded-lg shadow-sm bg-emerald-600 hover:bg-emerald-700 focus:outline-none">
                     Simpan Inventaris
                 </button>
             </div>

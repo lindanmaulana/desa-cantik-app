@@ -9,6 +9,7 @@ import { familyData } from './alpine/family';
 import { territorieData } from './alpine/territorie';
 import { msmeData } from './alpine/msme';
 import { spatialData } from './alpine/spatial-data';
+import { infrastructureData } from './alpine/infrastructure';
 
 Alpine.plugin(collapse);
 
@@ -20,5 +21,6 @@ Alpine.data('familyData', familyData)
 Alpine.data('socialEconomyData', SocialEconomyData)
 Alpine.data('territorieData', territorieData)
 Alpine.data('msmeData', msmeData)
+Alpine.data('infrastructureData', infrastructureData)
 Alpine.data('spatialData', spatialData)
 Alpine.start();

@@ -6,24 +6,6 @@
 
 
     <x-layouts.dashboard>
-        @php
-        $typeLabels = [
-        'road' => 'Jalanan Desa',
-        'bridge' => 'Jembatan Umum',
-        'irrigation' => 'Saluran Irigasi',
-        'education' => 'Sarana Pendidikan',
-        'health' => 'Sarana Kesehatan',
-        'worship' => 'Tempat Ibadah',
-        'goverment' => 'Kantor Pemerintahan',
-        ];
-
-        $conditionLabels = [
-        'good' => 'Baik / Layak',
-        'damaged_light' => 'Rusak Ringan',
-        'damaged_severe' => 'Rusak Berat',
-        ];
-        @endphp
-
         <div class="p-6 bg-gray-50" x-data="infrastructureData()">
             <div class="flex flex-col items-start justify-between gap-4 mb-6 md:flex-row md:items-center">
                 <div class="max-w-2xl">

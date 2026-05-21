@@ -23,24 +23,24 @@
                          <div class="text-xs text-gray-400">ID: {{ substr($item->id, 0, 8) }}...</div>
                      </td>
                      <td class="px-6 py-4 font-medium text-gray-900">
-                         {{ $facilityType::tryFrom($this->facility_type)?->label() ?? '-' }}
+                         {{ $facilityType::tryFrom($item->facility_type->value)?->label() ?? '-' }}
                      </td>
                      <td class="px-6 py-4">
                          @if($item->condition->value === 'good')
                          <span class="inline-flex items-center px-2.5 py-1 text-xs font-semibold rounded-full bg-emerald-50 text-emerald-700 border border-emerald-100">
                              <span class="w-1.5 h-1.5 mr-1.5 bg-emerald-500 rounded-full"></span>
-                             {{ $conditionInfrastructure::tryFrom($item->condition)?->label() }}
+                             {{ $conditionInfrastructure::tryFrom($item->condition->value)?->label() }}
                          </span>
                          @elseif($item->condition->value === 'damaged_light')
                          <span class="inline-flex items-center px-2.5 py-1 text-xs font-semibold rounded-full bg-amber-50 text-amber-700 border border-amber-100">
                              <span class="w-1.5 h-1.5 mr-1.5 bg-amber-500 rounded-full"></span>
 
-                             {{ $conditionInfrastructure::tryFrom($item->condition)?->label() }}
+                             {{ $conditionInfrastructure::tryFrom($item->condition->value)?->label() }}
                          </span>
                          @else
                          <span class="inline-flex items-center px-2.5 py-1 text-xs font-semibold rounded-full bg-rose-50 text-rose-700 border border-rose-100">
                              <span class="w-1.5 h-1.5 mr-1.5 bg-rose-500 rounded-full"></span>
-                             {{ $conditionInfrastructure::tryFrom($item->condition)?->label() }}
+                             {{ $conditionInfrastructure::tryFrom($item->condition->value)?->label() }}
                          </span>
                          @endif
                      </td>
