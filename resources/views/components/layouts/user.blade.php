@@ -13,7 +13,7 @@
 
     <x-layouts.partials.navbar />
 
-    <main class="container mx-auto">
+    <main class="container mx-auto p-8">
         {{ $slot }}
     </main>
 
