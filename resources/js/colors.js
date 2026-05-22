@@ -1,0 +1,19 @@
+window.AppColors = {
+    primary: "#6366f1",
+    secondary: "#f472b6",
+    success: "#10b981",
+    warning: "#f59e0b",
+    info: "#3b82f6",
+    danger: "#ef4444",
+
+    chartPalette: [
+        "#6366f1",
+        "#f472b6",
+        "#10b981",
+        "#f59e0b",
+        "#3b82f6",
+        "#ec4899",
+        "#8b5cf6",
+        "#14b8a6",
+    ],
+};
