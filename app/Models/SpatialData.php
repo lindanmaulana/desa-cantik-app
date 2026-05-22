@@ -6,10 +6,12 @@ use App\Enums\FeatureType;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class SpatialData extends Model
 {
-    use HasFactory, HasUuids;
+    use HasFactory, HasUuids, SoftDeletes;
 
     protected $table = 'spatial_data';
 
@@ -17,7 +19,7 @@ class SpatialData extends Model
         'feature_id',
         'feature_type',
         'latitude',
-        'longtitude',
+        'longitude',
         'geojson',
     ];
 
@@ -25,12 +27,12 @@ class SpatialData extends Model
         return [
             'feature_type' => FeatureType::class,
             'latitude' => 'float',
-            'longtitude' => 'float',
+            'longitude' => 'float',
             'geojson' => 'array',
         ];
     }
 
-    public function feature() {
+    public function feature(): MorphTo {
         return $this->morphTo();
     }
 }
