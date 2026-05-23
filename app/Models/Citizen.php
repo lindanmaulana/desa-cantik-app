@@ -44,4 +44,16 @@ class Citizen extends Model
     public function family() {
         return $this->belongsTo(Family::class);
     }
+
+    public function socialEconomic() {
+        return $this->hasOne(SocialEconomic::class, 'citizen_id');
+    }
+
+    public function msmes() {
+        return $this->hasMany(Msmes::class, 'citizen_id');
+    }
+
+    public function spatialData() {
+        return $this->morphOne(SpatialData::class, 'feature');
+    }
 }

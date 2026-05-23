@@ -5,7 +5,6 @@ namespace Database\Seeders;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use App\Database\Seeders\TerritoriesSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -22,6 +21,9 @@ class DatabaseSeeder extends Seeder
 
         $this->call([
             TerritoriesSeeder::class,
+            FamiliesSeeder::class,
+            CitizensSeeder::class,
+            SocialEconomicsSeeder::class,
         ]);
     }
 }

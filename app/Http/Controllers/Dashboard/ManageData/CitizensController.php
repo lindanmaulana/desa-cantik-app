@@ -4,62 +4,159 @@ namespace App\Http\Controllers\Dashboard\ManageData;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Requests\Citizens\StoreCitizenRequest;
+use App\Models\Citizen;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Str;
+use Illuminate\Http\RedirectResponse;
+use App\Http\Requests\Citizens\UpdateCitizenRequest;
+use App\Models\Family;
 
 class CitizensController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $request->validate([
+            'search' => 'nullable|string|max:255',
+            'gender' => 'nullable|string|in:male,female',
+            'religion' => 'nullable|string',
+            'marital_status' => 'nullable|string',
+            'family_id' => 'nullable|exists:families,id',
+        ]);
+
+        $query = Citizen::with('family');
+
+        if ($request->filled('search')) {
+            $search = $request->search;
+            $query->where(function ($q) use ($search) {
+                $q->where('id_number', 'like', "%{$search}%")
+                  ->orWhere('full_name', 'like', "%{$search}%");
+            });
+        }
+
+        if ($request->filled('gender')) {
+            $query->where('gender', $request->gender);
+        }
+
+        if ($request->filled('religion')) {
+            $query->where('religion', $request->religion);
+        }
+
+        if ($request->filled('marital_status')) {
+            $query->where('marital_status', $request->marital_status);
+        }
+
+        if ($request->filled('family_id')) {
+            $query->where('family_id', $request->family_id);
+        }
+
+        $citizens = $query->latest()->paginate(10)->withQueryString();
+
+        $families = Family::all();
+
+        $counts = (object) [
+            'total_Citizens' => Citizen::count(),
+            'total_Male' => Citizen::where('gender', \App\Enums\Gender::MALE)->count(),
+            'total_Female' => Citizen::where('gender', \App\Enums\Gender::FEMALE)->count(),
+        ];
+
+        return view('dashboard.manage-data.citizens.index', compact('citizens', 'families', 'counts'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function store(StoreCitizenRequest $request)
     {
-        //
+        $currentUser = Auth::user();
+        $validated = $request->validated();
+
+        DB::beginTransaction();
+
+        try {
+            $validated['id'] = Str::uuid()->toString();
+
+            Citizen::create($validated);
+
+            DB::commit();
+
+            return redirect()->route('dashboard.manage-data.citizens')->with('success', 'Data Warga berhasil ditambahkan!');
+        } catch(\Throwable $err) {
+            DB::rollBack();
+
+            Log::error('Gagal menyimpan warga: ' . $err->getMessage(), [
+                'user_id' => $currentUser->id,
+                'payload' => $request->all(),
+                'trace'   => $err->getTraceAsString()
+            ]);
+
+            return back()
+                ->withInput()
+                ->with('error', 'Terjadi kesalahan sistem. Silakan coba beberapa saat lagi.');
+        }
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(string $id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(string $id)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    public function update(UpdateCitizenRequest $request, Citizen $citizen)
     {
-        //
+        $currentUser = Auth::user();
+        $validated = $request->validated();
+
+        DB::beginTransaction();
+
+        try {
+            $citizen->update($validated);
+
+            DB::commit();
+
+            return redirect()->route('dashboard.manage-data.citizens')->with('success', 'Data Warga berhasil diupdate!');
+        } catch(\Throwable $err) {
+            DB::rollBack();
+
+            Log::error('Gagal mengupdate warga: ' . $err->getMessage(), [
+                'user_id' => $currentUser->id,
+                'payload' => $validated,
+                'trace'   => $err->getTraceAsString()
+            ]);
+
+            return back()
+                ->withInput()
+                ->with('error', 'Terjadi kesalahan sistem. Silakan coba beberapa saat lagi.');
+        }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
+    public function destroy(Citizen $citizen): RedirectResponse
     {
-        //
+        DB::beginTransaction();
+
+        try {
+            $citizen->delete();
+
+            DB::commit();
+
+            return redirect()->route('dashboard.manage-data.citizens')->with('success', 'Data Warga berhasil dihapus.');
+        } catch (\Throwable $err) {
+            DB::rollBack();
+
+            Log::error('Gagal menghapus warga: ' . $err->getMessage(), [
+                'citizen_id' => $citizen->id,
+                'trace'   => $err->getTraceAsString()
+            ]);
+
+            return back()->with('error', 'Gagal menghapus data warga. Data mungkin masih digunakan.');
+        }
     }
 }

@@ -26,7 +26,7 @@ class SocialEconomic extends Model
         'economic_status',
     ];
 
-    protected function castc(): array {
+    protected function casts(): array {
         return [
             'education_level' => EducationLevel::class,
             'is_welfare_recipient' => 'boolean',

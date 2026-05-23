@@ -14,11 +14,11 @@ return new class extends Migration
     {
         Schema::create('spatial_data', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            
+
             $table->uuid('feature_id');
             $table->enum('feature_type', array_column(FeatureType::cases(), 'value'));
             $table->decimal('latitude', 10, 8);
-            $table->decimal('longtitude', 11, 8);
+            $table->decimal('longitude', 11, 8);
             $table->json('geojson')->nullable();
 
             $table->timestamps();
