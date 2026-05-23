@@ -1,5 +1,5 @@
 <nav class="sticky top-0 z-50 bg-primary text-white shadow-md shadow-primary/20" x-data="{ mobileOpen: false }">
-    <div class="px-6 h-16 flex items-center justify-between">
+    <div class="px-6 h-16 flex items-center justify-between relative z-50 bg-primary">
 
         <div class="flex justify-start items-center gap-1 text-white">
             <x-fab-dev class="size-7" />
@@ -21,8 +21,8 @@
                     x-transition:leave-end="opacity-0 translate-y-1 scale-95"
                     class="absolute left-1/2 -translate-x-1/2 mt-14 w-[320px] bg-primary border border-white/10 rounded-xl shadow-xl p-4 z-50"
                     style="display: none;">
-                    <div class="group block p-3 rounded-xl hover:bg-white/10 transition-all duration-200">
-                        <div class="font-semibold text-sm text-white group-hover:text-[#FFF7E6] transition-colors">
+                    <div class="group block p-3 rounded-xl hover:bg-quaternary/10 transition-all duration-200">
+                        <div class="font-semibold text-sm text-white group-hover:text-quaternary transition-colors">
                             Halaman Utama</div>
                         <div class="text-xs text-white/60 mt-0.5">Kembali ke beranda untuk melihat ringkasan informasi,
                             berita terbaru, dan pengumuman platform.</div>
@@ -53,9 +53,9 @@
                     <ul class="flex-1 flex flex-col gap-2">
                         <li>
                             <a href="{{ route('statistik.demografi') }}"
-                                class="group block p-3 rounded-xl transition-all duration-200 {{ request()->routeIs('statistik.demografi') ? 'bg-white/10' : 'hover:bg-white/10' }}">
+                                class="group block p-3 rounded-xl transition-all duration-200 {{ request()->routeIs('statistik.demografi') ? 'bg-quaternary/10' : 'hover:bg-quaternary/10' }}">
                                 <div
-                                    class="font-semibold text-sm transition-colors {{ request()->routeIs('statistik.demografi') ? 'text-[#FFF7E6]' : 'text-white group-hover:text-[#FFF7E6]' }}">
+                                    class="font-semibold text-sm transition-colors {{ request()->routeIs('statistik.demografi') ? 'text-quaternary' : 'text-white group-hover:text-quaternary' }}">
                                     Demografi
                                 </div>
                                 <div
@@ -65,55 +65,70 @@
                             </a>
                         </li>
                         <li>
-                            <a href="/statistik/sosial"
-                                class="group block p-3 rounded-xl hover:bg-white/10 transition-all duration-200">
+                            <a href="{{ route('statistik.social') }}"
+                                class="group block p-3 rounded-xl transition-all duration-200 {{ request()->routeIs('statistik.social') ? 'bg-quaternary/10' : 'hover:bg-quaternary/10' }}">
                                 <div
-                                    class="font-semibold text-sm text-white group-hover:text-[#FFF7E6] transition-colors">
-                                    Sosial</div>
-                                <div class="text-xs text-white/60 mt-0.5">Informasi kesehatan, pendidikan, dan
-                                    kesejahteraan.</div>
+                                    class="font-semibold text-sm transition-colors {{ request()->routeIs('statistik.social') ? 'text-quaternary' : 'text-white group-hover:text-quaternary' }}">
+                                    Sosial
+                                </div>
+                                <div
+                                    class="text-xs mt-0.5 {{ request()->routeIs('statistik.social') ? 'text-white/90' : 'text-white/60' }}">
+                                    Informasi kesehatan, pendidikan, dan kesejahteraan.
+                                </div>
                             </a>
                         </li>
                         <li>
-                            <a href="/statistik/ekonomi"
-                                class="group block p-3 rounded-xl hover:bg-white/10 transition-all duration-200">
+                            <a href="{{ route('statistik.economy') }}"
+                                class="group block p-3 rounded-xl transition-all duration-200 {{ request()->routeIs('statistik.economy') ? 'bg-quaternary/10' : 'hover:bg-quaternary/10' }}">
                                 <div
-                                    class="font-semibold text-sm text-white group-hover:text-[#FFF7E6] transition-colors">
-                                    Ekonomi</div>
-                                <div class="text-xs text-white/60 mt-0.5">Laporan pendapatan, inflasi, dan pertumbuhan
-                                    pasar.</div>
+                                    class="font-semibold text-sm transition-colors {{ request()->routeIs('statistik.economy') ? 'text-quaternary' : 'text-white group-hover:text-quaternary' }}">
+                                    Ekonomi
+                                </div>
+                                <div
+                                    class="text-xs mt-0.5 {{ request()->routeIs('statistik.economy') ? 'text-white/90' : 'text-white/60' }}">
+                                    Laporan pendapatan, inflasi, dan pertumbuhan pasar.
+                                </div>
                             </a>
                         </li>
                     </ul>
 
                     <ul class="flex-1 flex flex-col gap-2">
                         <li>
-                            <a href="/statistik/umkm"
-                                class="group block p-3 rounded-xl hover:bg-white/10 transition-all duration-200">
+                            <a href="{{ route('statistik.micro-business') }}"
+                                class="group block p-3 rounded-xl transition-all duration-200 {{ request()->routeIs('statistik.micro-business') ? 'bg-quaternary/10' : 'hover:bg-quaternary/10' }}">
                                 <div
-                                    class="font-semibold text-sm text-white group-hover:text-[#FFF7E6] transition-colors">
-                                    UMKM</div>
-                                <div class="text-xs text-white/60 mt-0.5">Data usaha mikro, kecil, menengah, dan
-                                    komoditas.</div>
+                                    class="font-semibold text-sm transition-colors {{ request()->routeIs('statistik.micro-business') ? 'text-quaternary' : 'text-white group-hover:text-quaternary' }}">
+                                    UMKM
+                                </div>
+                                <div
+                                    class="text-xs mt-0.5 {{ request()->routeIs('statistik.micro-business') ? 'text-white/90' : 'text-white/60' }}">
+                                    Data usaha mikro, kecil, menengah, dan komoditas.
+                                </div>
                             </a>
                         </li>
                         <li>
-                            <a href="/statistik/infrastruktur"
-                                class="group block p-3 rounded-xl hover:bg-white/10 transition-all duration-200">
+                            <a href="{{ route('statistik.infrastructure') }}"
+                                class="group block p-3 rounded-xl transition-all duration-200 {{ request()->routeIs('statistik.infrastructure') ? 'bg-quaternary/10' : 'hover:bg-quaternary/10' }}">
                                 <div
-                                    class="font-semibold text-sm text-white group-hover:text-[#FFF7E6] transition-colors">
-                                    Infrastruktur</div>
-                                <div class="text-xs text-white/60 mt-0.5">Fasilitas umum, akses jalan, dan pembangunan
-                                    fisik.</div>
+                                    class="font-semibold text-sm transition-colors {{ request()->routeIs('statistik.infrastructure') ? 'text-quaternary' : 'text-white group-hover:text-quaternary' }}">
+                                    Infrastruktur
+                                </div>
+                                <div
+                                    class="text-xs mt-0.5 {{ request()->routeIs('statistik.infrastructure') ? 'text-white/90' : 'text-white/60' }}">
+                                    Fasilitas umum, akses jalan, dan pembangunan fisik.
+                                </div>
                             </a>
                         </li>
                         <li>
-                            <a href="/statistik/spasial"
-                                class="group block p-3 rounded-xl hover:bg-white/10 transition-all duration-200">
+                            <a href="{{ route('statistik.spacial-data') }}"
+                                class="group block p-3 rounded-xl transition-all duration-200 {{ request()->routeIs('statistik.spacial-data') ? 'bg-quaternary/10' : 'hover:bg-quaternary/10' }}">
                                 <div
-                                    class="font-semibold text-sm text-white group-hover:text-[#FFF7E6] transition-colors">
-                                    Data Spasial</div>
-                                <div class="text-xs text-white/60 mt-0.5">Pemetaan wilayah, tata ruang, dan geografis.
+                                    class="font-semibold text-sm transition-colors {{ request()->routeIs('statistik.spacial-data') ? 'text-quaternary' : 'text-white group-hover:text-quaternary' }}">
+                                    Data Spasial
+                                </div>
+                                <div
+                                    class="text-xs mt-0.5 {{ request()->routeIs('statistik.spacial-data') ? 'text-white/90' : 'text-white/60' }}">
+                                    Pemetaan wilayah, tata ruang, dan geografis.
                                 </div>
                             </a>
                         </li>
@@ -123,7 +138,7 @@
 
             <div class="relative flex flex-col items-center" x-data="{ open: false }" @mouseenter="open = true"
                 @mouseleave="open = false">
-                <a href="/layanan"
+                <a href="/"
                     class="flex items-center gap-1 text-slate-300 hover:text-white py-4 focus:outline-none transition-colors duration-200">
                     <span>Analisis</span>
                 </a>
@@ -136,8 +151,9 @@
                     x-transition:leave-end="opacity-0 translate-y-1 scale-95"
                     class="absolute left-1/2 -translate-x-1/2 mt-14 w-[320px] bg-primary border border-white/10 rounded-xl shadow-xl p-4 z-50"
                     style="display: none;">
-                    <div class="group block p-3 rounded-xl hover:bg-white/10 transition-all duration-200">
-                        <div class="font-semibold text-sm text-white group-hover:text-[#FFF7E6] transition-colors">Pusat
+                    <div class="group block p-3 rounded-xl hover:bg-quaternary/10 transition-all duration-200">
+                        <div class="font-semibold text-sm text-white group-hover:text-quaternary transition-colors">
+                            Pusat
                             Analisis Data</div>
                         <div class="text-xs text-white/60 mt-0.5">Eksplorasi kalkulasi mendalam, grafik komparatif, dan
                             hasil interpretasi data sektoral secara komprehensif.</div>
@@ -174,13 +190,13 @@
     </div>
 
     <div x-show="mobileOpen" x-transition:enter="transition-all ease-out duration-300"
-        x-transition:enter-start="opacity-0 max-h-0" x-transition:enter-end="opacity-100 max-h-[450px]"
-        x-transition:leave="transition-all ease-in duration-250" x-transition:leave-start="opacity-100 max-h-[450px]"
-        x-transition:leave-end="opacity-0 max-h-0"
-        class="md:hidden bg-primary border-t border-white/10 px-6 min-h-screen space-y-4 shadow-inner overflow-hidden"
+        x-transition:enter-start="opacity-0 translate-y-4" x-transition:enter-end="opacity-100 translate-y-0"
+        x-transition:leave="transition-all ease-in duration-200" x-transition:leave-start="opacity-100 translate-y-0"
+        x-transition:leave-end="opacity-0 translate-y-4"
+        class="md:hidden bg-primary fixed inset-0 pt-16 px-6 overflow-y-auto space-y-4 z-40 border-t-2 border-quaternary/30"
         style="display: none;">
 
-        <div class="py-4 space-y-4">
+        <div class="py-6 space-y-4 pb-20">
 
             <a href="{{ route('home') }}"
                 class="block text-slate-300 hover:text-white py-2 font-medium transition-colors duration-200 {{ request()->routeIs('home') ? 'text-white' : '' }}">Beranda</a>
@@ -200,26 +216,27 @@
                     x-transition:enter-start="opacity-0 max-h-0" x-transition:enter-end="opacity-100 max-h-60"
                     x-transition:leave="transition-all ease-in duration-200"
                     x-transition:leave-start="opacity-100 max-h-60" x-transition:leave-end="opacity-0 max-h-0"
-                    class="pl-4 mt-1 border-l border-white/20 space-y-1 overflow-hidden" style="display: none;">
+                    class="pl-4 mt-1 border-l border-quaternary/30 space-y-1 overflow-hidden" style="display: none;">
                     <a href="{{ route('statistik.demografi') }}"
                         class="block py-2 text-sm text-slate-300 hover:text-white transition-colors {{ request()->routeIs('statistik.demografi') ? 'text-white font-medium' : '' }}">Demografi</a>
-                    <a href="/statistik/sosial"
-                        class="block py-2 text-sm text-slate-300 hover:text-white transition-colors">Sosial</a>
-                    <a href="/statistik/ekonomi"
-                        class="block py-2 text-sm text-slate-300 hover:text-white transition-colors">Ekonomi</a>
-                    <a href="/statistik/umkm"
-                        class="block py-2 text-sm text-slate-300 hover:text-white transition-colors">UMKM</a>
-                    <a href="/statistik/infrastruktur"
-                        class="block py-2 text-sm text-slate-300 hover:text-white transition-colors">Infrastruktur</a>
-                    <a href="/statistik/spasial"
-                        class="block py-2 text-sm text-slate-300 hover:text-white transition-colors">Data Spasial</a>
+                    <a href="{{ route('statistik.social') }}"
+                        class="block py-2 text-sm text-slate-300 hover:text-white transition-colors {{ request()->routeIs('statistik.social') ? 'text-white font-medium' : '' }}">Sosial</a>
+                    <a href="{{ route('statistik.economy') }}"
+                        class="block py-2 text-sm text-slate-300 hover:text-white transition-colors {{ request()->routeIs('statistik.economy') ? 'text-white font-medium' : '' }}">Ekonomi</a>
+                    <a href="{{ route('statistik.micro-business') }}"
+                        class="block py-2 text-sm text-slate-300 hover:text-white transition-colors {{ request()->routeIs('statistik.micro-business') ? 'text-white font-medium' : '' }}">UMKM</a>
+                    <a href="{{ route('statistik.infrastructure') }}"
+                        class="block py-2 text-sm text-slate-300 hover:text-white transition-colors {{ request()->routeIs('statistik.infrastructure') ? 'text-white font-medium' : '' }}">Infrastruktur</a>
+                    <a href="{{ route('statistik.spacial-data') }}"
+                        class="block py-2 text-sm text-slate-300 hover:text-white transition-colors {{ request()->routeIs('statistik.spacial-data') ? 'text-white font-medium' : '' }}">Data
+                        Spasial</a>
                 </div>
             </div>
 
-            <a href="/layanan"
+            <a href="/"
                 class="block text-slate-300 hover:text-white py-2 font-medium transition-colors duration-200">Analisis</a>
 
-            <div class="pt-2 border-t border-white/10">
+            <div class="pt-4 border-t border-white/10">
                 <x-button variant="ghost" size="md" class="w-full justify-center">
                     <a href="{{ route('auth.login') }}"
                         class="capitalize font-semibold block text-center w-full">login</a>

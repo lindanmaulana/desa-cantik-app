@@ -4,7 +4,7 @@
     $colors = [
         'primary' => 'bg-primary text-white hover:bg-secondary',
         'danger' => 'bg-red-500 text-white hover:bg-red-600',
-        'ghost' => 'bg-transparent border border-gray-300 hover:text-primary hover:bg-white',
+        'ghost' => 'bg-transparent border border-quaternary hover:border-transparent hover:bg-secondary',
         'outline' => 'border-1 border-primary text-primary',
     ];
 

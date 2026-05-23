@@ -16,9 +16,10 @@ export default {
             },
 
             colors: {
-                primary: "#2FA084",
-                secondary: "#6FCF97",
-                third: "#EEEEEE",
+                primary: "#009689",
+                secondary: "#00786F",
+                tertiary: "#46ECD5",
+                quaternary: "#F0FDFA",
             },
             keyframes: {
                 "wave-rotate": {
@@ -27,7 +28,7 @@ export default {
                 },
             },
             animation: {
-                "wave": "wave-rotate 10s linear infinite",
+                wave: "wave-rotate 10s linear infinite",
                 "wave-slow": "wave-rotate 15s linear infinite",
                 "wave-slower": "wave-rotate 25s linear infinite",
             },

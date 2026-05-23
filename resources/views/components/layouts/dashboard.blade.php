@@ -2,10 +2,10 @@
     <div class="flex h-screen overflow-hidden" x-data="{ openStatistik: {{ request()->routeIs('dashboard.statistics.*') ? 'true' : 'false' }}, openManageData: {{ request()->routeIs('dashboard.manage-data.*') ? 'true' : 'false' }} , openSidebar: true }">
 
         <aside
-            class="h-full overflow-y-auto transition-all duration-500 ease-in-out border-r bg-primary text-slate-300 shrink-0 border-third"
+            class="h-full overflow-y-auto transition-all duration-500 ease-in-out border-r bg-primary text-slate-300 shrink-0 border-tertiary"
             x-bind:class="openSidebar ? 'w-64' : 'w-20'">
 
-            <div class="sticky top-0 z-10 flex items-center h-16 p-4 text-white transition-all duration-500 border-b-2 border-third bg-primary"
+            <div class="sticky top-0 z-10 flex items-center h-16 p-4 text-white transition-all duration-500 border-b-2 border-tertiary bg-primary"
                 x-bind:class="openSidebar ? 'px-6 justify-start' : 'justify-center'">
                 <div class="flex items-center justify-center rounded-lg shrink-0">
                     <x-fab-dev class="size-7" />
@@ -49,7 +49,7 @@
                     </button>
 
                     <div x-show="openStatistik" x-collapse
-                        class="font-medium transition-all duration-500 border-l border-third/50"
+                        class="font-medium transition-all duration-500 border-l border-tertiary/50"
                         x-bind:class="openSidebar ? 'ml-4 pl-2 space-y-2' : 'ml-0 pl-0 space-y-0'">
 
                         <a href="{{ route('dashboard.statistics.demograph') }}"
@@ -139,7 +139,7 @@
                     </button>
 
                     <div x-show="openManageData" x-collapse
-                        class="font-medium transition-all duration-500 border-l border-third/50"
+                        class="font-medium transition-all duration-500 border-l border-tertiary/50"
                         x-bind:class="openSidebar ? 'ml-4 pl-2 space-y-2' : 'ml-0 pl-0 space-y-0'">
 
                         <a href="{{ route('dashboard.manage-data.territories') }}"

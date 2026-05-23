@@ -12,9 +12,12 @@
             <div class="flex flex-col items-center justify-center gap-2">
                 <x-ionicon-people-sharp class="p-3 mb-4 rounded-md size-16 bg-primary/20 text-primary" />
                 <h4 class="text-xl font-bold">Hitung Agregat Demografi</h4>
-                <p class="max-w-md mb-4 text-base text-center text-slate-600">Sistem akan memproses seluruh data untuk menghasilkan statistik Demografi. Proses ini hanya dilakukan sekali per sesi.</p>
+                <p class="max-w-md mb-4 text-base text-center text-slate-600">Sistem akan memproses seluruh data untuk
+                    menghasilkan statistik Demografi. Proses ini hanya dilakukan sekali per sesi.</p>
 
-                <button class="flex items-center gap-2 px-6 py-3 text-lg font-semibold text-white rounded-full shadow-lg bg-gradient-to-r from-primary to-secondary"><x-ri-play-circle-fill class="size-5" /> Generate Aggregate</button>
+                <button
+                    class="flex items-center gap-2 px-6 py-3 text-lg font-semibold text-white rounded-full shadow-lg bg-gradient-to-r from-primary to-secondary"><x-ri-play-circle-fill
+                        class="size-5" /> Generate Aggregate</button>
             </div>
         </div>
 
@@ -59,12 +62,7 @@
             </div>
         </div>
 
-
-        <x-cards.chart-card
-            id="chart-umur"
-            title="Kelompok Umur"
-            subtitle="Kelompok Umur — Demografi" />
-
+        <x-cards.chart-card id="chart-umur" title="Kelompok Umur" subtitle="Kelompok Umur — Demografi" />
 
         <div class="p-6 space-y-4 overflow-hidden bg-white border border-gray-100 shadow-sm rounded-3xl">
             <div class="border-b border-gray-50">
@@ -92,7 +90,8 @@
                             <td class="px-6 py-4 text-center text-gray-600">353</td>
                             <td class="px-6 py-4 font-bold text-center text-gray-800">719</td>
                             <td class="px-6 py-4 text-center">
-                                <span class="px-3 py-1 rounded-full bg-indigo-50 text-indigo-500 font-bold text-[11px]">8.9%</span>
+                                <span
+                                    class="px-3 py-1 rounded-full bg-indigo-50 text-indigo-500 font-bold text-[11px]">8.9%</span>
                             </td>
                             <td class="px-6 py-4">
                                 <div class="w-24 h-2 bg-gray-100 rounded-full">
@@ -108,7 +107,8 @@
                             <td class="px-6 py-4 text-center text-gray-600">1.758</td>
                             <td class="px-6 py-4 font-bold text-center text-gray-800">3.787</td>
                             <td class="px-6 py-4 text-center">
-                                <span class="px-3 py-1 rounded-full bg-sky-50 text-sky-500 font-bold text-[11px]">46.8%</span>
+                                <span
+                                    class="px-3 py-1 rounded-full bg-sky-50 text-sky-500 font-bold text-[11px]">46.8%</span>
                             </td>
                             <td class="px-6 py-4">
                                 <div class="w-24 h-2 bg-gray-100 rounded-full">
@@ -124,7 +124,8 @@
                             <td class="px-6 py-4 text-center text-gray-600">368</td>
                             <td class="px-6 py-4 font-bold text-center text-gray-800">777</td>
                             <td class="px-6 py-4 text-center">
-                                <span class="px-3 py-1 rounded-full bg-amber-50 text-amber-500 font-bold text-[11px]">9.6%</span>
+                                <span
+                                    class="px-3 py-1 rounded-full bg-amber-50 text-amber-500 font-bold text-[11px]">9.6%</span>
                             </td>
                             <td class="px-6 py-4">
                                 <div class="w-24 h-2 bg-gray-100 rounded-full">
@@ -152,7 +153,8 @@
                 <h3 class="text-xs font-bold tracking-widest text-gray-400 uppercase">Agregat RT</h3>
 
                 <div class="relative">
-                    <select class="appearance-none bg-white border border-indigo-200 text-indigo-900 text-sm rounded-xl focus:ring-indigo-500 focus:border-indigo-500 block w-48 p-2.5 pr-10 outline-none">
+                    <select
+                        class="appearance-none bg-white border border-indigo-200 text-indigo-900 text-sm rounded-xl focus:ring-indigo-500 focus:border-indigo-500 block w-48 p-2.5 pr-10 outline-none">
                         <option selected>KLIWON</option>
                         <option value="manis">MANIS</option>
                         <option value="pahing">PAHING</option>
@@ -178,8 +180,10 @@
                     </thead>
                     <tbody class="divide-y divide-gray-100">
                         <tr>
-                            <td rowspan="7" class="px-6 py-4 font-bold text-center text-gray-800 border-r border-gray-50">001</td>
-                            <td rowspan="7" class="px-6 py-4 font-bold text-center text-gray-800 border-r border-gray-50">001</td>
+                            <td rowspan="7"
+                                class="px-6 py-4 font-bold text-center text-gray-800 border-r border-gray-50">001</td>
+                            <td rowspan="7"
+                                class="px-6 py-4 font-bold text-center text-gray-800 border-r border-gray-50">001</td>
                             <td class="px-6 py-4 italic text-gray-600">Pra Lansia (55-64)</td>
                             <td class="px-6 py-4 text-center text-gray-600">58</td>
                             <td class="px-6 py-4 text-center text-gray-600">56</td>
@@ -208,68 +212,70 @@
 
 
     @push('scripts')
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            var options = {
-                series: [{
-                    name: 'Laki-laki',
-                    data: [400, 2000, 450, 200, 550, 650, 50]
-                }, {
-                    name: 'Perempuan',
-                    data: [380, 1750, 400, 180, 540, 600, 60]
-                }],
-                chart: {
-                    type: 'bar',
-                    height: 400,
-                    toolbar: {
-                        show: false
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                var options = {
+                    series: [{
+                        name: 'Laki-laki',
+                        data: [400, 2000, 450, 200, 550, 650, 50]
+                    }, {
+                        name: 'Perempuan',
+                        data: [380, 1750, 400, 180, 540, 600, 60]
+                    }],
+                    chart: {
+                        type: 'bar',
+                        height: 400,
+                        toolbar: {
+                            show: false
+                        },
+                        fontFamily: 'Inter, sans-serif'
                     },
-                    fontFamily: 'Inter, sans-serif'
-                },
-                plotOptions: {
-                    bar: {
-                        horizontal: false,
-                        columnWidth: '55%',
-                        borderRadius: 8,
-                        dataLabels: {
-                            position: 'top'
+                    plotOptions: {
+                        bar: {
+                            horizontal: false,
+                            columnWidth: '55%',
+                            borderRadius: 8,
+                            dataLabels: {
+                                position: 'top'
+                            }
+                        },
+                    },
+                    colors: ['#6366f1', '#f472b6'],
+                    dataLabels: {
+                        enabled: false
+                    },
+                    stroke: {
+                        show: true,
+                        width: 5,
+                        colors: ['transparent']
+                    },
+                    xaxis: {
+                        categories: ['Pra Lansia (55-64)', 'Dewasa Produktif (25-54)', 'Lansia (65+)',
+                            'Balita (0-4)', 'Anak-anak (5-14)', 'Remaja (15-24)', 'Tidak Diisi'
+                        ],
+                        axisBorder: {
+                            show: false
+                        },
+                    },
+                    fill: {
+                        opacity: 1
+                    },
+                    legend: {
+                        position: 'bottom',
+                        markers: {
+                            radius: 12
                         }
                     },
-                },
-                colors: ['#6366f1', '#f472b6'],
-                dataLabels: {
-                    enabled: false
-                },
-                stroke: {
-                    show: true,
-                    width: 5,
-                    colors: ['transparent']
-                },
-                xaxis: {
-                    categories: ['Pra Lansia (55-64)', 'Dewasa Produktif (25-54)', 'Lansia (65+)', 'Balita (0-4)', 'Anak-anak (5-14)', 'Remaja (15-24)', 'Tidak Diisi'],
-                    axisBorder: {
-                        show: false
-                    },
-                },
-                fill: {
-                    opacity: 1
-                },
-                legend: {
-                    position: 'bottom',
-                    markers: {
-                        radius: 12
+                    grid: {
+                        borderColor: '#f1f1f1',
                     }
-                },
-                grid: {
-                    borderColor: '#f1f1f1',
-                }
-            };
+                };
 
-            var chart = new window.ApexCharts(document.querySelector("#chart-umur"), options);
-            chart.render();
-        });
-    </script>
+                var chart = new window.ApexCharts(document.querySelector("#chart-umur"), options);
+                chart.render();
+            });
+        </script>
 
-    @include('dashboard.statistics.demographics.partials.chart-script')
+        @include('dashboard.statistics.demographics.partials.chart-script')
     @endpush
 </x-layouts.dashboard>

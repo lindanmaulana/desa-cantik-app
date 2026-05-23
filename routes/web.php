@@ -17,6 +17,26 @@ Route::prefix('/')->group(function () {
     Route::get('demografi', function () {
       return view('user_pages.demografi');
     })->name('statistik.demografi');
+
+    Route::get('social', function () {
+      return view('user_pages.social');
+    })->name('statistik.social');
+
+    Route::get('economy', function () {
+      return view('user_pages.economy');
+    })->name('statistik.economy');
+
+    Route::get('micro-business', function () {
+      return view('user_pages.micro-business');
+    })->name('statistik.micro-business');
+
+    Route::get('infrastructure', function () {
+      return view('user_pages.infrastructure');
+    })->name('statistik.infrastructure');
+
+    Route::get('spacial-data', function () {
+      return view('user_pages.spacial-data');
+    })->name('statistik.spacial-data');
   });
 });
 

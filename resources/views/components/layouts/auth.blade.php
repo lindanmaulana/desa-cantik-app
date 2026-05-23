@@ -1,6 +1,6 @@
 <x-layouts.app>
     <div
-        class="relative flex flex-col items-center justify-center min-h-screen px-4 overflow-hidden bg-third font-sans antialiased">
+        class="relative flex flex-col items-center justify-center min-h-screen px-4 overflow-hidden bg-quaternary font-sans antialiased">
 
         <div class="absolute inset-0 pointer-events-none overflow-hidden z-0">
             <div class="wave-obj wave-1 bg-primary/60"></div>

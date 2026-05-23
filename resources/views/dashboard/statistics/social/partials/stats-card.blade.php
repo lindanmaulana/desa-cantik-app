@@ -1,4 +1,4 @@
-<div class="grid grid-cols-1 gap-4 p-6 md:grid-cols-2 lg:grid-cols-4 bg-gray-50">
+<div class="grid grid-cols-1 gap-4 p-6 max-md:p-3 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 bg-gray-50">
     <x-cards.stats-card
         title="Total Data"
         value="8.087"

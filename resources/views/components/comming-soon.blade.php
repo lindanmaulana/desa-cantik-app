@@ -6,7 +6,7 @@
 
 
 <div class="flex flex-col items-center justify-center w-full h-full gap-6 ">
-    <div class="flex items-center justify-center rounded-full size-20 bg-third">
+    <div class="flex items-center justify-center rounded-full size-20 bg-tertiary">
         <x-dynamic-component :component="$icon" class="size-10 text-slate-600" />
     </div>
 

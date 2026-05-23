@@ -1,10 +1,10 @@
 <x-layouts.app>
     <div class="flex h-screen overflow-hidden" x-data="{ openStatistik: {{ request()->routeIs('dashboard.statistics.*') ? 'true' : 'false' }}, openSidebar: true }">
 
-        <aside class="h-full overflow-y-auto transition-all duration-500 ease-in-out border-r bg-primary text-slate-300 shrink-0 border-third"
+        <aside class="h-full overflow-y-auto transition-all duration-500 ease-in-out border-r bg-primary text-slate-300 shrink-0 border-tertiary"
             x-bind:class="openSidebar ? 'w-64' : 'w-20'">
 
-            <div class="sticky top-0 z-10 flex items-center h-16 p-4 text-white border-b-2 border-third bg-primary"
+            <div class="sticky top-0 z-10 flex items-center h-16 p-4 text-white border-b-2 border-tertiary bg-primary"
                 x-bind:class="openSidebar ? 'space-x-3 justify-start' : 'justify-center space-x-0'">
                 <div class="rounded-lg shrink-0">
                     <x-fab-dev class="size-7" />
@@ -33,7 +33,7 @@
                             x-bind:class="openSidebar ? 'block' : 'hidden'" />
                     </button>
 
-                    <div x-show="openStatistik" x-collapse class="mt-2 ml-4 space-y-2 font-medium border-l border-third">
+                    <div x-show="openStatistik" x-collapse class="mt-2 ml-4 space-y-2 font-medium border-l border-tertiary">
                         <a href="{{ route('dashboard.statistics.demograph') }}"
                             class="flex items-center gap-2 px-8 py-2 text-sm transition {{ request()->routeIs('dashboard.statistics.demograph') ? 'bg-secondary text-white' : 'text-slate-300 hover:bg-secondary hover:text-white' }}"
                             x-show="openSidebar">
