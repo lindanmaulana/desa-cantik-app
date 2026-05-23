@@ -37,7 +37,7 @@
                 style="display: none;" @click.away="open = false">
                 <a href="https://instagram.com/andrnshhrwn._" target="_blank"
                     class="w-12 h-12 max-md:w-10 max-md:h-10 rounded-full bg-black/30 backdrop-blur-md text-white shadow-lg flex items-center justify-center transition-all duration-300 transform hover:scale-110">
-                    <x-simpleline-social-instagram class="w-5 h-5 max-md:w-4 max-md:h-4" />
+                    <x-bi-instagram class="w-5 h-5 max-md:w-4 max-md:h-4" />
                 </a>
 
                 <a href="https://wa.me/nomorhp" target="_blank"

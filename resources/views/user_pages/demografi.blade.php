@@ -27,7 +27,7 @@
                         Generate Aggregate
                     </button>
                 </div>
-            </div>
+            </div>  
         </div>
 
         <div class="space-y-4" x-show="isGenerated" x-cloak style="display: none;"

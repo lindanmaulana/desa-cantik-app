@@ -94,14 +94,14 @@
 
                     <ul class="flex-1 flex flex-col gap-2">
                         <li>
-                            <a href="{{ route('statistik.micro-business') }}"
-                                class="group block p-3 rounded-xl transition-all duration-200 {{ request()->routeIs('statistik.micro-business') ? 'bg-quaternary/10' : 'hover:bg-quaternary/10' }}">
+                            <a href="{{ route('statistik.msme') }}"
+                                class="group block p-3 rounded-xl transition-all duration-200 {{ request()->routeIs('statistik.msme') ? 'bg-quaternary/10' : 'hover:bg-quaternary/10' }}">
                                 <div
-                                    class="font-semibold text-sm transition-colors {{ request()->routeIs('statistik.micro-business') ? 'text-quaternary' : 'text-white group-hover:text-quaternary' }}">
+                                    class="font-semibold text-sm transition-colors {{ request()->routeIs('statistik.msme') ? 'text-quaternary' : 'text-white group-hover:text-quaternary' }}">
                                     UMKM
                                 </div>
                                 <div
-                                    class="text-xs mt-0.5 {{ request()->routeIs('statistik.micro-business') ? 'text-white/90' : 'text-white/60' }}">
+                                    class="text-xs mt-0.5 {{ request()->routeIs('statistik.msme') ? 'text-white/90' : 'text-white/60' }}">
                                     Data usaha mikro, kecil, menengah, dan komoditas.
                                 </div>
                             </a>
@@ -223,8 +223,8 @@
                         class="block py-2 text-sm text-slate-300 hover:text-white transition-colors {{ request()->routeIs('statistik.social') ? 'text-white font-medium' : '' }}">Sosial</a>
                     <a href="{{ route('statistik.economy') }}"
                         class="block py-2 text-sm text-slate-300 hover:text-white transition-colors {{ request()->routeIs('statistik.economy') ? 'text-white font-medium' : '' }}">Ekonomi</a>
-                    <a href="{{ route('statistik.micro-business') }}"
-                        class="block py-2 text-sm text-slate-300 hover:text-white transition-colors {{ request()->routeIs('statistik.micro-business') ? 'text-white font-medium' : '' }}">UMKM</a>
+                    <a href="{{ route('statistik.msme') }}"
+                        class="block py-2 text-sm text-slate-300 hover:text-white transition-colors {{ request()->routeIs('statistik.msme') ? 'text-white font-medium' : '' }}">UMKM</a>
                     <a href="{{ route('statistik.infrastructure') }}"
                         class="block py-2 text-sm text-slate-300 hover:text-white transition-colors {{ request()->routeIs('statistik.infrastructure') ? 'text-white font-medium' : '' }}">Infrastruktur</a>
                     <a href="{{ route('statistik.spacial-data') }}"

@@ -26,9 +26,9 @@ Route::prefix('/')->group(function () {
       return view('user_pages.economy');
     })->name('statistik.economy');
 
-    Route::get('micro-business', function () {
-      return view('user_pages.micro-business');
-    })->name('statistik.micro-business');
+    Route::get('msme', function () {
+      return view('user_pages.msme');
+    })->name('statistik.msme');
 
     Route::get('infrastructure', function () {
       return view('user_pages.infrastructure');

@@ -18,7 +18,7 @@
             </div>
         </div>
 
-        @include('dashboard.statistics.social.partials.stats-card')
+        @include('dashboard.statistics.economy.partials.stats-card')
 
         <div class="p-8 bg-white border border-gray-100 shadow-sm rounded-3xl">
             <h3 class="mb-6 text-xs font-bold tracking-widest text-gray-400 uppercase">
