@@ -6,7 +6,7 @@ $economicStatus = App\Enums\EconomicStatus::cases();
 
 
 <x-layouts.dashboard>
-    <div class="p-6 bg-gray-50" x-data="socialEconomyData()">
+    <div class="p-6" x-data="socialEconomyData()">
         <div class="flex flex-col items-start justify-between gap-4 mb-6 md:flex-row md:items-center">
             <div>
                 <h1 class="flex items-center gap-2 text-2xl font-bold text-gray-800">
@@ -17,7 +17,7 @@ $economicStatus = App\Enums\EconomicStatus::cases();
             </div>
 
             <div class="flex items-center gap-2">
-                <button @click="openData = !openData" class="inline-flex items-center px-4 py-2 text-sm font-medium text-white transition-colors rounded-lg shadow-sm bg-emerald-600 hover:bg-emerald-700">
+                <button @click="openData = !openData" class="inline-flex items-center px-4 py-2 text-sm font-medium text-white transition-colors rounded-lg shadow-sm bg-primary hover:bg-secondary">
                     <span class="flex items-center" x-show="openData">
                         <x-heroicon-o-eye class="w-4 h-4 mr-2" />
                         Sembunyikan Data Sensitif
@@ -28,7 +28,7 @@ $economicStatus = App\Enums\EconomicStatus::cases();
                     </span>
                 </button>
 
-                <button @click="openCreate = true" class="inline-flex items-center px-4 py-2 text-sm font-medium text-white transition-colors rounded-lg shadow-sm bg-emerald-600 hover:bg-emerald-700">
+                <button @click="openCreate = true" class="inline-flex items-center px-4 py-2 text-sm font-medium text-white transition-colors rounded-lg shadow-sm bg-primary hover:bg-secondary">
                     <x-heroicon-o-plus class="w-4 h-4 mr-2" />
                     Tambah Profil Baru
                 </button>

@@ -17,7 +17,7 @@
                 </div>
 
                 <div class="flex items-center gap-2">
-                    <button @click="openData = !openData" class="inline-flex items-center px-4 py-2 text-sm font-medium text-white transition-colors rounded-lg shadow-sm bg-emerald-600 hover:bg-emerald-700">
+                    <button @click="openData = !openData" class="inline-flex items-center px-4 py-2 text-sm font-medium text-white transition-colors rounded-lg shadow-sm bg-primary hover:bg-secondary">
                         <span class="flex items-center" x-show="openData">
                             <x-heroicon-o-eye class="w-4 h-4 mr-2" />
                             Sembunyikan Data Anggaran
@@ -28,7 +28,7 @@
                         </span>
                     </button>
 
-                    <button @click="openCreate = true" class="inline-flex items-center px-4 py-2 text-sm font-medium text-white transition-colors rounded-lg shadow-sm bg-emerald-600 hover:bg-emerald-700">
+                    <button @click="openCreate = true" class="inline-flex items-center px-4 py-2 text-sm font-medium text-white transition-colors rounded-lg shadow-sm bg-primary hover:bg-secondary">
                         <x-heroicon-o-plus class="w-4 h-4 mr-2" />
                         Tambah Aset Baru
                     </button>

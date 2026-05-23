@@ -251,7 +251,7 @@
         </aside>
 
         <div class="flex flex-col flex-1 h-full min-w-0">
-            <header class="flex items-center justify-between h-16 px-8 bg-white border-b-2 border-primary shrink-0">
+            <header class="flex items-center justify-between h-16 px-8 bg-quaternary border-b-2 border-primary shrink-0">
                 <button @click="openSidebar = !openSidebar" class="cursor-pointer text-slate-500 hover:text-primary">
                     <x-solar-hamburger-menu-broken class="size-6" />
                 </button>
@@ -262,7 +262,7 @@
                 </button>
             </header>
 
-            <main class="container flex-1 p-8 mx-auto overflow-y-auto bg-slate-50">
+            <main class="container flex-1 p-8 mx-auto overflow-y-auto bg-quaternary">
                 {{ $slot ?? '' }}
                 @yield('content')
             </main>

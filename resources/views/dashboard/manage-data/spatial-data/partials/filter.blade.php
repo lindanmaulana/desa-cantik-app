@@ -14,7 +14,7 @@
              <a href="{{ route('dashboard.manage-data.spatial-data') }}" class="w-full px-4 py-2 text-sm font-medium text-center text-gray-700 bg-white border border-gray-200 rounded-lg hover:bg-gray-50">
                  Reset
              </a>
-             <button type="submit" class="w-full px-4 py-2 text-sm font-medium text-white transition-colors rounded-lg shadow-sm bg-emerald-600 hover:bg-emerald-700">
+             <button type="submit" class="w-full px-4 py-2 text-sm font-medium text-white transition-colors rounded-lg shadow-sm bg-primary hover:bg-secondary">
                  Terapkan Filter
              </button>
          </div>

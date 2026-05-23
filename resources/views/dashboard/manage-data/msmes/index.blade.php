@@ -3,7 +3,7 @@
     @endphp
 
     <x-layouts.dashboard>
-        <div class="p-6 bg-gray-50" x-data="msmeData">
+        <div class="p-6" x-data="msmeData">
 
             <div class="flex flex-col items-start justify-between gap-4 mb-6 md:flex-row md:items-center">
                 <div class="max-w-2xl">
@@ -15,7 +15,7 @@
                 </div>
 
                 <div class="flex items-center gap-2">
-                    <button @click="openData = !openData" class="inline-flex items-center px-4 py-2 text-sm font-medium text-white transition-colors rounded-lg shadow-sm bg-emerald-600 hover:bg-emerald-700">
+                    <button @click="openData = !openData" class="inline-flex items-center px-4 py-2 text-sm font-medium text-white transition-colors rounded-lg shadow-sm bg-primary hover:bg-secondary">
                         <span class="flex items-center" x-show="openData">
                             <x-heroicon-o-eye class="w-4 h-4 mr-2" />
                             Sembunyikan Data Sensitif
@@ -26,7 +26,7 @@
                         </span>
                     </button>
 
-                    <button @click="openCreate = true" class="inline-flex items-center px-4 py-2 text-sm font-medium text-white transition-colors rounded-lg shadow-sm bg-emerald-600 hover:bg-emerald-700">
+                    <button @click="openCreate = true" class="inline-flex items-center px-4 py-2 text-sm font-medium text-white transition-colors rounded-lg shadow-sm bg-primary hover:bg-secondary">
                         <x-heroicon-o-plus class="w-4 h-4 mr-2" />
                         Tambah UMKM Baru
                     </button>

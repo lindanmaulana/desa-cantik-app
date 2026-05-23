@@ -1,5 +1,5 @@
 <x-layouts.dashboard>
-    <div class="p-6 bg-gray-50" x-data="territorieData()">
+    <div class="p-6" x-data="territorieData()">
 
         <div class="flex flex-col items-start justify-between gap-4 mb-6 md:flex-row md:items-center">
             <div>
