@@ -1,5 +1,6 @@
 <x-layouts.app>
-    <div class="flex flex-col min-h-screen bg-quaternary">
+    <div
+        class="flex flex-col min-h-screen bg-quaternary [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
 
         <x-layouts.partials.navbar />
 

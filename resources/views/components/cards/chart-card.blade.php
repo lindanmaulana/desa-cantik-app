@@ -29,9 +29,7 @@
         top: auto !important;
         left: auto !important;
         margin-top: 24px !important;
-        /* Menambah jarak dari lingkaran chart */
         padding-bottom: 16px !important;
-        /* Memberikan ruang aman dari batas bawah kartu */
     }
 
     .chart-container .apexcharts-canvas {
