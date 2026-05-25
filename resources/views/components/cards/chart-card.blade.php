@@ -12,6 +12,30 @@
         </span>
     </div>
 
-    {{-- Tempat Chart --}}
-    <div id="{{ $id }}"></div>
+    <div class="chart-container w-full min-h-[320px] max-md:min-h-[260px]">
+        <div id="{{ $id }}"></div>
+    </div>
 </div>
+
+<style>
+    .chart-container {
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: space-between !important;
+    }
+
+    .chart-container .apexcharts-legend {
+        position: relative !important;
+        top: auto !important;
+        left: auto !important;
+        margin-top: 24px !important;
+        /* Menambah jarak dari lingkaran chart */
+        padding-bottom: 16px !important;
+        /* Memberikan ruang aman dari batas bawah kartu */
+    }
+
+    .chart-container .apexcharts-canvas {
+        margin: 0 auto !important;
+        height: auto !important;
+    }
+</style>
