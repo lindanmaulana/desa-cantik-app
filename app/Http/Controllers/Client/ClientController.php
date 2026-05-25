@@ -35,4 +35,25 @@ class ClientController extends Controller
       'data'        => $data,
     ]);
   }
+
+  public function social()
+  {
+    return view('client.social');
+  }
+  public function economy()
+  {
+    return view('client.economy');
+  }
+  public function msme()
+  {
+    return view('client.msme');
+  }
+  public function infrastructure()
+  {
+    return view('client.infrastructure');
+  }
+  public function spacialData()
+  {
+    return view('client.spacial-data');
+  }
 }

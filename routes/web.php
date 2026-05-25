@@ -13,11 +13,11 @@ Route::prefix('/')->group(function () {
   Route::get('/', [ClientController::class, 'index'])->name('home');
   Route::prefix('statistik')->group(function () {
     Route::get('demograph', [ClientController::class, 'demograph'])->name('statistik.demografi');
-    Route::get('social', [ClientController::class, 'demograph'])->name('statistik.social');
-    Route::get('economy', [ClientController::class, 'demograph'])->name('statistik.economy');
-    Route::get('msme', [ClientController::class, 'demograph'])->name('statistik.msme');
-    Route::get('infrastructure', [ClientController::class, 'demograph'])->name('statistik.infrastructure');
-    Route::get('spacial-data', [ClientController::class, 'demograph'])->name('statistik.spacial-data');
+    Route::get('social', [ClientController::class, 'social'])->name('statistik.social');
+    Route::get('economy', [ClientController::class, 'economy'])->name('statistik.economy');
+    Route::get('msme', [ClientController::class, 'msme'])->name('statistik.msme');
+    Route::get('infrastructure', [ClientController::class, 'infrastructure'])->name('statistik.infrastructure');
+    Route::get('spacial-data', [ClientController::class, 'spacialData'])->name('statistik.spacial-data');
   });
 });
 
