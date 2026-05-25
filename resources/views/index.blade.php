@@ -11,7 +11,7 @@
                     pandawa statistika
                 </span>
                 <span class="text-transparent bg-gradient-to-r from-primary to-secondary bg-clip-text">
-                    Desa
+                    {{ __('Desa Cantik') }}
                 </span>
             </h2>
 

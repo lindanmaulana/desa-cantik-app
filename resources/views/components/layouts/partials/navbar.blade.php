@@ -164,9 +164,15 @@
         </div>
 
         <div class="hidden md:block">
-            <x-button variant="ghostv2" size="md">
-                <a href="{{ route('auth.login') }}" class="capitalize font-semibold">login</a>
-            </x-button>
+            @auth
+                <x-button variant="ghostv2" size="md">
+                    <a href="{{ route('auth.login') }}" class="capitalize font-semibold">dashboard</a>
+                </x-button>
+            @else
+                <x-button variant="ghostv2" size="md">
+                    <a href="{{ route('auth.login') }}" class="capitalize font-semibold">login</a>  
+                </x-button>
+            @endauth
         </div>
 
         <div class="flex md:hidden">

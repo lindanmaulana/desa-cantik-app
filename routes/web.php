@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Client\ClientController;
 use App\Http\Controllers\ProfileController;
 
 use Illuminate\Support\Facades\Route;
@@ -9,34 +10,14 @@ require __DIR__ . '/auth.php';
 require __DIR__ . '/dashboard.php';
 
 Route::prefix('/')->group(function () {
-  Route::get('/', function () {
-    return view('index');
-  })->name('home');
-
+  Route::get('/', [ClientController::class, 'index'])->name('home');
   Route::prefix('statistik')->group(function () {
-    Route::get('demografi', function () {
-      return view('user_pages.demografi');
-    })->name('statistik.demografi');
-
-    Route::get('social', function () {
-      return view('user_pages.social');
-    })->name('statistik.social');
-
-    Route::get('economy', function () {
-      return view('user_pages.economy');
-    })->name('statistik.economy');
-
-    Route::get('msme', function () {
-      return view('user_pages.msme');
-    })->name('statistik.msme');
-
-    Route::get('infrastructure', function () {
-      return view('user_pages.infrastructure');
-    })->name('statistik.infrastructure');
-
-    Route::get('spacial-data', function () {
-      return view('user_pages.spacial-data');
-    })->name('statistik.spacial-data');
+    Route::get('demograph', [ClientController::class, 'demograph'])->name('statistik.demografi');
+    Route::get('social', [ClientController::class, 'social'])->name('statistik.social');
+    Route::get('economy', [ClientController::class, 'economy'])->name('statistik.economy');
+    Route::get('msme', [ClientController::class, 'msme'])->name('statistik.msme');
+    Route::get('infrastructure', [ClientController::class, 'infrastructure'])->name('statistik.infrastructure');
+    Route::get('spacial-data', [ClientController::class, 'spacialData'])->name('statistik.spacial-data');
   });
 });
 

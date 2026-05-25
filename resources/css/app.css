@@ -70,3 +70,7 @@
     animation-delay: -10s;
     z-index: 10;
 }
+
+[x-cloak] {
+    display: none !important;
+}
