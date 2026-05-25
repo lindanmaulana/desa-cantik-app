@@ -164,7 +164,7 @@
         </div>
 
         <div class="hidden md:block">
-            <x-button variant="ghost" size="md">
+            <x-button variant="ghostv2" size="md">
                 <a href="{{ route('auth.login') }}" class="capitalize font-semibold">login</a>
             </x-button>
         </div>
@@ -237,7 +237,7 @@
                 class="block text-slate-300 hover:text-white py-2 font-medium transition-colors duration-200">Analisis</a>
 
             <div class="pt-4 border-t border-white/10">
-                <x-button variant="ghost" size="md" class="w-full justify-center">
+                <x-button variant="ghostv2" class="!w-full" size="md">
                     <a href="{{ route('auth.login') }}"
                         class="capitalize font-semibold block text-center w-full">login</a>
                 </x-button>

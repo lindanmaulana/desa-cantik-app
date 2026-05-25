@@ -1,9 +1,14 @@
 <x-layouts.auth>
     <div class="p-8 bg-white/80 backdrop-blur-lg rounded-2xl shadow-2xl border border-white/60">
 
-        <div class="mb-8 text-center">
-            <h2 class="text-3xl font-bold text-primary tracking-tight">Selamat Datang</h2>
-            <p class="mt-2 text-sm text-gray-500 font-medium">Silakan masuk untuk mengakses dashboard</p>
+        <div class="mb-8 space-y-3">
+            <x-button variant="ghost" class="!p-2 !text-primary !border-primary">
+                <a href="{{ route('home') }}">
+                    <x-bx-left-arrow-alt class="w-4 h-4 max-w-6 max-h-6" />
+                </a>
+            </x-button>
+            <h2 class="text-center text-3xl font-bold text-primary tracking-tight">Selamat Datang</h2>
+            <p class="text-center mt-2 text-sm text-gray-500 font-medium">Silakan masuk untuk mengakses dashboard</p>
         </div>
 
         <x-auth-session-status class="mb-4" :status="session('status')" />
