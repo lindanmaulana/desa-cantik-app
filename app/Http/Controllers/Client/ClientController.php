@@ -7,11 +7,15 @@ use App\Http\Requests\Statistics\DemographRequest;
 use App\Enums\DemographicsType;
 use App\Services\Statistics\DemographService;
 
-class DemographController extends Controller
+class ClientController extends Controller
 {
   public function __construct(protected DemographService $demographService) {}
 
-  public function index(DemographRequest $request)
+  public function index()
+  {
+    return view('index');
+  }
+  public function demograph(DemographRequest $request)
   {
     $validated = $request->validated();
 
