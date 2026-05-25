@@ -24,9 +24,9 @@ return new class extends Migration
             $table->enum('gender', array_column(Gender::cases(), 'value'))->default(Gender::MALE->value);
             $table->string('birth_place', 100);
             $table->date('birth_date')->nullable();
+            $table->string('blood_type', 5)->nullable();
             $table->enum('religion', array_column(Religion::cases(), 'value'))->default(Religion::OTHER->value);
             $table->enum('marital_status', array_column(MaritalStatus::cases(), 'value'))->default(MaritalStatus::SINGLE->value);
-            $table->string('blood_type', 5)->nullable();
 
             $table->timestamps();
             $table->softDeletes();

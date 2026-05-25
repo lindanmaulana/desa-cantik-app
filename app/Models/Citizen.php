@@ -45,12 +45,28 @@ class Citizen extends Model
         return $this->belongsTo(Family::class);
     }
 
+    public function educationProfile() {
+        return $this->hasOne(EducationProfiles::class);
+    }
+
+    public function employmentProfile() {
+        return $this->hasOne(EmploymentProfiles::class);
+    }
+
+    public function healthProfile() {
+        return $this->hasOne(HealthProfiles::class);
+    }
+
+    public function housingProfile() {
+        return $this->hasOne(HousingProfiles::class);
+    }
+
     public function socialEconomic() {
         return $this->hasOne(SocialEconomic::class, 'citizen_id');
     }
 
     public function msmes() {
-        return $this->hasMany(Msmes::class, 'citizen_id');
+        return $this->hasMany(Msme::class, 'citizen_id');
     }
 
     public function spatialData() {
