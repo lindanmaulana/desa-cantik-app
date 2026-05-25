@@ -29,40 +29,64 @@
             </h3>
 
             <div class="flex flex-wrap gap-3">
-                <a href="">
-                    <x-buttons.filter-button icon="ri-group-fill" :active="true">
+                <a href="{{ route('dashboard.statistics.demograph', ['type' => 'ageGroup']) }}">
+                    <x-buttons.filter-button
+                        icon="ri-group-fill"
+                        :active="$currentType->value === 'ageGroup'">
                         Kelompok Umur
                     </x-buttons.filter-button>
                 </a>
 
-                <a href="">
-                    <x-buttons.filter-button icon="ri-genderless-line">
+                <a href="{{ route('dashboard.statistics.demograph', ['type' => 'gender']) }}">
+                    <x-buttons.filter-button
+                        icon="ri-genderless-line"
+                        :active="$currentType->value === 'gender'">
                         Jenis Kelamin
                     </x-buttons.filter-button>
                 </a>
 
-                <a href="">
-                    <x-buttons.filter-button icon="ri-heart-3-fill">
+                <a href="{{ route('dashboard.statistics.demograph', ['type' => 'maritalStatus']) }}">
+                    <x-buttons.filter-button
+                        icon="ri-heart-3-fill"
+                        :active="$currentType->value === 'maritalStatus'">
                         Status Perkawinan
                     </x-buttons.filter-button>
                 </a>
 
-                <a href="">
-                    <x-buttons.filter-button icon="ri-map-pin-user-fill">
+                <a href="{{ route('dashboard.statistics.demograph', ['type' => 'presence']) }}">
+                    <x-buttons.filter-button
+                        icon="ri-map-pin-user-fill"
+                        :active="$currentType->value === 'presence'">
                         Keberadaan
                     </x-buttons.filter-button>
                 </a>
 
-                <a href="">
-                    <x-buttons.filter-button icon="ri-user-settings-fill">
+                <a href="{{ route('dashboard.statistics.demograph', ['type' => 'residencyStatus']) }}">
+                    <x-buttons.filter-button
+                        icon="ri-user-settings-fill"
+                        :active="$currentType->value === 'residencyStatus'">
                         Status Penduduk
                     </x-buttons.filter-button>
                 </a>
-
             </div>
         </div>
 
         <x-cards.chart-card id="chart-umur" title="Kelompok Umur" subtitle="Kelompok Umur — Demografi" />
+
+        <x-cards.chart-card
+            id="chart"
+            :title="match($currentType->value) {
+            'ageGroup' => 'Kelompok Umur',
+            'gender' => 'Jenis Kelamin',
+            default => 'Demografi'
+            }"
+            :subtitle="match($currentType->value) {
+            'ageGroup' => 'Kelompok Umur — Demografi',
+            'gender' => 'Jenis Kelamin — Demografi',
+            default => 'Statistik Demografi'
+            }" />
+
+        >>>>>>> feature/dashboard/statistics/demographics
 
         <div class="p-6 space-y-4 overflow-hidden bg-white border border-gray-100 shadow-sm rounded-3xl">
             <div class="border-b border-gray-50">
@@ -210,72 +234,72 @@
         </div>
     </div>
 
-
     @push('scripts')
-        <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                var options = {
-                    series: [{
-                        name: 'Laki-laki',
-                        data: [400, 2000, 450, 200, 550, 650, 50]
-                    }, {
-                        name: 'Perempuan',
-                        data: [380, 1750, 400, 180, 540, 600, 60]
-                    }],
-                    chart: {
-                        type: 'bar',
-                        height: 400,
-                        toolbar: {
-                            show: false
-                        },
-                        fontFamily: 'Inter, sans-serif'
-                    },
-                    plotOptions: {
-                        bar: {
-                            horizontal: false,
-                            columnWidth: '55%',
-                            borderRadius: 8,
-                            dataLabels: {
-                                position: 'top'
-                            }
-                        },
-                    },
-                    colors: ['#6366f1', '#f472b6'],
-                    dataLabels: {
-                        enabled: false
-                    },
-                    stroke: {
-                        show: true,
-                        width: 5,
-                        colors: ['transparent']
-                    },
-                    xaxis: {
-                        categories: ['Pra Lansia (55-64)', 'Dewasa Produktif (25-54)', 'Lansia (65+)',
-                            'Balita (0-4)', 'Anak-anak (5-14)', 'Remaja (15-24)', 'Tidak Diisi'
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const currentType = '{{ request("type", "ageGroup") }}';
+
+            const chartType = '{{ $chartType }}';
+            const data = JSON.parse('@json($data ?? [])');
+            const chartLabels = JSON.parse('@json($chartLabels ?? [])');
+            const type = "{{ request('type') }}"
+
+            const element = document.querySelector('#chart')
+            if (!element) return;
+
+            switch (type) {
+                case 'ageGroup':
+                    window.ChartOptions = {
+                        series: [{
+                                name: "Laki-laki",
+                                data: data.male ?? [],
+                            },
+                            {
+                                name: "Perempuan",
+                                data: data.female ?? [],
+                            },
                         ],
-                        axisBorder: {
-                            show: false
-                        },
-                    },
-                    fill: {
-                        opacity: 1
-                    },
-                    legend: {
-                        position: 'bottom',
-                        markers: {
-                            radius: 12
-                        }
-                    },
-                    grid: {
-                        borderColor: '#f1f1f1',
                     }
-                };
+                    break;
 
-                var chart = new window.ApexCharts(document.querySelector("#chart-umur"), options);
-                chart.render();
-            });
-        </script>
+                case 'gender':
+                    window.ChartOptions = {
+                        series: [Number(data.male ?? 0), Number(data.female ?? 0)],
+                        colors: [window.AppColors.primary, window.AppColors.secondary]
+                    }
+                    break;
 
-        @include('dashboard.statistics.demographics.partials.chart-script')
+                case 'maritalStatus':
+                    window.ChartOptions = {
+                        series: [Number(data.single), Number(data.married), Number(data.divorced), Number(data.widowed)]
+                    }
+                    break;
+
+                default:
+                    window.ChartOptions = {
+                        series: [{
+                                name: "Laki-laki",
+                                data: data.male ?? [],
+                            },
+                            {
+                                name: "Perempuan",
+                                data: data.female ?? [],
+                            },
+                        ],
+                    }
+            }
+
+            switch (chartType) {
+                case 'bar':
+                    renderBarChart(element, data, chartLabels, window.ChartOptions.series, window.ChartOptions.colors);
+                    break;
+                case 'donut':
+                    renderDonutChart(element, data, chartLabels, window.ChartOptions.series, window.ChartOptions.colors);
+                    break;
+            }
+        });
+    </script>
+
+    @include('dashboard.statistics.demographics.partials.chart-script')
     @endpush
 </x-layouts.dashboard>
