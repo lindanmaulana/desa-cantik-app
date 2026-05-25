@@ -61,10 +61,6 @@ class Citizen extends Model
         return $this->hasOne(HousingProfiles::class);
     }
 
-    public function socialEconomic() {
-        return $this->hasOne(SocialEconomic::class, 'citizen_id');
-    }
-
     public function msmes() {
         return $this->hasMany(Msme::class, 'citizen_id');
     }

@@ -23,7 +23,6 @@ class DatabaseSeeder extends Seeder
             TerritoriesSeeder::class,
             FamiliesSeeder::class,
             CitizensSeeder::class,
-            SocialEconomicsSeeder::class,
         ]);
     }
 }
