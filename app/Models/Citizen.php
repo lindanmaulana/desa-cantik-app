@@ -50,7 +50,7 @@ class Citizen extends Model
     }
 
     public function msmes() {
-        return $this->hasMany(Msmes::class, 'citizen_id');
+        return $this->hasMany(Msme::class, 'citizen_id');
     }
 
     public function spatialData() {
