@@ -71,8 +71,6 @@
             </div>
         </div>
 
-        <x-cards.chart-card id="chart-umur" title="Kelompok Umur" subtitle="Kelompok Umur — Demografi" />
-
         <x-cards.chart-card
             id="chart"
             :title="match($currentType->value) {
@@ -85,8 +83,6 @@
             'gender' => 'Jenis Kelamin — Demografi',
             default => 'Statistik Demografi'
             }" />
-
-        >>>>>>> feature/dashboard/statistics/demographics
 
         <div class="p-6 space-y-4 overflow-hidden bg-white border border-gray-100 shadow-sm rounded-3xl">
             <div class="border-b border-gray-50">
