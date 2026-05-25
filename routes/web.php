@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Client\DemographController;
 use App\Http\Controllers\ProfileController;
 
 use Illuminate\Support\Facades\Route;
@@ -14,29 +15,12 @@ Route::prefix('/')->group(function () {
   })->name('home');
 
   Route::prefix('statistik')->group(function () {
-    Route::get('demografi', function () {
-      return view('user_pages.demografi');
-    })->name('statistik.demografi');
-
-    Route::get('social', function () {
-      return view('user_pages.social');
-    })->name('statistik.social');
-
-    Route::get('economy', function () {
-      return view('user_pages.economy');
-    })->name('statistik.economy');
-
-    Route::get('msme', function () {
-      return view('user_pages.msme');
-    })->name('statistik.msme');
-
-    Route::get('infrastructure', function () {
-      return view('user_pages.infrastructure');
-    })->name('statistik.infrastructure');
-
-    Route::get('spacial-data', function () {
-      return view('user_pages.spacial-data');
-    })->name('statistik.spacial-data');
+    Route::get('demografi', [DemographController::class, 'index'])->name('statistik.demografi');
+    Route::get('social', [DemographController::class, 'index'])->name('statistik.social');
+    Route::get('economy', [DemographController::class, 'index'])->name('statistik.economy');
+    Route::get('msme', [DemographController::class, 'index'])->name('statistik.msme');
+    Route::get('infrastructure', [DemographController::class, 'index'])->name('statistik.infrastructure');
+    Route::get('spacial-data', [DemographController::class, 'index'])->name('statistik.spacial-data');
   });
 });
 

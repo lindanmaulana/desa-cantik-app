@@ -1,3 +1,3 @@
-<x-layouts.user>
+<x-layouts.client>
     <h3>Micro Small and Medium Enterprise</h3>
-</x-layouts.user>
+</x-layouts.client>

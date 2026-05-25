@@ -1,5 +1,5 @@
-<x-layouts.user>
-    <div class="space-y-6 max-md:space-y-3" x-data="{ isGenerated: false }">
+<x-layouts.client>
+    <div class="space-y-6 max-md:space-y-3" x-data="{ isGenerated: new URLSearchParams(window.location.search).has('type') }">
         <div class="space-y-4" x-show="!isGenerated" x-transition:leave="transition ease-in duration-300"
             x-transition:leave-start="opacity-100 translate-y-0"
             x-transition:leave-end="opacity-0 -translate-y-4 absolute w-full">
@@ -230,4 +230,4 @@
             });
         </script>
     @endpush
-</x-layouts.user>
+</x-layouts.client>
