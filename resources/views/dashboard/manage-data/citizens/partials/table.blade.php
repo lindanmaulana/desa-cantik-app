@@ -33,14 +33,14 @@
                             <td class="px-6 py-4 text-gray-600">
                                 @if($item->gender)
                                 <span class="inline-flex items-center px-2 py-1 text-xs font-semibold rounded-full {{ $item->gender->value === 'male' ? 'bg-blue-50 text-blue-700' : 'bg-rose-50 text-rose-700' }}">
-                                    {{ App\Enums\Gender::tryFrom($item->gender->value)?->label() ?? '-' }}
+                                    {{ $gender::tryFrom($item->gender->value)?->label() ?? '-' }}
                                 </span>
                                 @else
                                 -
                                 @endif
                             </td>
                             <td class="px-6 py-4 text-gray-600">
-                                {{ App\Enums\FamilyRole::tryFrom($item->family_role->value)?->label() ?? '-' }}
+                                {{ $familyRole::tryFrom($item->family_role->value)?->label() ?? '-' }}
                             </td>
                             <td class="px-6 py-4 font-medium text-gray-600">
                                 @if($item->family)
@@ -52,7 +52,7 @@
                             </td>
                             <td class="px-6 py-4 text-xs text-gray-500">
                                 <div class="font-medium text-gray-700">{{ App\Enums\MaritalStatus::tryFrom($item->marital_status->value)?->label() ?? '-' }}</div>
-                                <div>{{ App\Enums\Religion::tryFrom($item->religion->value)?->label() ?? '-' }}</div>
+                                <div>{{ $religion::tryFrom($item->religion->value)?->label() ?? '-' }}</div>
                             </td>
                             <td class="px-6 py-4 text-center">
                                 <div class="flex items-center justify-center gap-2">

@@ -7,22 +7,22 @@
             <div class="flex items-center gap-4 pb-6 mb-10 border-b border-slate-200">
                 <x-ionicon-people-sharp class="p-3 rounded-md size-12 bg-primary/20 text-primary" />
                 <div>
-                    <h3 class="text-xl max-md:text-base font-bold">Demografi</h3>
-                    <p class="text-slate-600 text-lg max-md:text-sm">Analisis agregat demografi Desa Sukaraja</p>
+                    <h3 class="text-xl font-bold max-md:text-base">Demografi</h3>
+                    <p class="text-lg text-slate-600 max-md:text-sm">Analisis agregat demografi Desa Sukaraja</p>
                 </div>
             </div>
 
             <div class="flex items-center justify-center border-2 border-dashed rounded-2xl border-slate-300 min-h-96">
                 <div class="flex flex-col items-center justify-center gap-2">
                     <x-ionicon-people-sharp class="p-3 mb-4 rounded-md size-16 bg-primary/20 text-primary" />
-                    <h4 class="text-xl max-md:text-base font-bold">Hitung Agregat Demografi</h4>
-                    <p class="max-w-md mb-4 text-base max-md:text-sm text-center text-slate-600">
+                    <h4 class="text-xl font-bold max-md:text-base">Hitung Agregat Demografi</h4>
+                    <p class="max-w-md mb-4 text-base text-center max-md:text-sm text-slate-600">
                         Sistem akan memproses seluruh data untuk menghasilkan statistik Demografi. Proses ini hanya
                         dilakukan sekali per sesi.
                     </p>
 
                     <button @click="isGenerated = true"
-                        class="flex items-center gap-2 px-6 py-3 text-lg max-md:text-base font-semibold text-white rounded-full shadow-lg bg-gradient-to-r from-primary to-secondary">
+                        class="flex items-center gap-2 px-6 py-3 text-lg font-semibold text-white rounded-full shadow-lg max-md:text-base bg-gradient-to-r from-primary to-secondary">
                         <x-ri-play-circle-fill class="size-5" />
                         Generate Aggregate
                     </button>
@@ -36,8 +36,8 @@
 
             @include('dashboard.statistics.demographics.partials.stats-card')
 
-            <div class="p-8 max-md:p-4 bg-white border border-gray-100 shadow-sm rounded-3xl max-md:rounded-xl">
-                <h3 class="mb-6 text-xs max-md:text-center font-bold tracking-widest text-gray-400 uppercase">
+            <div class="p-8 bg-white border border-gray-100 shadow-sm max-md:p-4 rounded-3xl max-md:rounded-xl">
+                <h3 class="mb-6 text-xs font-bold tracking-widest text-gray-400 uppercase max-md:text-center">
                     Pilih Jenis Agregat
                 </h3>
 
@@ -90,7 +90,7 @@
     @push('scripts')
         <script>
             document.addEventListener('DOMContentLoaded', function() {
-                const currentType = '{{ request('type', 'ageGroup') }}';
+                const currentType = '{{ request("type", "ageGroup") }}';
 
                 const chartType = '{{ $chartType }}';
                 const data = JSON.parse('@json($data ?? [])');

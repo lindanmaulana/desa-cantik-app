@@ -14,7 +14,7 @@
                    <label class="block mb-1 text-xs font-medium text-gray-500">Jenis Kelamin</label>
                    <select name="gender" onchange="this.form.submit()" class="w-full px-3 py-2 text-sm text-gray-700 bg-white border border-gray-200 rounded-lg focus:outline-none focus:border-teal-500">
                        <option value="">Semua Genders</option>
-                       @foreach(App\Enums\Gender::cases() as $val)
+                       @foreach($gender::cases() as $val)
                        <option value="{{ $val }}" {{ request('gender') == $val->value ? 'selected' : '' }}>{{ $val->label() }}</option>
                        @endforeach
                    </select>
@@ -24,7 +24,7 @@
                    <label class="block mb-1 text-xs font-medium text-gray-500">Agama</label>
                    <select name="religion" onchange="this.form.submit()" class="w-full px-3 py-2 text-sm text-gray-700 bg-white border border-gray-200 rounded-lg focus:outline-none focus:border-teal-500">
                        <option value="">Semua Agama</option>
-                       @foreach(App\Enums\Religion::cases() as $val)
+                       @foreach($religion::cases() as $val)
                        <option value="{{ $val->value }}" {{ request('religion') == $val->value ? 'selected' : '' }}>{{ $val->label() }}</option>
                        @endforeach
                    </select>

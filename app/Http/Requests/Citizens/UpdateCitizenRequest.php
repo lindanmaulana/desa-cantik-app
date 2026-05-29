@@ -9,6 +9,10 @@ use App\Enums\FamilyRole;
 use App\Enums\Gender;
 use App\Enums\MaritalStatus;
 use App\Enums\Religion;
+use App\Http\Requests\EducationProfiles\UpdateEducationProfileRequest;
+use App\Http\Requests\EmploymentProfiles\UpdateEmploymentProfileRequest;
+use App\Http\Requests\HealthProfiles\UpdateHealthProfileRequest;
+use App\Http\Requests\HousingProfiles\UpdateHousingProfileRequest;
 
 class UpdateCitizenRequest extends FormRequest
 {
@@ -19,7 +23,7 @@ class UpdateCitizenRequest extends FormRequest
 
     public function rules(): array
     {
-        return [
+        $citizenRules =  [
             'family_id' => ['required', Rule::exists('families', 'id')],
             'id_number' => ['required', 'string', 'max:16'],
             'full_name' => ['required', 'string', 'max:255'],
@@ -31,9 +35,23 @@ class UpdateCitizenRequest extends FormRequest
             'marital_status' => ['required', 'in:' . implode(',', array_column(MaritalStatus::cases(), 'value'))],
             'blood_type' => ['nullable', 'string', 'max:5'],
         ];
+
+        $educationRules = (new UpdateEducationProfileRequest())->rules();
+        $employmentRules = (new UpdateEmploymentProfileRequest())->rules();
+        $healthRules     = (new UpdateHealthProfileRequest())->rules();
+        $housingRules    = (new UpdateHousingProfileRequest())->rules();
+
+        return array_merge(
+            $citizenRules,
+            $educationRules,
+            $employmentRules,
+            $healthRules,
+            $housingRules,
+        );
     }
 
-    public function messages(): array {
+    public function messages(): array
+    {
         return [
             'family_id.required' => 'Keluarga wajib diisi',
             'family_id.exists' => 'Keluarga tidak ditemukan',

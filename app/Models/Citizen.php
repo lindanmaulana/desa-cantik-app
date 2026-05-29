@@ -28,8 +28,8 @@ class Citizen extends Model
         'birth_place',
         'birth_date',
         'religion',
-        'marital_status',
         'blood_type',
+        'marital_status',
     ];
 
     protected function casts(): array {

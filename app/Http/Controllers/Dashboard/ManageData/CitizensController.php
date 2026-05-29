@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Dashboard\ManageData;
 
+use App\Enums\Gender;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\Citizens\StoreCitizenRequest;
@@ -26,13 +27,19 @@ class CitizensController extends Controller
             'family_id' => 'nullable|exists:families,id',
         ]);
 
-        $query = Citizen::with('family');
+        $query = Citizen::with([
+            'family',
+            'educationProfile',
+            'employmentProfile',
+            'healthProfile',
+            'housingProfile'
+        ]);
 
         if ($request->filled('search')) {
             $search = $request->search;
             $query->where(function ($q) use ($search) {
                 $q->where('id_number', 'like', "%{$search}%")
-                  ->orWhere('full_name', 'like', "%{$search}%");
+                    ->orWhere('full_name', 'like', "%{$search}%");
             });
         }
 
@@ -58,8 +65,8 @@ class CitizensController extends Controller
 
         $counts = (object) [
             'total_Citizens' => Citizen::count(),
-            'total_Male' => Citizen::where('gender', \App\Enums\Gender::MALE)->count(),
-            'total_Female' => Citizen::where('gender', \App\Enums\Gender::FEMALE)->count(),
+            'total_Male' => Citizen::where('gender', Gender::MALE)->count(),
+            'total_Female' => Citizen::where('gender', Gender::FEMALE)->count(),
         ];
 
         return view('dashboard.manage-data.citizens.index', compact('citizens', 'families', 'counts'));
@@ -79,13 +86,55 @@ class CitizensController extends Controller
 
         try {
             $validated['id'] = Str::uuid()->toString();
+            $citizenData = $request->only(
+                'id',
+                'full_name',
+                'id_number',
+                'family_card_number',
+                'gender',
+                'birth_place',
+                'birth_date',
+                'religion',
+                'marital_status'
+            );
+            $citizen = Citizen::create($citizenData);
 
-            Citizen::create($validated);
+            $citizen->educationProfile()->create($request->only(['education_level', 'highest_diploma', 'school_participation']));
+
+            $citizen->employmentProfile()->create($request->only([
+                'occupation',
+                'job_sector',
+                'employment_status',
+                'monthly_income',
+                'economic_status',
+                'is_welfare_recipient',
+                'assistance_type'
+            ]));
+
+            $citizen->healthProfile()->create($request->only([
+                'disability_type',
+                'is_pregnant',
+                'kb_method',
+                'bpjs_status'
+            ]));
+
+            $citizen->housingProfile()->create($request->only([
+                'house_ownership',
+                'house_condition',
+                'floor_material',
+                'wall_material',
+                'roof_material',
+                'water_source',
+                'sanitation_type',
+                'cooking_fuel',
+                'electricity_source',
+                'electricity_capacity'
+            ]));
 
             DB::commit();
 
             return redirect()->route('dashboard.manage-data.citizens')->with('success', 'Data Warga berhasil ditambahkan!');
-        } catch(\Throwable $err) {
+        } catch (\Throwable $err) {
             DB::rollBack();
 
             Log::error('Gagal menyimpan warga: ' . $err->getMessage(), [
@@ -123,7 +172,7 @@ class CitizensController extends Controller
             DB::commit();
 
             return redirect()->route('dashboard.manage-data.citizens')->with('success', 'Data Warga berhasil diupdate!');
-        } catch(\Throwable $err) {
+        } catch (\Throwable $err) {
             DB::rollBack();
 
             Log::error('Gagal mengupdate warga: ' . $err->getMessage(), [
