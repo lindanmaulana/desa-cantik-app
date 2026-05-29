@@ -57,8 +57,8 @@ class Citizen extends Model
         return $this->hasOne(HealthProfiles::class);
     }
 
-    public function housingProfile() {
-        return $this->hasOne(HousingProfiles::class);
+    public function childGrowthLogs() {
+        return $this->hasOne(ChildGrowthLogs::class);
     }
 
     public function msmes() {

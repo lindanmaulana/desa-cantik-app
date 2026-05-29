@@ -23,7 +23,7 @@ return new class extends Migration
     {
         Schema::create('housing_profiles', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->foreignUuid('citizen_id')->constrained('citizens')->cascadeOnDelete();
+            $table->foreignUuid('family_id')->constrained('families')->cascadeOnDelete();
 
             $table->enum('house_ownership', array_column(HouseOwnership::cases(), 'value'))->default(HouseOwnership::OWNED->value);
             $table->enum('house_condition', array_column(HouseCondition::cases(), 'value'))->default(HouseCondition::PROPER->value);

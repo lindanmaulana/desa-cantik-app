@@ -24,7 +24,7 @@ class HousingProfiles extends Model
     public $incrementing = false;
 
     protected $fillable = [
-        'citizen_id',
+        'family_id',
         'house_ownership',
         'house_condition',
         'floor_material',
@@ -52,7 +52,7 @@ class HousingProfiles extends Model
         ];
     }
 
-    public function citizen() {
-        return $this->belongsTo(Citizen::class);
+    public function family() {
+        return $this->belongsTo(Family::class);
     }
 }
