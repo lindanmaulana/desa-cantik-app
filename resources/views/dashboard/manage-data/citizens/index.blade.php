@@ -41,9 +41,7 @@
         @include('dashboard.manage-data.citizens.partials.modal.update')
 
         @include('dashboard.manage-data.citizens.partials.stats')
-
         @include('dashboard.manage-data.citizens.partials.filter')
-
         @include('dashboard.manage-data.citizens.partials.table')
     </div>
 </x-layouts.dashboard>
