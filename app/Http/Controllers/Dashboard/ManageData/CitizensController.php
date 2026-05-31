@@ -74,7 +74,7 @@ class CitizensController extends Controller
 
         return view('dashboard.manage-data.citizens.index', compact('citizens', 'families', 'counts'));
     }
-    
+
 
     public function create()
     {

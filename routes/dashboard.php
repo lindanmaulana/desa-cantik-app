@@ -57,6 +57,7 @@ Route::middleware(['auth'])->group(function () {
 
             Route::prefix('health-profile')->group(function () {
                 Route::post('/{citizen}/store', [HealthProfileController::class, 'store'])->name('health-profile.store');
+                Route::put('/{citizen}/update', [HealthProfileController::class, 'update'])->name('health-profile.update');
             });
 
             Route::prefix('social-economics')->group(function () {

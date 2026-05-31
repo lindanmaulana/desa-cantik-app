@@ -1,4 +1,4 @@
-<div x-show="openHealthProfileCreate" class="fixed inset-0 z-50 flex items-center justify-center p-4 overflow-y-auto transition-opacity duration-300 bg-gray-900 bg-opacity-50 backdrop-blur-sm">
+<div x-show="healthProfile.openCreate" class="fixed inset-0 z-50 flex items-center justify-center p-4 overflow-y-auto transition-opacity duration-300 bg-gray-900 bg-opacity-50 backdrop-blur-sm">
 
     <div class="w-full max-w-3xl overflow-hidden transition-all duration-300 transform scale-95 bg-white border border-gray-100 shadow-xl rounded-2xl">
 
@@ -11,7 +11,7 @@
                     <h3 class="text-lg font-bold text-gray-800">Profile Kesehatan Individu</h3>
                 </div>
             </div>
-            <button @click="openHealthProfileCreate = false" class="p-1 text-gray-400 transition-colors rounded-lg hover:text-gray-600 hover:bg-gray-100">
+            <button @click="healthProfile.openCreate = false" class="p-1 text-gray-400 transition-colors rounded-lg hover:text-gray-600 hover:bg-gray-100">
                 <x-heroicon-o-x-mark class="w-5 h-5" />
             </button>
         </div>

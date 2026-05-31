@@ -10,14 +10,15 @@
         @endif
 
         @include('dashboard.manage-data.citizens.partials.modal.health-profile-create')
+        @include('dashboard.manage-data.citizens.partials.modal.health-profile-update')
 
         <div class="grid grid-cols-2 gap-6">
             <article class="col-span-2 p-8 space-y-6 border border-t-8 shadow border-t-primary rounded-3xl">
                 <header class="flex items-center justify-between">
                     <div class="flex items-center gap-4">
-                        <di class="px-5 py-6 text-4xl border-[1px] rounded-xl border-primary/30 bg-primary/10">
+                        <div class="px-5 py-6 text-4xl border-[1px] rounded-xl border-primary/30 bg-primary/10">
                             👦
-                        </di>
+                        </div>
 
                         <div class="mb-1 space-y-2">
                             <h4 class="text-2xl font-bold">{{$citizen->full_name}} <small class="px-2 py-1 text-sm font-semibold rounded-full text-primary bg-primary/10">KEPALA KELUARGA</small></h4>

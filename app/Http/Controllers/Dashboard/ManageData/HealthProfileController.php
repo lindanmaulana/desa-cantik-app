@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Dashboard\ManageData;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\HealthProfiles\StoreHealthProfileRequest;
+use App\Http\Requests\HealthProfiles\UpdateHealthProfileRequest;
 use App\Models\Citizen;
 use App\Services\ManageData\HealthProfileService;
 use Illuminate\Http\Request;
@@ -42,7 +43,7 @@ class HealthProfileController extends Controller
 
             return redirect()->back()->with('success', 'Data kesehatan individu berhasil ditambahkan.');
         } catch (\Throwable $err) {
-            Log::error('Gagal menyimpan warga: ' . $err->getMessage(), [
+            Log::error('Gagal menyimpan data kesehatan individu: ' . $err->getMessage(), [
                 'user_id' => Auth::id(),
                 'payload' => $request->all(),
                 'trace'   => $err->getTraceAsString()
@@ -63,17 +64,28 @@ class HealthProfileController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
-    {
-        //
-    }
+    public function edit(string $id) {}
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Citizen $citizen, UpdateHealthProfileRequest $request)
     {
-        //
+        $validated = $request->validated();
+
+        try {
+            $this->healthProfileService->update($citizen, $validated);
+
+            return redirect()->back()->with('success', 'Data kesehatan individu berhasil diperbarui.');
+        } catch (\Throwable $err) {
+            Log::error('Gagal memperbarui data kesehatan individu: ' . $err->getMessage(), [
+                'user_id' => Auth::id(),
+                'payload' => $request->all(),
+                'trace'   => $err->getTraceAsString()
+            ]);
+
+            return back()->withInput()->with('error', 'Terjadi kesalahan sistem. Silakan coba beberapa saat lagi.');
+        }
     }
 
     /**
