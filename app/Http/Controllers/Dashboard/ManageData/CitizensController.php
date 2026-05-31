@@ -14,9 +14,12 @@ use Illuminate\Support\Str;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\Citizens\UpdateCitizenRequest;
 use App\Models\Family;
+use App\Services\ManageData\CitizenService;
 
 class CitizensController extends Controller
 {
+    public function __construct(protected CitizenService $citizenService) {}
+
     public function index(Request $request)
     {
         $request->validate([
@@ -32,7 +35,7 @@ class CitizensController extends Controller
             'educationProfile',
             'employmentProfile',
             'healthProfile',
-            'housingProfile'
+            'childGrowthLogs'
         ]);
 
         if ($request->filled('search')) {
@@ -71,6 +74,7 @@ class CitizensController extends Controller
 
         return view('dashboard.manage-data.citizens.index', compact('citizens', 'families', 'counts'));
     }
+    
 
     public function create()
     {
@@ -79,84 +83,38 @@ class CitizensController extends Controller
 
     public function store(StoreCitizenRequest $request)
     {
-        $currentUser = Auth::user();
         $validated = $request->validated();
 
-        DB::beginTransaction();
-
         try {
-            $validated['id'] = Str::uuid()->toString();
-            $citizenData = $request->only(
-                'id',
-                'full_name',
-                'id_number',
-                'family_card_number',
-                'gender',
-                'birth_place',
-                'birth_date',
-                'religion',
-                'marital_status'
-            );
-            $citizen = Citizen::create($citizenData);
-
-            $citizen->educationProfile()->create($request->only(['education_level', 'highest_diploma', 'school_participation']));
-
-            $citizen->employmentProfile()->create($request->only([
-                'occupation',
-                'job_sector',
-                'employment_status',
-                'monthly_income',
-                'economic_status',
-                'is_welfare_recipient',
-                'assistance_type'
-            ]));
-
-            $citizen->healthProfile()->create($request->only([
-                'disability_type',
-                'is_pregnant',
-                'kb_method',
-                'bpjs_status'
-            ]));
-
-            $citizen->housingProfile()->create($request->only([
-                'house_ownership',
-                'house_condition',
-                'floor_material',
-                'wall_material',
-                'roof_material',
-                'water_source',
-                'sanitation_type',
-                'cooking_fuel',
-                'electricity_source',
-                'electricity_capacity'
-            ]));
-
-            DB::commit();
-
+            $this->citizenService->create($validated);
             return redirect()->route('dashboard.manage-data.citizens')->with('success', 'Data Warga berhasil ditambahkan!');
         } catch (\Throwable $err) {
-            DB::rollBack();
-
             Log::error('Gagal menyimpan warga: ' . $err->getMessage(), [
-                'user_id' => $currentUser->id,
+                'user_id' => Auth::id(),
                 'payload' => $request->all(),
                 'trace'   => $err->getTraceAsString()
             ]);
 
-            return back()
-                ->withInput()
-                ->with('error', 'Terjadi kesalahan sistem. Silakan coba beberapa saat lagi.');
+            return back()->withInput()->with('error', 'Terjadi kesalahan sistem. Silakan coba beberapa saat lagi.');
         }
     }
 
-    public function show(string $id)
+    public function show(Citizen $citizen)
     {
-        //
+        $citizen->load([
+            'family',
+            'educationProfile',
+            'employmentProfile',
+            'healthProfile',
+            'childGrowthLogs'
+        ]);
+
+        return view('dashboard.manage-data.citizens.detail', compact('citizen'));
     }
 
-    public function edit(string $id)
+    public function edit(Citizen $citizen)
     {
-        //
+        return view('dashboard.manage-data.citizens.detail', compact('citizen'));
     }
 
     public function update(UpdateCitizenRequest $request, Citizen $citizen)
@@ -208,4 +166,76 @@ class CitizensController extends Controller
             return back()->with('error', 'Gagal menghapus data warga. Data mungkin masih digunakan.');
         }
     }
+
+    //     public function store(StoreCitizenRequest $request)
+    // {
+    //     $currentUser = Auth::user();
+    //     $validated = $request->validated();
+
+    //     DB::beginTransaction();
+
+    //     try {
+    //         $validated['id'] = Str::uuid()->toString();
+    //         $citizenData = $request->only(
+    //             'id',
+    //             'full_name',
+    //             'id_number',
+    //             'family_card_number',
+    //             'gender',
+    //             'birth_place',
+    //             'birth_date',
+    //             'religion',
+    //             'marital_status'
+    //         );
+    //         $citizen = Citizen::create($citizenData);
+
+    //         $citizen->educationProfile()->create($request->only(['education_level', 'highest_diploma', 'school_participation']));
+
+    //         $citizen->employmentProfile()->create($request->only([
+    //             'occupation',
+    //             'job_sector',
+    //             'employment_status',
+    //             'monthly_income',
+    //             'economic_status',
+    //             'is_welfare_recipient',
+    //             'assistance_type'
+    //         ]));
+
+    //         $citizen->healthProfile()->create($request->only([
+    //             'disability_type',
+    //             'is_pregnant',
+    //             'kb_method',
+    //             'bpjs_status'
+    //         ]));
+
+    //         $citizen->housingProfile()->create($request->only([
+    //             'house_ownership',
+    //             'house_condition',
+    //             'floor_material',
+    //             'wall_material',
+    //             'roof_material',
+    //             'water_source',
+    //             'sanitation_type',
+    //             'cooking_fuel',
+    //             'electricity_source',
+    //             'electricity_capacity'
+    //         ]));
+
+    //         DB::commit();
+
+    //         return redirect()->route('dashboard.manage-data.citizens')->with('success', 'Data Warga berhasil ditambahkan!');
+    //     } catch (\Throwable $err) {
+    //         DB::rollBack();
+
+    //         Log::error('Gagal menyimpan warga: ' . $err->getMessage(), [
+    //             'user_id' => $currentUser->id,
+    //             'payload' => $request->all(),
+    //             'trace'   => $err->getTraceAsString()
+    //         ]);
+
+    //         return back()
+    //             ->withInput()
+    //             ->with('error', 'Terjadi kesalahan sistem. Silakan coba beberapa saat lagi.');
+    //     }
+    // }
 }

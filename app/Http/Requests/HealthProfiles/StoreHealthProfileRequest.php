@@ -5,6 +5,7 @@ namespace App\Http\Requests\HealthProfiles;
 use App\Enums\BpjsStatus;
 use App\Enums\DisabilityType;
 use App\Enums\KbMethod;
+use App\Models\Citizen;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;

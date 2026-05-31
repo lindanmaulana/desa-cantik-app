@@ -1,0 +1,1157 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Desa Cantik App - Detail Profil Penduduk</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f0fdf4',
+                            100: '#dcfce7',
+                            500: '#009688', // Hijau Sukaranja premium
+                            600: '#00897b',
+                            700: '#00796b',
+                            800: '#00695c',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 min-h-screen flex flex-col">
+
+    <!-- TOAST NOTIFICATION SYSTEM (SISTEM NOTIFIKASI SUKSES INTERAKTIF) -->
+    <div id="toast" class="fixed top-20 right-6 z-50 transform translate-y-[-100px] opacity-0 transition-all duration-300 pointer-events-none">
+        <div class="bg-teal-900 text-white px-5 py-3.5 rounded-2xl shadow-xl flex items-center gap-3 border border-teal-700">
+            <span class="text-xl">🎉</span>
+            <div class="text-xs">
+                <span class="font-bold block" id="toast-title">Sukses</span>
+                <span id="toast-msg">Profil berhasil diperbarui</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- TOP HEADER -->
+    <header class="bg-brand-700 text-white h-16 px-6 flex items-center justify-between shadow-md sticky top-0 z-40">
+        <div class="flex items-center gap-3">
+            <button onclick="toggleSidebar()" class="lg:hidden p-2 rounded hover:bg-brand-800">
+                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+            </button>
+            <div class="flex items-center gap-2">
+                <div class="bg-white text-brand-700 p-1.5 rounded-lg font-extrabold tracking-wider text-sm shadow">DEV</div>
+                <span class="font-bold text-lg tracking-wide">DESA SUKARAJA</span>
+            </div>
+        </div>
+        <div class="flex items-center gap-4">
+            <div class="flex items-center gap-2 bg-brand-800 px-3 py-1.5 rounded-full text-xs">
+                <span class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
+                <span>Fase 2 & FASE 3: Modular Data Integration</span>
+            </div>
+            <div class="bg-brand-600 px-4 py-1.5 rounded-lg text-sm font-semibold hover:bg-brand-500 cursor-pointer transition">
+                Admin User
+            </div>
+        </div>
+    </header>
+
+    <div class="flex flex-1 relative">
+        <!-- SIDEBAR (Menu Navigasi Kiri) -->
+        <aside id="sidebar" class="w-64 bg-teal-900 text-gray-300 flex-shrink-0 flex flex-col justify-between absolute lg:relative lg:translate-x-0 -translate-x-full transition-transform duration-300 ease-in-out h-[calc(100vh-4rem)] z-30 shadow-lg">
+            <div class="p-4 space-y-6">
+                <nav class="space-y-1">
+                    <a href="#" class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-teal-800/50 hover:text-white transition group">
+                        <svg class="w-5 h-5 text-teal-400 group-hover:text-teal-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+                        <span>Beranda</span>
+                    </a>
+                    
+                    <div class="pt-4 pb-2 px-4 text-xs font-semibold text-teal-400 uppercase tracking-wider">Layanan Statistik</div>
+                    <a href="#" class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-teal-800/50 hover:text-white transition group">
+                        <svg class="w-5 h-5 text-teal-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+                        <span>Dashboard Statistik</span>
+                    </a>
+
+                    <div class="pt-4 pb-2 px-4 text-xs font-semibold text-teal-400 uppercase tracking-wider">Kelola Master Data</div>
+                    <a href="#" class="flex items-center justify-between px-4 py-3 rounded-lg bg-teal-800 text-white font-medium shadow-inner">
+                        <div class="flex items-center gap-3">
+                            <svg class="w-5 h-5 text-teal-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+                            <span>Data Penduduk (Citizens)</span>
+                        </div>
+                        <span class="bg-teal-600 text-xs px-2 py-0.5 rounded-full font-bold">Wajib</span>
+                    </a>
+                    <a href="#" class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-teal-800/50 hover:text-white transition group">
+                        <svg class="w-5 h-5 text-teal-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+                        <span>Data Keluarga (KK)</span>
+                    </a>
+                </nav>
+            </div>
+            
+            <div class="p-4 border-t border-teal-800 bg-teal-950">
+                <a href="#" class="flex items-center gap-3 px-4 py-3 rounded-lg text-red-300 hover:bg-red-950 hover:text-white transition">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
+                    <span>Logout</span>
+                </a>
+            </div>
+        </aside>
+
+        <!-- MAIN CONTENT AREA -->
+        <main class="flex-1 overflow-y-auto p-4 md:p-6 lg:p-8 space-y-6">
+
+            <!-- BANNER INTERAKTIF (FITUR DEMO PENGECEKAN KONDISI FORM) -->
+            <div class="bg-gradient-to-r from-teal-500/10 to-emerald-500/10 border-2 border-brand-500 rounded-3xl p-4 md:p-5 shadow-sm">
+                <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+                    <div class="space-y-1">
+                        <h4 class="text-brand-800 font-extrabold text-sm md:text-base flex items-center gap-2">
+                            <span class="flex h-3 w-3 relative">
+                              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-400 opacity-75"></span>
+                              <span class="relative inline-flex rounded-full h-3 w-3 bg-brand-500"></span>
+                            </span>
+                            Uji Coba Alur Pendaftaran (Modular vs Penuh)
+                        </h4>
+                        <p class="text-xs text-brand-700 font-medium">Klik tombol warga di bawah untuk melihat perbedaan visual ketika warga baru saja didaftarkan (Profil kosong) vs warga yang sudah diisi lengkap.</p>
+                    </div>
+                    <!-- Pilihan Demo Warga -->
+                    <div class="flex flex-wrap gap-2">
+                        <button onclick="switchProfile('budi')" id="pill-budi" class="px-4 py-2 rounded-xl text-xs font-bold transition-all shadow-sm flex items-center gap-1.5 border border-brand-500 bg-brand-500 text-white">
+                            🆕 Budi Santoso (Baru Dibuat - Kosong Semua)
+                        </button>
+                        <button onclick="switchProfile('azka')" id="pill-azka" class="px-4 py-2 rounded-xl text-xs font-bold transition-all shadow-sm flex items-center gap-1.5 border border-brand-200 bg-white text-brand-600 hover:bg-brand-50">
+                            👶 Muhammad Azka (Bayi - 18 Bln)
+                        </button>
+                        <button onclick="switchProfile('siti')" id="pill-siti" class="px-4 py-2 rounded-xl text-xs font-bold transition-all shadow-sm flex items-center gap-1.5 border border-brand-200 bg-white text-brand-600 hover:bg-brand-50">
+                            👩 Siti Aminah (Ibu - 27 Thn)
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SUCCESS BANNER (Hanya muncul jika simulasi pendaftaran warga baru aktif) -->
+            <div id="redirect-success-banner" class="bg-emerald-50 border border-emerald-200 rounded-2xl p-4 flex items-start gap-3 shadow-sm animate-bounce">
+                <div class="bg-emerald-500 text-white p-2 rounded-xl text-lg flex-shrink-0">🎉</div>
+                <div class="space-y-1">
+                    <h5 class="font-bold text-sm text-emerald-900">Warga Berhasil Terdaftar ke Sistem!</h5>
+                    <p class="text-xs text-emerald-700 leading-relaxed">Identitas dasar (KTP/KK) telah sukses disimpan ke tabel <code class="bg-emerald-100 px-1 py-0.5 rounded font-mono text-[10px]">citizens</code>. Silakan isi dan lengkapi profil tematik di bawah ini secara mandiri (Modular) sesuai kebutuhan administrasi.</p>
+                </div>
+            </div>
+
+            <!-- BREADCRUMB -->
+            <div class="flex flex-wrap items-center justify-between gap-2">
+                <div class="text-xs text-gray-500 flex items-center gap-2">
+                    <span class="hover:text-brand-500 cursor-pointer">Kelola Data</span>
+                    <span>/</span>
+                    <span class="hover:text-brand-500 cursor-pointer">Data Penduduk</span>
+                    <span>/</span>
+                    <span class="text-gray-800 font-semibold">Detail Profil</span>
+                </div>
+                <a href="#" class="inline-flex items-center gap-2 text-xs font-semibold text-teal-700 hover:text-teal-800">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+                    Kembali ke Daftar Penduduk
+                </a>
+            </div>
+
+            <!-- SECTION 1: DATA IDENTITAS DASAR KTP (YANG BARU SAJA DI-CREATE) -->
+            <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+                <div class="h-1.5 bg-brand-500"></div>
+                <div class="p-6 flex flex-col md:flex-row gap-6 items-start md:items-center">
+                    <!-- Avatar Dinamis -->
+                    <div id="citizen-avatar-container" class="w-24 h-24 rounded-2xl flex-shrink-0 flex items-center justify-center text-4xl shadow-inner border border-gray-100">
+                        <!-- Loaded dynamically by JS -->
+                    </div>
+                    <!-- Info Utama -->
+                    <div class="flex-1 space-y-2">
+                        <div class="flex flex-wrap items-center gap-2">
+                            <h2 id="citizen-name" class="text-xl md:text-2xl font-extrabold text-gray-800">Budi Santoso</h2>
+                            <span id="badge-family-role" class="bg-brand-50 text-brand-700 border border-brand-100 px-2.5 py-0.5 rounded-full text-xs font-semibold uppercase"></span>
+                        </div>
+                        <p class="text-sm text-gray-500 flex items-center gap-1.5">
+                            <span class="font-mono text-gray-700 font-bold tracking-wider" id="citizen-nik">3208122005990004</span>
+                            <span class="text-gray-300">|</span>
+                            <span id="citizen-age-label" class="text-brand-600 font-bold bg-brand-50/50 px-2 py-0.5 rounded">24 Tahun</span>
+                        </p>
+                        <div class="flex flex-wrap gap-4 text-xs text-gray-500 pt-1">
+                            <div class="flex items-center gap-1">
+                                <span class="font-semibold text-gray-700">Jenis Kelamin:</span>
+                                <span id="citizen-gender">Laki-Laki</span>
+                            </div>
+                            <div class="flex items-center gap-1">
+                                <span class="font-semibold text-gray-700">Hubungan KK:</span>
+                                <span id="citizen-role-full">Kepala Keluarga</span>
+                            </div>
+                            <div class="flex items-center gap-1">
+                                <span class="font-semibold text-gray-700">No. KK (Keluarga):</span>
+                                <span class="font-mono text-brand-600 hover:underline cursor-pointer">3208129302119999</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Quick Stats Badges -->
+                    <div class="flex gap-2 self-stretch md:self-center justify-end items-end flex-wrap">
+                        <div class="bg-gray-50 border border-gray-100 p-3 rounded-xl text-center min-w-[70px]">
+                            <div class="text-[10px] text-gray-400 font-bold uppercase">Goldar</div>
+                            <div id="citizen-blood" class="text-base font-bold text-brand-700 mt-0.5">B</div>
+                        </div>
+                        <div class="bg-gray-50 border border-gray-100 p-3 rounded-xl text-center min-w-[70px]">
+                            <div class="text-[10px] text-gray-400 font-bold uppercase">Agama</div>
+                            <div id="citizen-religion" class="text-xs font-bold text-gray-700 mt-1">Islam</div>
+                        </div>
+                        <button onclick="openModal('modal-edit-biodata')" class="bg-gray-50 hover:bg-gray-100 border border-gray-200 text-gray-700 px-3 py-2 rounded-xl text-xs font-bold transition flex items-center gap-1.5 h-full self-center">
+                            <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
+                            Edit Identitas
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Detail Biodata Bawaan KTP -->
+                <div class="border-t border-gray-100 bg-gray-50/50 p-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 text-sm">
+                    <div>
+                        <span class="block text-xs text-gray-400 font-medium">Tempat, Tanggal Lahir</span>
+                        <span id="citizen-birth" class="font-semibold text-gray-700">Kuningan, 20 Mei 1999</span>
+                    </div>
+                    <div>
+                        <span class="block text-xs text-gray-400 font-medium">Status Pernikahan</span>
+                        <span id="citizen-marital" class="font-semibold text-gray-700">Belum Kawin</span>
+                    </div>
+                    <div>
+                        <span class="block text-xs text-gray-400 font-medium">Alamat Detail Keluarga</span>
+                        <span id="citizen-address" class="font-semibold text-gray-700">RT 01 / RW 01, Dusun Manis</span>
+                    </div>
+                    <div>
+                        <span class="block text-xs text-gray-400 font-medium">ID Referensi Sistem (UUID)</span>
+                        <span id="citizen-uuid" class="font-mono text-[10px] text-gray-500 block truncate">550e8400-e29b-41d4-a716-446655449999</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TABEL / KARTU MODULAR DENGAN EMPTY STATE CERDAS -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+
+                <!-- CARD 1: PROFIL KESEHATAN (Wajib ada setelah daftar, default: Normal) -->
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 flex flex-col justify-between">
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between border-b border-gray-100 pb-3">
+                            <h3 class="font-bold text-gray-800 text-sm md:text-base flex items-center gap-2">
+                                <svg class="w-5 h-5 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
+                                Profil Kesehatan Individu
+                            </h3>
+                            <span id="health-filled-status" class="bg-green-100 text-green-800 text-[10px] font-bold px-2 py-0.5 rounded-full uppercase">Terisi (Bawaan)</span>
+                        </div>
+                        
+                        <div class="grid grid-cols-2 gap-4 text-xs md:text-sm" id="health-content-area">
+                            <!-- Loaded dynamic -->
+                        </div>
+                    </div>
+                    <div class="pt-4 border-t border-gray-100 mt-6 flex justify-end">
+                        <button onclick="openModal('modal-edit-health')" class="text-xs font-bold text-brand-600 hover:text-brand-700 bg-brand-50 hover:bg-brand-100 px-3 py-2 rounded-xl transition">
+                            ✏️ Edit Profil Kesehatan
+                        </button>
+                    </div>
+                </div>
+
+                <!-- CARD 2: PROFIL PENDIDIKAN (MODULAR - TOMBOL TAMBAH JIKA KOSONG) -->
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 flex flex-col justify-between relative overflow-hidden" id="card-education">
+                    <!-- Overlay usia balita -->
+                    <div id="education-disabled-overlay" class="absolute inset-0 bg-white/95 z-10 flex flex-col items-center justify-center text-center p-6 hidden animate-fade-in">
+                        <div class="bg-gray-100 p-3 rounded-2xl text-2xl mb-2">👶</div>
+                        <h4 class="font-extrabold text-gray-700 text-sm">Profil Sekolah Belum Berlaku</h4>
+                        <p class="text-xs text-gray-400 mt-1 max-w-[280px]">Warga bersangkutan masih di bawah usia sekolah (&lt; 6 Tahun).</p>
+                    </div>
+
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between border-b border-gray-100 pb-3">
+                            <h3 class="font-bold text-gray-800 text-sm md:text-base flex items-center gap-2">
+                                <svg class="w-5 h-5 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222 4 2.222V20"/></svg>
+                                Profil Kualifikasi Pendidikan
+                            </h3>
+                            <span id="education-filled-status" class="bg-gray-100 text-gray-600 text-[10px] font-bold px-2 py-0.5 rounded-full uppercase">Belum Diisi</span>
+                        </div>
+
+                        <!-- Area Konten (Dinamis: menampilkan data sekolah atau Empty State) -->
+                        <div id="education-content-area" class="space-y-3">
+                            <!-- Terisi otomatis -->
+                        </div>
+                    </div>
+                    
+                    <div class="pt-4 border-t border-gray-100 mt-6 flex justify-end" id="education-action-area">
+                        <!-- Terisi otomatis -->
+                    </div>
+                </div>
+
+                <!-- CARD 3: PROFIL PEKERJAAN & EKONOMI (MODULAR - TOMBOL TAMBAH JIKA KOSONG) -->
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 flex flex-col justify-between relative overflow-hidden" id="card-employment">
+                    <!-- Overlay batas umur kerja -->
+                    <div id="employment-disabled-overlay" class="absolute inset-0 bg-white/95 z-10 flex flex-col items-center justify-center text-center p-6 hidden animate-fade-in">
+                        <div class="bg-gray-100 p-3 rounded-2xl text-2xl mb-2">👦</div>
+                        <h4 class="font-extrabold text-gray-700 text-sm">Belum Memasuki Usia Produktif</h4>
+                        <p class="text-xs text-gray-400 mt-1 max-w-[280px]">Warga di bawah 15 tahun dilarang mempekerjakan diri atau tercatat di database ekonomi kerja.</p>
+                    </div>
+
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between border-b border-gray-100 pb-3">
+                            <h3 class="font-bold text-gray-800 text-sm md:text-base flex items-center gap-2">
+                                <svg class="w-5 h-5 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                                Profil Pekerjaan & Status Ekonomi
+                            </h3>
+                            <span id="employment-filled-status" class="bg-gray-100 text-gray-600 text-[10px] font-bold px-2 py-0.5 rounded-full uppercase">Belum Diisi</span>
+                        </div>
+
+                        <!-- Area Konten Dinamis -->
+                        <div id="employment-content-area" class="space-y-3">
+                            <!-- Terisi otomatis -->
+                        </div>
+                    </div>
+                    
+                    <div class="pt-4 border-t border-gray-100 mt-6 flex justify-end" id="employment-action-area">
+                        <!-- Terisi otomatis -->
+                    </div>
+                </div>
+
+                <!-- CARD 4: LOG TIMBANGAN STUNTING (HANYA MUNCUL DI BALITA) -->
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 flex flex-col justify-between relative overflow-hidden" id="card-growth-log">
+                    <!-- Overlay jika bukan balita -->
+                    <div id="growth-disabled-overlay" class="absolute inset-0 bg-white/95 z-10 flex flex-col items-center justify-center text-center p-6 hidden animate-fade-in">
+                        <div class="bg-gray-100 p-3 rounded-2xl text-2xl mb-2">🧍</div>
+                        <h4 class="font-extrabold text-gray-700 text-sm">Bukan Usia Balita (0-5 Tahun)</h4>
+                        <p class="text-xs text-gray-400 mt-1 max-w-[280px]">Pemantauan log tumbuh kembang stunting di Posyandu hanya berlaku bagi warga usia balita.</p>
+                    </div>
+
+                    <div class="space-y-4 w-full">
+                        <div class="flex items-center justify-between border-b border-gray-100 pb-3">
+                            <h3 class="font-bold text-gray-800 text-sm md:text-base flex items-center gap-2">
+                                <svg class="w-5 h-5 text-brand-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+                                Log Timbangan & Diagnosa Stunting
+                            </h3>
+                            <button id="btn-add-timbang" onclick="openModal('modal-add-timbangan')" class="bg-brand-500 hover:bg-brand-600 text-white text-xs font-bold px-3 py-1.5 rounded-xl transition flex items-center gap-1 shadow-sm">
+                                ➕ Input Data Timbang
+                            </button>
+                        </div>
+
+                        <!-- Realtime Growth Status Badge -->
+                        <div class="bg-teal-50 border border-teal-100 rounded-xl p-3 flex items-center justify-between">
+                            <div>
+                                <span class="block text-xs text-teal-600 font-semibold uppercase">Diagnosa Terakhir (Kemenkes)</span>
+                                <span class="text-xs text-gray-500 font-medium">Berdasarkan data tinggi badan menurut umur</span>
+                            </div>
+                            <div id="latest-stunting-badge">
+                                <!-- Loaded dynamically -->
+                            </div>
+                        </div>
+
+                        <!-- Table Logs -->
+                        <div class="overflow-x-auto w-full">
+                            <table class="min-w-full divide-y divide-gray-150 text-xs">
+                                <thead class="bg-gray-50">
+                                    <tr>
+                                        <th class="px-3 py-2 text-left font-bold text-gray-500 uppercase">Tgl Ukur</th>
+                                        <th class="px-3 py-2 text-left font-bold text-gray-500 uppercase">BB (Kg)</th>
+                                        <th class="px-3 py-2 text-left font-bold text-gray-500 uppercase">TB (Cm)</th>
+                                        <th class="px-3 py-2 text-left font-bold text-gray-500 uppercase">Metode</th>
+                                        <th class="px-3 py-2 text-left font-bold text-gray-500 uppercase">Vit A</th>
+                                        <th class="px-3 py-2 text-left font-bold text-gray-500 uppercase">Hasil WHO</th>
+                                        <th class="px-3 py-2 text-left font-bold text-gray-500 uppercase">Catatan</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-gray-100" id="growth-table-body">
+                                    <!-- Populated by JS -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <!-- ==================== MODAL: LENGKAPI PROFIL PEKERJAAN ==================== -->
+    <div id="modal-add-employment" class="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-white rounded-2xl w-full max-w-md shadow-2xl overflow-hidden animate-in fade-in duration-200">
+            <div class="bg-brand-700 text-white p-4 flex items-center justify-between">
+                <h3 class="font-bold text-base flex items-center gap-2">
+                    💼 Lengkapi Profil Pekerjaan & Ekonomi
+                </h3>
+                <button onclick="closeModal('modal-add-employment')" class="text-white">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                </button>
+            </div>
+            <form id="employment-form" onsubmit="submitEmployment(event)" class="p-6 space-y-4">
+                <div>
+                    <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Nama Pekerjaan Spesifik</label>
+                    <input type="text" id="input_occupation" placeholder="Contoh: Wiraswasta Kelontong, Guru Honorer, dll" required class="w-full border border-gray-300 rounded-xl px-3 py-2 text-sm focus:ring-2 focus:ring-brand-500 outline-none">
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Sektor Industri Kerja</label>
+                        <select id="input_job_sector" required class="w-full border border-gray-300 rounded-xl px-3 py-2 text-sm focus:ring-2 focus:ring-brand-500 outline-none">
+                            <option value="agriculture">Pertanian/Pariwisata</option>
+                            <option value="manufacturing">Manufaktur/Buruh</option>
+                            <option value="trade_services goverment">Perdagangan/Pemerintahan</option>
+                            <option value="other">Lainnya/Jasa</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Status Kepegawaian</label>
+                        <select id="input_employment_status" required class="w-full border border-gray-300 rounded-xl px-3 py-2 text-sm focus:ring-2 focus:ring-brand-500 outline-none">
+                            <option value="employee">Karyawan Swasta</option>
+                            <option value="self_employed">Pekerja Mandiri</option>
+                            <option value="casual_worker">Pekerja Lepas</option>
+                            <option value="unpaid_worker">Pekerja Keluarga / IRT</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Pendapatan Bulanan (Rp)</label>
+                        <input type="number" id="input_monthly_income" placeholder="Contoh: 2500000" required class="w-full border border-gray-300 rounded-xl px-3 py-2 text-sm focus:ring-2 focus:ring-brand-500 outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Status Kemiskinan</label>
+                        <select id="input_economic_status" required class="w-full border border-gray-300 rounded-xl px-3 py-2 text-sm focus:ring-2 focus:ring-brand-500 outline-none">
+                            <option value="very_poor">Sangat Miskin</option>
+                            <option value="poor">Miskin</option>
+                            <option value="near_poor">Hampir Miskin</option>
+                            <option value="middle_income" selected>Menengah</option>
+                            <option value="high_income">Mampu / Sejahtera</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="flex items-center justify-between bg-yellow-50/50 p-3 rounded-xl border border-yellow-100">
+                    <div class="space-y-0.5">
+                        <label class="text-xs font-bold text-yellow-800">Penerima Bantuan Sosial (Bansos)?</label>
+                        <span class="block text-[10px] text-yellow-600">Apakah KK ini menerima PKH, BPNT, dll</span>
+                    </div>
+                    <input type="checkbox" id="input_is_welfare_recipient" onchange="toggleAssistanceField()" class="w-5 h-5 rounded accent-brand-600 cursor-pointer">
+                </div>
+
+                <div id="assistance-type-container" class="hidden">
+                    <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Jenis Program Bantuan</label>
+                    <input type="text" id="input_assistance_type" placeholder="Contoh: Program Keluarga Harapan (PKH)" class="w-full border border-gray-300 rounded-xl px-3 py-2 text-sm focus:ring-2 focus:ring-brand-500 outline-none">
+                </div>
+
+                <div class="flex gap-2 pt-2">
+                    <button type="button" onclick="closeModal('modal-add-employment')" class="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-700 text-sm font-bold py-2.5 rounded-xl transition">Batal</button>
+                    <button type="submit" class="flex-1 bg-brand-500 hover:bg-brand-600 text-white text-sm font-bold py-2.5 rounded-xl transition shadow-md">Simpan Profil Kerja</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- ==================== MODAL: LENGKAPI PROFIL PENDIDIKAN ==================== -->
+    <div id="modal-add-education" class="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-white rounded-2xl w-full max-w-md shadow-2xl overflow-hidden animate-in fade-in duration-200">
+            <div class="bg-brand-700 text-white p-4 flex items-center justify-between">
+                <h3 class="font-bold text-base flex items-center gap-2">
+                    🎓 Lengkapi Profil Pendidikan
+                </h3>
+                <button onclick="closeModal('modal-add-education')" class="text-white">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                </button>
+            </div>
+            <form id="education-form" onsubmit="submitEducation(event)" class="p-6 space-y-4">
+                <div>
+                    <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Tingkat Pendidikan Terakhir</label>
+                    <select id="input_education_level" required class="w-full border border-gray-300 rounded-xl px-3 py-2 text-sm focus:ring-2 focus:ring-brand-500 outline-none">
+                        <option value="none">Belum Sekolah/Tidak Sekolah</option>
+                        <option value="elementary_school">SD / MI Sederajat</option>
+                        <option value="middle_school">SMP / MTs Sederajat</option>
+                        <option value="high_school" selected>SMA / MA Sederajat</option>
+                        <option value="associate_degree">Diploma (D1 - D3)</option>
+                        <option value="bachelor_degree">Sarjana (S1 / D4)</option>
+                        <option value="postgraduate">Pascasarjana (S2 / S3)</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Ijazah Tertinggi yang Dimiliki</label>
+                    <select id="input_highest_diploma" required class="w-full border border-gray-300 rounded-xl px-3 py-2 text-sm focus:ring-2 focus:ring-brand-500 outline-none">
+                        <option value="none">Tidak Memiliki Ijazah</option>
+                        <option value="elementary_school">Ijazah SD / Sederajat</option>
+                        <option value="middle_school">Ijazah SMP / Sederajat</option>
+                        <option value="high_school" selected>Ijazah SMA / Sederajat</option>
+                        <option value="associate_degree">Ijazah Diploma</option>
+                        <option value="bachelor_degree">Ijazah Sarjana</option>
+                        <option value="postgraduate">Ijazah Pascasarjana</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Status Partisipasi Sekolah saat Ini</label>
+                    <select id="input_school_participation" required class="w-full border border-gray-300 rounded-xl px-3 py-2 text-sm focus:ring-2 focus:ring-brand-500 outline-none">
+                        <option value="not_yet_in_school">Belum Bersekolah</option>
+                        <option value="currently_in_school">Sedang Bersekolah Aktif</option>
+                        <option value="no_longer_in_school" selected>Sudah Tidak Bersekolah / Lulus</option>
+                    </select>
+                </div>
+
+                <div class="flex gap-2 pt-2">
+                    <button type="button" onclick="closeModal('modal-add-education')" class="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-700 text-sm font-bold py-2.5 rounded-xl transition">Batal</button>
+                    <button type="submit" class="flex-1 bg-brand-500 hover:bg-brand-600 text-white text-sm font-bold py-2.5 rounded-xl transition shadow-md">Simpan Profil Pendidikan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- ==================== MODAL: INPUT DATA TIMBANGAN POSYANDU ==================== -->
+    <div id="modal-add-timbangan" class="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-white rounded-2xl w-full max-w-md shadow-2xl overflow-hidden animate-in fade-in duration-200">
+            <div class="bg-brand-700 text-white p-4 flex items-center justify-between">
+                <h3 class="font-bold text-base flex items-center gap-2">
+                    👶 Input Log Perkembangan Timbangan
+                </h3>
+                <button onclick="closeModal('modal-add-timbangan')" class="text-white">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                </button>
+            </div>
+            <form id="timbangan-form" onsubmit="submitTimbangan(event)" class="p-6 space-y-4">
+                <div>
+                    <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Tanggal Pengukuran / Posyandu</label>
+                    <input type="date" id="input_measured_at" required class="w-full border border-gray-300 rounded-xl px-3 py-2 text-sm focus:ring-2 focus:ring-brand-500 outline-none">
+                </div>
+                
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Berat Badan (Kg)</label>
+                        <input type="number" step="0.01" id="input_weight" placeholder="Contoh: 10.45" required class="w-full border border-gray-300 rounded-xl px-3 py-2 text-sm focus:ring-2 focus:ring-brand-500 outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Tinggi Badan (Cm)</label>
+                        <input type="number" step="0.01" id="input_height" placeholder="Contoh: 78.50" required class="w-full border border-gray-300 rounded-xl px-3 py-2 text-sm focus:ring-2 focus:ring-brand-500 outline-none">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Metode Pengukuran Tinggi</label>
+                    <div class="grid grid-cols-2 gap-2 mt-1">
+                        <label class="cursor-pointer border border-gray-200 rounded-xl px-4 py-3 flex items-center gap-2 bg-white hover:bg-gray-50 text-xs font-medium text-gray-700">
+                            <input type="radio" name="input_measurement_method" value="recumbent" checked class="accent-brand-600">
+                            🛏️ Telentang (0-2 Thn)
+                        </label>
+                        <label class="cursor-pointer border border-gray-200 rounded-xl px-4 py-3 flex items-center gap-2 bg-white hover:bg-gray-50 text-xs font-medium text-gray-700">
+                            <input type="radio" name="input_measurement_method" value="standing" class="accent-brand-600">
+                            🧍 Berdiri (&gt;2 Thn)
+                        </label>
+                    </div>
+                </div>
+
+                <div class="flex items-center justify-between bg-teal-50/50 p-3 rounded-xl border border-teal-100">
+                    <div class="space-y-0.5">
+                        <label class="text-xs font-bold text-teal-800">Menerima Vitamin A Bulan Ini?</label>
+                        <span class="block text-[10px] text-teal-600">Mencegah penyakit mata pada balita</span>
+                    </div>
+                    <input type="checkbox" id="input_vit_a" class="w-5 h-5 rounded accent-brand-600 cursor-pointer">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Catatan Tambahan (Max 500 Karakter)</label>
+                    <textarea id="input_notes" rows="2" placeholder="Catatan opsional dari bidan/kader..." class="w-full border border-gray-300 rounded-xl px-3 py-2 text-sm focus:ring-2 focus:ring-brand-500 outline-none resize-none"></textarea>
+                </div>
+
+                <div class="flex gap-2 pt-2">
+                    <button type="button" onclick="closeModal('modal-add-timbangan')" class="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-700 text-sm font-bold py-2.5 rounded-xl transition">Batal</button>
+                    <button type="submit" class="flex-1 bg-brand-500 hover:bg-brand-600 text-white text-sm font-bold py-2.5 rounded-xl transition shadow-md">Simpan Data</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- ==================== MODAL: EDIT PROFIL KESEHATAN ==================== -->
+    <div id="modal-edit-health" class="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-white rounded-2xl w-full max-w-md shadow-2xl overflow-hidden animate-in fade-in duration-200">
+            <div class="bg-brand-700 text-white p-4 flex items-center justify-between">
+                <h3 class="font-bold text-base flex items-center gap-2">
+                    🏥 Edit Profil Kesehatan Individu
+                </h3>
+                <button onclick="closeModal('modal-edit-health')" class="text-white">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                </button>
+            </div>
+            <form id="health-form" onsubmit="submitHealth(event)" class="p-6 space-y-4">
+                <div>
+                    <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Jenis Disabilitas</label>
+                    <select id="input_disability_type" required class="w-full border border-gray-300 rounded-xl px-3 py-2 text-sm focus:ring-2 focus:ring-brand-500 outline-none">
+                        <option value="none">Normal / Tidak Ada Disabilitas</option>
+                        <option value="physical">Disabilitas Fisik</option>
+                        <option value="intellectual">Disabilitas Intelektual</option>
+                        <option value="mental">Disabilitas Mental</option>
+                        <option value="sensory">Disabilitas Sensorik</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Status BPJS Jaminan Sosial</label>
+                    <select id="input_bpjs_status" required class="w-full border border-gray-300 rounded-xl px-3 py-2 text-sm focus:ring-2 focus:ring-brand-500 outline-none">
+                        <option value="none">Tidak Memiliki BPJS</option>
+                        <option value="goverment_subsidized">BPJS PBI (Bantuan Pemerintah)</option>
+                        <option value="independent_member">BPJS Mandiri (Bayar Sendiri)</option>
+                        <option value="company_member">BPJS Pekerja / Perusahaan</option>
+                    </select>
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="flex items-center justify-between bg-teal-50/50 p-3 rounded-xl border border-teal-100">
+                        <div class="space-y-0.5">
+                            <label class="text-xs font-bold text-teal-800">Sedang Hamil?</label>
+                            <span class="block text-[10px] text-teal-600">Khusus wanita</span>
+                        </div>
+                        <input type="checkbox" id="input_is_pregnant" class="w-5 h-5 rounded accent-brand-600 cursor-pointer">
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Metode KB Aktseptor</label>
+                        <select id="input_kb_method" required class="w-full border border-gray-300 rounded-xl px-3 py-2 text-sm focus:ring-2 focus:ring-brand-500 outline-none">
+                            <option value="none">Tidak Ikut KB</option>
+                            <option value="injection">KB Suntik</option>
+                            <option value="pill">KB Pil</option>
+                            <option value="condom">Kondom</option>
+                            <option value="implant">KB Implan</option>
+                            <option value="iud">IUD / Spiral</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="flex gap-2 pt-2">
+                    <button type="button" onclick="closeModal('modal-edit-health')" class="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-700 text-sm font-bold py-2.5 rounded-xl transition">Batal</button>
+                    <button type="submit" class="flex-1 bg-brand-500 hover:bg-brand-600 text-white text-sm font-bold py-2.5 rounded-xl transition shadow-md">Simpan Kesehatan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- ==================== JS CONTROLLER & DEMO STATE MACHINE ==================== -->
+    <script>
+        // MOCK DATABASE TIRUAN (Meniru Data Baru Registrasi vs Data Sudah Komplit)
+        const MOCK_PROFILES = {
+            // DEMO UTAMA USER: Baru saja didaftarkan (Empty State di seluruh profil modular)
+            budi: {
+                id: "550e8400-e29b-41d4-a716-446655449999",
+                name: "Budi Santoso",
+                nik: "3208122005990004",
+                family_role: "head_of_family",
+                gender: "male",
+                birth_date: "1999-05-20", // Umur 27 tahun (Dewasa, profil kerja & sekolah aktif)
+                birth_place: "Kuningan",
+                blood_type: "B",
+                religion: "islam",
+                marital_status: "single",
+                address: "Dusun Manis, RT 01 / RW 01",
+                education: null, // MULA-MULA KOSONG (Menampilkan tombol '➕ Lengkapi')
+                employment: null, // MULA-MULA KOSONG
+                health: {
+                    disability_type: 'none',
+                    is_pregnant: false,
+                    kb_method: 'none',
+                    bpjs_status: 'none'
+                },
+                growth_logs: [] // Bukan balita, log posyandu dilumpuhkan otomatis
+            },
+            azka: {
+                id: "550e8400-e29b-41d4-a716-446655440000",
+                name: "Muhammad Azka",
+                nik: "3208123405250001",
+                family_role: "child",
+                gender: "male",
+                birth_date: "2024-11-15", // Umur 18 bulan
+                birth_place: "Kuningan",
+                blood_type: "O",
+                religion: "islam",
+                marital_status: "single",
+                address: "Dusun Pahing, RT 04 / RW 01",
+                education: null,
+                employment: null,
+                health: {
+                    disability_type: 'none',
+                    is_pregnant: false,
+                    kb_method: 'none',
+                    bpjs_status: 'goverment_subsidized'
+                },
+                growth_logs: [
+                    { id: 101, measured_at: "2026-05-10", weight: 9.20, height: 76.50, measurement_method: "recumbent", vit_a_received: true, stunting_status: "stunted", notes: "Asupan gizi tambahan terus dipantau" }
+                ]
+            },
+            siti: {
+                id: "550e8400-e29b-41d4-a716-446655440002",
+                name: "Siti Aminah",
+                nik: "3208124208980003",
+                family_role: "spouse",
+                gender: "female",
+                birth_date: "1998-08-12", // Dewasa
+                birth_place: "Cirebon",
+                blood_type: "A",
+                religion: "islam",
+                marital_status: "married",
+                address: "Dusun Pahing, RT 04 / RW 01",
+                education: {
+                    education_level: "bachelor_degree",
+                    highest_diploma: "bachelor_degree",
+                    school_participation: "no_longer_in_school"
+                },
+                employment: {
+                    occupation: "Guru Honorer RA",
+                    job_sector: "trade_services goverment",
+                    employment_status: "employee",
+                    monthly_income: 1800000,
+                    economic_status: "near_poor",
+                    is_welfare_recipient: true,
+                    assistance_type: "Program Keluarga Harapan (PKH)"
+                },
+                health: {
+                    disability_type: 'none',
+                    is_pregnant: false,
+                    kb_method: 'injection',
+                    bpjs_status: 'independent_member'
+                },
+                growth_logs: []
+            }
+        };
+
+        let currentProfileKey = 'budi';
+        let currentProfile = JSON.parse(JSON.stringify(MOCK_PROFILES[currentProfileKey]));
+
+        // Toast Helper
+        function showNotification(title, message) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toast-title').innerText = title;
+            document.getElementById('toast-msg').innerText = message;
+            
+            toast.className = "fixed top-20 right-6 z-50 transform translate-y-0 opacity-100 transition-all duration-300 pointer-events-auto";
+            setTimeout(() => {
+                toast.className = "fixed top-20 right-6 z-50 transform translate-y-[-100px] opacity-0 transition-all duration-300 pointer-events-none";
+            }, 3500);
+        }
+
+        // Friendly Date Formatter
+        function formatFriendlyDate(dateStr) {
+            if (!dateStr) return "-";
+            const date = new Date(dateStr);
+            const months = ["Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Agu", "Sep", "Okt", "Nov", "Des"];
+            return `${date.getDate()} ${months[date.getMonth()]} ${date.getFullYear()}`;
+        }
+
+        // Calculate Age Info
+        function calculateAgeInfo(birthDateStr) {
+            const birthDate = new Date(birthDateStr);
+            const targetDate = new Date("2026-05-29");
+            let years = targetDate.getFullYear() - birthDate.getFullYear();
+            let months = targetDate.getMonth() - birthDate.getMonth();
+            if (months < 0 || (months === 0 && targetDate.getDate() < birthDate.getDate())) {
+                years--;
+                months += 12;
+            }
+            return { years: years, months: months, totalMonths: (years * 12) + months };
+        }
+
+        // Standard WHO Stunting Calculator
+        function analyzeStuntingStatus(ageInMonths, gender, heightCm) {
+            let medianHeight = gender === 'male' ? 49.9 + (Math.min(ageInMonths, 60) * 0.73) : 49.1 + (Math.min(ageInMonths, 60) * 0.75);
+            let sdMin2 = medianHeight - 4.5;
+            let sdMin3 = medianHeight - 6.8;
+            if (heightCm < sdMin3) return "severely_stunted";
+            if (heightCm < sdMin2) return "stunted";
+            return "normal";
+        }
+
+        // RENDER DETAIL UTAMA DAN PROFIL-PROFIL MODULAR
+        function renderProfileDetail() {
+            const profile = currentProfile;
+            const ageInfo = calculateAgeInfo(profile.birth_date);
+
+            // Toggle top success banner (Hanya muncul jika profil Budi aktif sebagai simulasi pendaftaran baru)
+            const successBanner = document.getElementById('redirect-success-banner');
+            if (currentProfileKey === 'budi') {
+                successBanner.classList.remove('hidden');
+            } else {
+                successBanner.classList.add('hidden');
+            }
+
+            // Update penanda pill demo di atas
+            document.querySelectorAll('[id^="pill-"]').forEach(pill => {
+                pill.classList.remove('bg-brand-500', 'text-white', 'border-brand-500');
+                pill.classList.add('bg-white', 'text-brand-600', 'border-brand-200', 'hover:bg-brand-50');
+            });
+            const activePill = document.getElementById(`pill-${currentProfileKey}`);
+            if (activePill) {
+                activePill.classList.remove('bg-white', 'text-brand-600', 'border-brand-200');
+                activePill.classList.add('bg-brand-500', 'text-white', 'border-brand-500');
+            }
+
+            // Render Avatar berdasarkan usia & gender
+            const avatarContainer = document.getElementById('citizen-avatar-container');
+            if (ageInfo.years < 5) {
+                avatarContainer.innerHTML = '👶';
+                avatarContainer.className = "w-24 h-24 rounded-2xl flex-shrink-0 flex items-center justify-center text-4xl shadow-inner border border-yellow-200 bg-yellow-50";
+            } else if (profile.gender === 'male') {
+                avatarContainer.innerHTML = '👦';
+                avatarContainer.className = "w-24 h-24 rounded-2xl flex-shrink-0 flex items-center justify-center text-4xl shadow-inner border border-blue-200 bg-blue-50";
+            } else {
+                avatarContainer.innerHTML = '👩';
+                avatarContainer.className = "w-24 h-24 rounded-2xl flex-shrink-0 flex items-center justify-center text-4xl shadow-inner border-pink-200 bg-pink-50";
+            }
+
+            // Set Data Dasar Biodata Utama KTP
+            document.getElementById('citizen-name').innerText = profile.name;
+            document.getElementById('citizen-nik').innerText = profile.nik;
+            
+            const roleBadge = document.getElementById('badge-family-role');
+            const roleLabels = { head_of_family: "Kepala Keluarga", spouse: "Istri", child: "Anak", parent: "Orang Tua", other_relative: "Keluarga Lain" };
+            roleBadge.innerText = roleLabels[profile.family_role] || profile.family_role;
+
+            const ageLabel = document.getElementById('citizen-age-label');
+            ageLabel.innerText = ageInfo.years < 5 ? `${ageInfo.totalMonths} Bulan (${ageInfo.years} Thn ${ageInfo.months} Bln)` : `${ageInfo.years} Tahun`;
+
+            document.getElementById('citizen-gender').innerText = profile.gender === 'male' ? 'Laki-Laki' : 'Perempuan';
+            document.getElementById('citizen-role-full').innerText = roleLabels[profile.family_role] || profile.family_role;
+            document.getElementById('citizen-blood').innerText = profile.blood_type || 'null';
+            document.getElementById('citizen-religion').innerText = profile.religion.charAt(0).toUpperCase() + profile.religion.slice(1);
+            document.getElementById('citizen-birth').innerText = `${profile.birth_place}, ${formatFriendlyDate(profile.birth_date)}`;
+            document.getElementById('citizen-marital').innerText = { single: "Belum Kawin", married: "Kawin", divorced: "Cerai Hidup", widowed: "Cerai Mati" }[profile.marital_status];
+            document.getElementById('citizen-address').innerText = profile.address;
+            document.getElementById('citizen-uuid').innerText = profile.id;
+
+            // ==================== A. RENDER CARD MODULAR: PENDIDIKAN ====================
+            const eduOverlay = document.getElementById('education-disabled-overlay');
+            const eduStatus = document.getElementById('education-filled-status');
+            const eduContent = document.getElementById('education-content-area');
+            const eduAction = document.getElementById('education-action-area');
+
+            if (ageInfo.years < 6) {
+                eduOverlay.classList.remove('hidden');
+            } else {
+                eduOverlay.classList.add('hidden');
+                if (profile.education) {
+                    eduStatus.className = "bg-green-100 text-green-800 text-[10px] font-bold px-2 py-0.5 rounded-full uppercase";
+                    eduStatus.innerText = "Terisi";
+
+                    const levels = { none: "Tidak Sekolah", elementary_school: "SD / MI Sederajat", middle_school: "SMP / MTs Sederajat", high_school: "SMA / MA Sederajat", bachelor_degree: "Sarjana (S1)" };
+                    const participation = { not_yet_in_school: "Belum Sekolah", currently_in_school: "Aktif Bersekolah", no_longer_in_school: "Sudah Lulus / Tidak Sekolah" };
+                    
+                    eduContent.innerHTML = `
+                        <div class="p-4 bg-gray-50 rounded-xl space-y-2 border border-gray-150 text-xs">
+                            <div class="flex justify-between"><span class="text-gray-400">Tingkat Sekolah:</span> <span class="font-bold text-gray-700">${levels[profile.education.education_level]}</span></div>
+                            <div class="flex justify-between"><span class="text-gray-400">Ijazah Terakhir:</span> <span class="font-bold text-gray-700">${levels[profile.education.highest_diploma]}</span></div>
+                            <div class="flex justify-between"><span class="text-gray-400">Status Partisipasi:</span> <span class="font-bold text-brand-600 bg-brand-50 px-1.5 py-0.5 rounded">${participation[profile.education.school_participation]}</span></div>
+                        </div>
+                    `;
+                    eduAction.innerHTML = `
+                        <button onclick="openModal('modal-add-education')" class="text-xs font-bold text-indigo-600 hover:text-indigo-700 bg-indigo-50 hover:bg-indigo-100 px-3 py-2 rounded-xl transition">
+                            ✏️ Edit Profil Sekolah
+                        </button>
+                    `;
+                } else {
+                    // DISPLAY EMPTY STATE (TAMPILAN BELUM DIISI SEPERTI REKOMENDASI 2)
+                    eduStatus.className = "bg-gray-100 text-gray-600 text-[10px] font-bold px-2 py-0.5 rounded-full uppercase";
+                    eduStatus.innerText = "Belum Diisi";
+                    
+                    eduContent.innerHTML = `
+                        <div class="text-center py-6 border border-dashed border-gray-200 rounded-xl bg-gray-50/50 flex flex-col items-center justify-center p-4">
+                            <span class="text-2xl mb-1">🎓</span>
+                            <span class="text-xs font-bold text-gray-700 block">Profil Pendidikan Kosong</span>
+                            <span class="text-[11px] text-gray-400 text-center mt-1 block max-w-[250px]">Warga ini belum memiliki riwayat pendidikan formal terdaftar.</span>
+                        </div>
+                    `;
+                    eduAction.innerHTML = `
+                        <button onclick="openModal('modal-add-education')" class="w-full sm:w-auto bg-indigo-500 hover:bg-indigo-600 text-white text-xs font-bold px-4 py-2.5 rounded-xl transition flex items-center justify-center gap-1.5 shadow-sm">
+                            ➕ Lengkapi Profil Pendidikan
+                        </button>
+                    `;
+                }
+            }
+
+            // ==================== B. RENDER CARD MODULAR: PEKERJAAN ====================
+            const empOverlay = document.getElementById('employment-disabled-overlay');
+            const empStatus = document.getElementById('employment-filled-status');
+            const empContent = document.getElementById('employment-content-area');
+            const empAction = document.getElementById('employment-action-area');
+
+            if (ageInfo.years < 15) {
+                empOverlay.classList.remove('hidden');
+            } else {
+                empOverlay.classList.add('hidden');
+                if (profile.employment) {
+                    empStatus.className = "bg-green-100 text-green-800 text-[10px] font-bold px-2 py-0.5 rounded-full uppercase";
+                    empStatus.innerText = "Terisi";
+
+                    const sectors = { agriculture: "Pertanian", manufacturing: "Buruh Industri", "trade_services goverment": "Perdagangan/PNS", other: "Sektor Jasa/Lainnya" };
+                    const statusEko = { very_poor: "🔴 Sangat Miskin", poor: "🟡 Miskin", near_poor: "🟡 Hampir Miskin", middle_income: "🟢 Menengah", high_income: "🔵 Sejahtera" };
+
+                    empContent.innerHTML = `
+                        <div class="p-4 bg-gray-50 rounded-xl space-y-2 border border-gray-150 text-xs">
+                            <div class="flex justify-between"><span class="text-gray-400">Pekerjaan Utama:</span> <span class="font-bold text-gray-700">${profile.employment.occupation}</span></div>
+                            <div class="flex justify-between"><span class="text-gray-400">Sektor Kerja:</span> <span class="font-bold text-gray-700">${sectors[profile.employment.job_sector] || profile.employment.job_sector}</span></div>
+                            <div class="flex justify-between"><span class="text-gray-400">Penghasilan Bulanan:</span> <span class="font-bold text-teal-700">Rp ${Number(profile.employment.monthly_income).toLocaleString('id-ID')}</span></div>
+                            <div class="flex justify-between items-center"><span class="text-gray-400">Status DTKS Kemenkes:</span> <span class="font-bold">${statusEko[profile.employment.economic_status]}</span></div>
+                            
+                            ${profile.employment.is_welfare_recipient ? `
+                                <div class="mt-2 pt-2 border-t border-dashed border-gray-200 flex flex-col gap-1">
+                                    <span class="text-[10px] text-yellow-600 font-bold uppercase tracking-wider">Bantuan Sosial Aktif:</span>
+                                    <span class="bg-yellow-50 text-yellow-800 border border-yellow-200 px-2.5 py-1 rounded-lg font-semibold text-center block text-[11px]">${profile.employment.assistance_type}</span>
+                                </div>
+                            ` : ''}
+                        </div>
+                    `;
+                    empAction.innerHTML = `
+                        <button onclick="openModal('modal-add-employment')" class="text-xs font-bold text-amber-600 hover:text-amber-700 bg-amber-50 hover:bg-amber-100 px-3 py-2 rounded-xl transition">
+                            ✏️ Edit Profil Kerja
+                        </button>
+                    `;
+                } else {
+                    // DISPLAY EMPTY STATE (TAMPILAN BELUM DIISI SEPERTI REKOMENDASI 2)
+                    empStatus.className = "bg-gray-100 text-gray-600 text-[10px] font-bold px-2 py-0.5 rounded-full uppercase";
+                    empStatus.innerText = "Belum Diisi";
+                    
+                    empContent.innerHTML = `
+                        <div class="text-center py-6 border border-dashed border-gray-200 rounded-xl bg-gray-50/50 flex flex-col items-center justify-center p-4">
+                            <span class="text-2xl mb-1">💼</span>
+                            <span class="text-xs font-bold text-gray-700 block">Profil Pekerjaan Kosong</span>
+                            <span class="text-[11px] text-gray-400 text-center mt-1 block max-w-[250px]">Riwayat ekonomi, pendapatan, dan bantuan sosial (DTKS) warga belum dicatat.</span>
+                        </div>
+                    `;
+                    empAction.innerHTML = `
+                        <button onclick="openModal('modal-add-employment')" class="w-full sm:w-auto bg-amber-500 hover:bg-amber-600 text-white text-xs font-bold px-4 py-2.5 rounded-xl transition flex items-center justify-center gap-1.5 shadow-sm">
+                            ➕ Lengkapi Profil Pekerjaan
+                        </button>
+                    `;
+                }
+            }
+
+            // ==================== C. RENDER CARD MODULAR: KESEHATAN INDIVIDU ====================
+            const healthContent = document.getElementById('health-content-area');
+            const disOpsi = { none: "🟢 Normal (Tidak Ada)", physical: "Disabilitas Fisik", intellectual: "Disabilitas Intelektual", mental: "Disabilitas Mental", sensory: "Disabilitas Sensorik" };
+            const bpjsOpsi = { none: "Tidak Memiliki Jaminan BPJS", goverment_subsidized: "🟢 BPJS PBI (Subsidi Pemerintah)", independent_member: "🔵 BPJS Mandiri", company_member: "BPJS Swasta / Karyawan" };
+            
+            healthContent.innerHTML = `
+                <div class="space-y-1">
+                    <span class="block text-xs text-gray-400 font-medium">Jenis Disabilitas</span>
+                    <span class="font-bold text-gray-700 text-sm">${disOpsi[profile.health.disability_type]}</span>
+                </div>
+                <div class="space-y-1">
+                    <span class="block text-xs text-gray-400 font-medium">Status BPJS Jamsos</span>
+                    <span class="font-bold text-gray-700 text-sm">${bpjsOpsi[profile.health.bpjs_status]}</span>
+                </div>
+                <div class="space-y-1">
+                    <span class="block text-xs text-gray-400 font-medium">Kondisi Kehamilan</span>
+                    <span class="font-bold text-gray-700 text-sm">${profile.health.is_pregnant ? "🤰 Sedang Hamil (Aktif)" : "Tidak Hamil"}</span>
+                </div>
+                <div class="space-y-1">
+                    <span class="block text-xs text-gray-400 font-medium">Akseptor Keluarga Berencana</span>
+                    <span class="font-bold text-gray-700 text-sm">${profile.health.kb_method === 'none' ? "Tidak Terikat KB" : 'Metode ' + profile.health.kb_method.toUpperCase()}</span>
+                </div>
+            `;
+
+            // ==================== D. RENDER CARD MODULAR: TIMBANGAN BALITA / POSYANDU ====================
+            const growthOverlay = document.getElementById('growth-disabled-overlay');
+            const latestBadgeContainer = document.getElementById('latest-stunting-badge');
+            const growthTableBody = document.getElementById('growth-table-body');
+
+            if (ageInfo.years >= 5) {
+                growthOverlay.classList.remove('hidden');
+            } else {
+                growthOverlay.classList.add('hidden');
+                
+                const sortedLogs = [...profile.growth_logs].sort((a,b) => new Date(b.measured_at) - new Date(a.measured_at));
+
+                if (sortedLogs.length > 0) {
+                    const latestLog = sortedLogs[0];
+                    latestBadgeContainer.innerHTML = getStuntingStatusBadge(latestLog.stunting_status);
+                } else {
+                    latestBadgeContainer.innerHTML = `<span class="bg-gray-100 text-gray-600 text-xs px-2.5 py-1 rounded-full font-bold">Belum Ada Riwayat</span>`;
+                }
+
+                if (sortedLogs.length > 0) {
+                    growthTableBody.innerHTML = sortedLogs.map(log => `
+                        <tr class="hover:bg-gray-50 transition">
+                            <td class="px-3 py-3 font-medium text-gray-700">${formatFriendlyDate(log.measured_at)}</td>
+                            <td class="px-3 py-3 font-semibold text-gray-600 font-mono">${log.weight.toFixed(2)} Kg</td>
+                            <td class="px-3 py-3 font-semibold text-gray-600 font-mono">${log.height.toFixed(2)} Cm</td>
+                            <td class="px-3 py-3 text-gray-500 font-semibold uppercase">${log.measurement_method === 'recumbent' ? '🛏️ Telentang' : '🧍 Berdiri'}</td>
+                            <td class="px-3 py-3 text-center">${log.vit_a_received ? '🟢 Ya' : '❌ Tidak'}</td>
+                            <td class="px-3 py-3">${getStuntingStatusBadge(log.stunting_status)}</td>
+                            <td class="px-3 py-3 text-gray-500 max-w-[150px] truncate" title="${log.notes || '-'}">${log.notes || '-'}</td>
+                        </tr>
+                    `).join('');
+                } else {
+                    growthTableBody.innerHTML = `
+                        <tr>
+                            <td colspan="7" class="text-center py-8 text-gray-400 italic">Balita belum memiliki riwayat timbangan posyandu. Klik '➕ Input Data Timbang' di atas untuk melengkapi.</td>
+                        </tr>
+                    `;
+                }
+            }
+        }
+
+        // Helper: Status Stunting Badge Builder
+        function getStuntingStatusBadge(status) {
+            if (status === 'normal') {
+                return `<span class="inline-flex items-center rounded-full bg-green-50 px-2.5 py-0.5 text-xs font-semibold text-green-700 ring-1 ring-inset ring-green-650/20">🟢 Normal</span>`;
+            } else if (status === 'stunted') {
+                return `<span class="inline-flex items-center rounded-full bg-yellow-50 px-2.5 py-0.5 text-xs font-semibold text-yellow-800 ring-1 ring-inset ring-yellow-600/20 animate-pulse">🟡 Pendek (Stunted)</span>`;
+            } else if (status === 'severely_stunted') {
+                return `<span class="inline-flex items-center rounded-full bg-red-50 px-2.5 py-0.5 text-xs font-semibold text-red-700 ring-1 ring-inset ring-red-600/10">🔴 Sangat Pendek</span>`;
+            }
+            return `<span class="bg-gray-100 text-gray-600 text-xs px-2 py-0.5 rounded-full uppercase">-</span>`;
+        }
+
+        // Toggle Sidebar Mobile
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('-translate-x-full');
+        }
+
+        // Switch Active Citizen Profile
+        function switchProfile(key) {
+            currentProfileKey = key;
+            currentProfile = JSON.parse(JSON.stringify(MOCK_PROFILES[key]));
+            renderProfileDetail();
+            showNotification("Berhasil Mengubah Profil", `Kini menguji skema penduduk: ${currentProfile.name}`);
+        }
+
+        // Modals Management
+        function openModal(id) {
+            document.getElementById(id).classList.remove('hidden');
+            if (id === 'modal-add-timbangan') {
+                document.getElementById('input_measured_at').value = new Date().toISOString().split('T')[0];
+            }
+        }
+
+        function closeModal(id) {
+            document.getElementById(id).classList.add('hidden');
+        }
+
+        // Handle Welfare recipient checkbox to show input field conditionally
+        function toggleAssistanceField() {
+            const check = document.getElementById('input_is_welfare_recipient');
+            const container = document.getElementById('assistance-type-container');
+            const input = document.getElementById('input_assistance_type');
+            if (check.checked) {
+                container.classList.remove('hidden');
+                input.required = true;
+            } else {
+                container.classList.add('hidden');
+                input.required = false;
+                input.value = "";
+            }
+        }
+
+        // SUBMIT TIMBANGAN BULANAN (POSYANDU)
+        function submitTimbangan(event) {
+            event.preventDefault();
+            const measuredAt = document.getElementById('input_measured_at').value;
+            const weight = parseFloat(document.getElementById('input_weight').value);
+            const height = parseFloat(document.getElementById('input_height').value);
+            const method = document.querySelector('input[name="input_measurement_method"]:checked').value;
+            const vitA = document.getElementById('input_vit_a').checked;
+            const notes = document.getElementById('input_notes').value;
+
+            const ageInfo = calculateAgeInfo(currentProfile.birth_date);
+            const computedStuntingStatus = analyzeStuntingStatus(ageInfo.totalMonths, currentProfile.gender, height);
+
+            const newLog = {
+                id: Date.now(),
+                measured_at: measuredAt,
+                weight: weight,
+                height: height,
+                measurement_method: method,
+                vit_a_received: vitA,
+                stunting_status: computedStuntingStatus,
+                notes: notes
+            };
+
+            currentProfile.growth_logs.push(newLog);
+            MOCK_PROFILES[currentProfileKey].growth_logs.push(newLog);
+
+            document.getElementById('timbangan-form').reset();
+            closeModal('modal-add-timbangan');
+            renderProfileDetail();
+            showNotification("Data Timbangan Disimpan", "Hasil analisis stunting WHO berhasil dihitung berkala.");
+        }
+
+        // SUBMIT PROFIL PEKERJAAN
+        function submitEmployment(event) {
+            event.preventDefault();
+            const occupation = document.getElementById('input_occupation').value;
+            const jobSector = document.getElementById('input_job_sector').value;
+            const employmentStatus = document.getElementById('input_employment_status').value;
+            const monthlyIncome = parseFloat(document.getElementById('input_monthly_income').value);
+            const economicStatus = document.getElementById('input_economic_status').value;
+            const isWelfare = document.getElementById('input_is_welfare_recipient').checked;
+            const assistanceType = document.getElementById('input_assistance_type').value;
+
+            currentProfile.employment = {
+                occupation: occupation,
+                job_sector: jobSector,
+                employment_status: employmentStatus,
+                monthly_income: monthlyIncome,
+                economic_status: economicStatus,
+                is_welfare_recipient: isWelfare,
+                assistance_type: isWelfare ? assistanceType : null
+            };
+
+            MOCK_PROFILES[currentProfileKey].employment = currentProfile.employment;
+
+            document.getElementById('employment-form').reset();
+            closeModal('modal-add-employment');
+            renderProfileDetail();
+            showNotification("Profil Pekerjaan Ditambahkan", `Berhasil melengkapi profil pekerjaan untuk ${currentProfile.name}.`);
+        }
+
+        // SUBMIT PROFIL PENDIDIKAN
+        function submitEducation(event) {
+            event.preventDefault();
+            const eduLevel = document.getElementById('input_education_level').value;
+            const diploma = document.getElementById('input_highest_diploma').value;
+            const schoolPart = document.getElementById('input_school_participation').value;
+
+            currentProfile.education = {
+                education_level: eduLevel,
+                highest_diploma: diploma,
+                school_participation: schoolPart
+            };
+
+            MOCK_PROFILES[currentProfileKey].education = currentProfile.education;
+
+            document.getElementById('education-form').reset();
+            closeModal('modal-add-education');
+            renderProfileDetail();
+            showNotification("Profil Pendidikan Diperbarui", `Kualifikasi pendidikan untuk ${currentProfile.name} berhasil disimpan.`);
+        }
+
+        // SUBMIT EDIT PROFIL KESEHATAN
+        function submitHealth(event) {
+            event.preventDefault();
+            const dis = document.getElementById('input_disability_type').value;
+            const bpjs = document.getElementById('input_bpjs_status').value;
+            const preg = document.getElementById('input_is_pregnant').checked;
+            const kb = document.getElementById('input_kb_method').value;
+
+            currentProfile.health = {
+                disability_type: dis,
+                is_pregnant: preg,
+                kb_method: kb,
+                bpjs_status: bpjs
+            };
+
+            MOCK_PROFILES[currentProfileKey].health = currentProfile.health;
+
+            document.getElementById('health-form').reset();
+            closeModal('modal-edit-health');
+            renderProfileDetail();
+            showNotification("Profil Kesehatan Diperbarui", "Data kesehatan individu berhasil disesuaikan.");
+        }
+
+        // RUN SYSTEM ON INITIAL LAUNCH
+        window.onload = function() {
+            renderProfileDetail();
+        }
+    </script>
+</body>
+</html>

@@ -16,7 +16,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Override;
 
-class HousingProfiles extends Model
+class HousingProfile extends Model
 {
     use HasFactory, HasUuids;
 

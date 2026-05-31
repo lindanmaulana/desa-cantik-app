@@ -3,8 +3,8 @@ export default function citizenData() {
         openData: false,
         openCreate: false,
         openUpdate: false,
-        stepCreate: 1,
-        stepUpdate: 1,
+        openHealthProfileCreate: false,
+
         citizen: {
             id: "",
             family_id: "",
@@ -20,7 +20,7 @@ export default function citizenData() {
             education_profile: {
                 education_level: "none",
                 highest_diploma: "none",
-                school_participation: "not_yet_school"
+                school_participation: "not_yet_school",
             },
             employment_profile: {
                 occupation: "unemployed",
@@ -29,13 +29,13 @@ export default function citizenData() {
                 monthly_income: 0,
                 economic_status: "middle_income",
                 is_welfare_recipient: false,
-                assistance_type: ""
+                assistance_type: "",
             },
             health_profile: {
                 disability_type: "none",
                 is_pregnant: false,
                 bpjs_status: "none",
-                kb_method: "none"
+                kb_method: "none",
             },
             housing_profile: {
                 house_ownership: "owned",
@@ -47,8 +47,15 @@ export default function citizenData() {
                 sanitation_type: "private_toilet",
                 cooking_fuel: "lpg_gas",
                 electricity_source: "state_electricity_metered",
-                electricity_capacity: "900va"
-            }
+                electricity_capacity: "900va",
+            },
+        },
+
+        health_profile: {
+            disability_type: "none",
+            is_pregnant: false,
+            bpjs_status: "none",
+            kb_method: "none",
         },
 
         openModal(data) {
@@ -65,41 +72,76 @@ export default function citizenData() {
                 marital_status: data.marital_status || "",
                 blood_type: data.blood_type || "",
                 education_profile: {
-                    education_level: data.education_profile?.education_level || "none",
-                    highest_diploma: data.education_profile?.highest_diploma || "none",
-                    school_participation: data.education_profile?.school_participation || "not_yet_school"
+                    education_level:
+                        data.education_profile?.education_level || "none",
+                    highest_diploma:
+                        data.education_profile?.highest_diploma || "none",
+                    school_participation:
+                        data.education_profile?.school_participation ||
+                        "not_yet_school",
                 },
                 employment_profile: {
-                    occupation: data.employment_profile?.occupation || "unemployed",
+                    occupation:
+                        data.employment_profile?.occupation || "unemployed",
                     job_sector: data.employment_profile?.job_sector || "other",
-                    employment_status: data.employment_profile?.employment_status || "unpaid_worker",
-                    monthly_income: data.employment_profile?.monthly_income || 0,
-                    economic_status: data.employment_profile?.economic_status || "middle_income",
-                    is_welfare_recipient: data.employment_profile?.is_welfare_recipient || false,
-                    assistance_type: data.employment_profile?.assistance_type || ""
+                    employment_status:
+                        data.employment_profile?.employment_status ||
+                        "unpaid_worker",
+                    monthly_income:
+                        data.employment_profile?.monthly_income || 0,
+                    economic_status:
+                        data.employment_profile?.economic_status ||
+                        "middle_income",
+                    is_welfare_recipient:
+                        data.employment_profile?.is_welfare_recipient || false,
+                    assistance_type:
+                        data.employment_profile?.assistance_type || "",
                 },
                 health_profile: {
-                    disability_type: data.health_profile?.disability_type || "none",
+                    disability_type:
+                        data.health_profile?.disability_type || "none",
                     is_pregnant: data.health_profile?.is_pregnant || false,
                     bpjs_status: data.health_profile?.bpjs_status || "none",
-                    kb_method: data.health_profile?.kb_method || "none"
+                    kb_method: data.health_profile?.kb_method || "none",
                 },
                 housing_profile: {
-                    house_ownership: data.housing_profile?.house_ownership || "owned",
-                    house_condition: data.housing_profile?.house_condition || "proper",
-                    floor_material: data.housing_profile?.floor_material || "cement_brick",
-                    wall_material: data.housing_profile?.wall_material || "masonry_brick",
-                    roof_material: data.housing_profile?.roof_material || "clay_tile",
-                    water_source: data.housing_profile?.water_source || "protected_well",
-                    sanitation_type: data.housing_profile?.sanitation_type || "private_toilet",
-                    cooking_fuel: data.housing_profile?.cooking_fuel || "lpg_gas",
-                    electricity_source: data.housing_profile?.electricity_source || "state_electricity_metered",
-                    electricity_capacity: data.housing_profile?.electricity_capacity || "900va"
-                }
+                    house_ownership:
+                        data.housing_profile?.house_ownership || "owned",
+                    house_condition:
+                        data.housing_profile?.house_condition || "proper",
+                    floor_material:
+                        data.housing_profile?.floor_material || "cement_brick",
+                    wall_material:
+                        data.housing_profile?.wall_material || "masonry_brick",
+                    roof_material:
+                        data.housing_profile?.roof_material || "clay_tile",
+                    water_source:
+                        data.housing_profile?.water_source || "protected_well",
+                    sanitation_type:
+                        data.housing_profile?.sanitation_type ||
+                        "private_toilet",
+                    cooking_fuel:
+                        data.housing_profile?.cooking_fuel || "lpg_gas",
+                    electricity_source:
+                        data.housing_profile?.electricity_source ||
+                        "state_electricity_metered",
+                    electricity_capacity:
+                        data.housing_profile?.electricity_capacity || "900va",
+                },
             };
 
-            this.stepUpdate = 1;
             this.openUpdate = true;
+        },
+
+        openModalHealthProfile(data) {
+            this.health_profile = {
+                disability_type: data.health_profile?.disability_type || "none",
+                is_pregnant: data.health_profile?.is_pregnant || false,
+                bpjs_status: data.health_profile?.bpjs_status || "none",
+                kb_method: data.health_profile?.kb_method || "none",
+            };
+
+            this.openHealthProfileCreate = true;
         },
     };
 }

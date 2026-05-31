@@ -6,6 +6,8 @@ use App\Enums\FamilyRole;
 use App\Enums\Gender;
 use App\Enums\MaritalStatus;
 use App\Enums\Religion;
+use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
@@ -32,40 +34,56 @@ class Citizen extends Model
         'marital_status',
     ];
 
-    protected function casts(): array {
+    protected function casts(): array
+    {
         return [
             'family_role' => FamilyRole::class,
             'gender' => Gender::class,
             'religion' => Religion::class,
             'marital_status' => MaritalStatus::class,
+            'birth_date' => 'date'
         ];
     }
 
-    public function family() {
+    public function family()
+    {
         return $this->belongsTo(Family::class);
     }
 
-    public function educationProfile() {
-        return $this->hasOne(EducationProfiles::class);
+    public function educationProfile()
+    {
+        return $this->hasOne(EducationProfile::class);
     }
 
-    public function employmentProfile() {
-        return $this->hasOne(EmploymentProfiles::class);
+    public function employmentProfile()
+    {
+        return $this->hasOne(EmploymentProfile::class);
     }
 
-    public function healthProfile() {
-        return $this->hasOne(HealthProfiles::class);
+    public function healthProfile()
+    {
+        return $this->hasOne(HealthProfile::class);
     }
 
-    public function childGrowthLogs() {
+    public function childGrowthLogs()
+    {
         return $this->hasOne(ChildGrowthLogs::class);
     }
 
-    public function msmes() {
+    public function msmes()
+    {
         return $this->hasMany(Msme::class, 'citizen_id');
     }
 
-    public function spatialData() {
+    public function spatialData()
+    {
         return $this->morphOne(SpatialData::class, 'feature');
+    }
+
+    protected function isToddler(): Attribute
+    {
+        return Attribute::make(
+            get: fn() => $this->birth_date ? $this->birth_date->age < 5 : false,
+        );
     }
 }

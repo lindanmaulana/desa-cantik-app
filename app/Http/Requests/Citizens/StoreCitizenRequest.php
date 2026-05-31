@@ -31,53 +31,34 @@ class StoreCitizenRequest extends FormRequest
      */
     public function rules(): array
     {
-        $citizenRules =  [
+        return  [
             'family_id' => ['required', Rule::exists('families', 'id')],
             'id_number' => ['required', 'string', 'max:16'],
             'full_name' => ['required', 'string', 'max:255'],
-            'family_role' => ['required', 'in:' . implode(',', array_column(FamilyRole::cases(), 'value'))],
-            'gender' => ['required', 'in:' . implode(',', array_column(Gender::cases(), 'value'))],
+            'family_role' => ['required', Rule::enum(FamilyRole::class)],
+            'gender' => ['required', Rule::enum(Gender::class)],
             'birth_place' => ['required', 'string', 'max:255'],
             'birth_date' => ['nullable', 'date'],
-            'religion' => ['required', 'in:' . implode(',', array_column(Religion::cases(), 'value'))],
-            'marital_status' => ['required', 'in:' . implode(',', array_column(MaritalStatus::cases(), 'value'))],
+            'religion' => ['required', Rule::enum(Religion::class)],
+            'marital_status' => ['required', Rule::enum(MaritalStatus::class)],
             'blood_type' => ['nullable', 'string', 'max:5'],
         ];
-
-        $educationRules = (new StoreEducationProfileRequest())->rules();
-        $employmentRules = (new StoreEmploymentProfileRequest())->rules();
-        $healthRules     = (new StoreHealthProfileRequest())->rules();
-        $housingRules    = (new StoreHousingProfileRequest())->rules();
-
-        return array_merge(
-            $citizenRules,
-            $educationRules,
-            $employmentRules,
-            $healthRules,
-            $housingRules,
-        );
     }
 
     public function messages(): array
     {
-        return array_merge(
-            [
-                'full_name.required' => 'Nama lengkap wajib diisi',
-                'full_name.max' => 'Nama lengkap maksimal 255 karakter',
-                'id_number.required' => 'Nomor KTP wajib diisi',
-                'id_number.max' => 'Nomor KTP maksimal 16 karakter',
-                'family_role.required' => 'Status dalam keluarga wajib diisi',
-                'gender.required' => 'Jenis kelamin wajib diisi',
-                'birth_place.required' => 'Tempat lahir wajib diisi',
-                'birth_place.max' => 'Tempat lahir maksimal 255 karakter',
-                'marital_status.required' => 'Status pernikahan wajib diisi',
-                'religion.required' => 'Agama wajib diisi',
-                'blood_type.max' => 'Golongan darah maksimal 5 karakter',
-            ],
-            (new StoreEducationProfileRequest())->messages(),
-            (new StoreEmploymentProfileRequest())->messages(),
-            (new StoreHealthProfileRequest())->messages(),
-            (new StoreHousingProfileRequest())->messages()
-        );
+        return [
+            'full_name.required' => 'Nama lengkap wajib diisi',
+            'full_name.max' => 'Nama lengkap maksimal 255 karakter',
+            'id_number.required' => 'Nomor KTP wajib diisi',
+            'id_number.max' => 'Nomor KTP maksimal 16 karakter',
+            'family_role.required' => 'Status dalam keluarga wajib diisi',
+            'gender.required' => 'Jenis kelamin wajib diisi',
+            'birth_place.required' => 'Tempat lahir wajib diisi',
+            'birth_place.max' => 'Tempat lahir maksimal 255 karakter',
+            'marital_status.required' => 'Status pernikahan wajib diisi',
+            'religion.required' => 'Agama wajib diisi',
+            'blood_type.max' => 'Golongan darah maksimal 5 karakter',
+        ];
     }
 }

@@ -37,8 +37,8 @@
         <x-alert type="error" :message="session('error')" />
         @endif
 
-        @include('dashboard.manage-data.citizens.partials.modal.create')
-        @include('dashboard.manage-data.citizens.partials.modal.update')
+        @include('dashboard.manage-data.citizens.partials.modal.citizen-create')
+        @include('dashboard.manage-data.citizens.partials.modal.citizen-update')
 
         @include('dashboard.manage-data.citizens.partials.stats')
         @include('dashboard.manage-data.citizens.partials.filter')

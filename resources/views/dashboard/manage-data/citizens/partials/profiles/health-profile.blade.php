@@ -1,0 +1,37 @@
+<div>
+    @if($citizen->healthProfile)
+    <div class="space-y-4">
+        <dl class="grid grid-cols-2 gap-4 py-8 border-y rounded-xl">
+            <div>
+                <dt class="text-xs font-medium text-slate-400">Jenis Disabilitas</dt>
+                <dd class="text-sm font-semibold">Normal (Tidak Ada)</dd>
+            </div>
+            <div>
+                <dt class="text-xs font-medium text-slate-400">Status BPJS Jamsos</dt>
+                <dd class="text-sm font-semibold">Tidak Memiliki Jaminan BPJS</dd>
+            </div>
+            <div>
+                <dt class="text-xs font-medium text-slate-400">Kondisi Kehamilan</dt>
+                <dd class="text-sm font-semibold">Tidak Hamil</dd>
+            </div>
+            <div>
+                <dt class="text-xs font-medium text-slate-400">Akseptor Keluarga Berencana</dt>
+                <dd class="text-sm font-semibold">Tidak Terikat KB</dd>
+            </div>
+        </dl>
+        <div class="flex items-center justify-end">
+            <button class="flex items-center gap-2 px-4 py-2 text-xs rounded-xl text-primary bg-primary/10"><x-heroicon-o-pencil-square class="w-4 h-4" /> Edit Profil Kesehatan</button>
+        </div>
+    </div>
+    @else
+    <div class="flex flex-col items-center justify-center gap-2 py-8">
+        <x-vaadin-health-card class="size-6 text-primary" />
+        <h5 class="text-sm font-semibold">Profil Kesehatan Individu Belum Tersedia</h5>
+        <p class="text-xs text-slate-400">Riwayat Kesehatan warga belum di catat.</p>
+    </div>
+
+    <div class="flex items-center justify-end">
+        <button @click="openHealthProfileCreate = true" class="flex items-center gap-2 px-4 py-2 text-xs rounded-xl text-primary bg-primary/10"><x-vaadin-plus class="w-4 h-4" /> Lengkapi Profil Kesehatan</button>
+    </div>
+    @endif
+</div>

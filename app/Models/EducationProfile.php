@@ -2,14 +2,14 @@
 
 namespace App\Models;
 
-use App\Enums\BpjsStatus;
-use App\Enums\DisabilityType;
-use App\Enums\KbMethod;
+use App\Enums\EducationLevel;
+use App\Enums\SchoolParticipation;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Override;
 
-class HealthProfiles extends Model
+class EducationProfile extends Model
 {
     use HasFactory, HasUuids;
 
@@ -18,18 +18,17 @@ class HealthProfiles extends Model
 
     protected $fillable = [
         'citizen_id',
-        'disability_type',
-        'is_pregnant',
-        'kb_method',
-        'bpjs_status',
+        'education_level',
+        'highest_diploma',
+        'school_participation'
     ];
 
-    protected function casts(): array {
+    protected function casts(): array
+    {
         return [
-            'disability_type' => DisabilityType::class,
-            'is_pregnant' => 'boolean',
-            'kb_method' => KbMethod::class,
-            'bpjs_status' => BpjsStatus::class,
+            'education_level' => EducationLevel::class,
+            'highest_diploma' => EducationLevel::class,
+            'school_participation' => SchoolParticipation::class
         ];
     }
 

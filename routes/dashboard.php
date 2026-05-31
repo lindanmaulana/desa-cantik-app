@@ -12,6 +12,7 @@ use App\Http\Controllers\Dashboard\Statistics\SpatialDataController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Dashboard\ManageData\FamiliesController;
 use App\Http\Controllers\Dashboard\ManageData\CitizensController;
+use App\Http\Controllers\Dashboard\ManageData\HealthProfileController;
 use App\Http\Controllers\Dashboard\ManageData\SocialEconomicsController;
 use App\Http\Controllers\Dashboard\ManageData\MsmesController;
 use App\Http\Controllers\Dashboard\ManageData\InfrastructuresController;
@@ -47,9 +48,15 @@ Route::middleware(['auth'])->group(function () {
 
             Route::prefix('citizens')->group(function () {
                 Route::get('/', [CitizensController::class, 'index'])->name('dashboard.manage-data.citizens');
+                Route::get('/{citizen}/detail', [CitizensController::class, 'show'])->name('dashboard.manage-data.citizens.detail');
+
                 Route::post('/store', [CitizensController::class, 'store'])->name('citizens.store');
                 Route::put('/{citizen}/update', [CitizensController::class, 'update'])->name('citizens.update');
                 Route::delete('/{citizen}', [CitizensController::class, 'destroy'])->name('citizens.destroy');
+            });
+
+            Route::prefix('health-profile')->group(function () {
+                Route::post('/{citizen}/store', [HealthProfileController::class, 'store'])->name('health-profile.store');
             });
 
             Route::prefix('social-economics')->group(function () {
@@ -80,7 +87,7 @@ Route::middleware(['auth'])->group(function () {
                 Route::delete('/{spatial_data}', [ManageSpatialDataController::class, 'destroy'])->name('spatial-data.destroy');
             });
         });
-        
+
         Route::get("/pandawa-analysis", [PandawaAnalysisController::class, 'index'])->name('dashboard.pandawa-analysis');
     });
 });

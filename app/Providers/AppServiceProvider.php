@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Database\Eloquent\Relations\Relation;
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
@@ -51,5 +52,7 @@ class AppServiceProvider extends ServiceProvider
             'electricitySource' => \App\Enums\ElectricitySource::class,
             'electricityCapacity' => \App\Enums\ElectricityCapacity::class,
         ]);
+
+        Blade::component('dashboard.manage-data.citizens.components.citizen-profile-card', 'citizen-profile-card');
     }
 }

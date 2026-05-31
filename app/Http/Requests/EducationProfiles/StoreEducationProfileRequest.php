@@ -7,7 +7,6 @@ use App\Enums\SchoolParticipation;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
-use Override;
 
 class StoreEducationProfileRequest extends FormRequest
 {

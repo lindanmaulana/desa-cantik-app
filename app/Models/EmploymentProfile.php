@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Override;
 
-class EmploymentProfiles extends Model
+class EmploymentProfile extends Model
 {
     use HasFactory, HasUuids;
 
