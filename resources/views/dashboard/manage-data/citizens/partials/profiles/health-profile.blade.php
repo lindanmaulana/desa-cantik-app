@@ -20,7 +20,7 @@
             </div>
         </dl>
         <div class="flex items-center justify-end">
-            <button @click="healthProfile.openModal($event)" data-profile="{{ json_encode($citizen->healthProfile) }}" class="flex items-center gap-2 px-4 py-2 text-xs rounded-xl text-primary bg-primary/10"><x-heroicon-o-pencil-square class="w-4 h-4" /> Edit Profil Kesehatan</button>
+            <button @click="healthProfile.openModal($event)" data-profile="{{ json_encode($citizen->healthProfile) }}" class="flex items-center gap-2 px-4 py-2 text-xs font-bold rounded-xl text-primary bg-primary/10"><x-heroicon-o-pencil-square class="w-4 h-4" /> Edit Profil Kesehatan</button>
         </div>
     </div>
     @else
@@ -31,7 +31,7 @@
     </div>
 
     <div class="flex items-center justify-end">
-        <button @click="healthProfile.openCreate = true" class="flex items-center gap-2 px-4 py-2 text-xs rounded-xl text-primary bg-primary/10"><x-vaadin-plus class="w-4 h-4" /> Lengkapi Profil Kesehatan</button>
+        <button @click="healthProfile.openCreate = true" class="flex items-center gap-2 px-4 py-2 text-xs font-bold rounded-xl text-primary bg-primary/10"><x-vaadin-plus class="w-4 h-4" /> Lengkapi Profil Kesehatan</button>
     </div>
     @endif
 </div>

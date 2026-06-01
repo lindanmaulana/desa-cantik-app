@@ -12,6 +12,8 @@
         @include('dashboard.manage-data.citizens.partials.modal.health-profile-create')
         @include('dashboard.manage-data.citizens.partials.modal.health-profile-update')
 
+        @include('dashboard.manage-data.citizens.partials.modal.education-profile-create')
+        @include('dashboard.manage-data.citizens.partials.modal.education-profile-update')
         <div class="grid grid-cols-2 gap-6">
             <article class="col-span-2 p-8 space-y-6 border border-t-8 shadow border-t-primary rounded-3xl">
                 <header class="flex items-center justify-between">

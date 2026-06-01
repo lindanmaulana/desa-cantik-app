@@ -12,6 +12,7 @@ use App\Http\Controllers\Dashboard\Statistics\SpatialDataController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Dashboard\ManageData\FamiliesController;
 use App\Http\Controllers\Dashboard\ManageData\CitizensController;
+use App\Http\Controllers\Dashboard\ManageData\EducationProfileController;
 use App\Http\Controllers\Dashboard\ManageData\HealthProfileController;
 use App\Http\Controllers\Dashboard\ManageData\SocialEconomicsController;
 use App\Http\Controllers\Dashboard\ManageData\MsmesController;
@@ -58,6 +59,11 @@ Route::middleware(['auth'])->group(function () {
             Route::prefix('health-profile')->group(function () {
                 Route::post('/{citizen}/store', [HealthProfileController::class, 'store'])->name('health-profile.store');
                 Route::put('/{citizen}/update', [HealthProfileController::class, 'update'])->name('health-profile.update');
+            });
+
+            Route::prefix('education-profile')->group(function () {
+                Route::post('/{citizen}/store', [EducationProfileController::class, 'store'])->name('education-profile.store');
+                Route::put('/{citizen}/update', [EducationProfileController::class, 'update'])->name('education-profile.update');
             });
 
             Route::prefix('social-economics')->group(function () {

@@ -19,13 +19,35 @@ export default function citizenData() {
                 const jsonData = event.currentTarget.dataset.profile;
                 const data = JSON.parse(jsonData);
 
-                console.log({ jsonData, data, event });
-
                 this.data = {
                     disability_type: data?.disability_type || "none",
                     is_pregnant: data?.is_pregnant || false,
                     bpjs_status: data?.bpjs_status || "none",
                     kb_method: data?.kb_method || "none",
+                };
+
+                this.openUpdate = true;
+            },
+        },
+
+        educationProfile: {
+            openCreate: false,
+            openUpdate: false,
+
+            data: {
+                education_level: "none",
+                highest_diploma: "none",
+                school_participation: "not_yet_school",
+            },
+
+            openModal(event) {
+                const jsonData = event.currentTarget.dataset.profile;
+                const data = JSON.parse(jsonData);
+
+                this.data = {
+                    education_level: data?.education_level || "none",
+                    highest_diploma: data?.highest_diploma || "none",
+                    school_participation: data?.school_participation || "not_yet_school",
                 };
 
                 this.openUpdate = true;
