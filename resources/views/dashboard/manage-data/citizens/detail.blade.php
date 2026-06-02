@@ -14,6 +14,9 @@
 
         @include('dashboard.manage-data.citizens.partials.modal.education-profile-create')
         @include('dashboard.manage-data.citizens.partials.modal.education-profile-update')
+
+        @include('dashboard.manage-data.citizens.partials.modal.employment-profile-create')
+        @include('dashboard.manage-data.citizens.partials.modal.employment-profile-update')
         <div class="grid grid-cols-2 gap-6">
             <article class="col-span-2 p-8 space-y-6 border border-t-8 shadow border-t-primary rounded-3xl">
                 <header class="flex items-center justify-between">
@@ -99,7 +102,7 @@
                 @include('dashboard.manage-data.citizens.partials.profiles.education-profile')
             </x-citizen-profile-card>
 
-            <x-citizen-profile-card title="Profile Pekerjaan & Status Ekonomi" icon="solar-square-academic-cap-2-broken" color="text-orange-500" :isValue="$citizen->employmentProfile">
+            <x-citizen-profile-card title="Profile Pekerjaan & Status Ekonomi" icon="solar-square-academic-cap-2-broken" color="text-amber-500" :isValue="$citizen->employmentProfile">
                 @include('dashboard.manage-data.citizens.partials.profiles.employment-profile')
             </x-citizen-profile-card>
 

@@ -47,7 +47,41 @@ export default function citizenData() {
                 this.data = {
                     education_level: data?.education_level || "none",
                     highest_diploma: data?.highest_diploma || "none",
-                    school_participation: data?.school_participation || "not_yet_school",
+                    school_participation:
+                        data?.school_participation || "not_yet_school",
+                };
+
+                this.openUpdate = true;
+            },
+        },
+
+        employmentProfile: {
+            openCreate: false,
+            openUpdate: false,
+
+            data: {
+                occupation: "unemployed",
+                job_sector: "other",
+                employment_status: "unpaid_worker",
+                monthly_income: 0,
+                economic_status: "middle_income",
+                is_welfare_recipient: false,
+                assistance_type: "",
+            },
+
+            openModal(event) {
+                const jsonData = event.currentTarget.dataset.profile;
+                const data = JSON.parse(jsonData);
+
+                this.data = {
+                    occupation: data?.occupation || "unemployed",
+                    job_sector: data?.job_sector || "other",
+                    employment_status:
+                        data?.employment_status || "unpaid_worker",
+                    monthly_income: data?.monthly_income || 0,
+                    economic_status: data?.economic_status || "middle_income",
+                    is_welfare_recipient: data?.is_welfare_recipient || false,
+                    assistance_type: data?.assistance_type || "",
                 };
 
                 this.openUpdate = true;

@@ -16,7 +16,7 @@ enum EconomicStatus: string
             self::VERY_POOR => 'Sangat Miskin',
             self::POOR => 'Miskin',
             self::NEAR_POOR => 'Hampir Miskin',
-            self::MIDDLE_INCOME => 'Mengenah',
+            self::MIDDLE_INCOME => 'Menengah',
             self::HIGH_INCOME => 'Mampu / Kaya',
         };
     }

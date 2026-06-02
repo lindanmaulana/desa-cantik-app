@@ -13,11 +13,13 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Dashboard\ManageData\FamiliesController;
 use App\Http\Controllers\Dashboard\ManageData\CitizensController;
 use App\Http\Controllers\Dashboard\ManageData\EducationProfileController;
+use App\Http\Controllers\Dashboard\ManageData\EmploymentProfileController;
 use App\Http\Controllers\Dashboard\ManageData\HealthProfileController;
 use App\Http\Controllers\Dashboard\ManageData\SocialEconomicsController;
 use App\Http\Controllers\Dashboard\ManageData\MsmesController;
 use App\Http\Controllers\Dashboard\ManageData\InfrastructuresController;
 use App\Http\Controllers\Dashboard\ManageData\SpatialDataController as ManageSpatialDataController;
+use App\Models\EmploymentProfile;
 
 Route::middleware(['auth'])->group(function () {
     Route::prefix('dashboard')->group(function () {
@@ -64,6 +66,11 @@ Route::middleware(['auth'])->group(function () {
             Route::prefix('education-profile')->group(function () {
                 Route::post('/{citizen}/store', [EducationProfileController::class, 'store'])->name('education-profile.store');
                 Route::put('/{citizen}/update', [EducationProfileController::class, 'update'])->name('education-profile.update');
+            });
+
+            Route::prefix('employment-profile')->group(function () {
+                Route::post('/{citizen}/store', [EmploymentProfileController::class, 'store'])->name('employment-profile.store');
+                Route::put('/{citizen}/update', [EmploymentProfileController::class, 'update'])->name('employment-profile.update');
             });
 
             Route::prefix('social-economics')->group(function () {
