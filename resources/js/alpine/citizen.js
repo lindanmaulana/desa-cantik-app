@@ -88,6 +88,43 @@ export default function citizenData() {
             },
         },
 
+        childGrowthLog: {
+            openCreate: false,
+            openUpdate: false,
+
+            data: {
+                measured_at: "",
+                weight: "",
+                height: "",
+                measurement_method: "recumber",
+                vit_a_received: false,
+                notes: "",
+            },
+
+            openModal(event) {
+                const jsonData = event.currentTarget.dataset.profile;
+                const data = JSON.parse(jsonData);
+
+                const rawDate = data?.measured_at || "";
+                const formattedDate = rawDate ? rawDate.substring(0, 10) : "";
+
+                this.data = {
+                    measured_at: formattedDate,
+                    weight: data?.weight || "",
+                    height: data?.height || "",
+                    measurement_method: data?.measurement_method || "recumber",
+                    vit_a_received:
+                        data?.vit_a_received == true ||
+                        data?.vit_a_received == 1
+                            ? true
+                            : false,
+                    notes: data?.notes || "",
+                };
+
+                this.openUpdate = true;
+            },
+        },
+
         // citizen: {
         //     id: "",
         //     family_id: "",

@@ -67,7 +67,7 @@ class Citizen extends Model
 
     public function childGrowthLogs()
     {
-        return $this->hasOne(ChildGrowthLogs::class);
+        return $this->hasMany(ChildGrowthLog::class);
     }
 
     public function msmes()

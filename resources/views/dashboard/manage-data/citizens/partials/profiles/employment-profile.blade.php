@@ -27,7 +27,6 @@
                 <dd class="w-full py-1 text-xs text-center border rounded-lg bg-amber-50 border-amber-200 text-amber-800 ">{{ $citizen->employmentProfile->assistance_type ? $citizen->employmentProfile->assistance_type : '-' }}</dd>
             </dl>
             @endif
-
         </div>
         <div class="flex items-center justify-end">
             <button @click="employmentProfile.openModal($event)" data-profile="{{ json_encode($citizen->employmentProfile) }}" class="flex items-center gap-2 px-4 py-2 text-xs font-bold text-amber-500 bg-amber-100 rounded-xl"><x-heroicon-o-pencil-square class="w-4 h-4" /> Edit Profil Pekerjaan</button>

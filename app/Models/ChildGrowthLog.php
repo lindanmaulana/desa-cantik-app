@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class ChildGrowthLogs extends Model
+class ChildGrowthLog extends Model
 {
     use HasFactory, HasUuids;
 
@@ -31,8 +31,9 @@ class ChildGrowthLogs extends Model
     protected function casts(): array
     {
         return [
+            'measured_at' => 'date',
             'measurement_method' => MeasurementMethod::class,
-            'stunting_status' => StuntingStatus::class
+            'stunting_status' => StuntingStatus::class,
         ];
     }
 

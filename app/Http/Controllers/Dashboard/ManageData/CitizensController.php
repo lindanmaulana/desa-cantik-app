@@ -106,7 +106,9 @@ class CitizensController extends Controller
             'educationProfile',
             'employmentProfile',
             'healthProfile',
-            'childGrowthLogs'
+            'childGrowthLogs' => function ($query) {
+                $query->latest()->limit(3);
+            }
         ]);
 
         return view('dashboard.manage-data.citizens.detail', compact('citizen'));

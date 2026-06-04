@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Dashboard\HomeController;
+use App\Http\Controllers\Dashboard\ManageData\ChildGrowthLogsController;
 use App\Http\Controllers\Dashboard\ManageData\TerritoriesController;
 use App\Http\Controllers\Dashboard\PandawaAnalysisController;
 use App\Http\Controllers\Dashboard\Statistics\DemographController;
@@ -71,6 +72,11 @@ Route::middleware(['auth'])->group(function () {
             Route::prefix('employment-profile')->group(function () {
                 Route::post('/{citizen}/store', [EmploymentProfileController::class, 'store'])->name('employment-profile.store');
                 Route::put('/{citizen}/update', [EmploymentProfileController::class, 'update'])->name('employment-profile.update');
+            });
+
+            Route::prefix('child-growth-logs')->group(function () {
+                Route::post('/{citizen}/store', [ChildGrowthLogsController::class, 'store'])->name('child-growth-logs.store');
+                Route::put('/{citizen}/update', [ChildGrowthLogsController::class, 'update'])->name('child-growth-logs.update');
             });
 
             Route::prefix('social-economics')->group(function () {

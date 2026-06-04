@@ -51,6 +51,7 @@ class AppServiceProvider extends ServiceProvider
             'cookingFuel' => \App\Enums\CookingFuel::class,
             'electricitySource' => \App\Enums\ElectricitySource::class,
             'electricityCapacity' => \App\Enums\ElectricityCapacity::class,
+            'stuntingStatus' => \App\Enums\StuntingStatus::class,
         ]);
 
         Blade::component('dashboard.manage-data.citizens.components.citizen-profile-card', 'citizen-profile-card');
