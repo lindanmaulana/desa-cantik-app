@@ -1,5 +1,4 @@
 <div x-show="openCreate" class="fixed inset-0 z-50 flex items-center justify-center p-4 overflow-y-auto transition-opacity duration-300 bg-gray-900 bg-opacity-50 backdrop-blur-sm">
-
     <div class="w-full max-w-lg overflow-hidden transition-all duration-300 transform scale-95 bg-white border border-gray-100 shadow-xl rounded-2xl">
 
         <div class="flex items-center justify-between px-6 py-4 border-b border-gray-100 bg-gray-50">

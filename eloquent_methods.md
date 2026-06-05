@@ -184,3 +184,7 @@ Membuat fitur halaman (paginasi) otomatis. Laravel akan langsung memotong data d
 ```php
 $citizens = Citizen::paginate(10); // 10 data per halaman
 ```
+
+
+<!-- TRACK ERROR LARAVEL -->
+## tail -f storage/logs/laravel.log
