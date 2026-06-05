@@ -17,32 +17,32 @@
             </button>
         </div>
 
-        <form :action="`/dashboard/manage-data/territories/${territory.id}/update`" method="post" class="p-6 space-y-6">
+        <form :action="'{{ route('territories.update', ':id') }}'.replace(':id', data.id)" method="POST" class="p-6 space-y-6">
             @csrf
             @method('PUT')
-
+            
             <div>
                 <label for="sub_village" class="block mb-1 text-xs font-semibold tracking-wider text-gray-600 uppercase">Nama Dusun <span class="text-red-500">*</span></label>
-                <input type="text" id="sub_village" name="sub_village" x-model="territory.sub_village" required placeholder="Contoh: Pahing, Pon, Wage"
+                <input type="text" id="sub_village" name="sub_village" x-model="data.sub_village" required placeholder="Contoh: Pahing, Pon, Wage"
                     class="w-full px-3 py-2 text-sm transition-all border border-gray-200 rounded-lg bg-gray-50/50 focus:outline-none focus:bg-white focus:border-teal-500 focus:ring-1 focus:ring-teal-500">
             </div>
 
             <div>
                 <label for="area_name" class="block mb-1 text-xs font-semibold tracking-wider text-gray-600 uppercase">Nama Spesifik / Blok <span class="text-gray-400">(Opsional)</span></label>
-                <input type="text" id="area_name" name="area_name" x-model="territory.area_name" placeholder="Contoh: Blok Al-Hidayah, Kampung Baru"
+                <input type="text" id="area_name" name="area_name" x-model="data.area_name" placeholder="Contoh: Blok Al-Hidayah, Kampung Baru"
                     class="w-full px-3 py-2 text-sm transition-all border border-gray-200 rounded-lg bg-gray-50/50 focus:outline-none focus:bg-white focus:border-teal-500 focus:ring-1 focus:ring-teal-500">
             </div>
 
             <div class="grid grid-cols-2 gap-4">
                 <div>
                     <label for="rw" class="block mb-1 text-xs font-semibold tracking-wider text-gray-600 uppercase">Nomor RW <span class="text-red-500">*</span></label>
-                    <input type="text" id="rw" name="rw" required maxlength="5" x-model="territory.rw" placeholder="Contoh: 001"
+                    <input type="text" id="rw" name="rw" required maxlength="5" x-model="data.rw" placeholder="Contoh: 001"
                         class="w-full px-3 py-2 text-sm text-center transition-all border border-gray-200 rounded-lg bg-gray-50/50 focus:outline-none focus:bg-white focus:border-teal-500 focus:ring-1 focus:ring-teal-500">
                 </div>
 
                 <div>
                     <label for="rt" class="block mb-1 text-xs font-semibold tracking-wider text-gray-600 uppercase">Nomor RT <span class="text-red-500">*</span></label>
-                    <input type="text" id="rt" name="rt" required maxlength="5" x-model="territory.rt" placeholder="Contoh: 003"
+                    <input type="text" id="rt" name="rt" required maxlength="5" x-model="data.rt" placeholder="Contoh: 003"
                         class="w-full px-3 py-2 text-sm text-center transition-all border border-gray-200 rounded-lg bg-gray-50/50 focus:outline-none focus:bg-white focus:border-teal-500 focus:ring-1 focus:ring-teal-500">
                 </div>
             </div>

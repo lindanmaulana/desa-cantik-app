@@ -1,5 +1,5 @@
 <x-layouts.dashboard>
-    <div class="p-6" x-data="territorieData()">
+    <div class="p-6" x-data="territoryData()">
 
         <div class="flex flex-col items-start justify-between gap-4 mb-6 md:flex-row md:items-center">
             <div>
@@ -34,8 +34,6 @@
         @include('dashboard.manage-data.territories.partials.filter')
         @include('dashboard.manage-data.territories.partials.table')
     </div>
-
-
 
     @push('scripts')
     <script>

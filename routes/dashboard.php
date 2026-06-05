@@ -36,11 +36,12 @@ Route::middleware(['auth'])->group(function () {
         });
 
         Route::prefix('manage-data')->group(function () {
+
             Route::prefix('territories')->group(function () {
                 Route::get('/', [TerritoriesController::class, 'index'])->name('dashboard.manage-data.territories');
                 Route::post('/store', [TerritoriesController::class, 'store'])->name('territories.store');
                 Route::put('/{territory}/update', [TerritoriesController::class, 'update'])->name('territories.update');
-                Route::delete('/{territory}', [TerritoriesController::class, 'destroy'])->name('territories.destroy');
+                Route::delete('/{territory}/destroy', [TerritoriesController::class, 'destroy'])->name('territories.destroy');
             });
 
             Route::prefix('families')->group(function () {

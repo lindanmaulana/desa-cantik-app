@@ -6,17 +6,17 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Territories\StoreTerritoryRequest;
 use App\Http\Requests\Territories\UpdateTerritoryRequest;
 use App\Models\Territory;
+use App\Services\ManageData\TerritoriesService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Validation\ValidationException;
-use PhpParser\Node\Stmt\TryCatch;
-use Illuminate\Support\Str;
 
 class TerritoriesController extends Controller
 {
+    public function __construct(protected TerritoriesService $territoriesService) {}
+
     public function index(Request $request)
     {
         $request->validate([
@@ -64,21 +64,11 @@ class TerritoriesController extends Controller
         $currentUser = Auth::user();
         $validated = $request->validated();
 
-        DB::beginTransaction();
-
         try {
-            $validated['id'] = Str::uuid()->toString();
+            $this->territoriesService->create($validated);
 
-            Territory::create($validated);
-
-            DB::commit();
-
-            return redirect()
-                ->route('dashboard.manage-data.territories')
-                ->with('success', 'Data Wilayah berhasil ditambahkan!');
+            return redirect()->back()->with('success', 'Data Wilayah berhasil ditambahkan!');
         } catch (\Throwable $err) {
-            DB::rollBack();
-
             Log::error('Gagal menyimpan territory: ' . $err->getMessage(), [
                 'user_id' => $currentUser->id,
                 'payload' => $request->all(),
@@ -105,17 +95,13 @@ class TerritoriesController extends Controller
     public function update(UpdateTerritoryRequest $request, Territory $territory): RedirectResponse
     {
         $currentUser = Auth::user();
-        DB::beginTransaction();
+        $validated = $request->validated();
 
         try {
-            $territory->update($request->validated());
+            $this->territoriesService->update($territory, $validated);
 
-            DB::commit();
-
-            return redirect()->route('dashboard.manage-data.territories')->with('success', 'Data Wilayah berhasil di perbarui.');
+            return redirect()->back()->with('success', 'Data Wilayah berhasil di perbarui.');
         } catch (\Throwable $err) {
-            DB::rollBack();
-
             Log::error('Gagal memperbarui territory: ' . $err->getMessage(), [
                 'user_id' => $currentUser->id,
                 'territory_id' => $territory->id,
@@ -130,17 +116,11 @@ class TerritoriesController extends Controller
 
     public function destroy(Territory $territory)
     {
-        DB::beginTransaction();
-
         try {
-            $territory->delete();
+            $this->territoriesService->delete($territory);
 
-            DB::commit();
-
-            return redirect()->route('dashboard.manage-data.territories')->with('success', 'Data Wilayah berhasil dihapus.');
+            return redirect()->back()->with('success', 'Data Wilayah berhasil dihapus.');
         } catch (\Throwable $err) {
-            DB::rollBack();
-
             Log::error('Gagal menghapus territory: ' . $err->getMessage(), [
                 'territory_id' => $territory->id,
                 'trace'   => $err->getTraceAsString()
