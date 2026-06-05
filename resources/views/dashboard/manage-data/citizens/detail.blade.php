@@ -44,7 +44,8 @@
         @include('dashboard.manage-data.citizens.partials.modal.employment-profile-create')
         @include('dashboard.manage-data.citizens.partials.modal.employment-profile-update')
 
-        @include('dashboard.manage-data.citizens.partials.modal.child-growth-logs-create')
+        @include('dashboard.manage-data.citizens.partials.modal.child-growth-log-create')
+        @include('dashboard.manage-data.citizens.partials.modal.child-growth-log-detail')
 
         <div class="flex flex-col gap-6">
             <article class="col-span-2 p-8 space-y-6 border border-t-8 shadow border-t-primary rounded-3xl">
@@ -58,7 +59,8 @@
                             <h4 class="text-2xl font-bold">{{$citizen->full_name}} <small class="px-2 py-1 text-sm font-semibold rounded-full text-primary bg-primary/10">{{ $citizen->family_role->label() }}</small></h4>
 
                             <div class="space-x-1">
-                                <span class="text-base font-medium text-slate-800">3208122005990004</span>
+                                <span x-show="openData" class="text-base font-medium text-slate-800">3208122005990004</span>
+                                <span x-show="!openData"><x-vaadin-ellipsis-h class="inline size-4 text-slate-400" /></span>
                                 <span class="font-semibold text-slate-400">|</span>
                                 <span class="text-sm font-semibold text-primary">{{ $citizen->birth_date->age }} Tahun</span>
                             </div>
@@ -95,8 +97,6 @@
                                 <dd class="text-base font-medium">{{ $citizen->religion->label() }}</dd>
                             </div>
                         </dl>
-
-                        <button type="button" class="flex items-center gap-2 px-4 py-2 text-sm font-medium border rounded-lg btn-edit bg-primary/5"><x-heroicon-o-pencil-square class="w-4 h-4" /> Edit Identitas</button>
                     </div>
                 </header>
 
@@ -106,15 +106,15 @@
                     <dl class="flex items-center justify-between grid-details">
                         <div>
                             <dt class="text-xs text-slate-600">Tempat, Tanggal Lahir</dt>
-                            <dd class="text-sm font-medium">Kuningan, 20 Mei 1999</dd>
+                            <dd class="text-sm font-medium">{{ $citizen->birth_place }}, {{ $citizen->birth_date->translatedFormat('d') }} {{$citizen->birth_date->translatedFormat('F')}} {{$citizen->birth_date->year}}</dd>
                         </div>
                         <div>
                             <dt class="text-xs text-slate-600">Status Pernikahan</dt>
-                            <dd class="text-sm font-medium">Belum Kawin</dd>
+                            <dd class="text-sm font-medium">{{ $citizen->marital_status->label() }}</dd>
                         </div>
                         <div>
                             <dt class="text-xs text-slate-600">Alamat Detail Keluarga</dt>
-                            <dd class="text-sm font-medium">Dusun Manis, RT 01/RW 01</dd>
+                            <dd class="text-sm font-medium">{{ $citizen->family->territory->sub_village }}, RT {{ $citizen->family->territory->rt }}/RW {{ $citizen->family->territory->rw }}</dd>
                         </div>
                         <div>
                             <dt class="text-xs text-slate-600">ID Referensi Sistem (UUID)</dt>

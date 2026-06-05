@@ -106,9 +106,9 @@
                                 @endif
                             </td>
                             <td>
-                                <a href="" class="p-1.5 text-emerald-600 hover:bg-blue-50 rounded-md transition-colors">
+                                <button @click="childGrowthLog.detail.openModal($event)" data-profile="{{ json_encode($item) }}" class="p-1.5 text-emerald-600 hover:bg-blue-50 rounded-md transition-colors">
                                     <x-heroicon-o-eye class="w-4 h-4 mr-2" />
-                                </a>
+                                </button>
                             </td>
                         </tr>
                         @endforeach

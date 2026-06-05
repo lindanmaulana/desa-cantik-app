@@ -4,6 +4,49 @@ export default function citizenData() {
         openCreate: false,
         openUpdate: false,
 
+        citizen: {
+            openCreate: false,
+            openUpdate: false,
+
+            data: {
+                id: "",
+                family_id: "",
+                id_number: "",
+                full_name: "",
+                family_role: "",
+                gender: "",
+                birth_place: "",
+                birth_date: "",
+                blood_type: "",
+                religion: "",
+                marital_status: "",
+            },
+
+            openModal(event) {
+                const jsonData = event.currentTarget.dataset.profile;
+                const data = JSON.parse(jsonData);
+
+                const rawDate = data?.birth_date || "";
+                const formattedDate = rawDate ? rawDate.substring(0, 10) : "";
+
+                this.data = {
+                    id: data.id,
+                    family_id: data.family_id || "",
+                    id_number: data.id_number,
+                    full_name: data.full_name,
+                    family_role: data.family_role || "",
+                    gender: data.gender || "",
+                    birth_place: data.birth_place || "",
+                    birth_date: formattedDate,
+                    blood_type: data.blood_type || "",
+                    religion: data.religion || "",
+                    marital_status: data.marital_status || "",
+                };
+
+                this.openUpdate = true;
+            },
+        },
+
         healthProfile: {
             openCreate: false,
             openUpdate: false,
@@ -123,6 +166,43 @@ export default function citizenData() {
 
                 this.openUpdate = true;
             },
+
+            detail: {
+                openView: false,
+                data: {
+                    measured_at: "",
+                    weight: "",
+                    height: "",
+                    measurement_method: "",
+                    vit_a_received: 0,
+                    stunting_status: "",
+                    notes: "",
+                },
+
+                openModal(event) {
+                    const jsonData = event.currentTarget.dataset.profile;
+                    const data = JSON.parse(jsonData);
+
+                    this.data = {
+                        measured_at: data?.measured_at,
+                        weight: data?.weight,
+                        height: data?.height,
+                        measurement_method: data?.measurement_method,
+                        vit_a_received: data?.vit_a_received,
+                        stunting_status: data?.stunting_status,
+                        notes: data?.notes,
+                    };
+
+                    this.openView = true;
+                },
+            },
+        },
+
+        formattedDate(date) {
+            const rawDate = date;
+            const result = rawDate ? rawDate.substring(0, 10) : "";
+
+            return result;
         },
 
         // citizen: {

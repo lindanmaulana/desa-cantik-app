@@ -102,7 +102,7 @@ class CitizensController extends Controller
     public function show(Citizen $citizen)
     {
         $citizen->load([
-            'family',
+            'family.territory',
             'educationProfile',
             'employmentProfile',
             'healthProfile',

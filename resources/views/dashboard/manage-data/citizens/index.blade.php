@@ -22,7 +22,7 @@
                     </span>
                 </button>
 
-                <button @click="openCreate = true" class="inline-flex items-center px-4 py-2 text-sm font-medium text-white transition-colors bg-teal-600 rounded-lg shadow-sm hover:bg-teal-700">
+                <button @click="citizen.openCreate = true" class="inline-flex items-center px-4 py-2 text-sm font-medium text-white transition-colors bg-teal-600 rounded-lg shadow-sm hover:bg-teal-700">
                     <x-heroicon-o-plus class="w-4 h-4 mr-2" />
                     Tambah Penduduk Baru
                 </button>
@@ -38,6 +38,7 @@
         @endif
 
         @include('dashboard.manage-data.citizens.partials.modal.citizen-create')
+        @include('dashboard.manage-data.citizens.partials.modal.citizen-update')
 
         @include('dashboard.manage-data.citizens.partials.stats')
         @include('dashboard.manage-data.citizens.partials.filter')

@@ -56,6 +56,9 @@
                             </td>
                             <td class="px-6 py-4 text-center">
                                 <div class="flex items-center justify-center gap-2">
+                                    <button @click="citizen.openModal($event)" data-profile="{{ json_encode($item) }}" class="p-1.5 text-blue-600 hover:bg-blue-50 rounded-md transition-colors" title="Edit Data">
+                                        <x-heroicon-o-pencil-square class="w-4 h-4" />
+                                    </button>
                                     <a href="{{ route('dashboard.manage-data.citizens.detail', $item) }}" class="p-1.5 text-blue-600 hover:bg-blue-50 rounded-md transition-colors">
                                         <x-heroicon-o-eye class="w-4 h-4 mr-2" />
                                     </a>
