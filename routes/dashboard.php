@@ -20,7 +20,6 @@ use App\Http\Controllers\Dashboard\ManageData\SocialEconomicsController;
 use App\Http\Controllers\Dashboard\ManageData\MsmesController;
 use App\Http\Controllers\Dashboard\ManageData\InfrastructuresController;
 use App\Http\Controllers\Dashboard\ManageData\SpatialDataController as ManageSpatialDataController;
-use App\Models\EmploymentProfile;
 
 Route::middleware(['auth'])->group(function () {
     Route::prefix('dashboard')->group(function () {

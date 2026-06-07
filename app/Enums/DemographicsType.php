@@ -7,7 +7,7 @@ enum DemographicsType: string
     case AGE_GROUP = 'ageGroup';
     case GENDER = 'gender';
     case MARITAL_STATUS = 'maritalStatus';
-    case PRESENCE = 'presence';
+    case TERRITORY = 'territory';
     case CITIZEN_STATUS = 'citizenStatus';
     case FAMILY_RELATIONSHIP = 'familyRelationship';
     case KTP_OWNERSHIP = 'ktpOwnership';
@@ -19,7 +19,7 @@ enum DemographicsType: string
             self::AGE_GROUP => 'bar',
             self::GENDER => 'donut',
             self::MARITAL_STATUS => 'donut',
-            self::PRESENCE => 'polarArea',
+            self::TERRITORY => 'bar',
             self::CITIZEN_STATUS => 'bar',
         };
     }
@@ -27,10 +27,10 @@ enum DemographicsType: string
     public function labels(): array
     {
         return match ($this) {
-            self::AGE_GROUP => ['Pra Lansia (55-64)', 'Dewasa Produktif (25-54)', 'Lansia (65+)', 'Balita (0-4)', 'Anak-anak (5-14)', 'Remaja (15-24)', 'Tidak Diisi'],
+            self::AGE_GROUP => [ 'Balita (0-4)', 'Anak-anak (5-14)', 'Remaja (15-24)', 'Dewasa Produktif (25-54)', 'Pra Lansia (55-64)', 'Lansia (65+)', 'Tidak Diisi' ],
             self::GENDER => ["Laki-Laki", "Perempuan"],
             self::MARITAL_STATUS => ['Belum Kawin', 'Kawin', 'Cerai Hidup', 'Cerai Mati'],
-            self::PRESENCE => ['Keberadaan'],
+            self::TERRITORY => ['Keberadaan'],
             self::CITIZEN_STATUS => ['Status Penduduk'],
             self::FAMILY_RELATIONSHIP => ['Hubungan dgn KK'],
             self::KTP_OWNERSHIP => ['Kepemilikan KTP-el'],

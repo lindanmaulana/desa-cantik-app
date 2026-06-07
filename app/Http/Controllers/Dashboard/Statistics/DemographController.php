@@ -5,12 +5,7 @@ namespace App\Http\Controllers\Dashboard\Statistics;
 use App\Enums\DemographicsType;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Statistics\DemographRequest;
-use App\Models\Citizen;
-use App\Models\Family;
-use App\Services\CitizenService;
-use App\Services\FamilyService;
 use App\Services\Statistics\DemographService;
-use Illuminate\Http\Request;
 
 class DemographController extends Controller
 {
@@ -23,10 +18,12 @@ class DemographController extends Controller
         $stats = $this->demographService->getDemographicStats();
 
         $currentType = DemographicsType::tryFrom($validated['type'] ?? DemographicsType::AGE_GROUP->value) ?? DemographicsType::AGE_GROUP;
+
         $data = match ($currentType) {
             DemographicsType::AGE_GROUP => $this->demographService->getAgeGroup(),
             DemographicsType::GENDER => $this->demographService->getGender(),
             DemographicsType::MARITAL_STATUS => $this->demographService->getMaritalStatus(),
+            DemographicsType::TERRITORY => $this->demographService->getTerritory($validated['rw'] ?? null),
         };
 
         return view('dashboard.statistics.demographics.index', compact('stats'))->with([

@@ -1,8 +1,8 @@
 import ApexCharts from "apexcharts";
 
-export const renderBarChart = (element, data, labels, series, colors) => {
+export const renderBarChart = (element, data, chartOptions) => {
     var options = {
-        series: series,
+        series: chartOptions.series,
         chart: {
             type: "bar",
             height: 400,
@@ -11,6 +11,7 @@ export const renderBarChart = (element, data, labels, series, colors) => {
             },
             fontFamily: "Inter, sans-serif",
         },
+
         plotOptions: {
             bar: {
                 horizontal: false,
@@ -21,24 +22,37 @@ export const renderBarChart = (element, data, labels, series, colors) => {
                 },
             },
         },
-        colors: colors,
+        colors: chartOptions.colors,
         dataLabels: {
             enabled: false,
         },
+
         stroke: {
             show: true,
             width: 5,
             colors: ["transparent"],
         },
-        xaxis: {
-            categories: labels,
+
+        xaxis: chartOptions.xaxis || {
+            categories: ["Laki-laki", "Perempuan"],
+
             axisBorder: {
                 show: false,
             },
         },
+
+        yaxis: {
+            labels: {
+                formatter: function (val) {
+                    return val.toFixed(0);
+                },
+            },
+        },
+
         fill: {
             opacity: 1,
         },
+
         legend: {
             position: "bottom",
             markers: {

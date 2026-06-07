@@ -53,10 +53,10 @@
                     </x-buttons.filter-button>
                 </a>
 
-                <a href="{{ route('dashboard.statistics.demograph', ['type' => 'presence']) }}">
+                <a href="{{ route('dashboard.statistics.demograph', ['type' => 'territory']) }}">
                     <x-buttons.filter-button
                         icon="ri-map-pin-user-fill"
-                        :active="$currentType->value === 'presence'">
+                        :active="$currentType->value === 'territory'">
                         Keberadaan
                     </x-buttons.filter-button>
                 </a>
@@ -232,19 +232,33 @@
 
     @push('scripts')
     <script>
+        window.demographicsType = {
+            ageGroup: "{!! \App\Enums\DemographicsType::AGE_GROUP->value !!}",
+            gender: "{!! \App\Enums\DemographicsType::GENDER->value !!}",
+            maritalStatus: "{!! \App\Enums\DemographicsType::MARITAL_STATUS->value !!}",
+            territory: "{!! \App\Enums\DemographicsType::TERRITORY->value !!}",
+            citizenStatus: "{!! \App\Enums\DemographicsType::CITIZEN_STATUS->value !!}",
+            familyRelationship: "{!! \App\Enums\DemographicsType::FAMILY_RELATIONSHIP->value !!}",
+            ktpOwnership: "{!! \App\Enums\DemographicsType::KTP_OWNERSHIP->value !!}",
+            buildingDensity: "{!! \App\Enums\DemographicsType::BUILDING_DENSITY->value !!}"
+        };
+
         document.addEventListener('DOMContentLoaded', function() {
             const currentType = '{{ request("type", "ageGroup") }}';
 
             const chartType = '{{ $chartType }}';
             const data = JSON.parse('@json($data ?? [])');
-            const chartLabels = JSON.parse('@json($chartLabels ?? [])');
-            const type = "{{ request('type') }}"
+            let chartLabels = JSON.parse('@json($chartLabels ?? [])');
+
+            const reqType = "{{ request('type') }}"
+            const reqRw = "{{ request('rw') }}"
 
             const element = document.querySelector('#chart')
             if (!element) return;
 
-            switch (type) {
-                case 'ageGroup':
+            switch (reqType) {
+                case window.demographicsType.ageGroup:
+                    console.log("masuk ke ageGroup")
                     window.ChartOptions = {
                         series: [{
                                 name: "Laki-laki",
@@ -255,22 +269,51 @@
                                 data: data.female ?? [],
                             },
                         ],
+
+                        xaxis: {
+                            categories: chartLabels
+                        }
                     }
                     break;
 
-                case 'gender':
+                case window.demographicsType.gender:
+                    console.log("masuk ke gender")
                     window.ChartOptions = {
                         series: [Number(data.male ?? 0), Number(data.female ?? 0)],
                         colors: [window.AppColors.primary, window.AppColors.secondary]
                     }
                     break;
 
-                case 'maritalStatus':
+                case window.demographicsType.maritalStatus:
                     window.ChartOptions = {
-                        series: [Number(data.single), Number(data.married), Number(data.divorced), Number(data.widowed)]
+                        series: [Number(data.single), Number(data.married), Number(data.divorced), Number(data.widowed)],
+                        xaxis: {
+                            categories: chartLabels
+                        }
                     }
                     break;
 
+                case window.demographicsType.territory:
+                    console.log({
+                        data
+                    })
+
+                    let labels = reqRw ? 'RT' : 'RW'
+
+                    window.ChartOptions = {
+                        series: [{
+                            name: "Jumlah Warga",
+                            data: data.map(item => Number(item.total_citizens))
+                        }],
+
+                        colors: [window.AppColors.primary, window.AppColors.secondary],
+
+                        xaxis: {
+                            categories: data.map(item => `${labels} ${item.region_name}`)
+                        }
+                    }
+
+                    break;
                 default:
                     window.ChartOptions = {
                         series: [{
@@ -282,12 +325,18 @@
                                 data: data.female ?? [],
                             },
                         ],
+
+                        colors: [window.AppColors.primary, window.AppColors.secondary],
+
+                        xaxis: {
+                            categories: ["Laki-laki", "Perempuan"]
+                        }
                     }
             }
 
             switch (chartType) {
                 case 'bar':
-                    renderBarChart(element, data, chartLabels, window.ChartOptions.series, window.ChartOptions.colors);
+                    renderBarChart(element, data, window.ChartOptions);
                     break;
                 case 'donut':
                     renderDonutChart(element, data, chartLabels, window.ChartOptions.series, window.ChartOptions.colors);
