@@ -61,10 +61,10 @@
                     </x-buttons.filter-button>
                 </a>
 
-                <a href="{{ route('dashboard.statistics.demograph', ['type' => 'residencyStatus']) }}">
+                <a href="{{ route('dashboard.statistics.demograph', ['type' => 'citizenStatus']) }}">
                     <x-buttons.filter-button
                         icon="ri-user-settings-fill"
-                        :active="$currentType->value === 'residencyStatus'">
+                        :active="$currentType->value === 'citizenStatus'">
                         Status Penduduk
                     </x-buttons.filter-button>
                 </a>
@@ -248,17 +248,17 @@
 
             const chartType = '{{ $chartType }}';
             const data = JSON.parse('@json($data ?? [])');
-            let chartLabels = JSON.parse('@json($chartLabels ?? [])');
+            const chartLabels = JSON.parse('@json($chartLabels ?? [])');
 
             const reqType = "{{ request('type') }}"
             const reqRw = "{{ request('rw') }}"
 
             const element = document.querySelector('#chart')
+
             if (!element) return;
 
             switch (reqType) {
                 case window.demographicsType.ageGroup:
-                    console.log("masuk ke ageGroup")
                     window.ChartOptions = {
                         series: [{
                                 name: "Laki-laki",
@@ -277,27 +277,21 @@
                     break;
 
                 case window.demographicsType.gender:
-                    console.log("masuk ke gender")
                     window.ChartOptions = {
                         series: [Number(data.male ?? 0), Number(data.female ?? 0)],
-                        colors: [window.AppColors.primary, window.AppColors.secondary]
+                        colors: [window.AppColors.primary, window.AppColors.secondary],
+                        xaxis: chartLabels
                     }
                     break;
 
                 case window.demographicsType.maritalStatus:
                     window.ChartOptions = {
                         series: [Number(data.single), Number(data.married), Number(data.divorced), Number(data.widowed)],
-                        xaxis: {
-                            categories: chartLabels
-                        }
+                        xaxis: chartLabels
                     }
                     break;
 
                 case window.demographicsType.territory:
-                    console.log({
-                        data
-                    })
-
                     let labels = reqRw ? 'RT' : 'RW'
 
                     window.ChartOptions = {
@@ -314,6 +308,30 @@
                     }
 
                     break;
+
+                case window.demographicsType.citizenStatus:
+                    let result = {
+                        labels: [],
+                        data: [],
+                    }
+
+                    for (let citizen in data) {
+                        result.labels.push(citizen)
+                        result.data.push(data[citizen])
+                    }
+
+                    window.ChartOptions = {
+                        series: [{
+                            name: 'Jumlah',
+                            data: result.data
+                        }],
+
+                        xaxis: {
+                            categories: chartLabels
+                        }
+                    }
+                    break;
+
                 default:
                     window.ChartOptions = {
                         series: [{
@@ -336,10 +354,10 @@
 
             switch (chartType) {
                 case 'bar':
-                    renderBarChart(element, data, window.ChartOptions);
+                    renderBarChart(element, window.ChartOptions);
                     break;
                 case 'donut':
-                    renderDonutChart(element, data, chartLabels, window.ChartOptions.series, window.ChartOptions.colors);
+                    renderDonutChart(element, data, window.ChartOptions);
                     break;
             }
         });

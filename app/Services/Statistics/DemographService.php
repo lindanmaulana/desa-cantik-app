@@ -132,4 +132,22 @@ class DemographService
             ->orderByRaw("CASE WHEN region_name = 'Tidak Diisi' THEN 1 ELSE 0 END, region_name ASC")
             ->get();
     }
+
+    public function getStatusCitizen() {
+        $rawQuery = Citizen::selectRaw("
+            SUM(CASE WHEN family_role = 'head_of_family' THEN 1 ELSE 0 END) as headOfFamily,
+            SUM(CASE WHEN family_role = 'spouse' THEN 1 ELSE 0 END) as spouse,
+            SUM(CASE WHEN family_role = 'child' THEN 1 ELSE 0 END) as child,
+            SUM(CASE WHEN family_role = 'parent' THEN 1 ELSE 0 END) as parent,
+            SUM(CASE WHEN family_role = 'other_relative' THEN 1 ELSE 0 END) as otherRelative
+        ")->first();
+
+        return [
+            'headOfFamily' => $rawQuery->headOfFamily ?? 0,
+            'spouse' => $rawQuery->spouse ?? 0,
+            'child' => $rawQuery->child ?? 0,
+            'parent' => $rawQuery->parent ?? 0,
+            'otherRelative' => $rawQuery->otherRelative ?? 0,
+        ];
+    }
 }

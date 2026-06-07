@@ -24,6 +24,7 @@ class DemographController extends Controller
             DemographicsType::GENDER => $this->demographService->getGender(),
             DemographicsType::MARITAL_STATUS => $this->demographService->getMaritalStatus(),
             DemographicsType::TERRITORY => $this->demographService->getTerritory($validated['rw'] ?? null),
+            DemographicsType::CITIZEN_STATUS => $this->demographService->getStatusCitizen(),
         };
 
         return view('dashboard.statistics.demographics.index', compact('stats'))->with([

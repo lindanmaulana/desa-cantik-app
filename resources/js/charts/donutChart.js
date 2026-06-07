@@ -1,9 +1,9 @@
 import ApexCharts from "apexcharts";
 
-export const renderDonutChart = (element, data, labels, series, colors) => {
+export const renderDonutChart = (element, data, chartOptions) => {
     var options = {
-        series: series,
-        labels: labels,
+        series: chartOptions.series,
+        labels: chartOptions.xaxis,
         chart: {
             type: "donut",
             height: 500,
@@ -16,7 +16,7 @@ export const renderDonutChart = (element, data, labels, series, colors) => {
                 },
             },
         },
-        colors: colors,
+        colors: chartOptions.colors,
         dataLabels: {
             enabled: true,
         },

@@ -1,6 +1,7 @@
 import ApexCharts from "apexcharts";
 
-export const renderBarChart = (element, data, chartOptions) => {
+export const renderBarChart = (element, chartOptions) => {
+    console.log({element, chartOptions})
     var options = {
         series: chartOptions.series,
         chart: {

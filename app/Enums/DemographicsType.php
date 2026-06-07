@@ -31,7 +31,7 @@ enum DemographicsType: string
             self::GENDER => ["Laki-Laki", "Perempuan"],
             self::MARITAL_STATUS => ['Belum Kawin', 'Kawin', 'Cerai Hidup', 'Cerai Mati'],
             self::TERRITORY => ['Keberadaan'],
-            self::CITIZEN_STATUS => ['Status Penduduk'],
+            self::CITIZEN_STATUS => ['Kepala Keluarga', 'Suami / Istri', 'Anak', 'Orang Tua', 'Famili lain'],
             self::FAMILY_RELATIONSHIP => ['Hubungan dgn KK'],
             self::KTP_OWNERSHIP => ['Kepemilikan KTP-el'],
             self::BUILDING_DENSITY => ['Kepadatan Bangunan'],
