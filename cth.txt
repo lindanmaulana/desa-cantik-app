@@ -139,3 +139,22 @@
                 @include('dashboard.manage-data.citizens.partials.profiles.childGrowthLogs-profile')
             </x-citizen-profile-card>
         </div>
+
+            <div class="flex items-center gap-2">
+                <button @click="openData = !openData"
+                    class="inline-flex items-center px-4 py-2 text-sm font-medium text-white transition-colors bg-teal-600 rounded-lg shadow-sm hover:bg-teal-700">
+                    <span class="flex items-center" x-show="openData">
+                        <x-heroicon-o-eye class="w-4 h-4 mr-2 max-md:mr-0" />
+                        <span class="max-md:hidden">Sembunyikan Data Sensitif</span>
+                    </span>
+                    <span class="flex items-center" x-show="!openData">
+                        <x-heroicon-o-eye-slash class="w-4 h-4 mr-2 max-md:mr-0" />
+                        <span class="max-md:hidden">Tampilkan Data Sensitif</span>
+                    </span>
+                </button>
+                <a href="{{ route('dashboard.manage-data.citizens') }}"
+                    class="inline-flex items-center gap-1 px-4 py-2 text-sm font-medium text-white transition-colors bg-teal-600 rounded-lg shadow-sm hover:bg-teal-700">
+                    <x-iconsax-lin-arrow-left class="size-4 mr-2 max-md:mr-0" /> <span
+                        class="mb-px max-md:hidden">Kembali ke Daftar Penduduk</span>
+                </a>
+            </div>

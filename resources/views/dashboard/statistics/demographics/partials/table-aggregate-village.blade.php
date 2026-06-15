@@ -3,7 +3,6 @@
     :data-table="$tableAggregateVillageData"
     :req-type="request('type')" />
 
-
 @push('scripts')
 <script>
     document.addEventListener("alpine:init", () => {

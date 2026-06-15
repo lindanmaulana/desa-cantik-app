@@ -1,24 +1,26 @@
 @props(['id', 'dataTable', 'reqType'])
 
 @if($reqType)
-<div x-data="tableComponent('{{ $id }}', {{ Js::from($dataTable) }})" x-init="initTable()" class="p-6 space-y-4 overflow-hidden bg-white border border-gray-100 shadow-sm rounded-3xl">
-    <div class="border-b border-gray-50">
-        <h3 class="text-xs font-bold tracking-widest text-gray-400 uppercase">Agregat Desa</h3>
+<div x-data="tableComponent('{{ $id }}', {{ Js::from($dataTable) }})" x-init="initTable()" class="p-4 space-y-4 bg-white border border-gray-100 shadow-sm sm:p-6 rounded-2xl sm:rounded-3xl">
+    <div class="pb-2 border-b border-gray-50">
+        <h3 class="text-[10px] sm:text-xs font-bold tracking-widest text-gray-400 uppercase">Agregat Desa
+        </h3>
     </div>
 
-    <div class="overflow-x-auto">
-        <table class="w-full text-sm text-left">
-            <thead class="text-xs font-bold text-white uppercase bg-[#1e293b]">
+    <div class="block w-full overflow-x-auto border border-gray-100 rounded-xl whitespace-nowrap snap-x">
+        <table class="w-full text-xs sm:text-sm text-left table-auto min-w-[700px]">
+            <thead class="text-[11px] sm:text-xs font-bold text-white uppercase bg-[#1e293b] sticky top-0">
                 <tr>
-                    <th class="px-6 py-4 text-center">No</th>
-                    <th class="px-6 py-4">Kategori</th>
-                    <th class="px-6 py-4 text-center">Laki-laki</th>
-                    <th class="px-6 py-4 text-center">Perempuan</th>
-                    <th class="px-6 py-4 text-center">Jumlah</th>
-                    <th class="px-6 py-4 text-center">% Desa</th>
-                    <th class="px-6 py-4">Proporsi</th>
+                    <th class="w-12 px-3 py-3 text-center sm:px-6 sm:py-4">No</th>
+                    <th class="px-4 py-3 sm:px-6 sm:py-4">Kategori</th>
+                    <th class="px-3 py-3 text-center sm:px-6 sm:py-4">Laki-laki</th>
+                    <th class="px-3 py-3 text-center sm:px-6 sm:py-4">Perempuan</th>
+                    <th class="px-3 py-3 text-center sm:px-6 sm:py-4">Jumlah</th>
+                    <th class="px-3 py-3 text-center sm:px-6 sm:py-4">% Desa</th>
+                    <th class="w-32 px-4 py-3 sm:px-6 sm:py-4">Proporsi</th>
                 </tr>
             </thead>
+
             <tbody class="divide-y divide-gray-100">
                 @foreach($dataTable['data'] as $data)
                 <tr class="transition-colors hover:bg-gray-50">
@@ -31,7 +33,7 @@
                         <span
                             class="px-3 py-1 rounded-full bg-indigo-50 text-indigo-500 font-bold text-[11px]">{{ $data['percent'] }}%</span>
                     </td>
-                    <td class="px-6 py-4">
+                    <td class="px-6 py-4 sm:px-6 sm:py-4">
                         <div class="w-24 h-2 bg-gray-100 rounded-full" style="--bar-width: {{ $data['percentage'] ?? $data['persen'] ?? $data['percent'] ?? 0 }}%;">
                             <div class="h-2 bg-indigo-500 rounded-full" style="width: var(--bar-width);"></div>
                         </div>

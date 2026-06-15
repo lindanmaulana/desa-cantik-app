@@ -1,40 +1,40 @@
 @props(['id', 'dataTable', 'reqTypeSubVillage'])
 
-<div class="w-full overflow-x-auto bg-white">
+<div class="block w-full overflow-x-auto border border-gray-100 rounded-xl whitespace-nowrap snap-x">
     @if(request('rw') ?? false)
-    <table class="w-full text-sm text-left border-collapse">
-        <thead class="text-xs font-bold text-white uppercase bg-[#1e293b]">
+    <table class="w-full text-xs sm:text-sm text-left border-collapse table-auto min-w-[650px]">
+        <thead class="text-[11px] sm:text-xs font-bold text-white uppercase bg-[#1e293b]">
             <tr>
-                <th class="px-6 py-4">RW</th>
-                <th class="px-6 py-4">RT</th>
-                <th class="px-6 py-4">Kategori</th>
-                <th class="px-6 py-4 text-center">L</th>
-                <th class="px-6 py-4 text-center">P</th>
-                <th class="px-6 py-4 text-center">Jumlah</th>
-                <th class="px-6 py-4 text-center">%</th>
+                <th class="w-16 px-3 py-3 text-center sm:px-5 sm:py-4">RW</th>
+                <th class="w-16 px-3 py-3 text-center sm:px-5 sm:py-4">RT</th>
+                <th class="px-4 py-3 sm:px-6 sm:py-4">Kategori</th>
+                <th class="w-16 px-3 py-3 text-center sm:px-6 sm:py-4">L</th>
+                <th class="w-16 px-3 py-3 text-center sm:px-6 sm:py-4">P</th>
+                <th class="w-24 px-3 py-3 text-center sm:px-6 sm:py-4">Jumlah</th>
+                <th class="w-20 px-3 py-3 text-center sm:px-6 sm:py-4">%</th>
             </tr>
         </thead>
 
-        <tbody class="divide-y divide-gray-100">
+        <tbody class="align-middle divide-y divide-gray-100">
             @if(!empty($dataTable["data"]))
             @foreach($dataTable["data"] as $row)
-            <tr>
+            <tr class="hover:bg-gray-50/30">
                 @if($row['is_first'])
                 <td rowspan="7"
-                    class="px-6 py-4 font-bold text-center text-gray-800 border-r border-gray-50 bg-gray-50/30">
+                    class="px-3 py-3 font-bold text-center text-gray-800 border-r border-gray-100 sm:px-5 sm:py-4 bg-slate-50/50">
                     {{ $row['rw'] }}
                 </td>
                 <td rowspan="7"
-                    class="px-6 py-4 font-bold text-center text-gray-800 border-r border-gray-50 bg-gray-50/30">
+                    class="px-3 py-3 font-bold text-center text-gray-800 border-r border-gray-100 sm:px-5 sm:py-4 bg-slate-50/50">
                     {{ $row['rt'] }}
                 </td>
                 @endif
 
-                <td class="px-6 py-4 italic text-gray-600">{{ $row['category'] }}</td>
-                <td class="px-6 py-4 text-center text-gray-600">{{ $row['male'] }}</td>
-                <td class="px-6 py-4 text-center text-gray-600">{{ $row['female'] }}</td>
-                <td class="px-6 py-4 font-bold text-center text-gray-800">{{ $row['total'] }}</td>
-                <td class="px-6 py-4 text-center text-gray-400">{{ $row['percent'] }}%</td>
+                <td class="px-4 py-3 sm:px-6 sm:py-4 italic text-gray-600 max-w-[180px] truncate">{{ $row['category'] }}</td>
+                <td class="px-3 py-3 text-center text-gray-600 sm:px-6 sm:py-4">{{ $row['male'] }}</td>
+                <td class="px-3 py-3 text-center text-gray-600 sm:px-6 sm:py-4">{{ $row['female'] }}</td>
+                <td class="px-3 py-3 font-bold text-center text-gray-800 sm:px-6 sm:py-4">{{ $row['total'] }}</td>
+                <td class="px-3 py-3 font-medium text-center text-gray-400 sm:px-6 sm:py-4">{{ $row['percent'] }}%</td>
             </tr>
             @endforeach
             @else
