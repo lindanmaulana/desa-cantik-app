@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Dashboard\ManageData;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Territories\getAllTerritoryRequest;
 use App\Http\Requests\Territories\StoreTerritoryRequest;
 use App\Http\Requests\Territories\UpdateTerritoryRequest;
 use App\Models\Territory;
@@ -17,39 +18,12 @@ class TerritoriesController extends Controller
 {
     public function __construct(protected TerritoriesService $territoriesService) {}
 
-    public function index(Request $request)
+    public function index(getAllTerritoryRequest $request)
     {
-        $request->validate([
-            'search' => 'nullable|string|max:255',
-            'sub_village' => 'nullable|in:pahing,pon,wage',
-        ]);
 
-        $query = Territory::query();
-
-        if ($request->filled('search')) {
-            $search = $request->search;
-
-            $query->where(function ($q) use ($search) {
-                $q->whereAny([
-                    'sub_village',
-                    'area_name',
-                    'rw',
-                    'rt'
-                ], 'like', "%{$search}%");
-            });
-        }
-
-        if ($request->filled('sub_village')) {
-            $query->where('sub_village', $request->sub_village);
-        }
-
-        $territories = $query->latest()->paginate(10)->withQueryString();
-
-        $counts = Territory::selectRaw("
-            COUNT(DISTINCT sub_village) as total_SubVillage,
-            COUNT(DISTINCT rw) as total_RW,
-            COUNT(DISTINCT rt) as total_RT
-        ")->first();
+        $validated = $request->validated();
+        $territories = $this->territoriesService->getAll($validated);
+        $counts = $this->territoriesService->getCount();
 
         return view('dashboard.manage-data.territories.index', compact('territories', 'counts'));
     }

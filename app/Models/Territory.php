@@ -22,11 +22,25 @@ class Territory extends Model
         "rw"
     ];
 
-    public function families() {
+    public function citizens()
+    {
+        return $this->hasManyThrough(
+            Citizen::class,
+            Family::class,
+            'territory_id',
+            'family_id',
+            'id',
+            'id'
+        );
+    }
+
+    public function families()
+    {
         return $this->hasMany(Family::class);
     }
 
-    public function users() {
+    public function users()
+    {
         return $this->hasMany(User::class);
     }
 }

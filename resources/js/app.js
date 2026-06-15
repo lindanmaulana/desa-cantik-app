@@ -26,6 +26,7 @@ document.addEventListener("alpine:init", () => {
     Alpine.data("territoryData", territoryData);
     Alpine.data("msmeData", msmeData);
     Alpine.data("infrastructureData", infrastructureData);
+
     initSpatialModule();
 });
 

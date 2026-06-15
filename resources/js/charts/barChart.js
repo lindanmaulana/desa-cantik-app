@@ -1,7 +1,6 @@
 import ApexCharts from "apexcharts";
 
 export const renderBarChart = (element, chartOptions) => {
-    console.log({element, chartOptions})
     var options = {
         series: chartOptions.series,
         chart: {
@@ -18,6 +17,7 @@ export const renderBarChart = (element, chartOptions) => {
                 horizontal: false,
                 columnWidth: "55%",
                 borderRadius: 8,
+                distributed: true,
                 dataLabels: {
                     position: "top",
                 },
