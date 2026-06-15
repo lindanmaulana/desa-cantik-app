@@ -139,36 +139,82 @@ class DemographService
         ];
     }
 
-    public function getMaritalStatus()
+    public function getMaritalStatus(?string $rw = null, ?string $rt = null)
     {
-        $rawQuery = Citizen::selectRaw("
-            -- Single
+        $query = Citizen::query();
+
+        // Join ke tabel families dan territories untuk mendapatkan data spasial wilayah
+        $query->leftJoin("families", "citizens.family_id", "=", "families.id")
+            ->leftJoin("territories", "families.territory_id", "=", "territories.id")
+            ->when($rw, function ($q) use ($rw) {
+                return $q->where('territories.rw', $rw);
+            })
+            ->when($rt, function ($q) use ($rt) {
+                return $q->where('territories.rt', $rt);
+            });
+
+        $rawQuery = $query->selectRaw("
+            -- COALESCE menjaga agar jika data KK belum diset wilayahnya, tidak merusak grouping UI
+            COALESCE(territories.rw, 'Tanpa RW') as rw,
+            COALESCE(territories.rt, 'Tanpa RT') as rt,
+
+            -- 1. Belum Kawin (Single)
             SUM(CASE WHEN gender = 'male' AND marital_status = 'single' THEN 1 ELSE 0 END) as male_single,
             SUM(CASE WHEN gender = 'female' AND marital_status = 'single' THEN 1 ELSE 0 END) as female_single,
-            -- Married
+
+            -- 2. Kawin (Married)
             SUM(CASE WHEN gender = 'male' AND marital_status = 'married' THEN 1 ELSE 0 END) as male_married,
             SUM(CASE WHEN gender = 'female' AND marital_status = 'married' THEN 1 ELSE 0 END) as female_married,
-            -- Divorced
+
+            -- 3. Cerai Hidup (Divorced)
             SUM(CASE WHEN gender = 'male' AND marital_status = 'divorced' THEN 1 ELSE 0 END) as male_divorced,
             SUM(CASE WHEN gender = 'female' AND marital_status = 'divorced' THEN 1 ELSE 0 END) as female_divorced,
-            -- Widowed
+
+            -- 4. Cerai Mati (Widowed)
             SUM(CASE WHEN gender = 'male' AND marital_status = 'widowed' THEN 1 ELSE 0 END) as male_widowed,
             SUM(CASE WHEN gender = 'female' AND marital_status = 'widowed' THEN 1 ELSE 0 END) as female_widowed
-        ")->first();
+        ")
+            ->groupBy('territories.rw', 'territories.rt')
+            ->orderBy('territories.rw')
+            ->orderBy('territories.rt')
+            ->get();
 
         return [
             'male' => [
-                (int)$rawQuery->male_single,
-                (int)$rawQuery->male_married,
-                (int)$rawQuery->male_divorced,
-                (int)$rawQuery->male_widowed
+                (int) $rawQuery->sum('male_single'),
+                (int) $rawQuery->sum('male_married'),
+                (int) $rawQuery->sum('male_divorced'),
+                (int) $rawQuery->sum('male_widowed')
             ],
             'female' => [
-                (int)$rawQuery->female_single,
-                (int)$rawQuery->female_married,
-                (int)$rawQuery->female_divorced,
-                (int)$rawQuery->female_widowed
+                (int) $rawQuery->sum('female_single'),
+                (int) $rawQuery->sum('female_married'),
+                (int) $rawQuery->sum('female_divorced'),
+                (int) $rawQuery->sum('female_widowed')
             ],
+
+            'by_territory' => $rawQuery->map(function ($row) {
+                return [
+                    'label' => ($row->rw === 'Tanpa RW') ? 'Tanpa Wilayah KK' : "RW " . $row->rw . " / RT " . $row->rt,
+                    'territory' => [
+                        'rw' => $row->rw,
+                        'rt' => $row->rt,
+                    ],
+                    'male' => [
+                        (int) ($row->male_single ?? 0),
+                        (int) ($row->male_married ?? 0),
+                        (int) ($row->male_divorced ?? 0),
+                        (int) ($row->male_widowed ?? 0),
+                    ],
+                    'female' => [
+                        (int) ($row->female_single ?? 0),
+                        (int) ($row->female_married ?? 0),
+                        (int) ($row->female_divorced ?? 0),
+                        (int) ($row->female_widowed ?? 0),
+                    ],
+                ];
+            })->all(),
+            'raw' => $rawQuery
         ];
     }
 
@@ -221,40 +267,89 @@ class DemographService
         ];
     }
 
-    public function getStatusCitizen()
+    public function getStatusCitizen(?string $rw = null, ?string $rt = null)
     {
-        $rawQuery = Citizen::selectRaw("
+        $query = Citizen::query();
+
+        // Join terpusat ke tabel pendukung teritorial wilayah
+        $query->leftJoin("families", "citizens.family_id", "=", "families.id")
+            ->leftJoin("territories", "families.territory_id", "=", "territories.id")
+            ->when($rw, function ($q) use ($rw) {
+                return $q->where('territories.rw', $rw);
+            })
+            ->when($rt, function ($q) use ($rt) {
+                return $q->where('territories.rt', $rt);
+            });
+
+        $rawQuery = $query->selectRaw("
+            COALESCE(territories.rw, 'Tanpa RW') as rw,
+            COALESCE(territories.rt, 'Tanpa RT') as rt,
+
+            -- 1. Kepala Keluarga (head_of_family)
             SUM(CASE WHEN gender = 'male' AND family_role = 'head_of_family' THEN 1 ELSE 0 END) as male_hof,
             SUM(CASE WHEN gender = 'female' AND family_role = 'head_of_family' THEN 1 ELSE 0 END) as female_hof,
 
+            -- 2. Istri/Suami (spouse)
             SUM(CASE WHEN gender = 'male' AND family_role = 'spouse' THEN 1 ELSE 0 END) as male_spouse,
             SUM(CASE WHEN gender = 'female' AND family_role = 'spouse' THEN 1 ELSE 0 END) as female_spouse,
 
+            -- 3. Anak (child)
             SUM(CASE WHEN gender = 'male' AND family_role = 'child' THEN 1 ELSE 0 END) as male_child,
             SUM(CASE WHEN gender = 'female' AND family_role = 'child' THEN 1 ELSE 0 END) as female_child,
 
+            -- 4. Orang Tua/Mertua (parent)
             SUM(CASE WHEN gender = 'male' AND family_role = 'parent' THEN 1 ELSE 0 END) as male_parent,
             SUM(CASE WHEN gender = 'female' AND family_role = 'parent' THEN 1 ELSE 0 END) as female_parent,
 
+            -- 5. Famili Lain (other_relative)
             SUM(CASE WHEN gender = 'male' AND family_role = 'other_relative' THEN 1 ELSE 0 END) as male_other,
             SUM(CASE WHEN gender = 'female' AND family_role = 'other_relative' THEN 1 ELSE 0 END) as female_other
-        ")->first();
+        ")
+            ->groupBy('territories.rw', 'territories.rt')
+            ->orderBy('territories.rw')
+            ->orderBy('territories.rt')
+            ->get();
 
         return [
             'male' => [
-                (int)$rawQuery->male_hof,
-                (int)$rawQuery->male_spouse,
-                (int)$rawQuery->male_child,
-                (int)$rawQuery->male_parent,
-                (int)$rawQuery->male_other
+                (int) $rawQuery->sum('male_hof'),
+                (int) $rawQuery->sum('male_spouse'),
+                (int) $rawQuery->sum('male_child'),
+                (int) $rawQuery->sum('male_parent'),
+                (int) $rawQuery->sum('male_other')
             ],
             'female' => [
-                (int)$rawQuery->female_hof,
-                (int)$rawQuery->female_spouse,
-                (int)$rawQuery->female_child,
-                (int)$rawQuery->female_parent,
-                (int)$rawQuery->female_other
+                (int) $rawQuery->sum('female_hof'),
+                (int) $rawQuery->sum('female_spouse'),
+                (int) $rawQuery->sum('female_child'),
+                (int) $rawQuery->sum('female_parent'),
+                (int) $rawQuery->sum('female_other')
             ],
+
+            'by_territory' => $rawQuery->map(function ($row) {
+                return [
+                    'label' => ($row->rw === 'Tanpa RW') ? 'Tanpa Wilayah KK' : "RW " . $row->rw . " / RT " . $row->rt,
+                    'territory' => [
+                        'rw' => $row->rw,
+                        'rt' => $row->rt,
+                    ],
+                    'male' => [
+                        (int) ($row->male_hof ?? 0),
+                        (int) ($row->male_spouse ?? 0),
+                        (int) ($row->male_child ?? 0),
+                        (int) ($row->male_parent ?? 0),
+                        (int) ($row->male_other ?? 0),
+                    ],
+                    'female' => [
+                        (int) ($row->female_hof ?? 0),
+                        (int) ($row->female_spouse ?? 0),
+                        (int) ($row->female_child ?? 0),
+                        (int) ($row->female_parent ?? 0),
+                        (int) ($row->female_other ?? 0),
+                    ],
+                ];
+            })->all(),
+            'raw' => $rawQuery
         ];
     }
 }

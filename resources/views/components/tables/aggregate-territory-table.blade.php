@@ -20,11 +20,11 @@
             @foreach($dataTable["data"] as $row)
             <tr class="hover:bg-gray-50/30">
                 @if($row['is_first'])
-                <td rowspan="7"
+                <td rowspan="{{ $row['rowspan_count'] }}"
                     class="px-3 py-3 font-bold text-center text-gray-800 border-r border-gray-100 sm:px-5 sm:py-4 bg-slate-50/50">
                     {{ $row['rw'] }}
                 </td>
-                <td rowspan="7"
+                <td rowspan="{{ $row['rowspan_count'] }}"
                     class="px-3 py-3 font-bold text-center text-gray-800 border-r border-gray-100 sm:px-5 sm:py-4 bg-slate-50/50">
                     {{ $row['rt'] }}
                 </td>
