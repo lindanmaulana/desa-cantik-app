@@ -5,12 +5,12 @@
           <p class="text-xs font-semibold text-gray-400 uppercase">{{ $title }}</p>
 
           @if ($isSecret == 'true')
-              <h3 class="mt-1 text-2xl font-bold text-gray-800">
+              <h3 class="mt-1 text-2xl max-md:text-lg font-bold text-gray-800">
                   <span x-show="openData">{{ $value }}</span>
                   <span x-show="!openData"><x-vaadin-ellipsis-h class="inline size-6 text-slate-400" /></span>
               </h3>
           @else
-              <h3 class="mt-1 text-2xl font-bold text-gray-800">{{ $value }}</h3>
+              <h3 class="mt-1 text-2xl max-md:text-lg font-bold text-gray-800">{{ $value }}</h3>
           @endif
 
       </div>

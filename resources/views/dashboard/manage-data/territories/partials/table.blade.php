@@ -3,12 +3,12 @@
         <table class="w-full text-left border-collapse">
             <thead>
                 <tr class="text-xs font-semibold tracking-wider text-gray-500 uppercase border-b border-gray-100 bg-gray-50">
-                    <th class="w-16 px-6 py-4 text-center">ID</th>
-                    <th class="px-6 py-4">Nama Dusun (`sub_village`)</th>
-                    <th class="px-6 py-4">Nama Spesifik / Blok (`area_name`)</th>
-                    <th class="px-6 py-4 text-center">RW</th>
-                    <th class="px-6 py-4 text-center">RT</th>
-                    <th class="w-32 px-6 py-4 text-center">Aksi</th>
+                    <th class="w-16 max-md:px-3 px-6 max-md:py-2 py-4 text-center truncate">ID</th>
+                    <th class="max-md:px-3 px-6 max-md:py-2 py-4 truncate">Nama Dusun (`sub_village`)</th>
+                    <th class="max-md:px-3 px-6 max-md:py-2 py-4 truncate">Nama Spesifik / Blok (`area_name`)</th>
+                    <th class="max-md:px-3 px-6 max-md:py-2 py-4 text-center truncate">RW</th>
+                    <th class="max-md:px-3 px-6 max-md:py-2 py-4 text-center truncate">RT</th>
+                    <th class="w-32 max-md:px-3 px-6 max-md:py-2 py-4 text-center truncate">Aksi</th>
                 </tr>
             </thead>
             <tbody class="text-sm text-gray-700 divide-y divide-gray-100">
@@ -17,12 +17,12 @@
                 <?php $no = 1; ?>
                 @foreach($territories as $territory)
                 <tr class="transition-colors hover:bg-gray-50/70">
-                    <td class="px-6 py-4 font-medium text-center text-gray-400">{{ $no++ }}</td>
-                    <td class="px-6 py-4 font-semibold text-gray-900">{{ $territory->sub_village }}</td>
-                    <td class="px-6 py-4 text-gray-500">{{ $territory->area_name }}</td>
-                    <td class="px-6 py-4 font-medium text-center">{{ $territory->rw }}</td>
-                    <td class="px-6 py-4 font-medium text-center">{{ $territory->rt }}</td>
-                    <td class="px-6 py-4 text-center">
+                    <td class="max-md:px-3 px-6 max-md:py-2 py-4 font-medium text-center text-gray-400">{{ $no++ }}</td>
+                    <td class="max-md:px-3 px-6 max-md:py-2 py-4 font-semibold text-gray-900">{{ $territory->sub_village }}</td>
+                    <td class="max-md:px-3 px-6 max-md:py-2 py-4 text-gray-500">{{ $territory->area_name }}</td>
+                    <td class="max-md:px-3 px-6 max-md:py-2 py-4 font-medium text-center">{{ $territory->rw }}</td>
+                    <td class="max-md:px-3 px-6 max-md:py-2 py-4 font-medium text-center">{{ $territory->rt }}</td>
+                    <td class="max-md:px-3 px-6 max-md:py-2 py-4 text-center">
                         <div class="flex items-center justify-center gap-2">
                             <button @click="openModal($event)" data-territory="{{ json_encode($territory) }}" class="p-1.5 text-blue-600 hover:bg-blue-50 rounded-md transition-colors" title="Edit Data">
                                 <x-heroicon-o-pencil-square class="w-4 h-4" />
@@ -53,7 +53,7 @@
         </table>
     </div>
 
-    <div class="flex items-center justify-between px-6 py-4 text-xs text-gray-500 border-t border-gray-100 bg-gray-50/50">
+    <div class="flex items-center justify-between max-md:px-3 px-6 max-md:py-2 py-4 text-xs text-gray-500 border-t border-gray-100 bg-gray-50/50">
         <p>Menampilkan {{ $territories->firstItem() }} sampai {{ $territories->lastItem() }} dari {{ $territories->total() }} wilayah</p>
         <div class="inline-flex gap-1">
             @if ($territories->onFirstPage())

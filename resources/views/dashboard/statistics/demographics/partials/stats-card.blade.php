@@ -1,4 +1,4 @@
-<div class="grid grid-cols-1 gap-4 p-6 md:grid-cols-2 lg:grid-cols-4 bg-gray-50">
+<div class="grid grid-cols-1 gap-4 p-6 max-md:p-4 md:grid-cols-2 lg:grid-cols-4 bg-gray-50">
     <x-cards.stat-card
         title="Penduduk Total"
         :value="$stats->total_citizens"

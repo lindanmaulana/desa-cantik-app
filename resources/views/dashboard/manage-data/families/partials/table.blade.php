@@ -3,32 +3,32 @@
                 <table class="w-full text-left border-collapse">
                     <thead>
                         <tr class="text-xs font-semibold tracking-wider text-gray-500 uppercase border-b border-gray-100 bg-gray-50">
-                            <th class="w-16 px-6 py-4 text-center">ID</th>
-                            <th class="px-6 py-4">No Kartu Keluarga (KK)</th>
-                            <th class="px-6 py-4">Wilayah Tinggal</th>
-                            <th class="px-6 py-4">Detail Alamat</th>
-                            <th class="px-6 py-4 text-center">Jumlah Anggota</th>
-                            <th class="w-32 px-6 py-4 text-center">Aksi</th>
+                            <th class="w-16 max-md:px-3 px-6 max-md:py-2 py-4 text-center truncate">ID</th>
+                            <th class="max-md:px-3 px-6 max-md:py-2 py-4 truncate">No Kartu Keluarga (KK)</th>
+                            <th class="max-md:px-3 px-6 max-md:py-2 py-4 truncate">Wilayah Tinggal</th>
+                            <th class="max-md:px-3 px-6 max-md:py-2 py-4 truncate">Detail Alamat</th>
+                            <th class="max-md:px-3 px-6 max-md:py-2 py-4 text-center truncate">Jumlah Anggota</th>
+                            <th class="w-32 max-md:px-3 px-6 max-md:py-2 py-4 text-center truncate">Aksi</th>
                         </tr>
                     </thead>
-                    <tbody class="text-sm text-gray-700 divide-y divide-gray-100">
+                    <tbody class="text-sm max-md:text-xs text-gray-700 divide-y divide-gray-100">
                         @if($families->isNotEmpty())
                         @php $no = $families->firstItem(); @endphp
                         @foreach($families as $item)
                         <tr class="transition-colors hover:bg-gray-50/70">
-                            <td class="px-6 py-4 font-medium text-center text-gray-400">{{ $no++ }}</td>
-                            <td x-show="openData" class="px-6 py-4 font-semibold text-gray-900">{{ $item->family_card_number }}</td>
-                            <td x-show="!openData" class="px-6 py-4 font-semibold text-gray-900"><x-vaadin-ellipsis-h class="size-5 text-slate-400" /></td>
-                            <td class="px-6 py-4 text-gray-600">
+                            <td class="max-md:px-3 px-6 max-md:py-2 py-4 font-medium text-center text-gray-400">{{ $no++ }}</td>
+                            <td x-show="openData" class="max-md:px-3 px-6 max-md:py-2 py-4 font-semibold text-gray-900">{{ $item->family_card_number }}</td>
+                            <td x-show="!openData" class="max-md:px-3 px-6 max-md:py-2 py-4 font-semibold text-gray-900"><x-vaadin-ellipsis-h class="size-5 text-slate-400" /></td>
+                            <td class="max-md:px-3 px-6 max-md:py-2 py-4 text-gray-600">
                                 @if($item->territory)
                                 Dusun {{ ucfirst($item->territory->sub_village) }} (RT {{ $item->territory->rt }} / RW {{ $item->territory->rw }})
                                 @else
                                 <span class="text-xs italic text-gray-400">Tidak dikaitkan</span>
                                 @endif
                             </td>
-                            <td class="max-w-xs px-6 py-4 text-gray-500 truncate">{{ $item->address_detail }}</td>
-                            <td class="px-6 py-4 font-medium text-center">{{ $item->citizens->count() }} orang</td>
-                            <td class="px-6 py-4 text-center">
+                            <td class="max-w-xs max-md:px-3 px-6 max-md:py-2 py-4 text-gray-500 truncate">{{ $item->address_detail }}</td>
+                            <td class="max-md:px-3 px-6 max-md:py-2 py-4 font-medium text-center">{{ $item->citizens->count() }} orang</td>
+                            <td class="max-md:px-3 px-6 max-md:py-2 py-4 text-center">
                                 <div class="flex items-center justify-center gap-2">
                                     <button @click='openModal(@json($item))' class="p-1.5 text-blue-600 hover:bg-blue-50 rounded-md transition-colors" title="Edit Data">
                                         <x-heroicon-o-pencil-square class="w-4 h-4" />
@@ -58,7 +58,7 @@
                 </table>
             </div>
 
-            <div class="flex items-center justify-between px-6 py-4 text-xs text-gray-500 border-t border-gray-100 bg-gray-50/50">
+            <div class="flex items-center justify-between max-md:px-3 px-6 max-md:py-2 py-4 text-xs text-gray-500 border-t border-gray-100 bg-gray-50/50">
                 <p>Menampilkan {{ $families->firstItem() ?? 0 }} sampai {{ $families->lastItem() ?? 0 }} dari {{ $families->total() }} keluarga</p>
                 <div class="inline-flex gap-1">
                     @if ($families->onFirstPage())
