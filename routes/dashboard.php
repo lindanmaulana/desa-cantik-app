@@ -16,7 +16,6 @@ use App\Http\Controllers\Dashboard\ManageData\CitizensController;
 use App\Http\Controllers\Dashboard\ManageData\EducationProfileController;
 use App\Http\Controllers\Dashboard\ManageData\EmploymentProfileController;
 use App\Http\Controllers\Dashboard\ManageData\HealthProfileController;
-use App\Http\Controllers\Dashboard\ManageData\SocialEconomicsController;
 use App\Http\Controllers\Dashboard\ManageData\MsmesController;
 use App\Http\Controllers\Dashboard\ManageData\InfrastructuresController;
 use App\Http\Controllers\Dashboard\ManageData\SpatialDataController as ManageSpatialDataController;
@@ -77,13 +76,6 @@ Route::middleware(['auth'])->group(function () {
             Route::prefix('child-growth-logs')->group(function () {
                 Route::post('/{citizen}/store', [ChildGrowthLogsController::class, 'store'])->name('child-growth-logs.store');
                 Route::put('/{citizen}/update', [ChildGrowthLogsController::class, 'update'])->name('child-growth-logs.update');
-            });
-
-            Route::prefix('social-economics')->group(function () {
-                Route::get('/', [SocialEconomicsController::class, 'index'])->name('dashboard.manage-data.social-economics');
-                Route::post('/store', [SocialEconomicsController::class, 'store'])->name('social-economics.store');
-                Route::put('/{social_economic}/update', [SocialEconomicsController::class, 'update'])->name('social-economics.update');
-                Route::delete('/{social_economic}', [SocialEconomicsController::class, 'destroy'])->name('social-economics.destroy');
             });
 
             Route::prefix('msmes')->group(function () {

@@ -19,8 +19,9 @@
                 class="w-full px-3 py-2 text-sm text-gray-700 bg-white border border-gray-200 rounded-lg focus:outline-none focus:border-emerald-500">
                 <option value="">Semua Jenis</option>
                 @foreach ($facilityType::cases() as $val)
-                    <option value="{{ $val->value }}" {{ request('facility_type') == $val ? 'selected' : '' }}>
-                        {{ $val->label() }}</option>
+                <option value="{{ $val->value }}" {{ request('facility_type') == $val ? 'selected' : '' }}>
+                    {{ $val->label() }}
+                </option>
                 @endforeach
             </select>
         </div>
@@ -31,18 +32,21 @@
                 class="w-full px-3 py-2 text-sm text-gray-700 bg-white border border-gray-200 rounded-lg focus:outline-none focus:border-emerald-500">
                 <option value="">Semua Kondisi</option>
                 @foreach ($conditionInfrastructure::cases() as $val)
-                    <option value="{{ $val->value }}" {{ request('condition') == $val->value ? 'selected' : '' }}>
-                        {{ $val->label() }}</option>
+                <option value="{{ $val->value }}" {{ request('condition') == $val->value ? 'selected' : '' }}>
+                    {{ $val->label() }}
+                </option>
                 @endforeach
             </select>
         </div>
     </div>
 
     <div class="flex items-center justify-end gap-2 pt-2 border-t border-gray-50">
+        @if(!empty(request()->query()))
         <a href="{{ route('dashboard.manage-data.infrastructures') }}"
             class="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-200 rounded-lg hover:bg-gray-50">
             Reset Filter
         </a>
+        @endif
         <button type="submit"
             class="px-4 py-2 text-sm font-medium text-white transition-colors rounded-lg shadow-sm bg-primary hover:bg-secondary">
             Terapkan Pencarian

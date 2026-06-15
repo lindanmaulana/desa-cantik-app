@@ -59,7 +59,7 @@
             </button>
 
             <div x-show="openStatistik && (openSidebar || window.innerWidth < 768)" x-collapse x-cloak
-                x-init="$el.classList.remove('hidden')" class="hidden font-medium border-l border-tertiary/50 ml-4 pl-2 space-y-2">
+                x-init="$el.classList.remove('hidden')" class="hidden pl-2 ml-4 space-y-2 font-medium border-l border-tertiary/50">
                 <a href="{{ route('dashboard.statistics.demograph') }}"
                     class="flex items-center gap-2 px-4 py-2 text-sm transition-all duration-300 {{ request()->routeIs('dashboard.statistics.demograph') ? 'bg-secondary text-white border-l-4 rounded-l-md ml-1 rounded-r-md' : 'text-slate-300 hover:bg-secondary hover:text-white' }} justify-start pl-4">
                     <x-ionicon-people-sharp class="size-5 shrink-0" /> <span class="truncate">Demografi</span>
@@ -108,7 +108,7 @@
             </button>
 
             <div x-show="openManageData && (openSidebar || window.innerWidth < 768)" x-collapse x-cloak
-                x-init="$el.classList.remove('hidden')" class="hidden font-medium border-l border-tertiary/50 ml-4 pl-2 space-y-2">
+                x-init="$el.classList.remove('hidden')" class="hidden pl-2 ml-4 space-y-2 font-medium border-l border-tertiary/50">
                 <a href="{{ route('dashboard.manage-data.territories') }}"
                     class="flex items-center gap-2 px-4 py-2 text-sm transition-all duration-300 {{ request()->routeIs('dashboard.manage-data.territories') ? 'bg-secondary text-white border-l-4 rounded-l-md ml-1 rounded-r-md' : 'text-slate-300 hover:bg-secondary hover:text-white' }} justify-start pl-4">
                     <x-iconsax-out-flag class="size-5 shrink-0" /> <span class="truncate">Data Wilayah</span>
@@ -120,10 +120,6 @@
                 <a href="{{ route('dashboard.manage-data.citizens') }}"
                     class="flex items-center gap-2 px-4 py-2 text-sm transition-all duration-300 {{ request()->routeIs('dashboard.manage-data.citizens') ? 'bg-secondary text-white border-l-4 rounded-l-md ml-1 rounded-r-md' : 'text-slate-300 hover:bg-secondary hover:text-white' }} justify-start pl-4">
                     <x-untitledui-user class="size-5 shrink-0" /> <span class="truncate">Data Penduduk</span>
-                </a>
-                <a href="{{ route('dashboard.manage-data.social-economics') }}"
-                    class="flex items-center gap-2 px-4 py-2 text-sm transition-all duration-300 {{ request()->routeIs('dashboard.manage-data.social-economics') ? 'bg-secondary text-white border-l-4 rounded-l-md ml-1 rounded-r-md' : 'text-slate-300 hover:bg-secondary hover:text-white' }} justify-start pl-4">
-                    <x-ri-heart-pulse-line class="size-5 shrink-0" /> <span class="truncate">Sosial Ekonomi</span>
                 </a>
                 <a href="{{ route('dashboard.manage-data.msmes') }}"
                     class="flex items-center gap-2 px-4 py-2 text-sm transition-all duration-300 {{ request()->routeIs('dashboard.manage-data.msmes') ? 'bg-secondary text-white border-l-4 rounded-l-md ml-1 rounded-r-md' : 'text-slate-300 hover:bg-secondary hover:text-white' }} justify-start pl-4">
