@@ -21,7 +21,14 @@ class HealthProfileService
     public function update(Citizen $citizen, array $data)
     {
         return DB::transaction(function () use ($citizen, $data) {
-            $citizen->healthProfile()->update($data);
+            $healthProfile = $citizen->healthProfile;
+
+            if ($healthProfile) {
+                return $healthProfile->update($data);
+            }
+
+            $data['id'] = Str::uuid()->toString();
+            return $citizen->healthProfile()->update($data);
         });
     }
 }

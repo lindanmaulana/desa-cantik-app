@@ -49,7 +49,12 @@ export default function citizenData() {
 
         healthProfile: {
             openCreate: false,
-            openUpdate: false,
+            openUpdate: !!(
+                document.getElementById("error-is-pregnant") ||
+                document.querySelector('[name="disability_type"] + p') ||
+                document.querySelector('[name="bpjs_status"] + p') ||
+                document.querySelector('[name="kb_method"] + p')
+            ),
 
             data: {
                 disability_type: "none",

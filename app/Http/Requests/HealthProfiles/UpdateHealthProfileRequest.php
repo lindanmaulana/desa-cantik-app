@@ -4,6 +4,7 @@ namespace App\Http\Requests\HealthProfiles;
 
 use App\Enums\BpjsStatus;
 use App\Enums\DisabilityType;
+use App\Enums\Gender;
 use App\Enums\KbMethod;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
@@ -24,9 +25,20 @@ class UpdateHealthProfileRequest extends FormRequest
      */
     public function rules(): array
     {
+        $citizen = $this->route('citizen');
+
         return [
             'disability_type' => ['required', Rule::enum(DisabilityType::class)],
-            'is_pregnant' => ['required', 'boolean'],
+            'is_pregnant' => [
+                'required',
+                Rule::in([0, 1]),
+
+                function ($attribute, $value, $fail) use ($citizen) {
+                    if ($citizen && ($citizen->gender === Gender::MALE) && (int)$value == 1) {
+                        $fail('Warga berjenis kelamin laki-laki tidak bisa berstatus sedang hamil.');
+                    }
+                }
+            ],
             'kb_method' => ['required', Rule::enum(KbMethod::class)],
             'bpjs_status' => ['required', Rule::enum(BpjsStatus::class)],
         ];

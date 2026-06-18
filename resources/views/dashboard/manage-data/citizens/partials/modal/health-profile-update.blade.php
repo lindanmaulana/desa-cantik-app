@@ -18,7 +18,7 @@
         <form action="{{ route('health-profile.update', $citizen) }}" method="POST" class="p-6 space-y-4 max-h-[70vh] overflow-y-auto">
             @csrf
             @method('PUT')
-            
+
             <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
                 <div>
                     <label for="update_disability_type" class="block mb-1 text-xs font-semibold tracking-wider text-gray-600 uppercase">Jenis Disabilitas <span class="text-red-500">*</span></label>
@@ -28,7 +28,12 @@
                         <option value="{{ $val->value }}">{{ $val->label() }}</option>
                         @endforeach
                     </select>
+                    @error('disability_type')
+                    <p class="mt-1 text-xs font-medium text-red-600">{{ $message }}</p>
+                    @enderror
                 </div>
+
+                @if($citizen->gender === $gender::FEMALE->value)
                 <div>
                     <label for="update_is_pregnant" class="block mb-1 text-xs font-semibold tracking-wider text-gray-600 uppercase">Sedang Hamil? <span class="text-red-500">*</span></label>
                     <select id="update_is_pregnant" name="is_pregnant" required x-model="healthProfile.data.is_pregnant"
@@ -36,7 +41,11 @@
                         <option value="0">Tidak</option>
                         <option value="1">Ya</option>
                     </select>
+                    @error('is_pregnant')
+                    <p id="error-is-pregnant" class="mt-1 text-xs font-medium text-red-600">{{ $message }}</p>
+                    @enderror
                 </div>
+                @endif
             </div>
 
             <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
@@ -48,7 +57,11 @@
                         <option value="{{ $val->value }}">{{ $val->label() }}</option>
                         @endforeach
                     </select>
+                    @error('bpjs_status')
+                    <p class="mt-1 text-xs font-medium text-red-600">{{ $message }}</p>
+                    @enderror
                 </div>
+
                 <div>
                     <label for="update_kb_method" class="block mb-1 text-xs font-semibold tracking-wider text-gray-600 uppercase">Metode KB Terpilih <span class="text-red-500">*</span></label>
                     <select id="update_kb_method" name="kb_method" required x-model="healthProfile.data.kb_method"
@@ -57,11 +70,14 @@
                         <option value="{{ $val->value }}">{{ $val->label() }}</option>
                         @endforeach
                     </select>
+                    @error('kb_method')
+                    <p class="mt-1 text-xs font-medium text-red-600">{{ $message }}</p>
+                    @enderror
                 </div>
             </div>
 
             <div class="flex items-center justify-end gap-2 pt-4 border-t border-gray-100">
-                <button type="button" @click="openCreate = false" class="px-4 py-2 text-sm font-medium text-gray-700 transition-colors bg-white border border-gray-200 rounded-lg hover:bg-gray-50 focus:outline-none">
+                <button type="button" @click="healthProfile.openUpdate = false" class="px-4 py-2 text-sm font-medium text-gray-700 transition-colors bg-white border border-gray-200 rounded-lg hover:bg-gray-50 focus:outline-none">
                     Batal
                 </button>
                 <button type="submit" class="px-4 py-2 text-sm font-medium text-white transition-colors bg-teal-600 rounded-lg shadow-sm hover:bg-teal-700 focus:outline-none">

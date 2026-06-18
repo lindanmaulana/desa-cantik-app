@@ -58,7 +58,6 @@
         </table>
     </div>
 
-
     <div class="flex items-center justify-between px-6 py-4 text-xs text-gray-500 border-t border-gray-100 max-md:px-3 max-md:py-2 bg-gray-50/50">
         <p>Menampilkan {{ $families->firstItem() ?? 0 }} sampai {{ $families->lastItem() ?? 0 }} dari {{ $families->total() }} keluarga</p>
         <div class="inline-flex gap-1">
@@ -71,6 +70,7 @@
                 Sebelumnya
             </a>
             @endif
+
             @if ($families->hasMorePages())
             <a href="{{ $families->nextPageUrl() }}" class="px-3 py-1.5 border border-gray-200 rounded bg-white hover:bg-gray-50 text-gray-600">
                 Selanjutnya
