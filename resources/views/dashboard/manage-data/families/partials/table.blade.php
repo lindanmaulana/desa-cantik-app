@@ -24,7 +24,8 @@
                                 {{ $item->family_card_number }}</td>
                             <td x-show="!openData"
                                 class="px-6 py-4 font-semibold text-textPrimary max-md:px-3 max-md:py-2">
-                                <x-vaadin-ellipsis-h class="size-5 text-textSecondary/40" /></td>
+                                <x-vaadin-ellipsis-h class="size-5 text-textSecondary/40" />
+                            </td>
                             <td class="px-6 py-4 text-textPrimary/90 max-md:px-3 max-md:py-2">
                                 @if ($item->territory)
                                     Dusun {{ ucfirst($item->territory->sub_village) }} (RT {{ $item->territory->rt }} /
@@ -90,6 +91,7 @@
                     Sebelumnya
                 </a>
             @endif
+
             @if ($families->hasMorePages())
                 <a href="{{ $families->nextPageUrl() }}"
                     class="px-3 py-1.5 border border-textTertiary/40 rounded bg-secondary hover:bg-tertiary text-textPrimary">

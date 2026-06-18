@@ -1,5 +1,5 @@
 <x-layouts.dashboard>
-    <div class="p-6 max-md:p-3 space-y-2" x-data="citizenData()">
+    <div class="p-6 space-y-2 max-md:p-3" x-data="citizenData()">
 
         <!-- Header Section -->
         <div class="flex flex-col items-start justify-between gap-4 mb-6 md:flex-row md:items-center">
@@ -59,7 +59,6 @@
             <article
                 class="p-4 sm:p-6 lg:p-8 border border-t-8 shadow border-textTertiary/20 border-t-primary rounded-2xl sm:rounded-3xl bg-secondary">
                 <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6 items-start">
-
                     <!-- Avatar/Icon Placeholder -->
                     <div
                         class="justify-self-start md:justify-self-center p-4 sm:p-5 text-3xl sm:text-4xl border rounded-xl border-primary/30 bg-primary/10 shrink-0">
@@ -113,7 +112,7 @@
                             <div class="space-y-0.5 sm:col-span-2">
                                 <dt class="text-xs font-semibold text-textSecondary uppercase tracking-wider">No KK
                                     (Keluarga)</dt>
-                                <dd x-show="openData" class="text-sm font-medium text-primary break-all">
+                                <dd x-show="openData" class="text-sm font-medium break-all text-primary">
                                     {{ $citizen->family->family_card_number }}
                                 </dd>
                                 <dd x-show="!openData" class="inline-flex items-center">
@@ -166,18 +165,22 @@
                                     {{ $citizen->marital_status->label() }}</dd>
                             </div>
 
-                            <div class="space-y-1 border-b border-textTertiary/10 pb-2 sm:border-0 sm:pb-0">
-                                <dt class="text-xs text-textSecondary font-semibold uppercase tracking-wider">Alamat
-                                    Detail Keluarga</dt>
-                                <dd class="text-sm font-semibold text-textPrimary break-words">
-                                    Dusun {{ ucfirst($citizen->family->territory->sub_village) }}, RT
-                                    {{ $citizen->family->territory->rt }}/RW {{ $citizen->family->territory->rw }}
+                            <div class="pb-2 space-y-1 border-b border-textTertiary/10 sm:border-0 sm:pb-0">
+                                <dt class="text-xs font-semibold tracking-wider uppercase text-textSecondary">Alamat
+                                    Detail
+                                    Keluarga</dt>
+                                <dd class="text-sm font-semibold break-words text-textPrimary">
+                                    {{ $citizen->family->territory->sub_village ?? '-' }} RT
+                                    {{ $citizen->family->territory->rt ?? '-' }}/RW
+                                    {{ $citizen->family->territory->rw ?? '-' }}
                                 </dd>
                             </div>
 
-                            <div class="space-y-1 pb-1 sm:pb-0">
-                                <dt class="text-xs text-textSecondary font-semibold uppercase tracking-wider">ID
-                                    Referensi Sistem (UUID)</dt>
+
+                            <div class="pb-1 space-y-1 sm:pb-0">
+                                <dt class="text-xs font-semibold tracking-wider uppercase text-textSecondary">ID
+                                    Referensi
+                                    Sistem (UUID)</dt>
                                 <div>
                                     <dd x-show="openData"
                                         class="text-xs font-mono font-medium text-textSecondary break-all bg-tertiary p-1.5 rounded border border-textTertiary/20 inline-block max-w-full">

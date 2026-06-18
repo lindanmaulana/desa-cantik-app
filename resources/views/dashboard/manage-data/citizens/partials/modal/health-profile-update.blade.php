@@ -26,7 +26,6 @@
             @csrf
             @method('PUT')
 
-            <!-- Baris 1: Jenis Disabilitas & Status Kehamilan -->
             <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
                 <div>
                     <label for="update_disability_type"
@@ -39,17 +38,27 @@
                             <option value="{{ $val->value }}" class="bg-secondary">{{ $val->label() }}</option>
                         @endforeach
                     </select>
+                    @error('disability_type')
+                        <p class="mt-1 text-xs font-medium text-red-600">{{ $message }}</p>
+                    @enderror
                 </div>
-                <div>
-                    <label for="update_is_pregnant"
-                        class="block mb-1 text-xs font-semibold tracking-wider text-textSecondary uppercase">Sedang
-                        Hamil? <span class="text-red-500">*</span></label>
-                    <select id="update_is_pregnant" name="is_pregnant" required x-model="healthProfile.data.is_pregnant"
-                        class="w-full px-3 py-2 text-sm transition-all border border-textTertiary/40 rounded-lg bg-tertiary text-textPrimary focus:outline-none focus:bg-secondary focus:border-primary focus:ring-1 focus:ring-primary">
-                        <option value="0" class="bg-secondary">Tidak</option>
-                        <option value="1" class="bg-secondary">Ya</option>
-                    </select>
-                </div>
+
+                @if ($citizen->gender === $gender::FEMALE->value)
+                    <div>
+                        <label for="update_is_pregnant"
+                            class="block mb-1 text-xs font-semibold tracking-wider text-textSecondary uppercase">Sedang
+                            Hamil? <span class="text-red-500">*</span></label>
+                        <select id="update_is_pregnant" name="is_pregnant" required
+                            x-model="healthProfile.data.is_pregnant"
+                            class="w-full px-3 py-2 text-sm transition-all border border-textTertiary/40 rounded-lg bg-tertiary text-textPrimary focus:outline-none focus:bg-secondary focus:border-primary focus:ring-1 focus:ring-primary">
+                            <option value="0" class="bg-secondary">Tidak</option>
+                            <option value="1" class="bg-secondary">Ya</option>
+                        </select>
+                        @error('is_pregnant')
+                            <p id="error-is-pregnant" class="mt-1 text-xs font-medium text-red-600">{{ $message }}</p>
+                        @enderror
+                    </div>
+                @endif
             </div>
 
             <!-- Baris 2: Kepesertaan BPJS & Metode KB -->
@@ -64,7 +73,11 @@
                             <option value="{{ $val->value }}" class="bg-secondary">{{ $val->label() }}</option>
                         @endforeach
                     </select>
+                    @error('bpjs_status')
+                        <p class="mt-1 text-xs font-medium text-red-600">{{ $message }}</p>
+                    @enderror
                 </div>
+
                 <div>
                     <label for="update_kb_method"
                         class="block mb-1 text-xs font-semibold tracking-wider text-textSecondary uppercase">Metode KB
@@ -75,6 +88,9 @@
                             <option value="{{ $val->value }}" class="bg-secondary">{{ $val->label() }}</option>
                         @endforeach
                     </select>
+                    @error('kb_method')
+                        <p class="mt-1 text-xs font-medium text-red-600">{{ $message }}</p>
+                    @enderror
                 </div>
             </div>
 
