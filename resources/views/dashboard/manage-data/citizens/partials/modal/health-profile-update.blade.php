@@ -1,70 +1,91 @@
-<div x-show="healthProfile.openUpdate" class="fixed inset-0 z-50 flex items-center justify-center p-4 overflow-y-auto transition-opacity duration-300 bg-gray-900 bg-opacity-50 backdrop-blur-sm">
+<div x-show="healthProfile.openUpdate"
+    class="fixed inset-0 z-50 flex items-center justify-center p-4 overflow-y-auto transition-opacity duration-300 bg-textPrimary/50 backdrop-blur-sm">
 
-    <div class="w-full max-w-3xl overflow-hidden transition-all duration-300 transform scale-95 bg-white border border-gray-100 shadow-xl rounded-2xl">
-        <div class="flex items-center justify-between px-6 py-4 border-b border-gray-100 bg-gray-50">
+    <div
+        class="w-full max-w-3xl overflow-hidden transition-all duration-300 transform scale-95 bg-secondary border border-textTertiary/20 shadow-xl rounded-2xl">
+
+        <!-- Header Modal -->
+        <div class="flex items-center justify-between px-6 py-4 border-b border-textTertiary/10 bg-tertiary">
             <div class="flex items-center gap-2">
-                <div class="p-2 text-teal-600 rounded-lg bg-teal-50">
+                <div class="p-2 text-primary rounded-lg bg-primary/10">
                     <x-heroicon-o-identification class="w-5 h-5" />
                 </div>
                 <div>
-                    <h3 class="text-lg font-bold text-gray-800">Profile Kesehatan Individu</h3>
+                    <h3 class="text-lg font-bold text-textPrimary">Profile Kesehatan Individu</h3>
                 </div>
             </div>
-            <button @click="healthProfile.openUpdate = false" class="p-1 text-gray-400 transition-colors rounded-lg hover:text-gray-600 hover:bg-gray-100">
+            <button @click="healthProfile.openUpdate = false"
+                class="p-1 text-textSecondary transition-colors rounded-lg hover:text-textPrimary hover:bg-textTertiary/20">
                 <x-heroicon-o-x-mark class="w-5 h-5" />
             </button>
         </div>
 
-        <form action="{{ route('health-profile.update', $citizen) }}" method="POST" class="p-6 space-y-4 max-h-[70vh] overflow-y-auto">
+        <!-- Form Update Data -->
+        <form action="{{ route('health-profile.update', $citizen) }}" method="POST"
+            class="p-6 space-y-4 max-h-[70vh] overflow-y-auto">
             @csrf
             @method('PUT')
-            
+
+            <!-- Baris 1: Jenis Disabilitas & Status Kehamilan -->
             <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
                 <div>
-                    <label for="update_disability_type" class="block mb-1 text-xs font-semibold tracking-wider text-gray-600 uppercase">Jenis Disabilitas <span class="text-red-500">*</span></label>
-                    <select id="update_disability_type" name="disability_type" required x-model="healthProfile.data.disability_type"
-                        class="w-full px-3 py-2 text-sm transition-all border border-gray-200 rounded-lg bg-gray-50/50 focus:outline-none focus:bg-white focus:border-teal-500 focus:ring-1 focus:ring-teal-500">
-                        @foreach($disabilityType::cases() as $val)
-                        <option value="{{ $val->value }}">{{ $val->label() }}</option>
+                    <label for="update_disability_type"
+                        class="block mb-1 text-xs font-semibold tracking-wider text-textSecondary uppercase">Jenis
+                        Disabilitas <span class="text-red-500">*</span></label>
+                    <select id="update_disability_type" name="disability_type" required
+                        x-model="healthProfile.data.disability_type"
+                        class="w-full px-3 py-2 text-sm transition-all border border-textTertiary/40 rounded-lg bg-tertiary text-textPrimary focus:outline-none focus:bg-secondary focus:border-primary focus:ring-1 focus:ring-primary">
+                        @foreach ($disabilityType::cases() as $val)
+                            <option value="{{ $val->value }}" class="bg-secondary">{{ $val->label() }}</option>
                         @endforeach
                     </select>
                 </div>
                 <div>
-                    <label for="update_is_pregnant" class="block mb-1 text-xs font-semibold tracking-wider text-gray-600 uppercase">Sedang Hamil? <span class="text-red-500">*</span></label>
+                    <label for="update_is_pregnant"
+                        class="block mb-1 text-xs font-semibold tracking-wider text-textSecondary uppercase">Sedang
+                        Hamil? <span class="text-red-500">*</span></label>
                     <select id="update_is_pregnant" name="is_pregnant" required x-model="healthProfile.data.is_pregnant"
-                        class="w-full px-3 py-2 text-sm transition-all border border-gray-200 rounded-lg bg-gray-50/50 focus:outline-none focus:bg-white focus:border-teal-500 focus:ring-1 focus:ring-teal-500">
-                        <option value="0">Tidak</option>
-                        <option value="1">Ya</option>
+                        class="w-full px-3 py-2 text-sm transition-all border border-textTertiary/40 rounded-lg bg-tertiary text-textPrimary focus:outline-none focus:bg-secondary focus:border-primary focus:ring-1 focus:ring-primary">
+                        <option value="0" class="bg-secondary">Tidak</option>
+                        <option value="1" class="bg-secondary">Ya</option>
                     </select>
                 </div>
             </div>
 
+            <!-- Baris 2: Kepesertaan BPJS & Metode KB -->
             <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
                 <div>
-                    <label for="update_bpjs_status" class="block mb-1 text-xs font-semibold tracking-wider text-gray-600 uppercase">Kepesertaan BPJS <span class="text-red-500">*</span></label>
+                    <label for="update_bpjs_status"
+                        class="block mb-1 text-xs font-semibold tracking-wider text-textSecondary uppercase">Kepesertaan
+                        BPJS <span class="text-red-500">*</span></label>
                     <select id="update_bpjs_status" name="bpjs_status" required x-model="healthProfile.data.bpjs_status"
-                        class="w-full px-3 py-2 text-sm transition-all border border-gray-200 rounded-lg bg-gray-50/50 focus:outline-none focus:bg-white focus:border-teal-500 focus:ring-1 focus:ring-teal-500">
-                        @foreach($bpjsStatus::cases() as $val)
-                        <option value="{{ $val->value }}">{{ $val->label() }}</option>
+                        class="w-full px-3 py-2 text-sm transition-all border border-textTertiary/40 rounded-lg bg-tertiary text-textPrimary focus:outline-none focus:bg-secondary focus:border-primary focus:ring-1 focus:ring-primary">
+                        @foreach ($bpjsStatus::cases() as $val)
+                            <option value="{{ $val->value }}" class="bg-secondary">{{ $val->label() }}</option>
                         @endforeach
                     </select>
                 </div>
                 <div>
-                    <label for="update_kb_method" class="block mb-1 text-xs font-semibold tracking-wider text-gray-600 uppercase">Metode KB Terpilih <span class="text-red-500">*</span></label>
+                    <label for="update_kb_method"
+                        class="block mb-1 text-xs font-semibold tracking-wider text-textSecondary uppercase">Metode KB
+                        Terpilih <span class="text-red-500">*</span></label>
                     <select id="update_kb_method" name="kb_method" required x-model="healthProfile.data.kb_method"
-                        class="w-full px-3 py-2 text-sm transition-all border border-gray-200 rounded-lg bg-gray-50/50 focus:outline-none focus:bg-white focus:border-teal-500 focus:ring-1 focus:ring-teal-500">
-                        @foreach($kbMethod::cases() as $val)
-                        <option value="{{ $val->value }}">{{ $val->label() }}</option>
+                        class="w-full px-3 py-2 text-sm transition-all border border-textTertiary/40 rounded-lg bg-tertiary text-textPrimary focus:outline-none focus:bg-secondary focus:border-primary focus:ring-1 focus:ring-primary">
+                        @foreach ($kbMethod::cases() as $val)
+                            <option value="{{ $val->value }}" class="bg-secondary">{{ $val->label() }}</option>
                         @endforeach
                     </select>
                 </div>
             </div>
 
-            <div class="flex items-center justify-end gap-2 pt-4 border-t border-gray-100">
-                <button type="button" @click="openCreate = false" class="px-4 py-2 text-sm font-medium text-gray-700 transition-colors bg-white border border-gray-200 rounded-lg hover:bg-gray-50 focus:outline-none">
+            <!-- Footer Actions -->
+            <div class="flex items-center justify-end gap-2 pt-4 border-t border-textTertiary/10">
+                <button type="button" @click="healthProfile.openUpdate = false"
+                    class="px-4 py-2 text-sm font-medium text-textPrimary transition-colors bg-secondary border border-textTertiary/40 rounded-lg hover:bg-tertiary focus:outline-none">
                     Batal
                 </button>
-                <button type="submit" class="px-4 py-2 text-sm font-medium text-white transition-colors bg-teal-600 rounded-lg shadow-sm hover:bg-teal-700 focus:outline-none">
+                <button type="submit"
+                    class="px-4 py-2 text-sm font-medium text-secondary transition-colors bg-primary rounded-lg shadow-sm hover:opacity-90 focus:outline-none">
                     Simpan
                 </button>
             </div>

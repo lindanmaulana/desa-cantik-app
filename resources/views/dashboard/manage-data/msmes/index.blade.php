@@ -1,5 +1,5 @@
 <x-layouts.dashboard>
-    <div class="p-6" x-data="msmeData">
+    <div class="p-6 max-lg:p4 max-md:p-3" x-data="msmeData">
         @include('dashboard.manage-data.msmes.partials.header')
 
         @if(session('success'))

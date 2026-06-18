@@ -15,35 +15,35 @@ class FamiliesSeeder extends Seeder
      */
     public function run(): void
     {
-        $data = [
-            [
-                'id' => Str::uuid()->toString(),
-                'territory_id' => Territory::first()->id,
-                'family_card_number' => '1234567890123456',
-                'address_detail' => 'Jl. Contoh No. 1',
-            ],
-            [
-                'id' => Str::uuid()->toString(),
-                'territory_id' => Territory::first()->id,
-                'family_card_number' => '1234567890123456',
-                'address_detail' => 'Jl. Contoh No. 1',
-            ],
-            [
-                'id' => Str::uuid()->toString(),
-                'territory_id' => Territory::first()->id,
-                'family_card_number' => '1234567890123456',
-                'address_detail' => 'Jl. Contoh No. 1',
-            ],
-            [
-                'id' => Str::uuid()->toString(),
-                'territory_id' => Territory::first()->id,
-                'family_card_number' => '1234567890123456',
-                'address_detail' => 'Jl. Contoh No. 1',
-            ],
-        ];
+        // $data = [
+        //     [
+        //         'id' => Str::uuid()->toString(),
+        //         'territory_id' => Territory::first()->id,
+        //         'family_card_number' => '1234567890123456',
+        //         'address_detail' => 'Jl. Contoh No. 1',
+        //     ],
+        //     [
+        //         'id' => Str::uuid()->toString(),
+        //         'territory_id' => Territory::first()->id,
+        //         'family_card_number' => '1234567890123456',
+        //         'address_detail' => 'Jl. Contoh No. 1',
+        //     ],
+        //     [
+        //         'id' => Str::uuid()->toString(),
+        //         'territory_id' => Territory::first()->id,
+        //         'family_card_number' => '1234567890123456',
+        //         'address_detail' => 'Jl. Contoh No. 1',
+        //     ],
+        //     [
+        //         'id' => Str::uuid()->toString(),
+        //         'territory_id' => Territory::first()->id,
+        //         'family_card_number' => '1234567890123456',
+        //         'address_detail' => 'Jl. Contoh No. 1',
+        //     ],
+        // ];
 
-        foreach ($data as $item) {
-            Family::create($item);
-        }
+        // foreach ($data as $item) {
+        //     Family::create($item);
+        // }
     }
 }

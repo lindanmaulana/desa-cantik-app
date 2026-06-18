@@ -1,5 +1,6 @@
-<div class="p-4 bg-white border border-gray-100 shadow-sm sm:p-8 rounded-2xl sm:rounded-3xl">
-    <h3 class="mb-4 sm:mb-6 text-[10px] sm:text-xs font-bold tracking-widest text-gray-400 uppercase">
+<div class="p-4 bg-secondary border border-textTertiary/30 shadow-sm sm:p-8 rounded-2xl sm:rounded-3xl">
+
+    <h3 class="mb-4 sm:mb-6 text-[10px] sm:text-xs font-bold tracking-widest text-textSecondary uppercase">
         Pilih Jenis Agregat
     </h3>
 
@@ -12,7 +13,8 @@
             </x-buttons.filter-button>
         </a>
 
-        <a href="{{ route('dashboard.statistics.demograph', ['type' => $demographicsType::GENDER->value]) }}" class="max-md:w-full">
+        <a href="{{ route('dashboard.statistics.demograph', ['type' => $demographicsType::GENDER->value]) }}"
+            class="max-md:w-full">
             <x-buttons.filter-button icon="ri-genderless-line" :active="$currentType->value === $demographicsType::GENDER->value"
                 class="justify-center text-xs max-md:w-full sm:text-sm">
                 Jenis Kelamin
