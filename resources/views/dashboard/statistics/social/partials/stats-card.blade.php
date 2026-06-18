@@ -1,11 +1,25 @@
-<div class="grid grid-cols-1 gap-4 p-6 max-md:p-3 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 bg-gray-50">
-    <x-cards.stat-card-second title="Total UMKM" value="87" icon="ionicon-people-sharp" color="bg-primary text-white" />
+<div class="grid grid-cols-1 gap-4 p-6 overflow-hidden max-md:p-4 md:grid-cols-2 lg:grid-cols-4 bg-gray-50">
+    <x-cards.stat-card
+        title="Warga Disabilitas"
+        :value="$stats->total_disabilities"
+        icon="ionicon-accessibility-sharp"
+        color="bg-amber-500" />
 
-    <x-cards.stat-card-second title="Laki-laki" value="4.243" icon="iconsax-lin-man" color="bg-[#6366f1] text-white" />
+    <x-cards.stat-card
+        title="Golongan Darah Terdata"
+        :value="$stats->total_blood_registered"
+        icon="ionicon-water-sharp"
+        color="bg-sky-400" />
 
-    <x-cards.stat-card-second title="Perempuan" value="3.844" icon="iconsax-lin-woman"
-        color="bg-[#f472b6] text-white" />
+    <x-cards.stat-card
+        title="Keberagaman Agama"
+        :value="$stats->total_religions . ' Agama'"
+        icon="ionicon-ribbon-sharp"
+        color="bg-pink-500" />
 
-    <x-cards.stat-card-second title="Penduduk Total" value="8.087" icon="solar-database-linear"
-        color="bg-amber-400 text-white" />
+    <x-cards.stat-card
+        title="Sanitasi Keluarga Layak"
+        :value="$stats->total_sanitation_covered"
+        icon="solar-database-linear"
+        color="bg-indigo-500" />
 </div>
