@@ -4,19 +4,23 @@
         <dl class="grid grid-cols-2 gap-4 py-8 border-y rounded-xl">
             <div>
                 <dt class="text-xs font-medium text-slate-400">Jenis Disabilitas</dt>
-                <dd class="text-sm font-semibold">Normal (Tidak Ada)</dd>
+                <dd class="text-sm font-semibold">{{ $citizen->healthProfile->disability_type->label() }}</dd>
             </div>
             <div>
                 <dt class="text-xs font-medium text-slate-400">Status BPJS Jamsos</dt>
-                <dd class="text-sm font-semibold">Tidak Memiliki Jaminan BPJS</dd>
+                <dd class="text-sm font-semibold">{{ $citizen->healthProfile->bpjs_status->label() }}</dd>
             </div>
+
+            @if($citizen->gender === $gender::FEMALE->value)
             <div>
                 <dt class="text-xs font-medium text-slate-400">Kondisi Kehamilan</dt>
-                <dd class="text-sm font-semibold">Tidak Hamil</dd>
+                <dd class="text-sm font-semibold">{{ $citizen->healthProfile->is_pregnant ? 'Hamil' : 'Tidak Hamil' }}</dd>
             </div>
+            @endif
+
             <div>
                 <dt class="text-xs font-medium text-slate-400">Akseptor Keluarga Berencana</dt>
-                <dd class="text-sm font-semibold">Tidak Terikat KB</dd>
+                <dd class="text-sm font-semibold">{{ $citizen->healthProfile->kb_method->label() }}</dd>
             </div>
         </dl>
         <div class="flex items-center justify-end">
