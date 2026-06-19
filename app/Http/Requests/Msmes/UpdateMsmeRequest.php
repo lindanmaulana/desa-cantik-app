@@ -2,7 +2,12 @@
 
 namespace App\Http\Requests\Msmes;
 
+use App\Enums\BumdesPartnershipStatus;
 use App\Enums\BusinessCategory;
+use App\Enums\CapitalSource;
+use App\Enums\DigitalPlatformType;
+use App\Enums\LegalEntityType;
+use App\Models\Msme;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
@@ -26,7 +31,7 @@ class UpdateMsmeRequest extends FormRequest
     public function rules(): array
     {
         $msme = $this->route('msme');
-        $id = $msme instanceof Msmes ? $msme->id : $msme;
+        $id = $msme instanceof Msme ? $msme->id : $msme;
 
         return [
             'citizen_id' => [
@@ -36,18 +41,26 @@ class UpdateMsmeRequest extends FormRequest
             ],
             'business_name' => ['required', 'string', 'max:255'],
             'business_category' => [
-                'required',
-                'in:' . implode(',', array_column(BusinessCategory::cases(), 'value')),
-            ],
-            'license_number' => [
-                'nullable',
-                'string',
-                'max:100',
-                Rule::unique('msmes', 'license_number')->ignore($id)->whereNull('deleted_at'),
-            ],
+                'required', Rule::enum(BusinessCategory::class)],
+            'license_number' => ['nullable', 'string', 'max:100', Rule::unique('msmes', 'license_number')->ignore($id)->whereNull('deleted_at')],
             'employee_count' => ['required', 'integer', 'min:0'],
-            'mothly_revenue' => ['nullable', 'numeric', 'min:0'],
+            'monthly_revenue' => ['nullable', 'numeric', 'min:0'],
+            'legal_entity_type' => ['required', Rule::enum(LegalEntityType::class)],
+            'uses_digital_payment' => ['nullable', 'boolean'],
+            'digita_platform_type' => ['required', Rule::enum(DigitalPlatformType::class)],
+            'capital_source' => ['required', Rule::enum(CapitalSource::class)],
+            'is_environmentally_friendly' => ['nullable', 'boolean'],
+            'bumdes_partnership_status' => ['required', Rule::enum(BumdesPartnershipStatus::class)],
         ];
+    }
+
+    protected function prepareForValidation(): void
+    {
+        $this->merge([
+            'uses_digital_payment' => $this->has('uses_digital_payment') ? 1 : 0,
+            'is_environmentally_friendly' => $this->has('is_environmentally_friendly') ? 1 : 0,
+            'monthly_revenue' => $this->filled('monthly_revenue') ? $this->input('monthly_revenue') : 0,
+        ]);
     }
 
     /**
@@ -67,8 +80,12 @@ class UpdateMsmeRequest extends FormRequest
             'employee_count.required' => 'Jumlah tenaga kerja wajib diisi.',
             'employee_count.integer' => 'Jumlah tenaga kerja harus berupa angka bulat.',
             'employee_count.min' => 'Jumlah tenaga kerja minimal bernilai 0.',
-            'mothly_revenue.numeric' => 'Omset bulanan harus berupa angka.',
-            'mothly_revenue.min' => 'Omset bulanan minimal bernilai 0.',
+            'monthly_revenue.numeric' => 'Omset bulanan harus berupa angka.',
+            'monthly_revenue.min' => 'Omset bulanan tidak boleh bernilai negatif.',
+            'legal_entity_type.required' => 'Status badan hukum usaha wajib dipilih.',
+            'digita_platform_type.required' => 'Penggunaan platform digital wajib ditentukan.',
+            'capital_source.required' => 'Sumber modal usaha wajib dipilih.',
+            'bumdes_partnership_status.required' => 'Status kemitraan BUM Desa wajib dipilih.',
         ];
     }
 }

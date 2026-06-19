@@ -24,7 +24,6 @@ class MsmesController extends Controller
     {
         $query = Msme::with('citizen');
 
-        // Apply filters
         if ($request->filled('search')) {
             $search = $request->input('search');
             $query->where(function ($q) use ($search) {
@@ -41,17 +40,14 @@ class MsmesController extends Controller
             $query->where('business_category', $request->input('business_category'));
         }
 
-        // Fetch paginated businesses
         $msmes = $query->latest()->paginate(10)->withQueryString();
 
-        // Calculate card statistics
         $counts = (object) [
             'total_Msmes' => Msme::count(),
             'total_Employees' => Msme::sum('employee_count'),
-            'total_Revenue' => Msme::sum('mothly_revenue') ?? 0.00,
+            'total_Revenue' => Msme::sum('monthly_revenue') ?? 0.00,
         ];
 
-        // Fetch all citizens to populate owner dropdown selections
         $citizens = Citizen::orderBy('full_name')->get();
 
         return view('dashboard.manage-data.msmes.index', compact('msmes', 'counts', 'citizens'));

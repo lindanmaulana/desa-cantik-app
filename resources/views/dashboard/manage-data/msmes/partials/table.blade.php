@@ -5,10 +5,11 @@
                 <tr class="text-xs font-semibold tracking-wider text-gray-500 uppercase border-b border-gray-100 bg-gray-50">
                     <th class="w-16 px-6 py-4 text-center">No</th>
                     <th class="px-6 py-4">Nama Usaha / NIB</th>
-                    <th class="px-6 py-4">Kategori Usaha</th>
+                    <th class="px-6 py-4">Kategori & Legalitas</th>
                     <th class="px-6 py-4">Pemilik (Warga)</th>
                     <th class="px-6 py-4 text-center">Tenaga Kerja</th>
                     <th class="px-6 py-4">Omset Bulanan</th>
+                    <th class="px-6 py-4 text-center">Indikator</th>
                     <th class="w-32 px-6 py-4 text-center">Aksi</th>
                 </tr>
             </thead>
@@ -17,43 +18,91 @@
                 @php $no = $msmes->firstItem(); @endphp
                 @foreach($msmes as $item)
                 <tr class="transition-colors hover:bg-gray-50/70">
+                    {{-- 1. Nomor --}}
                     <td class="px-6 py-4 font-medium text-center text-gray-400">{{ $no++ }}</td>
+
+                    {{-- 2. Nama Usaha & NIB --}}
                     <td class="px-6 py-4">
                         <div class="font-semibold text-gray-900">{{ $item->business_name }}</div>
-                        <div class="text-xs text-gray-400">
+                        <div class="text-xs text-gray-400 mt-0.5">
                             NIB / Izin:
                             @if($item->license_number)
-                            <span x-show="openData">{{ $item->license_number }}</span>
+                            <span x-show="openData" class="font-mono text-gray-600">{{ $item->license_number }}</span>
                             <span x-show="!openData"><x-vaadin-ellipsis-h class="inline size-4 text-slate-400" /></span>
                             @else
-                            <span class="italic">Tidak Ada</span>
+                            <span class="italic text-gray-400">Tidak Ada</span>
                             @endif
                         </div>
                     </td>
+
+                    {{-- 3. Kategori & Legalitas --}}
                     <td class="px-6 py-4">
-                        <span class="inline-flex items-center px-2.5 py-1 text-xs font-semibold rounded-full bg-emerald-50 text-emerald-700 border border-emerald-100">
-                            {{ $businessCategory::tryFrom($item->business_category?->value)->label() ?? '-' }}
-                        </span>
+                        <div class="flex flex-col items-start gap-1">
+                            <span class="inline-flex items-center px-2.5 py-0.5 text-xs font-semibold rounded-full bg-emerald-50 text-emerald-700 border border-emerald-100">
+                                {{ $businessCategory::tryFrom($item->business_category?->value ?? $item->business_category)->label() ?? '-' }}
+                            </span>
+                            <span class="text-[11px] px-2 py-0.5 rounded font-medium text-gray-500 bg-gray-100 border border-gray-200">
+                                @switch($item->legal_entity_type)
+                                @case('sole_proprietorship') Perorangan @break
+                                @case('limited_partnership') CV @break
+                                @case('limited_company') PT @break
+                                @case('cooperative') Koperasi @break
+                                @default Unregistered
+                                @endswitch
+                            </span>
+                        </div>
                     </td>
+
+                    {{-- 4. Pemilik --}}
                     <td class="px-6 py-4">
                         @if($item->citizen)
                         <div class="font-medium text-gray-800">{{ $item->citizen->full_name }}</div>
-                        <div class="text-xs text-gray-400">
+                        <div class="text-xs text-gray-400 mt-0.5">
                             NIK:
-                            <span x-show="openData">{{ $item->citizen->id_number }}</span>
+                            <span x-show="openData" class="font-mono text-gray-600">{{ $item->citizen->id_number }}</span>
                             <span x-show="!openData"><x-vaadin-ellipsis-h class="inline size-4 text-slate-400" /></span>
                         </div>
                         @else
                         <span class="text-xs italic text-gray-400">Data Warga dihapus</span>
                         @endif
                     </td>
+
+                    {{-- 5. Tenaga Kerja --}}
                     <td class="px-6 py-4 font-medium text-center text-gray-900">
                         {{ $item->employee_count }} Orang
                     </td>
+
+                    {{-- 6. Omset Bulanan (FIXED TYPO) --}}
                     <td class="px-6 py-4 font-semibold text-gray-900">
-                        <span x-show="openData">Rp. {{ number_format($item->mothly_revenue, 2, ',', '.') }}</span>
+                        {{-- FIXED: Mengubah $item->mothly_revenue menjadi $item->monthly_revenue --}}
+                        <span x-show="openData">Rp {{ number_format($item->monthly_revenue, 0, ',', '.') }}</span>
                         <span x-show="!openData"><x-vaadin-ellipsis-h class="inline size-5 text-slate-400" /></span>
                     </td>
+
+                    {{-- 7. Indikator (Digital & Lingkungan) --}}
+                    <td class="px-6 py-4 text-center">
+                        <div class="flex items-center justify-center gap-1.5">
+                            {{-- Transaksi Digital --}}
+                            @if($item->uses_digital_payment)
+                            <span class="p-1 text-blue-600 border border-blue-100 rounded-md bg-blue-50" title="Mendukung Pembayaran Digital / QRIS">
+                                <x-heroicon-s-credit-card class="size-4" />
+                            </span>
+                            @endif
+
+                            {{-- Ramah Lingkungan --}}
+                            @if($item->is_environmentally_friendly)
+                            <span class="p-1 text-teal-600 border border-teal-100 rounded-md bg-teal-50" title="Lolos Standar Ramah Lingkungan">
+                                <x-heroicon-s-globe-asia-australia class="size-4" />
+                            </span>
+                            @endif
+
+                            @if(!$item->uses_digital_payment && !$item->is_environmentally_friendly)
+                            <span class="text-xs italic text-gray-400">-</span>
+                            @endif
+                        </div>
+                    </td>
+
+                    {{-- 8. Tombol Aksi --}}
                     <td class="px-6 py-4 text-center">
                         <div class="flex items-center justify-center gap-2">
                             <button @click='openModal(@json($item))' class="p-1.5 text-blue-600 hover:bg-blue-50 rounded-md transition-colors" title="Edit UMKM">
@@ -72,7 +121,7 @@
                 @endforeach
                 @else
                 <tr>
-                    <td colspan="7" class="py-10 text-center text-gray-500">
+                    <td colspan="8" class="py-10 text-center text-gray-500">
                         <div class="flex flex-col items-center justify-center gap-2 py-4">
                             <x-heroicon-o-folder-open class="text-gray-300 size-8" />
                             <p class="text-sm font-medium">Profil UMKM tidak ditemukan.</p>
@@ -84,6 +133,7 @@
         </table>
     </div>
 
+    {{-- Pagination Footer --}}
     <div class="flex items-center justify-between px-6 py-4 text-xs text-gray-500 border-t border-gray-100 bg-gray-50/50">
         <p>Menampilkan {{ $msmes->firstItem() ?? 0 }} sampai {{ $msmes->lastItem() ?? 0 }} dari {{ $msmes->total() }} UMKM</p>
         <div class="inline-flex gap-1">

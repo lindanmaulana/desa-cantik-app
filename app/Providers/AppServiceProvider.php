@@ -55,6 +55,11 @@ class AppServiceProvider extends ServiceProvider
             'electricitySource' => \App\Enums\ElectricitySource::class,
             'electricityCapacity' => \App\Enums\ElectricityCapacity::class,
             'stuntingStatus' => \App\Enums\StuntingStatus::class,
+            
+            'legalEntityType' => \App\Enums\LegalEntityType::class,
+            'digitalPlatformType' => \App\Enums\DigitalPlatformType::class,
+            'bumdesPartnershipStaus' => \App\Enums\BumdesPartnershipStatus::class,
+
             'demographicsType' => \App\Enums\DemographicsType::class,
             'socialType' => \App\Enums\SocialType::class,
             'economicType' => \App\Enums\EconomicType::class,

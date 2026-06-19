@@ -24,7 +24,7 @@ class Msme extends Model
         'business_category',
         'license_number',
         'employee_count',
-        'mothly_revenue',
+        'monthly_revenue',
         'legal_entity_type',
         'uses_digital_payment',
         'capital_source',
@@ -36,7 +36,7 @@ class Msme extends Model
         return [
             'business_category' => BusinessCategory::class,
             'employee_count' => 'integer',
-            'mothly_revenue' => 'decimal:2',
+            'monthly_revenue' => 'decimal:2',
             'legal_entity_type' => LegalEntityType::class,
             'uses_digital_payment' => 'boolean',
             'digital_platform_type' => DigitalPlatformType::class,
