@@ -58,6 +58,7 @@ class AppServiceProvider extends ServiceProvider
             'demographicsType' => \App\Enums\DemographicsType::class,
             'socialType' => \App\Enums\SocialType::class,
             'economicType' => \App\Enums\EconomicType::class,
+            'msmeType' => \App\Enums\MsmeType::class,
         ]);
 
         Blade::component('dashboard.manage-data.citizens.components.citizen-profile-card', 'citizen-profile-card');
