@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\UserRole;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -18,7 +19,7 @@ return new class extends Migration
             $table->string('username')->unique();
 
             $table->foreignUuid('territory_id')->nullable()->constrained('territories')->onDelete('set null');
-            $table->enum('role', ['admin', 'operator', 'head_of_rw', 'head_of_rt']);
+            $table->enum('role', array_column(UserRole::cases(), 'value'))->default(UserRole::HEAD_OF_RT->value);
 
             $table->rememberToken();
             $table->timestamps();
