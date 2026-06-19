@@ -19,11 +19,11 @@
             $msmeType::DIGITAL_PLATFORM => 'ri-global-line',
             $msmeType::CAPITAL_SOURCE => 'ri-hand-coin-line',
             $msmeType::ECO_FRIENDLY => 'ri-leaf-line',
-            $msmeType::BUMDES_PARTNERSHIP => 'ri-handshake-line',
+            $msmeType::BUMDES_PARTNERSHIP => 'ri-user-shared-line',
         };
         @endphp
 
-        <a href="{{ route('dashboard.statistics.umkm', ['type' => $type->value, 'rw' => request('rw'), 'rt' => request('rt')]) }}"
+        <a href="{{ route('dashboard.statistics.msme', ['type' => $type->value, 'rw' => request('rw'), 'rt' => request('rt')]) }}"
             class="max-md:w-full">
             <x-buttons.filter-button
                 :icon="$icon"

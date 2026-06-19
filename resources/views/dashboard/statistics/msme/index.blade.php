@@ -18,18 +18,18 @@
     <script>
         if (!window.msmeType) {
             window.msmeType = {
-                businessSector: "{!! \App\Enums\UmkmType::BUSINESS_SECTOR->value !!}",
-                ownerAge: "{!! \App\Enums\UmkmType::OWNER_AGE->value !!}",
-                ownerEducation: "{!! \App\Enums\UmkmType::OWNER_EDUCATION->value !!}",
-                businessLocation: "{!! \App\Enums\UmkmType::BUSINESS_LOCATION->value !!}",
-                legalStatus: "{!! \App\Enums\UmkmType::LEGAL_STATUS->value !!}",
-                nibOwnership: "{!! \App\Enums\UmkmType::NIB_OWNERSHIP->value !!}",
-                monthlyTurnover: "{!! \App\Enums\UmkmType::MONTHLY_TURNOVER->value !!}",
-                digitalTransaction: "{!! \App\Enums\UmkmType::DIGITAL_TRANSACTION->value !!}",
-                digitalPlatform: "{!! \App\Enums\UmkmType::DIGITAL_PLATFORM->value !!}",
-                capitalSource: "{!! \App\Enums\UmkmType::CAPITAL_SOURCE->value !!}",
-                ecoFriendly: "{!! \App\Enums\UmkmType::ECO_FRIENDLY->value !!}",
-                bumdesPartnership: "{!! \App\Enums\UmkmType::BUMDES_PARTNERSHIP->value !!}"
+                businessSector: "{!! $msmeType::BUSINESS_SECTOR->value !!}",
+                ownerAge: "{!! $msmeType::OWNER_AGE->value !!}",
+                ownerEducation: "{!! $msmeType::OWNER_EDUCATION->value !!}",
+                businessLocation: "{!! $msmeType::BUSINESS_LOCATION->value !!}",
+                legalStatus: "{!! $msmeType::LEGAL_STATUS->value !!}",
+                nibOwnership: "{!! $msmeType::NIB_OWNERSHIP->value !!}",
+                monthlyTurnover: "{!! $msmeType::MONTHLY_TURNOVER->value !!}",
+                digitalTransaction: "{!! $msmeType::DIGITAL_TRANSACTION->value !!}",
+                digitalPlatform: "{!! $msmeType::DIGITAL_PLATFORM->value !!}",
+                capitalSource: "{!! $msmeType::CAPITAL_SOURCE->value !!}",
+                ecoFriendly: "{!! $msmeType::ECO_FRIENDLY->value !!}",
+                bumdesPartnership: "{!! $msmeType::BUMDES_PARTNERSHIP->value !!}"
             };
         }
     </script>

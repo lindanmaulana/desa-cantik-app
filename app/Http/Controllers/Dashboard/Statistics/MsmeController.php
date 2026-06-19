@@ -41,7 +41,7 @@ class MsmeController extends Controller
         $formatted = $this->formatUmkmData($currentType, $data);
         $territories = $this->territoriesService->getAll([]);
 
-        return view('dashboard.statistics.umkm.index', compact('stats'))->with([
+        return view('dashboard.statistics.msme.index', compact('stats'))->with([
             'currentType'                 => $currentType,
             'chartType'                   => $currentType->chartType(),
             'chartLabels'                 => $formatted['chartLabels'],

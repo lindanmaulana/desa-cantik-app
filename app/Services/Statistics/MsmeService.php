@@ -16,14 +16,14 @@ class MsmeService
         $query = DB::table('msmes')
             ->join('citizens', 'msmes.citizen_id', '=', 'citizens.id')
             ->join('families', 'citizens.family_id', '=', 'families.id')
-            ->join('territoties', 'families.territory_id', '=', 'territoties.id')
+            ->join('territories', 'families.territory_id', '=', 'territories.id')
             ->whereNull('msmes.deleted_at')
             ->whereNull('citizens.deleted_at')
             ->whereNull('families.deleted_at')
-            ->whereNull('territoties.deleted_at');
+            ->whereNull('territories.deleted_at');
 
         if ($rw) {
-            $query->where('territoties.rw', $rw);
+            $query->where('territories.rw', $rw);
         }
 
         return $query;
@@ -62,15 +62,15 @@ class MsmeService
         // 2. Ambil Data Distribusi Spasial Wilayah (by_territory) untuk Pengisian Rowspan Tabel RT
         $territoryQuery = $this->baseQuery($rw)
             ->select([
-                'territoties.rw',
-                'territoties.rt',
+                'territories.rw',
+                'territories.rt',
                 DB::raw("{$dbFieldOrExpression} as category_label"),
                 DB::raw("SUM(CASE WHEN citizens.gender = 'male' THEN 1 ELSE 0 END) as male_count"),
                 DB::raw("SUM(CASE WHEN citizens.gender = 'female' THEN 1 ELSE 0 END) as female_count"),
             ])
-            ->groupBy('territoties.rw', 'territoties.rt', 'category_label')
-            ->orderBy('territoties.rw')
-            ->orderBy('territoties.rt')
+            ->groupBy('territories.rw', 'territories.rt', 'category_label')
+            ->orderBy('territories.rw')
+            ->orderBy('territories.rt')
             ->get();
 
         // Kelompokkan data per RW & RT terlebih dahulu
