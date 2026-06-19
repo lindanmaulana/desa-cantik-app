@@ -31,7 +31,7 @@
                 const element = document.querySelector(`#${this.chartId}`);
                 if (!element) return;
 
-                const demoType = window.demographicsType;
+                const demoType = window.demographicsType || {}
                 let options = {};
 
                 switch (this.reqType) {

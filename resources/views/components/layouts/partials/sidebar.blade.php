@@ -68,8 +68,8 @@
                     class="flex items-center gap-2 px-4 py-2 text-sm transition-all duration-300 {{ request()->routeIs('dashboard.statistics.social') ? 'bg-secondary text-white border-l-4 rounded-l-md ml-1 rounded-r-md' : 'text-slate-300 hover:bg-secondary hover:text-white' }} justify-start pl-4">
                     <x-ri-heart-pulse-line class="size-5 shrink-0" /> <span class="truncate">Sosial</span>
                 </a>
-                <a href="{{ route('dashboard.statistics.economy') }}"
-                    class="flex items-center gap-2 px-4 py-2 text-sm transition-all duration-300 {{ request()->routeIs('dashboard.statistics.economy') ? 'bg-secondary text-white border-l-4 rounded-l-md ml-1 rounded-r-md' : 'text-slate-300 hover:bg-secondary hover:text-white' }} justify-start pl-4">
+                <a href="{{ route('dashboard.statistics.economic') }}"
+                    class="flex items-center gap-2 px-4 py-2 text-sm transition-all duration-300 {{ request()->routeIs('dashboard.statistics.economic') ? 'bg-secondary text-white border-l-4 rounded-l-md ml-1 rounded-r-md' : 'text-slate-300 hover:bg-secondary hover:text-white' }} justify-start pl-4">
                     <x-phosphor-money class="size-5 shrink-0" /> <span class="truncate">Ekonomi</span>
                 </a>
                 <a href="{{ route('dashboard.statistics.msme') }}"

@@ -74,3 +74,4 @@ Dokumen ini berisi gambaran umum, peta jalan pengembangan, serta panduan pemetaa
 | **Adopsi Pasar Digital** | `msmes` | `uses_digital_payment` / `digita_platform_type` |
 | **Permodalan & Kemitraan** | `msmes` | `capital_source` / `bumdes_partnership_status` |
 | **Kondisi Fasilitas Umum** | `infrastructures` | `facility_type` / `condition` |
+

@@ -36,20 +36,6 @@ enum SocialType: string
             self::ELECTRICITY_SOURCE,
             self::ELECTRICITY_CAPACITY => 'bar',
 
-            // self::DISABILITY,
-            // self::WATER_SOURCE => 'bar',
-
-            // self::HIGHEST_DIPLOMA,
-            // self::FAMILY_PLANNING,
-            // self::PREGNANCY,
-            // self::SANITATION => 'donut',
-
-            // self::EDUCATION_LEVEL,
-            // self::BLOOD_TYPE,
-            // self::BPJS_STATUS,
-            // self::WELFARE_ASSISTANCE,
-            // self::ELECTRICITY_CAPACITY => 'bar',
-
             self::SCHOOL_PARTICIPATION,
             self::BLOOD_TYPE,
             self::DISABILITY,
