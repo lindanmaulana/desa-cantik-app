@@ -30,11 +30,9 @@
 
                     switch (this.reqType) {
                         // Kelompok Jenis Chart BAR (Kategori Berderet)
+                        case economicType.occupation:
+                        case economicType.jobSector:
                         case economicType.employmentStatus:
-                        case economicType.incomeRange:
-                        case economicType.businessSector:
-                        case economicType.msmeCategory:
-                        case economicType.landOwnership:
                             options = {
                                 series: [{
                                     name: "Total KK / Warga",
@@ -48,11 +46,14 @@
                             break;
 
                             // Kelompok Jenis Chart DONUT / PIE (Proporsi Tunggal)
-                        case economicType.productiveAgeEmployment:
-                        case economicType.msmeLegality:
-                        case economicType.welfareStatus:
+                        case economicType.houseOwnership:
+                        case economicType.floorMaterial:
+                        case economicType.wallMaterial:
+                        case economicType.roofMaterial:
+                        case economicType.cookingFuel:
                         case economicType.electricitySource:
                         case economicType.electricityCapacity:
+                        case economicType.economicStatus:
                             options = {
                                 series: this.chartData,
                                 colors: window.AppColors.economicPalette || window.AppColors.chartPalette,

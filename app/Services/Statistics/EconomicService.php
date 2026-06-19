@@ -47,15 +47,14 @@ class EconomicService
             ->when($rw, fn($q) => $q->where('territories.rw', $rw))
             ->when($rt, fn($q) => $q->where('territories.rt', $rt));
 
-        // Menyusun seleksi kueri secara dinamis
         $selectStatements = [
             "COALESCE(territories.rw, 'Tanpa RW') as rw",
             "COALESCE(territories.rt, 'Tanpa RT') as rt"
         ];
 
         foreach ($categories as $key => $value) {
-            $selectStatements[] = "SUM(CASE WHEN citizens.gender = 'male' AND {$tableAlias}.{$column} = '{$key}' THEN 1 ELSE 0 END) as male_{$key}";
-            $selectStatements[] = "SUM(CASE WHEN citizens.gender = 'female' AND {$tableAlias}.{$column} = '{$key}' THEN 1 ELSE 0 END) as female_{$key}";
+            $selectStatements[] = "SUM(CASE WHEN citizens.gender = 'male' AND {$tableAlias}.{$column} = '{$key}' THEN 1 ELSE 0 END) as `male_{$key}`";
+            $selectStatements[] = "SUM(CASE WHEN citizens.gender = 'female' AND {$tableAlias}.{$column} = '{$key}' THEN 1 ELSE 0 END) as `female_{$key}`";
         }
 
         $rawQuery = $query->selectRaw(implode(", ", $selectStatements))
@@ -92,23 +91,6 @@ class EconomicService
             })->all()
         ];
     }
-
-    /**
-     * 1. PEKERJAAN (Occupation)
-     */
-    // public function getOccupation(?string $rw = null, ?string $rt = null)
-    // {
-    //     $categories = [
-    //         'none' => 'Tidak Bekerja',
-    //         'farmer' => 'Petani',
-    //         'trader' => 'Pedagang',
-    //         'civil_servant' => 'PNS',
-    //         'private_employee' => 'Karyawan Swasta',
-    //         'others' => 'Lainnya'
-    //     ];
-
-    //     return $this->queryEconomicData('occupation', $categories, $rw, $rt);
-    // }
 
     public function getOccupation(?string $rw = null, ?string $rt = null)
     {

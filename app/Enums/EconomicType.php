@@ -24,18 +24,19 @@ enum EconomicType: string
         return match ($this) {
             self::OCCUPATION,
             self::JOB_SECTOR,
-            self::EMPLOYMENT_STATUS,
+            self::EMPLOYMENT_STATUS => 'bar',
+
+            self::HOUSE_OWNERSHIP,
             self::FLOOR_MATERIAL,
             self::WALL_MATERIAL,
             self::ROOF_MATERIAL,
-            self::ECONOMIC_STATUS => 'bar',
-
-            self::HOUSE_OWNERSHIP,
             self::COOKING_FUEL,
             self::ELECTRICITY_SOURCE,
-            self::ELECTRICITY_CAPACITY => 'donut',
+            self::ELECTRICITY_CAPACITY,
+            self::ECONOMIC_STATUS => 'donut',
         };
     }
+
 
     /**
      * Menerjemahkan opsi sub-kategori database menjadi teks label UI Dashboard
