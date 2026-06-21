@@ -1,5 +1,5 @@
 <x-layouts.app>
-    <div class="flex h-screen overflow-hidden bg-quaternary" x-cloak x-data="{
+    <div class="flex h-screen overflow-hidden bg-tertiary" x-cloak x-data="{
         openStatistik: {{ request()->routeIs('dashboard.statistics.*') ? 'true' : 'false' }},
         openManageData: {{ request()->routeIs('dashboard.manage-data.*') ? 'true' : 'false' }},
         openSidebar: window.innerWidth >= 768
@@ -16,21 +16,23 @@
         <x-layouts.partials.sidebar />
 
         <div class="flex flex-col flex-1 h-full min-w-0">
+
             <header
-                class="flex items-center justify-between h-16 px-8 bg-quaternary border-b-2 border-primary shrink-0">
+                class="flex items-center justify-between h-16 px-8 bg-secondary border-b-2 border-textTertiary/20 shrink-0">
+
                 <button @click="openSidebar = !openSidebar"
-                    class="cursor-pointer text-slate-500 hover:text-primary focus:outline-none z-30">
+                    class="cursor-pointer text-textSecondary hover:text-primary focus:outline-none z-30">
                     <x-solar-hamburger-menu-broken class="size-6" />
                 </button>
 
                 <button
-                    class="px-5 py-2 text-sm font-semibold text-white capitalize transition rounded-md bg-primary hover:bg-secondary">
+                    class="px-5 py-2 text-sm font-semibold text-secondary capitalize transition rounded-md bg-primary hover:opacity-90">
                     {{ Auth::user()->fullname ?? 'Petugas' }}
                 </button>
             </header>
 
             <main
-                class="container flex-1 p-8 max-md:p-4 mx-auto bg-quaternary overflow-y-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+                class="container flex-1 p-8 max-lg:p-6 max-md:p-4 mx-auto bg-tertiary overflow-y-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
                 {{ $slot ?? '' }}
                 @yield('content')
             </main>

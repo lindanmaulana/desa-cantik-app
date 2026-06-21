@@ -3,14 +3,14 @@
         <table class="w-full text-left border-collapse">
             <thead>
                 <tr class="text-xs font-semibold tracking-wider text-gray-500 uppercase border-b border-gray-100 bg-gray-50">
-                    <th class="w-16 px-6 py-4 text-center">No</th>
-                    <th class="px-6 py-4">Nama Usaha / NIB</th>
-                    <th class="px-6 py-4">Kategori & Legalitas</th>
-                    <th class="px-6 py-4">Pemilik (Warga)</th>
-                    <th class="px-6 py-4 text-center">Tenaga Kerja</th>
-                    <th class="px-6 py-4">Omset Bulanan</th>
-                    <th class="px-6 py-4 text-center">Indikator</th>
-                    <th class="w-32 px-6 py-4 text-center">Aksi</th>
+                    <th class="w-16 px-6 py-4 text-center truncate">No</th>
+                    <th class="px-6 py-4 truncate">Nama Usaha / NIB</th>
+                    <th class="px-6 py-4 truncate">Kategori & Legalitas</th>
+                    <th class="px-6 py-4 truncate">Pemilik (Warga)</th>
+                    <th class="px-6 py-4 text-center truncate">Tenaga Kerja</th>
+                    <th class="px-6 py-4 truncate">Omset Bulanan</th>
+                    <th class="px-6 py-4 text-center truncate">Indikator</th>
+                    <th class="w-32 px-6 py-4 text-center truncate">Aksi</th>
                 </tr>
             </thead>
             <tbody class="text-sm text-gray-700 divide-y divide-gray-100">
@@ -38,7 +38,7 @@
                     {{-- 3. Kategori & Legalitas --}}
                     <td class="px-6 py-4">
                         <div class="flex flex-col items-start gap-1">
-                            <span class="inline-flex items-center px-2.5 py-0.5 text-xs font-semibold rounded-full bg-emerald-50 text-emerald-700 border border-emerald-100">
+                            <span class="inline-flex items-center px-2.5 py-1 text-xs font-semibold rounded-full bg-blue-500/10 text-blue-400 border border-emerald-100 truncate">
                                 {{ $businessCategory::tryFrom($item->business_category?->value ?? $item->business_category)->label() ?? '-' }}
                             </span>
                             <span class="text-[11px] px-2 py-0.5 rounded font-medium text-gray-500 bg-gray-100 border border-gray-200">

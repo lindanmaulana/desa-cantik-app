@@ -16,11 +16,15 @@ export default {
             },
 
             colors: {
-                primary: "#009689",
-                secondary: "#00786F",
-                tertiary: "#46ECD5",
-                quaternary: "#F0FDFA",
+                primary: "#2D60FF",
+                secondary: "#FFFFFF",
+                tertiary: "#F5F7FA",
+
+                textPrimary: "#333B69",
+                textSecondary: "#718EBF",
+                textTertiary: "#B1B1B1",
             },
+
             keyframes: {
                 "wave-rotate": {
                     from: { transform: "rotate(0deg)" },

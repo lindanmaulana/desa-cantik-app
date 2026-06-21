@@ -21,6 +21,10 @@
     }
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 .wave-1 {
     border-radius: 46% 54% 48% 52%;
     bottom: -249.4vw;
