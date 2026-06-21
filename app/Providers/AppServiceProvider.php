@@ -55,7 +55,7 @@ class AppServiceProvider extends ServiceProvider
             'electricitySource' => \App\Enums\ElectricitySource::class,
             'electricityCapacity' => \App\Enums\ElectricityCapacity::class,
             'stuntingStatus' => \App\Enums\StuntingStatus::class,
-            
+
             'legalEntityType' => \App\Enums\LegalEntityType::class,
             'digitalPlatformType' => \App\Enums\DigitalPlatformType::class,
             'bumdesPartnershipStaus' => \App\Enums\BumdesPartnershipStatus::class,
@@ -64,6 +64,7 @@ class AppServiceProvider extends ServiceProvider
             'socialType' => \App\Enums\SocialType::class,
             'economicType' => \App\Enums\EconomicType::class,
             'msmeType' => \App\Enums\MsmeType::class,
+            'infrastructureType' => \App\Enums\InfrastructureType::class,
         ]);
 
         Blade::component('dashboard.manage-data.citizens.components.citizen-profile-card', 'citizen-profile-card');

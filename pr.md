@@ -1,3 +1,7 @@
-Fitur update pada citizen healt_profiles saat mau mengubah status kehamilan ga bisa berjalan
-Fitur detail citizen coba liat bagian Hasby dia gabisa liat detail // benerin validasi di bagian dia menampilkan data sub_village, rw, dan rt
-Fitur families disana ada sebuah konflik yang belum ter selesaikan
+Fitur Statistik
+    Cek kembali 1/1 sub sub statistik apakah semua nya berjalan seperti yg di inginkan.
+        contohnya: chart, tabel aggregat desa, tabel aggregat rw/rt.
+
+
+Kalau Masih ada waktu perbaiki query buat query itu lebih stabil
+

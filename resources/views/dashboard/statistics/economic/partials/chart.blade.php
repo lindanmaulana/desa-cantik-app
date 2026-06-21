@@ -57,7 +57,7 @@
                             options = {
                                 series: this.chartData,
                                 colors: window.AppColors.economicPalette || window.AppColors.chartPalette,
-                                xaxis: this.chartLabels,
+                                labels: this.chartLabels,
                             };
                             break;
 

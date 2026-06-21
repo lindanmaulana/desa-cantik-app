@@ -2,64 +2,72 @@
 
 namespace App\Http\Controllers\Dashboard\Statistics;
 
+use App\Enums\InfrastructureType;
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Http\Requests\Statistics\InfrastructureRequest;
+use App\Services\ManageData\TerritoriesService;
+use App\Services\Statistics\InfrastructureService;
 
 class InfrastructureController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    public function __construct(
+        protected InfrastructureService $infrastructureService,
+        protected TerritoriesService $territoriesService
+    ) {}
+
+    public function index(InfrastructureRequest $request)
     {
-        return view('dashboard.statistics.infrastructure.index');
+        $validated = $request->validated();
+
+        $stats = $this->infrastructureService->getInfrastructureStats();
+
+        $currentType = InfrastructureType::tryFrom($validated['type'] ?? InfrastructureType::FACILITY_TYPE->value) ?? InfrastructureType::FACILITY_TYPE;
+
+        $data = match ($currentType) {
+            InfrastructureType::FACILITY_TYPE     => $this->infrastructureService->getVillageAggregation($currentType->value, $currentType->options()),
+            InfrastructureType::CONDITION         => $this->infrastructureService->getVillageAggregation($currentType->value, $currentType->options()),
+            InfrastructureType::CONSTRUCTION_YEAR => $this->infrastructureService->getVillageAggregation($currentType->value, $currentType->options()),
+        };
+
+        $formatted = $this->formatInfrastructureData($currentType, $data);
+        $territories = $this->territoriesService->getAll([]);
+
+        return view('dashboard.statistics.infrastructure.index', compact('stats'))->with([
+            'currentType'                 => $currentType,
+            'chartType'                   => $currentType->chartType(),
+            'chartLabels'                 => $formatted['chartLabels'],
+            'chartData'                   => $formatted['chartData'],
+            'data'                        => $data,
+            'tableAggregateVillageData'   => $formatted['tableAggregateVillageData'],
+            'tableAggregateTerritoryData' => $formatted['tableAggregateTerritoryData'],
+            'territories'                 => $territories,
+        ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function formatInfrastructureData(InfrastructureType $type, array $data): array
     {
-        //
-    }
+        $chartLabels = $type === InfrastructureType::CONSTRUCTION_YEAR
+            ? collect($data['data'])->pluck('category')->all()
+            : array_values($type->options());
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+        $chartData = collect($data['data'])->pluck('total')->all();
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
+        $tableAggregateVillageData = [
+            'total'        => $data['total'] ?? 0,
+            'totalPercent' => ($data['total'] ?? 0) > 0 ? 100 : 0,
+            'data'         => $data['data'] ?? [],
+        ];
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
+        $tableAggregateTerritoryData = [
+            'total' => $data['total'] ?? 0,
+            'data'  => [],
+        ];
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        return [
+            'chartLabels'                 => $chartLabels,
+            'chartData'                   => $chartData,
+            'tableAggregateVillageData'   => $tableAggregateVillageData,
+            'tableAggregateTerritoryData' => $tableAggregateTerritoryData,
+        ];
     }
 }

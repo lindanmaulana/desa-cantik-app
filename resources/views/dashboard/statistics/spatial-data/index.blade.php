@@ -93,7 +93,5 @@
             chart.render();
         });
     </script>
-
-    @include('dashboard.statistics.demographics.partials.chart-script')
     @endpush
 </x-layouts.dashboard>

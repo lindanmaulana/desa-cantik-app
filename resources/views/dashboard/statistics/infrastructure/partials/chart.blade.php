@@ -1,16 +1,15 @@
 <x-cards.chart-card
-    id="chart-umkm"
-    :title="$currentType->title() ? $currentType->title() : 'Statistik Ekonomi UMKM Tematik'"
+    id="chart-infrastructure"
+    :title="$currentType->title() ? $currentType->title() : 'Statistik Infrastruktur Tematik'"
     :subtitle="ucfirst(str_replace('_', ' ', $currentType->value)) . ' — Data Agregat Kelurahan'"
     :chart-data="$chartData"
     :chart-labels="$chartLabels"
     :chart-type="$chartType"
     :req-type="request('type')" />
 
-
 @push('scripts')
 <script>
-    if (!window.msmeChartComponentInitialized) {
+    if (!window.infrastructureChartComponentInitialized) {
         document.addEventListener("alpine:init", () => {
             Alpine.data("chartComponent", (id, chartType, data, labels) => ({
                 chartId: id,
@@ -25,37 +24,30 @@
                         const element = document.querySelector(`#${this.chartId}`);
                         if (!element) return;
 
-                        const msmeType = window.msmeType || {};
+                        const infraType = window.infrastructureType || {};
                         let options = {};
 
                         switch (this.reqType) {
-                            case msmeType.businessSector:
-                            case msmeType.ownerAge:
-                            case msmeType.ownerEducation:
-                            case msmeType.monthlyTurnover:
-                            case msmeType.capitalSource:
+                            // 📊 Grouping Chart BAR (Menggunakan format Array of Object)
+                            case infraType.constructionYear:
                                 options = {
                                     series: [{
-                                        name: "Total Toko / UMKM",
+                                        name: "Total Unit Fasilitas",
                                         data: this.chartData,
                                     }],
-                                    colors: window.AppColors?.umkmPalette || window.AppColors?.chartPalette || ['#059669'],
+                                    colors: window.AppColors?.infrastructurePalette || window.AppColors?.chartPalette || ['#2563eb'],
                                     xaxis: {
                                         categories: this.chartLabels,
                                     },
                                 };
                                 break;
 
-                            case msmeType.businessLocation:
-                            case msmeType.legalStatus:
-                            case msmeType.nibOwnership:
-                            case msmeType.digitalTransaction:
-                            case msmeType.digitalPlatform:
-                            case msmeType.ecoFriendly:
-                            case msmeType.bumdesPartnership:
+                                // 🍩 Grouping Chart DONUT (Menggunakan format Array angka murni langsung)
+                            case infraType.facilityType:
+                            case infraType.condition:
                                 options = {
                                     series: this.chartData,
-                                    colors: window.AppColors?.umkmPalette || window.AppColors?.chartPalette || ['#059669', '#3b82f6', '#f59e0b', '#8b5cf6'],
+                                    colors: window.AppColors?.infrastructurePalette || window.AppColors?.chartPalette || ['#10b981', '#f59e0b', '#ef4444'],
                                     labels: this.chartLabels,
                                 };
                                 break;
@@ -63,10 +55,10 @@
                             default:
                                 options = {
                                     series: [{
-                                        name: "Total Unit Usaha",
+                                        name: "Total Unit Fasilitas",
                                         data: this.chartData,
                                     }],
-                                    colors: window.AppColors?.umkmPalette || window.AppColors?.chartPalette || ['#059669'],
+                                    colors: window.AppColors?.infrastructurePalette || window.AppColors?.chartPalette || ['#2563eb'],
                                     xaxis: {
                                         categories: this.chartLabels,
                                     },
@@ -75,7 +67,6 @@
 
                         window.ChartOptions = options;
 
-                        // Eksekusi fungsi rendering engine global ApexCharts
                         switch (chartType) {
                             case "bar":
                                 if (typeof renderBarChart === "function") {
@@ -92,7 +83,9 @@
                 },
             }));
         });
-        window.msmeChartComponentInitialized = true;
+
+
+        window.infrastructureChartComponentInitialized = true;
     }
 </script>
 @endpush

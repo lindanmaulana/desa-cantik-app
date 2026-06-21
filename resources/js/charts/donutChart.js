@@ -3,7 +3,7 @@ import ApexCharts from "apexcharts";
 export const renderDonutChart = (element, data, chartOptions) => {
     var options = {
         series: chartOptions.series,
-        labels: chartOptions.xaxis,
+        labels: chartOptions.labels,
         chart: {
             type: "donut",
             height: 500,

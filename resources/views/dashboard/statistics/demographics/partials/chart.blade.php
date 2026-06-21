@@ -57,14 +57,14 @@
                                 window.AppColors.primary,
                                 window.AppColors.secondary,
                             ],
-                            xaxis: this.chartLabels,
+                            labels: this.chartLabels,
                         };
                         break;
 
                     case demoType.maritalStatus:
                         options = {
                             series: this.chartData,
-                            xaxis: this.chartLabels,
+                            labels: this.chartLabels,
                         };
                         break;
 

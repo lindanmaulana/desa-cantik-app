@@ -121,13 +121,22 @@ class MsmeService
 
     public function getOwnerEducation(?string $rw = null)
     {
-        $expression = "COALESCE((SELECT ep.education_level FROM education_profiles ep WHERE ep.citizen_id = citizens.id AND ep.deleted_at IS NULL LIMIT 1), 'Tidak Sekolah')";
+        $expression = "COALESCE((SELECT ep.education_level FROM education_profiles ep WHERE ep.citizen_id = citizens.id LIMIT 1), 'Tidak Sekolah')";
         return $this->compileGenderizedData(MsmeType::OWNER_EDUCATION, $expression, $rw);
     }
 
     public function getBusinessLocation(?string $rw = null)
     {
-        return $this->compileGenderizedData(MsmeType::BUSINESS_LOCATION, 'msmes.business_location_type', $rw);
+        $expression = "CASE
+            WHEN EXISTS (
+                SELECT 1 FROM spatial_data sd
+                WHERE sd.feature_id = msmes.id
+                  AND sd.feature_type = 'App\\\Models\\\Msme'
+                  AND sd.deleted_at IS NULL
+            ) THEN 'Ada Lokasi Spasial'
+            ELSE 'Tidak Ada Lokasi Spasial'
+        END";
+        return $this->compileGenderizedData(MsmeType::BUSINESS_LOCATION, $expression, $rw);
     }
 
     public function getLegalStatus(?string $rw = null)
