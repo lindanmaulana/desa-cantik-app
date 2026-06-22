@@ -30,6 +30,7 @@
 
         @include('dashboard.manage-data.territories.partials.modal.create')
         @include('dashboard.manage-data.territories.partials.modal.update')
+        @include('dashboard.manage-data.territories.partials.modal.delete')
 
         @include('dashboard.manage-data.territories.partials.stats')
         @include('dashboard.manage-data.territories.partials.filter')

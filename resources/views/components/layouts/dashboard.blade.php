@@ -32,7 +32,7 @@
             </header>
 
             <main
-                class="container flex-1 p-8 max-lg:p-6 max-md:p-4 mx-auto bg-tertiary overflow-y-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+                class="container flex-1 p-8 max-lg:p-6 max-md:p-4 mx-auto bg-tertiary overflow-y-auto scroll-smooth [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
                 {{ $slot ?? '' }}
                 @yield('content')
             </main>

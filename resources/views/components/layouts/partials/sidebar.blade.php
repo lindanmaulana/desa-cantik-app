@@ -11,7 +11,7 @@
     <div class="sticky top-0 z-10 flex items-center h-16 p-4 text-textPrimary transition-all duration-500  bg-secondary"
         x-bind:class="openSidebar ? 'px-6 justify-between md:justify-start' : 'justify-center'">
         <div class="flex items-center justify-center rounded-lg shrink-0 text-primary">
-            <x-fab-dev class="size-7" />
+            <x-heroicon-o-square-3-stack-3d class="w-7 h-7" />
         </div>
         <span
             class="ml-3 text-sm font-bold tracking-wider uppercase truncate origin-left transform whitespace-nowrap text-textPrimary"
@@ -32,6 +32,7 @@
 
         <!-- Menu: Beranda -->
         <a href="{{ route('dashboard') }}"
+            @click.prevent="$store.navLoading.start('sb-dashboard'); setTimeout(() => window.location.href = $el.href, 50)"
             class="flex items-center px-4 py-3 rounded-lg transition-all duration-300 {{ request()->routeIs('dashboard') ? 'bg-primary text-secondary' : 'text-textSecondary hover:bg-tertiary hover:text-textPrimary' }}"
             x-bind:class="openSidebar ? 'justify-start' : 'md:justify-center'">
             <x-untitledui-home-line class="transition-all duration-500 size-5 shrink-0" />
@@ -67,26 +68,34 @@
             <div x-show="openStatistik && (openSidebar || window.innerWidth < 768)" x-collapse x-cloak
                 x-init="$el.classList.remove('hidden')" class="hidden pl-2 ml-4 space-y-1 border-l border-textTertiary/30">
                 <a href="{{ route('dashboard.statistics.demograph') }}"
+                    @click.prevent="$store.navLoading.start('sb-statistik-demografi'); setTimeout(() => window.location.href = $el.href, 50)"
                     class="flex items-center gap-2 px-4 py-2.5 text-sm transition-all duration-300 {{ request()->routeIs('dashboard.statistics.demograph') ? 'bg-primary text-secondary font-semibold' : 'text-textSecondary hover:bg-tertiary hover:text-textPrimary' }} justify-start pl-4 rounded-lg">
                     <x-ionicon-people-sharp class="size-5 shrink-0" /> <span class="truncate">Demografi</span>
                 </a>
                 <a href="{{ route('dashboard.statistics.social') }}"
+                    @click.prevent="$store.navLoading.start('sb-statistik-social'); setTimeout(() => window.location.href = $el.href, 50)"
                     class="flex items-center gap-2 px-4 py-2.5 text-sm transition-all duration-300 {{ request()->routeIs('dashboard.statistics.social') ? 'bg-primary text-secondary font-semibold' : 'text-textSecondary hover:bg-tertiary hover:text-textPrimary' }} justify-start pl-4 rounded-lg">
                     <x-ri-heart-pulse-line class="size-5 shrink-0" /> <span class="truncate">Sosial</span>
                 </a>
-                <a href="{{ route('dashboard.statistics.economy') }}"
-                    class="flex items-center gap-2 px-4 py-2.5 text-sm transition-all duration-300 {{ request()->routeIs('dashboard.statistics.economy') ? 'bg-primary text-secondary font-semibold' : 'text-textSecondary hover:bg-tertiary hover:text-textPrimary' }} justify-start pl-4 rounded-lg">
+
+                <a href="{{ route('dashboard.statistics.economic') }}"
+                    @click.prevent="$store.navLoading.start('sb-statistik-economic'); setTimeout(() => window.location.href = $el.href, 50)"
+                    class="flex items-center gap-2 px-4 py-2.5 text-sm transition-all duration-300 {{ request()->routeIs('dashboard.statistics.economic') ? 'bg-primary text-secondary font-semibold' : 'text-textSecondary hover:bg-tertiary hover:text-textPrimary' }} justify-start pl-4 rounded-lg">
                     <x-phosphor-money class="size-5 shrink-0" /> <span class="truncate">Ekonomi</span>
                 </a>
+
                 <a href="{{ route('dashboard.statistics.msme') }}"
+                    @click.prevent="$store.navLoading.start('sb-statistik-msme'); setTimeout(() => window.location.href = $el.href, 50)"
                     class="flex items-center gap-2 px-4 py-2.5 text-sm transition-all duration-300 {{ request()->routeIs('dashboard.statistics.msme') ? 'bg-primary text-secondary font-semibold' : 'text-textSecondary hover:bg-tertiary hover:text-textPrimary' }} justify-start pl-4 rounded-lg">
                     <x-bi-shop class="size-5 shrink-0" /> <span class="truncate">Umkm</span>
                 </a>
                 <a href="{{ route('dashboard.statistics.infrastructure') }}"
+                    @click.prevent="$store.navLoading.start('sb-statistik-infrastructure'); setTimeout(() => window.location.href = $el.href, 50)"
                     class="flex items-center gap-2 px-4 py-2.5 text-sm transition-all duration-300 {{ request()->routeIs('dashboard.statistics.infrastructure') ? 'bg-primary text-secondary font-semibold' : 'text-textSecondary hover:bg-tertiary hover:text-textPrimary' }} justify-start pl-4 rounded-lg">
                     <x-bi-building-gear class="size-5 shrink-0" /> <span class="truncate">Infrastruktur</span>
                 </a>
                 <a href="{{ route('dashboard.statistics.spatial-data') }}"
+                    @click.prevent="$store.navLoading.start('sb-statistik-spatial'); setTimeout(() => window.location.href = $el.href, 50)"
                     class="flex items-center gap-2 px-4 py-2.5 text-sm transition-all duration-300 {{ request()->routeIs('dashboard.statistics.spatial-data') ? 'bg-primary text-secondary font-semibold' : 'text-textSecondary hover:bg-tertiary hover:text-textPrimary' }} justify-start pl-4 rounded-lg">
                     <x-iconsax-out-map class="size-5 shrink-0" /> <span class="truncate">Data Spasial</span>
                 </a>
@@ -118,26 +127,32 @@
             <div x-show="openManageData && (openSidebar || window.innerWidth < 768)" x-collapse x-cloak
                 x-init="$el.classList.remove('hidden')" class="hidden pl-2 ml-4 space-y-1 border-l border-textTertiary/30">
                 <a href="{{ route('dashboard.manage-data.territories') }}"
+                    @click.prevent="$store.navLoading.start('sb-manage-territories'); setTimeout(() => window.location.href = $el.href, 50)"
                     class="flex items-center gap-2 px-4 py-2.5 text-sm transition-all duration-300 {{ request()->routeIs('dashboard.manage-data.territories') ? 'bg-primary text-secondary font-semibold' : 'text-textSecondary hover:bg-tertiary hover:text-textPrimary' }} justify-start pl-4 rounded-lg">
                     <x-iconsax-out-flag class="size-5 shrink-0" /> <span class="truncate">Data Wilayah</span>
                 </a>
                 <a href="{{ route('dashboard.manage-data.families') }}"
+                    @click.prevent="$store.navLoading.start('sb-manage-families'); setTimeout(() => window.location.href = $el.href, 50)"
                     class="flex items-center gap-2 px-4 py-2.5 text-sm transition-all duration-300 {{ request()->routeIs('dashboard.manage-data.families') ? 'bg-primary text-secondary font-semibold' : 'text-textSecondary hover:bg-tertiary hover:text-textPrimary' }} justify-start pl-4 rounded-lg">
                     <x-iconsax-bro-user-add class="size-5 shrink-0" /> <span class="truncate">Data Keluarga</span>
                 </a>
                 <a href="{{ route('dashboard.manage-data.citizens') }}"
+                    @click.prevent="$store.navLoading.start('sb-manage-citizens'); setTimeout(() => window.location.href = $el.href, 50)"
                     class="flex items-center gap-2 px-4 py-2.5 text-sm transition-all duration-300 {{ request()->routeIs('dashboard.manage-data.citizens') ? 'bg-primary text-secondary font-semibold' : 'text-textSecondary hover:bg-tertiary hover:text-textPrimary' }} justify-start pl-4 rounded-lg">
                     <x-untitledui-user class="size-5 shrink-0" /> <span class="truncate">Data Penduduk</span>
                 </a>
                 <a href="{{ route('dashboard.manage-data.msmes') }}"
+                    @click.prevent="$store.navLoading.start('sb-manage-msmes'); setTimeout(() => window.location.href = $el.href, 50)"
                     class="flex items-center gap-2 px-4 py-2.5 text-sm transition-all duration-300 {{ request()->routeIs('dashboard.manage-data.msmes') ? 'bg-primary text-secondary font-semibold' : 'text-textSecondary hover:bg-tertiary hover:text-textPrimary' }} justify-start pl-4 rounded-lg">
                     <x-bi-shop class="size-5 shrink-0" /> <span class="truncate">Data UMKM (MSMEs)</span>
                 </a>
                 <a href="{{ route('dashboard.manage-data.infrastructures') }}"
+                    @click.prevent="$store.navLoading.start('sb-manage-infrastructures'); setTimeout(() => window.location.href = $el.href, 50)"
                     class="flex items-center gap-2 px-4 py-2.5 text-sm transition-all duration-300 {{ request()->routeIs('dashboard.manage-data.infrastructures') ? 'bg-primary text-secondary font-semibold' : 'text-textSecondary hover:bg-tertiary hover:text-textPrimary' }} justify-start pl-4 rounded-lg">
                     <x-iconsax-lin-buildings class="size-5 shrink-0" /> <span class="truncate">Data Infrastruktur</span>
                 </a>
                 <a href="{{ route('dashboard.manage-data.spatial-data') }}"
+                    @click.prevent="$store.navLoading.start('sb-manage-spatial'); setTimeout(() => window.location.href = $el.href, 50)"
                     class="flex items-center gap-2 px-4 py-2.5 text-sm transition-all duration-300 {{ request()->routeIs('dashboard.manage-data.spatial-data') ? 'bg-primary text-secondary font-semibold' : 'text-textSecondary hover:bg-tertiary hover:text-textPrimary' }} justify-start pl-4 rounded-lg">
                     <x-iconsax-lin-map class="size-5 shrink-0" /> <span class="truncate">Data Spasial (GIS)</span>
                 </a>
@@ -146,6 +161,7 @@
 
         <!-- Menu: Pandawa Analisis -->
         <a href="{{ route('dashboard.pandawa-analysis') }}"
+            @click.prevent="$store.navLoading.start('sb-pandawa-analysis'); setTimeout(() => window.location.href = $el.href, 50)"
             class="flex items-center px-4 py-3 rounded-lg transition-all duration-300 {{ request()->routeIs('dashboard.pandawa-analysis') ? 'bg-primary text-secondary' : 'text-textSecondary hover:bg-tertiary hover:text-textPrimary' }}"
             x-bind:class="openSidebar ? 'justify-start' : 'md:justify-center'">
             <x-untitledui-star-06 class="transition-all duration-500 size-5 shrink-0" />
@@ -156,7 +172,7 @@
             </span>
         </a>
 
-        <!-- Form: Logout Action -->
+        <!-- Form: Logout Action (tanpa animasi loading) -->
         @auth
             <form method="POST" action="{{ route('auth.logout') }}" class="w-full mt-auto pt-4">
                 @csrf

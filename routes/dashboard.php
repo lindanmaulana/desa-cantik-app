@@ -5,7 +5,6 @@ use App\Http\Controllers\Dashboard\ManageData\ChildGrowthLogsController;
 use App\Http\Controllers\Dashboard\ManageData\TerritoriesController;
 use App\Http\Controllers\Dashboard\PandawaAnalysisController;
 use App\Http\Controllers\Dashboard\Statistics\DemographController;
-use App\Http\Controllers\Dashboard\Statistics\EconomyController;
 use App\Http\Controllers\Dashboard\Statistics\InfrastructureController;
 use App\Http\Controllers\Dashboard\Statistics\MsmeController;
 use App\Http\Controllers\Dashboard\Statistics\SocialController;
@@ -19,6 +18,7 @@ use App\Http\Controllers\Dashboard\ManageData\HealthProfileController;
 use App\Http\Controllers\Dashboard\ManageData\MsmesController;
 use App\Http\Controllers\Dashboard\ManageData\InfrastructuresController;
 use App\Http\Controllers\Dashboard\ManageData\SpatialDataController as ManageSpatialDataController;
+use App\Http\Controllers\Dashboard\Statistics\EconomicController;
 
 Route::middleware(['auth'])->group(function () {
     Route::prefix('dashboard')->group(function () {
@@ -27,7 +27,7 @@ Route::middleware(['auth'])->group(function () {
         Route::prefix('statistics')->group(function () {
             Route::get('/demograph', [DemographController::class, 'index'])->name('dashboard.statistics.demograph');
             Route::get('/social', [SocialController::class, 'index'])->name('dashboard.statistics.social');
-            Route::get('/economy', [EconomyController::class, 'index'])->name('dashboard.statistics.economy');
+            Route::get('/economic', [EconomicController::class, 'index'])->name('dashboard.statistics.economic');
             Route::get('/msme', [MsmeController::class, 'index'])->name('dashboard.statistics.msme');
             Route::get('/infrastructure', [InfrastructureController::class, 'index'])->name('dashboard.statistics.infrastructure');
             Route::get('/spatial-data', [SpatialDataController::class, 'index'])->name('dashboard.statistics.spatial-data');

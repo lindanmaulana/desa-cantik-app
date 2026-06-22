@@ -2,46 +2,44 @@
 
 namespace App\Http\Controllers\Dashboard\Statistics;
 
-use App\Enums\MsmeType;
+use App\Enums\EconomicType;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Statistics\MsmeRequest;
+use App\Http\Requests\Statistics\EconomicRequest;
 use App\Services\ManageData\TerritoriesService;
-use App\Services\Statistics\MsmeService;
+use App\Services\Statistics\EconomicService;
 
-class MsmeController extends Controller
+class EconomicController extends Controller
 {
     public function __construct(
-        protected MsmeService $msmeService,
+        protected EconomicService $economicService,
         protected TerritoriesService $territoriesService
     ) {}
 
-    public function index(MsmeRequest $request)
+    public function index(EconomicRequest $request)
     {
         $validated = $request->validated();
 
-        $stats = $this->msmeService->getUmkmMacroStats();
-        $currentType = MsmeType::tryFrom($validated['type'] ?? MsmeType::BUSINESS_SECTOR->value) ?? MsmeType::BUSINESS_SECTOR;
+        $stats = $this->economicService->getEconomicStats();
+        $currentType = EconomicType::tryFrom($validated['type'] ?? EconomicType::OCCUPATION->value) ?? EconomicType::OCCUPATION;
 
-        // Mencerminkan pola 'match' yang eksplisit di EconomicController
         $data = match ($currentType) {
-            MsmeType::BUSINESS_SECTOR    => $this->msmeService->getBusinessSector($validated["rw"] ?? null),
-            MsmeType::OWNER_AGE          => $this->msmeService->getOwnerAge($validated["rw"] ?? null),
-            MsmeType::OWNER_EDUCATION    => $this->msmeService->getOwnerEducation($validated["rw"] ?? null),
-            MsmeType::BUSINESS_LOCATION  => $this->msmeService->getBusinessLocation($validated["rw"] ?? null),
-            MsmeType::LEGAL_STATUS       => $this->msmeService->getLegalStatus($validated["rw"] ?? null),
-            MsmeType::NIB_OWNERSHIP      => $this->msmeService->getNibOwnership($validated["rw"] ?? null),
-            MsmeType::MONTHLY_TURNOVER   => $this->msmeService->getMonthlyTurnover($validated["rw"] ?? null),
-            MsmeType::DIGITAL_TRANSACTION => $this->msmeService->getDigitalTransaction($validated["rw"] ?? null),
-            MsmeType::DIGITAL_PLATFORM   => $this->msmeService->getDigitalPlatform($validated["rw"] ?? null),
-            MsmeType::CAPITAL_SOURCE     => $this->msmeService->getCapitalSource($validated["rw"] ?? null),
-            MsmeType::ECO_FRIENDLY       => $this->msmeService->getEcoFriendly($validated["rw"] ?? null),
-            MsmeType::BUMDES_PARTNERSHIP => $this->msmeService->getBumdesPartnership($validated["rw"] ?? null),
+            EconomicType::OCCUPATION           => $this->economicService->getOccupation($validated["rw"] ?? null),
+            EconomicType::JOB_SECTOR          => $this->economicService->getJobSector($validated["rw"] ?? null),
+            EconomicType::EMPLOYMENT_STATUS    => $this->economicService->getEmploymentStatus($validated["rw"] ?? null),
+            EconomicType::HOUSE_OWNERSHIP      => $this->economicService->getHouseOwnership($validated["rw"] ?? null),
+            EconomicType::FLOOR_MATERIAL       => $this->economicService->getFloorMaterial($validated["rw"] ?? null),
+            EconomicType::WALL_MATERIAL        => $this->economicService->getWallMaterial($validated["rw"] ?? null),
+            EconomicType::ROOF_MATERIAL        => $this->economicService->getRoofMaterial($validated["rw"] ?? null),
+            EconomicType::COOKING_FUEL         => $this->economicService->getCookingFuel($validated["rw"] ?? null),
+            EconomicType::ELECTRICITY_SOURCE => $this->economicService->getElectricitySource($validated["rw"] ?? null),
+            EconomicType::ELECTRICITY_CAPACITY => $this->economicService->getElectricityCapacity($validated["rw"] ?? null),
+            EconomicType::ECONOMIC_STATUS      => $this->economicService->getEconomicStatus($validated["rw"] ?? null),
         };
 
-        $formatted = $this->formatUmkmData($currentType, $data);
+        $formatted = $this->formatEconomicData($currentType, $data);
         $territories = $this->territoriesService->getAll([]);
 
-        return view('dashboard.statistics.umkm.index', compact('stats'))->with([
+        return view('dashboard.statistics.economic.index', compact('stats'))->with([
             'currentType'                 => $currentType,
             'chartType'                   => $currentType->chartType(),
             'chartLabels'                 => $formatted['chartLabels'],
@@ -53,10 +51,9 @@ class MsmeController extends Controller
         ]);
     }
 
-    public function formatUmkmData(MsmeType $type, array $data)
+    public function formatEconomicData(EconomicType $type, array $data)
     {
-        // Mendapatkan label konstan dari Enum target
-        $chartLabels = $type->labels();
+        $chartLabels = ($type === EconomicType::OCCUPATION) ? ($data['dynamic_labels'] ?? ['Tidak Ada Data']) : $type->labels();
 
         $maleData = $data["male"] ?? [];
         $femaleData = $data["female"] ?? [];
@@ -76,18 +73,18 @@ class MsmeController extends Controller
         ];
     }
 
-    private function resolveChartData(MsmeType $type, array $maleData, array $femaleData, array $combineData)
+    private function resolveChartData(EconomicType $type, array $maleData, array $femaleData, array $combineData)
     {
         return $this->combineGenderData($maleData, $femaleData);
     }
 
-    private function resolveTableVillageData(MsmeType $type, array $labels, array $data, int $grandTotal, array $maleData, array $femaleData): array
+    private function resolveTableVillageData(EconomicType $type, array $labels, array $data, int $grandTotal, array $maleData, array $femaleData): array
     {
         $baseStructure = [
             "maleTotal"    => array_sum($maleData),
             "femaleTotal"  => array_sum($femaleData),
             'total'        => $grandTotal,
-            'totalPercent' => $grandTotal > 0 ? 100 : 0,
+            'totalPercent' => 0,
             "data"         => [],
         ];
 
@@ -108,7 +105,7 @@ class MsmeController extends Controller
         return $baseStructure;
     }
 
-    private function resolveTableTerritoryData(MsmeType $type, array $maleData, array $femaleData, ?array $data)
+    private function resolveTableTerritoryData(EconomicType $type, array $maleData, array $femaleData, ?array $data)
     {
         $baseStructure = [
             "maleTotal"   => array_sum($maleData),

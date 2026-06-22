@@ -1,5 +1,5 @@
 <x-layouts.dashboard>
-    <div class="p-4 sm:p-6 lg:p-8 space-y-8 sm:space-y-12 bg-tertiary min-h-screen content-fade">
+    <div class="p-4 sm:p-6 lg:p-8 space-y-8 sm:space-y-12 bg-tertiary content-fade">
 
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
 
@@ -38,10 +38,12 @@
                         </x-button>
                     @endauth
 
-                    <x-button variant="ghost" size="md">
-                        <x-heroicon-o-chevron-down class="w-4 h-4 text-textSecondary" />
-                        Pelajari Lebih
-                    </x-button>
+                    <a href="#pelajari-lebih" class="inline-block max-sm:w-full">
+                        <x-button variant="ghost" size="md">
+                            <x-heroicon-o-chevron-down class="w-4 h-4 text-textSecondary" />
+                            Pelajari Lebih
+                        </x-button>
+                    </a>
                 </div>
             </div>
 
@@ -99,15 +101,23 @@
                     </ul>
                 </div>
 
-                <div class="hidden sm:block sm:col-span-5 bg-tertiary relative bg-cover bg-center overflow-hidden border-t sm:border-t-0 sm:border-l border-tertiary min-h-[180px] sm:min-h-full"
-                    style="background-image: url('https://vignette.wikia.nocookie.net/powerlisting/images/a/a3/Map.jpg/revision/latest?cb=20140517234608'); opacity: 0.85;">
-                    <div class="absolute inset-0 bg-gradient-to-r from-secondary via-transparent to-transparent"></div>
+                <div
+                    class="hidden sm:block sm:col-span-5 bg-tertiary relative overflow-hidden border-t sm:border-t-0 sm:border-l border-tertiary min-h-[180px] sm:min-h-full">
+
+                    {{-- ganti iframe sesuaikan dengan desanya --}}
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d63362.13224381473!2d108.47197398521011!3d-6.993581459840739!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e6f105206de9acd%3A0x23809bb2c0f8e66e!2sSukaraja%2C%20Kec.%20Ciawigebang%2C%20Kabupaten%20Kuningan%2C%20Jawa%20Barat!5e0!3m2!1sid!2sid!4v1781874424452!5m2!1sid!2sid"
+                        class="absolute inset-0 w-full h-full border-0 opacity-90 hover:opacity-100 transition-opacity duration-300"
+                        allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
+
                     <div
-                        class="absolute top-1/4 right-8 w-16 h-16 md:w-24 md:h-24 rounded-full border-2 border-primary/40 bg-primary/10 animate-pulse">
+                        class="absolute inset-0 bg-gradient-to-r from-secondary via-transparent to-transparent pointer-events-none">
                     </div>
+
                     <div
-                        class="absolute bottom-4 left-4 text-[10px] font-bold text-textSecondary uppercase tracking-widest pointer-events-none">
-                        PETA WILAYAH
+                        class="absolute bottom-4 left-4 text-[10px] font-bold text-textSecondary uppercase tracking-widest pointer-events-none z-10 bg-secondary/80 px-2 py-0.5 rounded-md backdrop-blur-sm">
+                        PETA WILAYAH AKTIF
                     </div>
                 </div>
             </div>
@@ -155,7 +165,7 @@
             </div>
         </div>
 
-        <div class="space-y-6 sm:space-y-8">
+        <div id="pelajari-lebih" class="space-y-6 sm:space-y-8">
             <div class="flex flex-col items-center text-center space-y-2.5 max-w-2xl mx-auto px-4">
                 <div
                     class="px-3 py-1 text-xs font-semibold tracking-wide rounded-full w-fit bg-primary/10 text-primary border border-primary/20">

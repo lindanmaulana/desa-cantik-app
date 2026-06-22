@@ -28,6 +28,28 @@ document.addEventListener("alpine:init", () => {
     Alpine.data("infrastructureData", infrastructureData);
 
     initSpatialModule();
+
+    Alpine.store("navLoading", {
+        activeKey: null,
+
+        start(key) {
+            this.activeKey = key;
+        },
+
+        isLoading(key) {
+            return this.activeKey === key;
+        },
+
+        reset() {
+            this.activeKey = null;
+        },
+    });
+});
+
+window.addEventListener("pageshow", (event) => {
+    if (event.persisted && window.Alpine?.store("navLoading")) {
+        Alpine.store("navLoading").reset();
+    }
 });
 
 Alpine.start();

@@ -10,7 +10,7 @@
     $colors = [
         'primary' => 'bg-primary text-white hover:bg-primary/90 shadow-sm shadow-primary/20',
         'danger' => 'bg-red-500 text-white hover:bg-red-600 shadow-sm shadow-red-500/20',
-        'ghost' => 'bg-transparent border border-textSecondary text-textPrimary hover:bg-textSecondary/10',
+        'ghost' => 'max-md:w-full bg-transparent border border-textSecondary text-textPrimary hover:bg-textSecondary/10',
         'ghostv2' =>
             'bg-transparent border border-quaternary text-textPrimary hover:border-transparent hover:bg-secondary',
         'outline' => 'border border-primary text-primary hover:bg-primary/5',

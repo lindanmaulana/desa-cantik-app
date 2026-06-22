@@ -19,7 +19,8 @@
             </button>
         </div>
 
-        <form action="{{ route('territories.store') }}" method="POST" class="p-6 space-y-6">
+        <form action="{{ route('territories.store') }}" method="POST" class="p-6 space-y-6" x-data="{ submitting: false }"
+            @submit="submitting = true">
             @csrf
 
             <div>
@@ -68,13 +69,19 @@
             </div>
 
             <div class="flex items-center justify-end gap-2 pt-4 border-t border-textTertiary/20">
-                <button type="button" @click="openCreate = false"
-                    class="px-4 py-2 text-sm font-medium text-textPrimary transition-colors bg-secondary border border-textTertiary/40 rounded-lg hover:bg-tertiary focus:outline-none">
+                <button type="button" @click="openCreate = false" x-bind:disabled="submitting"
+                    class="px-4 py-2 text-sm font-medium text-textPrimary transition-colors bg-secondary border border-textTertiary/40 rounded-lg hover:bg-tertiary focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed">
                     Batal
                 </button>
-                <button type="submit"
-                    class="px-4 py-2 text-sm font-medium text-secondary transition-colors bg-primary rounded-lg shadow-sm hover:opacity-90 focus:outline-none">
-                    Simpan Wilayah
+                <button type="submit" x-bind:disabled="submitting"
+                    class="flex items-center justify-center gap-2 px-4 py-2 text-sm font-medium text-secondary transition-colors bg-primary rounded-lg shadow-sm hover:opacity-90 focus:outline-none disabled:opacity-70 disabled:cursor-not-allowed min-w-[140px]">
+                    <svg x-show="submitting" x-cloak class="animate-spin w-4 h-4" viewBox="0 0 24 24" fill="none">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
+                            stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z">
+                        </path>
+                    </svg>
+                    <span x-text="submitting ? 'Menyimpan...' : 'Simpan Wilayah'"></span>
                 </button>
             </div>
         </form>

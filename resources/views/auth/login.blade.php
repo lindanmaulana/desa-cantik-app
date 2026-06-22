@@ -16,7 +16,8 @@
         <x-auth-session-status class="mb-4" :status="session('status')" />
 
         <!-- Form Login -->
-        <form method="POST" action="{{ route('auth.login') }}" class="space-y-5">
+        <form method="POST" action="{{ route('auth.login') }}" class="space-y-5" x-data="{ submitting: false }"
+            @submit="submitting = true">
             @csrf
 
             <!-- Input Username -->
@@ -56,9 +57,15 @@
 
             <!-- Tombol Aksi & Navigasi Register -->
             <div class="flex flex-col space-y-4 pt-2">
-                <button type="submit"
-                    class="w-full flex justify-center py-3 px-4 border border-transparent rounded-xl shadow-md text-sm font-bold text-secondary bg-primary hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition duration-200">
-                    {{ __('Masuk Aplikasi') }}
+                <button type="submit" x-bind:disabled="submitting"
+                    class="w-full flex justify-center items-center gap-2 py-3 px-4 border border-transparent rounded-xl shadow-md text-sm font-bold text-secondary bg-primary hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition duration-200 disabled:opacity-70 disabled:cursor-not-allowed">
+                    <svg x-show="submitting" x-cloak class="animate-spin w-4 h-4" viewBox="0 0 24 24" fill="none">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
+                            stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z">
+                        </path>
+                    </svg>
+                    <span x-text="submitting ? 'Memproses...' : '{{ __('Masuk Aplikasi') }}'"></span>
                 </button>
 
                 <div class="text-center">
