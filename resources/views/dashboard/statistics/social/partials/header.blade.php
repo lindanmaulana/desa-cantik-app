@@ -1,31 +1,55 @@
-<div class="flex items-center gap-3 pb-4 mb-6 border-b sm:gap-4 sm:pb-6 sm:mb-10 border-slate-200">
-    <x-ri-heart-pulse-line
-        class="p-2 rounded-md sm:p-3 size-10 sm:size-12 bg-primary/20 text-primary shrink-0" />
+<div class="flex items-center gap-3 pb-4 mb-6 border-b sm:gap-4 sm:pb-6 sm:mb-10 border-textTertiary/30">
+    <x-ri-heart-pulse-line class="p-2 rounded-md sm:p-3 size-10 sm:size-12 bg-primary/10 text-primary shrink-0" />
     <div>
-        <h3 class="text-lg font-bold sm:text-xl text-slate-800">Sosial</h3>
-        <p class="text-sm sm:text-lg text-slate-600">Analisis agregat sosial Desa Sukaraja</p>
+        <h3 class="text-lg font-bold sm:text-xl text-textPrimary">Sosial</h3>
+        <p class="text-sm sm:text-lg text-textSecondary">Analisis agregat sosial Desa Sukaraja</p>
     </div>
 </div>
 
-<div class="space-y-4" x-show="!isGenerated" x-transition:leave="transition ease-in duration-300"
-    x-transition:leave-start="opacity-100 translate-y-0"
-    x-transition:leave-end="opacity-0 -translate-y-4 absolute w-full">
-
+<div class="space-y-4" x-show="!isGenerated">
     <div
-        class="flex items-center justify-center border-2 border-dashed rounded-2xl border-slate-300 min-h-[300px] sm:min-h-96 p-4">
-        <div class="flex flex-col items-center justify-center max-w-md gap-2 text-center">
-            <x-ri-heart-pulse-line
-                class="p-3 mb-2 rounded-md sm:mb-4 size-12 sm:size-16 bg-primary/20 text-primary" />
-            <h4 class="text-lg font-bold sm:text-xl text-slate-800">Hitung Agregat Sosial</h4>
-            <p class="px-2 mb-4 text-xs sm:text-base text-slate-600">
-                Sistem akan memproses seluruh data untuk menghasilkan statistik Sosial. Proses ini hanya dilakukan sekali per sesi.
+        class="flex items-center justify-center border-2 border-dashed rounded-2xl border-textTertiary/60 bg-secondary min-h-[300px] sm:min-h-96 p-4 shadow-sm relative overflow-hidden">
+
+        <div class="flex flex-col items-center justify-center max-w-md gap-2 text-center transition-all duration-300"
+            :class="isGenerating ? 'opacity-30 pointer-events-none scale-95' : ''">
+
+            <x-ri-heart-pulse-line class="p-3 mb-2 rounded-md sm:mb-4 size-12 sm:size-16 bg-primary/10 text-primary" />
+
+            <h4 class="text-lg font-bold sm:text-xl text-textPrimary">Hitung Agregat Sosial</h4>
+
+            <p class="px-2 mb-4 text-xs sm:text-base text-textSecondary">
+                Sistem akan memproses seluruh data untuk menghasilkan statistik Sosial. Proses ini hanya dilakukan
+                sekali per sesi.
             </p>
 
-            <a href="{{ route('dashboard.statistics.social', ['type' => $socialType::RELIGION->value]) }}"
-                class="flex items-center gap-2 px-5 py-2.5 sm:px-6 sm:py-3 text-sm sm:text-lg font-semibold text-white rounded-full shadow-lg bg-gradient-to-r from-primary to-secondary active:scale-95 transition-transform">
-                <x-ri-play-circle-fill class="size-4 sm:size-5" />
-                Generate Aggregate
-            </a>
+            <button type="button"
+                @click="isGenerating = true; setTimeout(() => { window.location.href = '{{ route('dashboard.statistics.social', ['type' => $socialType::RELIGION->value]) }}' }, 2500)"
+                :disabled="isGenerating"
+                class="flex items-center justify-center gap-2 px-6 py-2.5 sm:px-8 sm:py-3 text-sm sm:text-base font-semibold text-secondary rounded-full shadow-lg bg-gradient-to-r from-primary to-textPrimary hover:opacity-95 active:scale-95 transition-all disabled:opacity-100 min-w-[200px]">
+
+                <svg x-show="isGenerating" x-cloak class="animate-spin size-5 text-secondary" viewBox="0 0 24 24"
+                    fill="none">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
+                        stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
+                </svg>
+
+                <span x-text="isGenerating ? 'Memproses Data...' : 'Generate Aggregate'"></span>
+            </button>
         </div>
+
+        <div x-show="isGenerating" x-cloak x-transition:enter="transition ease-out duration-300"
+            x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
+            class="absolute inset-0 bg-secondary/60 backdrop-blur-[2px] flex flex-col items-center justify-center p-6 gap-4">
+            <div class="w-full max-w-xs space-y-2 text-center">
+                <div class="h-1.5 w-full bg-tertiary rounded-full overflow-hidden relative">
+                    <div
+                        class="h-full bg-primary rounded-full w-full origin-left animate-[loading_1.5s_infinite_ease-in-out]">
+                    </div>
+                </div>
+                <p class="text-xs font-medium text-textSecondary animate-pulse">Mengalkulasi data sosial warga...</p>
+            </div>
+        </div>
+
     </div>
 </div>

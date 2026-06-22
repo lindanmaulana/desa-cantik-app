@@ -2,13 +2,13 @@ export function territoryData() {
     return {
         openCreate: false,
         openUpdate: false,
+        openDelete: false,
+        deleteRoute: "",
         data: { id: "", sub_village: "", area_name: "", rw: "", rt: "" },
 
         openModal(event) {
             const jsonData = event.currentTarget.dataset.territory;
             const data = JSON.parse(jsonData);
-
-            console.log({data})
 
             this.data = {
                 id: data?.id,
@@ -18,9 +18,13 @@ export function territoryData() {
                 rw: data?.rw,
             };
 
-            console.log({data2: data})
-
             this.openUpdate = true;
+        },
+
+        openDeleteModal(event) {
+            const url = event.currentTarget.dataset.url;
+            this.deleteRoute = url;
+            this.openDelete = true;
         },
     };
 }

@@ -17,6 +17,8 @@
 </head>
 
 <body class="[&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+    <x-top-loading-bar />
+
     <main>
         {{ $slot }}
     </main>

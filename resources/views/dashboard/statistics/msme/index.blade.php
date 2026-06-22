@@ -15,23 +15,23 @@
 
 
     @push('scripts')
-    <script>
-        if (!window.msmeType) {
-            window.msmeType = {
-                businessSector: "{!! $msmeType::BUSINESS_SECTOR->value !!}",
-                ownerAge: "{!! $msmeType::OWNER_AGE->value !!}",
-                ownerEducation: "{!! $msmeType::OWNER_EDUCATION->value !!}",
-                businessLocation: "{!! $msmeType::BUSINESS_LOCATION->value !!}",
-                legalStatus: "{!! $msmeType::LEGAL_STATUS->value !!}",
-                nibOwnership: "{!! $msmeType::NIB_OWNERSHIP->value !!}",
-                monthlyTurnover: "{!! $msmeType::MONTHLY_TURNOVER->value !!}",
-                digitalTransaction: "{!! $msmeType::DIGITAL_TRANSACTION->value !!}",
-                digitalPlatform: "{!! $msmeType::DIGITAL_PLATFORM->value !!}",
-                capitalSource: "{!! $msmeType::CAPITAL_SOURCE->value !!}",
-                ecoFriendly: "{!! $msmeType::ECO_FRIENDLY->value !!}",
-                bumdesPartnership: "{!! $msmeType::BUMDES_PARTNERSHIP->value !!}"
-            };
-        }
-    </script>
+        <script>
+            if (!window.msmeType) {
+                window.msmeType = {
+                    businessSector: "{!! $msmeType::BUSINESS_SECTOR->value !!}",
+                    ownerAge: "{!! $msmeType::OWNER_AGE->value !!}",
+                    ownerEducation: "{!! $msmeType::OWNER_EDUCATION->value !!}",
+                    businessLocation: "{!! $msmeType::BUSINESS_LOCATION->value !!}",
+                    legalStatus: "{!! $msmeType::LEGAL_STATUS->value !!}",
+                    nibOwnership: "{!! $msmeType::NIB_OWNERSHIP->value !!}",
+                    monthlyTurnover: "{!! $msmeType::MONTHLY_TURNOVER->value !!}",
+                    digitalTransaction: "{!! $msmeType::DIGITAL_TRANSACTION->value !!}",
+                    digitalPlatform: "{!! $msmeType::DIGITAL_PLATFORM->value !!}",
+                    capitalSource: "{!! $msmeType::CAPITAL_SOURCE->value !!}",
+                    ecoFriendly: "{!! $msmeType::ECO_FRIENDLY->value !!}",
+                    bumdesPartnership: "{!! $msmeType::BUMDES_PARTNERSHIP->value !!}"
+                };
+            }
+        </script>
     @endpush
 </x-layouts.dashboard>

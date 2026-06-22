@@ -1,4 +1,4 @@
-<nav class="sticky top-4 z-50 mx-auto my-4 w-[calc(100%-2rem)] max-w-7xl rounded-2xl border border-white/40 bg-white/70 text-slate-800 shadow-[0_10px_30px_-10px_rgba(0,0,0,0.07)] backdrop-blur-xl transition-all duration-300"
+<nav class="sticky top-4 z-50 mx-auto my-4 w-[calc(100%-2rem)] max-w-7xl rounded-2xl border border-white/40 bg-white/70 text-slate-800 shadow-sm backdrop-blur-xl transition-all duration-300"
     x-data="{ mobileOpen: false }">
     <div class="relative z-50 flex h-16 items-center justify-between px-4 sm:px-6 lg:px-8">
 
@@ -7,7 +7,7 @@
                 <x-heroicon-o-square-3-stack-3d class="w-6 h-6" />
             </div>
             <div
-                class="max-w-[150px] truncate capitalize text-sm font-bold tracking-tight text-slate-900 sm:max-w-none sm:text-base">
+                class="max-w-[150px] truncate capitalize text-sm font-bold tracking-tight text-textPrimary sm:max-w-none sm:text-base">
                 Nama Desa
             </div>
         </div>
@@ -120,7 +120,7 @@
         <div class="hidden flex-shrink-0 md:block">
             @auth
                 <a href="{{ route('dashboard') }}"
-                    @click="globalLoading = true; setTimeout(() => window.location.href = $el.href, 50)" @click.prevent>
+                    @click.prevent="$store.navLoading.start('nav-desktop'); setTimeout(() => window.location.href = $el.href, 50)">
                     <x-button variant="solid" size="sm"
                         class="!bg-primary hover:!bg-primary/90 rounded-xl px-4 py-2.5 text-xs font-bold tracking-wide text-white shadow-sm transition-colors">
                         Dashboard
@@ -128,7 +128,7 @@
                 </a>
             @else
                 <a href="{{ route('auth.login') }}"
-                    @click="globalLoading = true; setTimeout(() => window.location.href = $el.href, 50)" @click.prevent>
+                    @click.prevent="$store.navLoading.start('nav-desktop'); setTimeout(() => window.location.href = $el.href, 50)"">
                     <x-button variant="outline" size="sm"
                         class="!border-slate-200 hover:!bg-slate-50 rounded-xl px-4 py-2.5 text-xs font-bold tracking-wide text-slate-700 transition-colors">
                         Sign In
@@ -208,8 +208,7 @@
             <div class="border-t border-slate-100 pt-4">
                 @auth
                     <a href="{{ route('dashboard') }}" class="block w-full"
-                        @click="globalLoading = true; setTimeout(() => window.location.href = $el.href, 50)"
-                        @click.prevent>
+                        @click.prevent="$store.navLoading.start('nav-mobile'); setTimeout(() => window.location.href = $el.href, 50)">
                         <x-button variant="solid"
                             class="!bg-primary hover:!bg-primary/90 !w-full rounded-xl py-3.5 text-white transition-colors"
                             size="md">
@@ -218,8 +217,7 @@
                     </a>
                 @else
                     <a href="{{ route('auth.login') }}" class="block w-full"
-                        @click="globalLoading = true; setTimeout(() => window.location.href = $el.href, 50)"
-                        @click.prevent>
+                        @click.prevent="$store.navLoading.start('nav-mobile'); setTimeout(() => window.location.href = $el.href, 50)">
                         <x-button variant="outline"
                             class="!border-slate-200 !w-full rounded-xl py-3.5 text-slate-700 hover:!bg-slate-50 transition-colors"
                             size="md">

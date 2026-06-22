@@ -1,33 +1,6 @@
 <x-layouts.app>
-    <!-- Inisialisasi state loading di elemen induk tertinggi agar bisa menutup seluruh layar -->
-    <div x-data="{ globalLoading: false }" @pageshow.window="if ($event.detail.persisted) globalLoading = false"
-        class="flex flex-col min-h-screen bg-ter tertiary text-slate-600 font-sans antialiased [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
-
-        <!--
-          ========================================================================
-          FULL-SCREEN CENTER LOADING OVERLAY
-          ========================================================================
-        -->
-        <div x-show="globalLoading" x-cloak x-transition:enter="transition ease-out duration-300"
-            x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
-            x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100"
-            x-transition:leave-end="opacity-0"
-            class="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-slate-900/40 backdrop-blur-md">
-
-            <div
-                class="flex flex-col items-center p-6 rounded-2xl bg-white/90 border border-white shadow-2xl max-w-xs text-center animate-[scaleUp_0.3s_ease-out]">
-                <!-- Animasi Bar Chart Bergetar/Melompat -->
-                <div class="flex items-end gap-1.5 h-10 w-12 mb-4 justify-center">
-                    <div class="w-1.5 bg-primary/40 rounded-full animate-[bounce_1s_infinite_100ms] h-4"></div>
-                    <div class="w-1.5 bg-primary/70 rounded-full animate-[bounce_1s_infinite_200ms] h-7"></div>
-                    <div class="w-1.5 bg-primary rounded-full animate-[bounce_1s_infinite_300ms] h-10"></div>
-                    <div class="w-1.5 bg-primary/60 rounded-full animate-[bounce_1s_infinite_400ms] h-6"></div>
-                </div>
-                <h3 class="text-sm font-bold text-slate-900 tracking-wide">Menyiapkan Layanan</h3>
-                <p class="mt-1 text-xs text-slate-500 leading-relaxed">Mohon tunggu sebentar, halaman sedang
-                    dialihkan...</p>
-            </div>
-        </div>
+    <div x-data="{ globalLoading: false }" id="app-root"
+        class="flex flex-col min-h-screen bg-ter tertiary text-slate-600 bg-tertiary font-sans antialiased [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
 
         <x-layouts.partials.navbar />
 
@@ -35,6 +8,7 @@
             class="container mx-auto max-w-7xl flex-grow p-8 pt-4 max-md:p-4 max-md:pt-2 max-lg:p-6 max-lg:pt-3 animate-[fadeIn_0.4s_ease-out]">
             {{ $slot }}
 
+            <!-- FAB Button (CTA) -->
             <div x-data="{ open: false }"
                 class="fixed z-50 flex flex-col-reverse items-center gap-3 bottom-8 right-8 max-md:bottom-5 max-md:right-5">
                 <button @click="open = !open"
@@ -58,7 +32,7 @@
             </div>
         </main>
 
-        <footer class="mt-auto w-full bg-white border-t border-slate-200/60 shadow-[0_-10px_30px_rgba(0,0,0,0.02)]">
+        <footer class="mt-auto w-full bg-white border-t border-tertiary shadow-sm">
             <div class="mx-auto max-w-7xl px-8 py-10 max-md:px-5 max-md:py-6">
                 <div class="hidden md:grid grid-cols-4 gap-8 lg:gap-12 pb-8">
                     <div class="space-y-3">
@@ -144,4 +118,5 @@
             </div>
         </footer>
     </div>
+
 </x-layouts.app>
