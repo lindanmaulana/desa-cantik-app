@@ -18,7 +18,9 @@ use App\Http\Controllers\Dashboard\ManageData\HealthProfileController;
 use App\Http\Controllers\Dashboard\ManageData\MsmesController;
 use App\Http\Controllers\Dashboard\ManageData\InfrastructuresController;
 use App\Http\Controllers\Dashboard\ManageData\SpatialDataController as ManageSpatialDataController;
+use App\Http\Controllers\Dashboard\Settings\VillageSettingController;
 use App\Http\Controllers\Dashboard\Statistics\EconomicController;
+use App\Http\Controllers\SuperAdmin\ManageAdminController;
 
 Route::middleware(['auth'])->group(function () {
     Route::prefix('dashboard')->group(function () {
@@ -97,6 +99,29 @@ Route::middleware(['auth'])->group(function () {
                 Route::post('/store', [ManageSpatialDataController::class, 'store'])->name('spatial-data.store');
                 Route::put('/{spatial_data}/update', [ManageSpatialDataController::class, 'update'])->name('spatial-data.update');
                 Route::delete('/{spatial_data}', [ManageSpatialDataController::class, 'destroy'])->name('spatial-data.destroy');
+            });
+        });
+
+        Route::middleware(['role:admin,super_admin'])->group(function () {
+            Route::prefix('settings')->group(function () {
+                Route::get('/', [VillageSettingController::class, 'index'])->name('dashboard.settings.index');
+                Route::post('/store', [VillageSettingController::class, 'store'])->name('settings.store');
+                Route::put('/update', [VillageSettingController::class, 'update'])->name('settings.update');
+                Route::put('/update-logo', [VillageSettingController::class, 'updateLogo'])->name('settings.update-logo');
+                Route::put('/update-banner', [VillageSettingController::class, 'updateBanner'])->name('settings.update-banner');
+            });
+        });
+
+
+        Route::middleware(['role:super_admin'])->group(function () {
+            Route::prefix('super-admin')->group(function () {
+
+                Route::prefix('manage-admins')->group(function () {
+                    Route::get('/', [ManageAdminController::class, 'index'])->name('dashboard.super-admin.manage-admins.index');
+                    Route::post('/store', [ManageAdminController::class, 'store'])->name('super-admin.manage-admins.store');
+                    Route::put('/{admin}/update', [ManageAdminController::class, 'update'])->name('super-admin.manage-admins.update');
+                    Route::delete('/{admin}', [ManageAdminController::class, 'destroy'])->name('super-admin.manage-admins.destroy');
+                });
             });
         });
 

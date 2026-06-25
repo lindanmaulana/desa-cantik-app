@@ -172,21 +172,67 @@
             </span>
         </a>
 
+        <!-- Menu: Pengaturan -->
+        <a href="{{ route('dashboard.settings.index') }}"
+            @click.prevent="$store.navLoading.start('sb-settings'); setTimeout(() => window.location.href = $el.href, 50)"
+            class="flex items-center px-4 py-3 rounded-lg transition-all duration-300 {{ request()->routeIs('dashboard.settings.*') ? 'bg-primary text-secondary' : 'text-textSecondary hover:bg-tertiary hover:text-textPrimary' }}"
+            x-bind:class="openSidebar ? 'justify-start' : 'md:justify-center'">
+            <x-iconsax-lin-setting-2 class="transition-all duration-500 size-5 shrink-0" />
+            <span class="ml-4 truncate origin-left transform whitespace-nowrap"
+                x-bind:class="openSidebar ? 'opacity-100 max-w-xs scale-100 transition-all duration-500 delay-200' :
+            'opacity-0 max-w-0 scale-95 md:absolute pointer-events-none md:invisible transition-all duration-150'">
+                Pengaturan Desa
+            </span>
+        </a>
+
+        <!-- Menu: SuperAdmin -->
+        @if(auth()->user()->role->value === $userRole::SUPER_ADMIN->value)
+        <div class="" x-data="{ role: 'Super Admin' }">
+            <div class="flex items-center overflow-hidden min-h-[14px]">
+                <span x-show="openSidebar || window.innerWidth < 768"
+                    class="text-[10px] font-bold tracking-widest uppercase text-textSecondary/50 whitespace-nowrap">
+                    Super Admin
+                </span>
+                <div x-show="openSidebar || window.innerWidth < 768" class="w-full h-[1px] bg-textTertiary/10 ml-3"></div>
+
+                <span x-show="!openSidebar && window.innerWidth >= 768"
+                    class="mx-auto text-[9px] font-black text-primary/60 bg-primary/10 px-1.5 py-0.5 rounded uppercase">
+                    SA
+                </span>
+            </div>
+
+            <a href="{{ route('dashboard.super-admin.manage-admins.index') }}"
+                @click.prevent="$store.navLoading.start('sb-manage-admins'); setTimeout(() => window.location.href = $el.href, 50)"
+                class="flex items-center px-4 py-3 rounded-lg transition-all duration-300 {{ request()->routeIs('dashboard.super-admin.manage-admins.*') ? 'bg-primary text-secondary' : 'text-textSecondary hover:bg-tertiary hover:text-textPrimary' }}"
+                x-bind:class="openSidebar ? 'justify-start' : 'md:justify-center'">
+
+                <x-iconsax-lin-profile-2user class="transition-all duration-500 size-5 shrink-0" />
+
+                <span class="ml-4 truncate origin-left transform whitespace-nowrap"
+                    x-bind:class="openSidebar ? 'opacity-100 max-w-xs scale-100 transition-all duration-500 delay-200' :
+            'opacity-0 max-w-0 scale-95 md:absolute pointer-events-none md:invisible transition-all duration-150'">
+                    Kelola Admin
+                </span>
+            </a>
+        </div>
+        @endif
+
         <!-- Form: Logout Action (tanpa animasi loading) -->
         @auth
-            <form method="POST" action="{{ route('auth.logout') }}" class="w-full pt-4 mt-auto">
-                @csrf
-                <button type="submit"
-                    class="flex items-center w-full px-4 py-3 text-red-500 transition-all duration-300 rounded-lg hover:bg-red-50/80 hover:text-red-600"
-                    x-bind:class="openSidebar ? 'justify-start' : 'md:justify-center'">
-                    <x-iconsax-out-logout class="transition-all duration-500 size-5 shrink-0" />
-                    <span class="ml-4 truncate origin-left transform whitespace-nowrap"
-                        x-bind:class="openSidebar ? 'opacity-100 max-w-xs scale-100 transition-all duration-500 delay-200' :
+        <form method="POST" action="{{ route('auth.logout') }}" class="w-full pt-4 mt-auto">
+            @csrf
+            <button type="submit"
+                class="flex items-center w-full px-4 py-3 text-red-500 transition-all duration-300 rounded-lg hover:bg-red-50/80 hover:text-red-600"
+                x-bind:class="openSidebar ? 'justify-start' : 'md:justify-center'">
+                <x-iconsax-out-logout class="transition-all duration-500 size-5 shrink-0" />
+                <span class="ml-4 truncate origin-left transform whitespace-nowrap"
+                    x-bind:class="openSidebar ? 'opacity-100 max-w-xs scale-100 transition-all duration-500 delay-200' :
                             'opacity-0 max-w-0 scale-95 md:absolute pointer-events-none md:invisible transition-all duration-150'">
-                        Logout
-                    </span>
-                </button>
-            </form>
+                    Logout
+                </span>
+            </button>
+        </form>
         @endauth
+
     </nav>
 </aside>

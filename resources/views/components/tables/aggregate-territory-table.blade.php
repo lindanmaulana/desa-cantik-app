@@ -21,7 +21,7 @@ $hasGender = isset($firstRow['male']);
                 <th class="w-[10%] px-3 py-3 text-center sm:py-4">L</th>
                 <th class="w-[10%] px-3 py-3 text-center sm:py-4">P</th>
                 @endif
-                
+
                 <th class="w-[15%] px-3 py-3 text-center sm:py-4">Jumlah</th>
                 <th class="w-[15%] px-3 py-3 text-center sm:py-4">%</th>
             </tr>

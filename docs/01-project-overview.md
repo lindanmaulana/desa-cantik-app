@@ -75,3 +75,12 @@ Dokumen ini berisi gambaran umum, peta jalan pengembangan, serta panduan pemetaa
 | **Permodalan & Kemitraan** | `msmes` | `capital_source` / `bumdes_partnership_status` |
 | **Kondisi Fasilitas Umum** | `infrastructures` | `facility_type` / `condition` |
 
+
+### E. Panel Pengaturan & Identitas Aplikasi (New)
+| Menu Pengaturan | Sumber Tabel | Kolom Pendukung |
+| :--- | :--- | :--- |
+| **Identitas Wilayah Utama** | `village_settings` | `village_name`, `village_code`, `subdistrict_name`, `regency_name`, `province_name` |
+| **Manajemen Aparatur Utama** | `village_settings` | `village_head_name`, `village_head_nip` |
+| **Branding & Identitas Web** | `village_settings` | `app_title`, `village_logo`, `hero_image` |
+| **Kontak & Koordinat Kantor** | `village_settings` | `office_address`, `postal_code`, `official_email`, `phone_number`, `latitude`, `longitude` |
+| **Integrasi Media Sosial** | `village_settings` | `facebook_url`, `youtube_url`, `instagram_url` |

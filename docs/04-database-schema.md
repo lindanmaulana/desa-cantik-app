@@ -182,6 +182,32 @@ Dokumen ini berisi spesifikasi tabel, tipe data, serta nilai `ENUM` yang sah yan
 | `updated_at` | TIMESTAMP | NOT NULL | | |
 | `deleted_at` | TIMESTAMP | NULLABLE | `null` | Fitur _soft delete_ |
 
+
+### M. Village Settings (Tabel `village_settings`)
+| Field | Tipe Data | Constraint | Default | Keterangan |
+| :--- | :--- | :--- | :--- | :--- |
+| `id` | UUID | PK, NOT NULL | | ID unik data pengaturan (UUID v4) |
+| `village_name` | VARCHAR(100) | NOT NULL | | Nama desa (Contoh: `'Sukamakmur'`) |
+| `village_code` | VARCHAR(20) | NOT NULL | | Kode wilayah resmi desa dari Kemendagri |
+| `subdistrict_name` | VARCHAR(100) | NOT NULL | | Nama kecamatan tempat desa bernaung |
+| `regency_name` | VARCHAR(100) | NOT NULL | | Nama kabupaten / kota |
+| `province_name` | VARCHAR(100) | NOT NULL | | Nama provinsi |
+| `village_head_name` | VARCHAR(150) | NULLABLE | `null` | Nama lengkap Kepala Desa yang menjabat |
+| `village_head_nip` | VARCHAR(30) | NULLABLE | `null` | Nomor Induk Pegawai (NIP) jika Kades seorang PNS |
+| `app_title` | VARCHAR(100) | NOT NULL | | Judul aplikasi / SEO website desa |
+| `village_logo` | VARCHAR(255) | NULLABLE | `null` | Path atau URL file logo resmi desa |
+| `hero_image` | VARCHAR(255) | NULLABLE | `null` | Path atau URL gambar latar utama website depan |
+| `office_address` | TEXT | NULLABLE | `null` | Alamat fisik lengkap kantor desa |
+| `postal_code` | VARCHAR(10) | NULLABLE | `null` | Kode pos wilayah kantor desa |
+| `official_email` | VARCHAR(100) | NULLABLE | `null` | Email resmi pemerintah desa |
+| `phone_number` | VARCHAR(20) | NULLABLE | `null` | Nomor telepon atau WhatsApp layanan desa |
+| `latitude` | DECIMAL(10,8) | NULLABLE | `null` | Koordinat lintang kantor desa (keperluan GIS) |
+| `longitude` | DECIMAL(11,8) | NULLABLE | `null` | Koordinat bujur kantor desa (keperluan GIS) |
+| `facebook_url` | VARCHAR(255) | NULLABLE | `null` | Tautan akun Facebook resmi desa |
+| `youtube_url` | VARCHAR(255) | NULLABLE | `null` | Tautan kanal YouTube resmi desa |
+| `instagram_url` | VARCHAR(255) | NULLABLE | `null` | Tautan akun Instagram resmi desa |
+| `created_at` | TIMESTAMP | NOT NULL | | Waktu konfigurasi pertama kali dibuat |
+| `updated_at` | TIMESTAMP | NOT NULL | | Waktu konfigurasi terakhir diubah |
 ---
 
 ## 📐 Summary Aturan Nilai Enum

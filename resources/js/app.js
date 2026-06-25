@@ -14,6 +14,7 @@ import { renderBarChart } from "./charts/barChart";
 import { renderDonutChart } from "./charts/donutChart";
 import "./colors";
 import "./charts";
+import { manageAdminData } from "./alpine/manage-admin.js";
 
 Alpine.plugin(collapse);
 window.Alpine = Alpine;
@@ -26,6 +27,7 @@ document.addEventListener("alpine:init", () => {
     Alpine.data("territoryData", territoryData);
     Alpine.data("msmeData", msmeData);
     Alpine.data("infrastructureData", infrastructureData);
+    Alpine.data("manageAdminData", manageAdminData);
 
     initSpatialModule();
 

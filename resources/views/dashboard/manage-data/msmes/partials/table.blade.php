@@ -132,30 +132,29 @@
             </tbody>
         </table>
     </div>
+</div>
 
-    {{-- Pagination Footer --}}
-    <div class="flex items-center justify-between px-6 py-4 text-xs text-gray-500 border-t border-gray-100 bg-gray-50/50">
-        <p>Menampilkan {{ $msmes->firstItem() ?? 0 }} sampai {{ $msmes->lastItem() ?? 0 }} dari {{ $msmes->total() }} UMKM</p>
-        <div class="inline-flex gap-1">
-            @if ($msmes->onFirstPage())
-            <button class="px-3 py-1.5 border border-gray-200 rounded bg-white opacity-50 text-gray-600" disabled>
-                Sebelumnya
-            </button>
-            @else
-            <a href="{{ $msmes->previousPageUrl() }}" class="px-3 py-1.5 border border-gray-200 rounded bg-white hover:bg-gray-50 text-gray-600">
-                Sebelumnya
-            </a>
-            @endif
+<div class="flex items-center justify-between px-6 py-4 text-xs text-gray-500 border-t border-gray-100 bg-gray-50/50">
+    <p>Menampilkan {{ $msmes->firstItem() ?? 0 }} sampai {{ $msmes->lastItem() ?? 0 }} dari {{ $msmes->total() }} UMKM</p>
+    <div class="inline-flex gap-1">
+        @if ($msmes->onFirstPage())
+        <button class="px-3 py-1.5 border border-gray-200 rounded bg-white opacity-50 text-gray-600" disabled>
+            Sebelumnya
+        </button>
+        @else
+        <a href="{{ $msmes->previousPageUrl() }}" class="px-3 py-1.5 border border-gray-200 rounded bg-white hover:bg-gray-50 text-gray-600">
+            Sebelumnya
+        </a>
+        @endif
 
-            @if ($msmes->hasMorePages())
-            <a href="{{ $msmes->nextPageUrl() }}" class="px-3 py-1.5 border border-gray-200 rounded bg-white hover:bg-gray-50 text-gray-600">
-                Selanjutnya
-            </a>
-            @else
-            <button class="px-3 py-1.5 border border-gray-200 rounded bg-white opacity-50 text-gray-600" disabled>
-                Selanjutnya
-            </button>
-            @endif
-        </div>
+        @if ($msmes->hasMorePages())
+        <a href="{{ $msmes->nextPageUrl() }}" class="px-3 py-1.5 border border-gray-200 rounded bg-white hover:bg-gray-50 text-gray-600">
+            Selanjutnya
+        </a>
+        @else
+        <button class="px-3 py-1.5 border border-gray-200 rounded bg-white opacity-50 text-gray-600" disabled>
+            Selanjutnya
+        </button>
+        @endif
     </div>
 </div>
