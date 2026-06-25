@@ -1,5 +1,5 @@
 <x-layouts.dashboard>
-    <div class="px-4 space-y-6 max-md:space-y-4 sm:px-6 max-md:px-2" x-data="{ isGenerated: new URLSearchParams(window.location.search).has('type') }">
+    <div class="px-4 space-y-6 max-md:space-y-4 sm:px-6 max-md:px-2" x-data="{ isGenerated: new URLSearchParams(window.location.search).has('type'), isGenerating: false }">
         @include('dashboard.statistics.infrastructure.partials.header')
 
         <div class="space-y-4 sm:space-y-6" x-show="isGenerated" x-cloak style="display: none;"

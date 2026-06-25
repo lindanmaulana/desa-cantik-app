@@ -10,8 +10,12 @@
     <div
         class="flex items-center justify-center border-2 border-dashed rounded-2xl border-textTertiary/60 bg-secondary min-h-[300px] sm:min-h-96 p-4 shadow-sm relative overflow-hidden">
 
-        <div class="flex flex-col items-center justify-center max-w-md gap-2 text-center transition-all duration-300"
+        <form action="{{ route('dashboard.statistics.social') }}" method="GET"
+            @submit="isGenerating = true"
+            class="flex flex-col items-center justify-center max-w-md gap-2 text-center transition-all duration-300"
             :class="isGenerating ? 'opacity-30 pointer-events-none scale-95' : ''">
+
+            <input type="hidden" name="type" value="{{ $socialType::RELIGION->value }}">
 
             <x-ri-heart-pulse-line class="p-3 mb-2 rounded-md sm:mb-4 size-12 sm:size-16 bg-primary/10 text-primary" />
 
@@ -22,10 +26,9 @@
                 sekali per sesi.
             </p>
 
-            <button type="button"
-                @click="isGenerating = true; setTimeout(() => { window.location.href = '{{ route('dashboard.statistics.social', ['type' => $socialType::RELIGION->value]) }}' }, 2500)"
+            <button type="submit"
                 :disabled="isGenerating"
-                class="flex items-center justify-center gap-2 px-6 py-2.5 sm:px-8 sm:py-3 text-sm sm:text-base font-semibold text-secondary rounded-full shadow-lg bg-gradient-to-r from-primary to-textPrimary hover:opacity-95 active:scale-95 transition-all disabled:opacity-100 min-w-[200px]">
+                class="flex items-center justify-center gap-2 px-6 py-2.5 sm:px-8 sm:py-3 text-sm sm:text-base font-semibold text-secondary rounded-full shadow-lg bg-gradient-to-r from-primary to-textPrimary hover:opacity-95 active:scale-95 transition-all disabled:opacity-50 min-w-[200px]">
 
                 <svg x-show="isGenerating" x-cloak class="animate-spin size-5 text-secondary" viewBox="0 0 24 24"
                     fill="none">
@@ -36,7 +39,7 @@
 
                 <span x-text="isGenerating ? 'Memproses Data...' : 'Generate Aggregate'"></span>
             </button>
-        </div>
+        </form>
 
         <div x-show="isGenerating" x-cloak x-transition:enter="transition ease-out duration-300"
             x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
@@ -47,7 +50,7 @@
                         class="h-full bg-primary rounded-full w-full origin-left animate-[loading_1.5s_infinite_ease-in-out]">
                     </div>
                 </div>
-                <p class="text-xs font-medium text-textSecondary animate-pulse">Mengalkulasi data sosial warga...</p>
+                <p class="text-xs font-medium text-textSecondary animate-pulse">Mengalkulasi data sosial & faskes warga...</p>
             </div>
         </div>
 
