@@ -1,6 +1,6 @@
 import ApexCharts from "apexcharts";
 
-export const renderDonutChart = (element, data, chartOptions) => {
+export const renderDonutChart = (element, chartOptions) => {
     var options = {
         series: chartOptions.series,
         labels: chartOptions.labels,

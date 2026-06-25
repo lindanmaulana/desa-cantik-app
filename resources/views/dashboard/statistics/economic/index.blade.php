@@ -15,21 +15,18 @@
 
     @push('scripts')
     <script>
-        window.socialType = {
-            religion: "{!! $socialType::RELIGION->value !!}",
-            schoolParticipation: "{!! $socialType::SCHOOL_PARTICIPATION->value !!}",
-            educationLevel: "{!! $socialType::EDUCATION_LEVEL->value !!}",
-            highestDiploma: "{!! $socialType::HIGHEST_DIPLOMA->value !!}",
-            bloodType: "{!! $socialType::BLOOD_TYPE->value !!}",
-            disability: "{!! $socialType::DISABILITY->value !!}",
-            pregnancy: "{!! $socialType::PREGNANCY->value !!}",
-            familyPlanning: "{!! $socialType::FAMILY_PLANNING->value !!}",
-            bpjsStatus: "{!! $socialType::BPJS_STATUS->value !!}",
-            welfareAssistance: "{!! $socialType::WELFARE_ASSISTANCE->value !!}",
-            waterSource: "{!! $socialType::WATER_SOURCE->value !!}",
-            electricitySource: "{!! $socialType::ELECTRICITY_SOURCE->value !!}",
-            electricityCapacity: "{!! $socialType::ELECTRICITY_CAPACITY->value !!}",
-            sanitation: "{!! $socialType::SANITATION->value !!}"
+        window.economicType = {
+            occupation: "{!! $economicType::OCCUPATION->value !!}",
+            jobSector: "{!! $economicType::JOB_SECTOR->value !!}",
+            employmentStatus: "{!! $economicType::EMPLOYMENT_STATUS->value !!}",
+            houseOwnership: "{!! $economicType::HOUSE_OWNERSHIP->value !!}",
+            floorMaterial: "{!! $economicType::FLOOR_MATERIAL->value !!}",
+            wallMaterial: "{!! $economicType::WALL_MATERIAL->value !!}",
+            roofMaterial: "{!! $economicType::ROOF_MATERIAL->value !!}",
+            cookingFuel: "{!! $economicType::COOKING_FUEL->value !!}",
+            electricityCapacity: "{!! $economicType::ELECTRICITY_CAPACITY->value !!}",
+            electricitySource: "{!! $economicType::ELECTRICITY_SOURCE->value !!}",
+            economicStatus: "{!! $economicType::ECONOMIC_STATUS->value !!}"
         };
     </script>
     @endpush

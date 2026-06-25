@@ -75,7 +75,7 @@
                                 break;
                             case "donut":
                                 if (typeof renderDonutChart === "function") {
-                                    renderDonutChart(element, this.chartData, window.ChartOptions);
+                                    renderDonutChart(element, window.ChartOptions);
                                 }
                                 break;
                         }

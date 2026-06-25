@@ -127,7 +127,7 @@
                         renderBarChart(element, window.ChartOptions);
                         break;
                     case "donut":
-                        renderDonutChart(element, data, window.ChartOptions);
+                        renderDonutChart(element, window.ChartOptions);
                         break;
                 }
             },
