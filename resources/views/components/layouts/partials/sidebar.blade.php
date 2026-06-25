@@ -10,14 +10,22 @@
     <!-- Sidebar Header (Sticky Brand Area) -->
     <div class="sticky top-0 z-10 flex items-center h-16 p-4 transition-all duration-500 text-textPrimary bg-secondary"
         x-bind:class="openSidebar ? 'px-6 justify-between md:justify-start' : 'justify-center'">
+
+        @if(!empty($villageSettings->village_logo))
+        <img src="{{ asset('storage/' . $villageSettings->village_logo) }}"
+            alt="Logo Desa"
+            class="object-cover border rounded-full size-10 border-textTertiary/20">
+        @else
         <div class="flex items-center justify-center rounded-lg shrink-0 text-primary">
             <x-heroicon-o-square-3-stack-3d class="w-7 h-7" />
         </div>
+        @endif
+
         <span
             class="ml-3 text-sm font-bold tracking-wider uppercase truncate origin-left transform whitespace-nowrap text-textPrimary"
             x-bind:class="openSidebar ? 'opacity-100 max-w-xs scale-100 transition-all duration-500 delay-200' :
                 'opacity-0 max-w-0 scale-95 absolute pointer-events-none invisible transition-all duration-150'">
-            Desa Sukaraja
+            {{ $villageSettings->village_name ?? '-' }}
         </span>
 
         <button @click="openSidebar = false" class="text-textSecondary hover:text-textPrimary md:hidden">
