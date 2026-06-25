@@ -63,7 +63,7 @@
                         options = {
                             series: this.chartData,
                             colors: window.AppColors.chartPalette,
-                            xaxis: this.chartLabels,
+                            labels: this.chartLabels,
                         };
                         break;
 
@@ -86,7 +86,7 @@
                         renderBarChart(element, window.ChartOptions);
                         break;
                     case "donut":
-                        renderDonutChart(element, this.chartData, window.ChartOptions);
+                        renderDonutChart(element, window.ChartOptions);
                         break;
                 }
             },
