@@ -1,939 +1,3 @@
-                <div class="relative">
-                    <button
-                        @click="openStatistik = !openStatistik"
-                        class="flex items-center justify-between w-full px-4 py-3 transition rounded-lg text-slate-300 hover:bg-slate-800"
-                        :class="openStatistik ? 'bg-slate-800 text-white' : ''">
-                        <div class="flex items-center">
-                            <x-bx-line-chart class="w-5 h-5 mr-3" />
-                            <span class="font-medium">Statistik</span>
-                        </div>
-                        <!-- <x-untitledui-chevron-down
-                            class="w-4 h-4 transition-transform duration-200"
-                            :class="openStatistik ? 'rotate-180' : ''" /> -->
-                    </button>
-
-                    <div
-                        x-show="openStatistik"
-                        x-collapse
-                        class="mt-2 ml-6 space-y-1 border-l border-slate-700"
-                        style="display: none;">
-                        <a href="#" class="flex items-center px-4 py-2 text-sm transition text-slate-400 hover:text-white">
-                            <x-untitledui-users-01-line class="w-4 h-4 mr-3" /> Demografi
-                        </a>
-                        <a href="#" class="flex items-center px-4 py-2 text-sm transition text-slate-400 hover:text-white">
-                            <x-untitledui-heart-line class="w-4 h-4 mr-3" /> Sosial
-                        </a>
-                        <a href="#" class="flex items-center px-4 py-2 text-sm transition text-slate-400 hover:text-white">
-                            <x-untitledui-coins-01-line class="w-4 h-4 mr-3" /> Ekonomi
-                        </a>
-                        <a href="#" class="flex items-center px-4 py-2 text-sm transition text-slate-400 hover:text-white">
-                            <x-untitledui-building-03-line class="w-4 h-4 mr-3" /> UMKM
-                        </a>
-                        <a href="#" class="flex items-center px-4 py-2 text-sm transition text-slate-400 hover:text-white">
-                            <x-untitledui-tool-01-line class="w-4 h-4 mr-3" /> Infrastruktur
-                        </a>
-                        <a href="#" class="flex items-center px-4 py-2 text-sm transition text-slate-400 hover:text-white">
-                            <x-untitledui-map-01-line class="w-4 h-4 mr-3" /> Data Spasial
-                        </a>
-                    </div>
-                </div>
-
-
-
-
-
-
-// Sample Detail Citizen
-<div class="grid grid-cols-2 gap-6">
-            <article class="col-span-2 p-8 space-y-6 border border-t-8 shadow border-t-primary rounded-3xl">
-                <header class="flex items-center justify-between">
-                    <div class="flex items-center gap-4">
-                        <div class="px-5 py-6 text-4xl border-[1px] rounded-xl border-primary/30 bg-primary/10">
-                            👦
-                        </div>
-
-                        <div class="mb-1 space-y-2">
-                            <h4 class="text-2xl font-bold">{{$citizen->full_name}} <small class="px-2 py-1 text-sm font-semibold rounded-full text-primary bg-primary/10">KEPALA KELUARGA</small></h4>
-
-                            <div class="space-x-1">
-                                <span class="text-base font-medium text-slate-800">3208122005990004</span>
-                                <span class="font-semibold text-slate-400">|</span>
-                                <span class="text-sm font-semibold text-primary">27 Tahun</span>
-                            </div>
-
-                            <dl class="flex items-center gap-4">
-                                <div class="flex items-center gap-2">
-                                    <dt class="text-sm font-semibold">Jenis Kelamin: </dt>
-                                    <dd class="text-sm text-slate-600">{{$citizen->gender->label()}}</dd>
-                                </div>
-
-                                <div class="flex items-center gap-2">
-                                    <dt class="text-sm font-semibold">Hubungan KK: </dt>
-                                    <dd class="text-sm text-slate-600">{{ $citizen->family_role->label() }}</dd>
-                                </div>
-
-                                <div class="flex items-center gap-2">
-                                    <dt class="text-sm font-semibold">No KK (Keluarga): </dt>
-                                    <dd x-show="openData" class="text-sm font-medium text-primary/60">{{ $citizen->family->family_card_number }}</dd>
-                                    <dd x-show="!openData"><x-vaadin-ellipsis-h class="size-4 text-slate-400" /></dd>
-                                </div>
-                            </dl>
-                        </div>
-                    </div>
-
-                    <div class="flex items-center gap-4 profile-quick-vitals">
-                        <dl class="flex items-center gap-4">
-                            <div class="flex flex-col items-center p-2 border rounded-lg bg-primary/5 border-primary/5">
-                                <dt class="text-xs text-slate-600">Gol Darah</dt>
-                                <dd class="text-base font-medium text-primary">{{ $citizen->blood_type ?? '-' }}</dd>
-                            </div>
-
-                            <div class="flex flex-col items-center p-2 border rounded-lg bg-primary/5 border-primary/5">
-                                <dt class="text-xs text-slate-600">Agama</dt>
-                                <dd class="text-base font-medium">{{ $citizen->religion->label() }}</dd>
-                            </div>
-                        </dl>
-
-                        <button type="button" class="flex items-center gap-2 px-4 py-2 text-sm font-medium border rounded-lg btn-edit bg-primary/5"><x-heroicon-o-pencil-square class="w-4 h-4" /> Edit Identitas</button>
-                    </div>
-                </header>
-
-                <hr>
-
-                <section class="profile-extended-details">
-                    <dl class="flex items-center justify-between grid-details">
-                        <div>
-                            <dt class="text-xs text-slate-600">Tempat, Tanggal Lahir</dt>
-                            <dd class="text-sm font-medium">Kuningan, 20 Mei 1999</dd>
-                        </div>
-                        <div>
-                            <dt class="text-xs text-slate-600">Status Pernikahan</dt>
-                            <dd class="text-sm font-medium">Belum Kawin</dd>
-                        </div>
-                        <div>
-                            <dt class="text-xs text-slate-600">Alamat Detail Keluarga</dt>
-                            <dd class="text-sm font-medium">Dusun Manis, RT 01/RW 01</dd>
-                        </div>
-                        <div>
-                            <dt class="text-xs text-slate-600">ID Referensi Sistem (UUID)</dt>
-                            <dd x-show="openData" class="text-sm font-medium"><code class="uuid-text">{{ $citizen->id }}</code></dd>
-                            <dd x-show="!openData"><x-vaadin-ellipsis-h class="size-4 text-slate-400" /></dd>
-                        </div>
-                    </dl>
-                </section>
-            </article>
-
-            <x-citizen-profile-card title="Profile Kesehatan Individu" icon="iconsax-out-heart" color="text-primary" :isValue="$citizen->healthProfile">
-                @include('dashboard.manage-data.citizens.partials.profiles.health-profile')
-            </x-citizen-profile-card>
-
-            <x-citizen-profile-card title="Profile Kualifikasi Pendidikan" icon="solar-square-academic-cap-2-broken" color="text-blue-500" :isValue="$citizen->educationProfile">
-                @include('dashboard.manage-data.citizens.partials.profiles.education-profile')
-            </x-citizen-profile-card>
-
-            <x-citizen-profile-card title="Profile Pekerjaan & Status Ekonomi" icon="solar-square-academic-cap-2-broken" color="text-amber-500" :isValue="$citizen->employmentProfile">
-                @include('dashboard.manage-data.citizens.partials.profiles.employment-profile')
-            </x-citizen-profile-card>
-
-            <x-citizen-profile-card type="childGrowthLogs" title="Log Timbangan & Diagnosa Stunting" icon="heroicon-o-chart-bar" color="text-emerald-500" :isValue="$citizen->childGrowthLogs">
-                @include('dashboard.manage-data.citizens.partials.profiles.childGrowthLogs-profile')
-            </x-citizen-profile-card>
-        </div>
-
-            <div class="flex items-center gap-2">
-                <button @click="openData = !openData"
-                    class="inline-flex items-center px-4 py-2 text-sm font-medium text-white transition-colors bg-teal-600 rounded-lg shadow-sm hover:bg-teal-700">
-                    <span class="flex items-center" x-show="openData">
-                        <x-heroicon-o-eye class="w-4 h-4 mr-2 max-md:mr-0" />
-                        <span class="max-md:hidden">Sembunyikan Data Sensitif</span>
-                    </span>
-                    <span class="flex items-center" x-show="!openData">
-                        <x-heroicon-o-eye-slash class="w-4 h-4 mr-2 max-md:mr-0" />
-                        <span class="max-md:hidden">Tampilkan Data Sensitif</span>
-                    </span>
-                </button>
-                <a href="{{ route('dashboard.manage-data.citizens') }}"
-                    class="inline-flex items-center gap-1 px-4 py-2 text-sm font-medium text-white transition-colors bg-teal-600 rounded-lg shadow-sm hover:bg-teal-700">
-                    <x-iconsax-lin-arrow-left class="mr-2 size-4 max-md:mr-0" /> <span
-                        class="mb-px max-md:hidden">Kembali ke Daftar Penduduk</span>
-                </a>
-            </div>
-
-
-
-
-
-Settings Index v1
-<x-layouts.dashboard>
-    <div class="px-4 py-6 mx-auto max-w-7xl sm:px-6 lg:px-8" x-data="{ isEdit: {{ $settings ? 'true' : 'false' }} }">
-
-        <div class="flex flex-col pb-5 mb-6 border-b border-gray-200 md:flex-row md:items-center md:justify-between">
-            <div>
-                <h2 class="text-2xl font-bold tracking-tight text-gray-900">Pengaturan Aplikasi & Wilayah</h2>
-                <p class="mt-1 text-sm text-gray-500">Kelola identitas desa, informasi kontak, branding website, dan koordinat peta GIS.</p>
-            </div>
-
-
-            <div class="flex justify-end gap-3 pt-4 border-t border-gray-100">
-                <button type="button"
-                    onclick="window.location.reload()"
-                    class="justify-center rounded-lg border border-gray-300 bg-white py-2.5 px-5 text-sm font-semibold text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-[#6366f1] focus:ring-offset-2 transition-all duration-150 flex items-center gap-2">
-                    <svg class="w-4 h-4 mt-1.5 text-gray-500 animate-spin-hover" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 1121.213 7.5M7 9l4 4M7 9l-4 4"></path>
-                    </svg>
-                    Muat Ulang Data
-                </button>
-            </div>
-        </div>
-
-        @if (session('success'))
-        <div class="flex items-center p-4 mb-6 text-sm text-white rounded-lg shadow-sm bg-emerald-500" role="alert">
-            <svg class="w-5 h-5 mr-2 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-            </svg>
-            <span>{{ session('success') }}</span>
-        </div>
-        @endif
-
-        @if (session('error'))
-        <div class="flex items-center p-4 mb-6 text-sm text-white rounded-lg shadow-sm bg-rose-500" role="alert">
-            <svg class="w-5 h-5 mr-2 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-            </svg>
-            <span>{{ session('error') }}</span>
-        </div>
-        @endif
-
-        <form :action="isEdit ? '{{ route('dashboard.settings.update') }}' : '{{ route('dashboard.settings.store') }}'"
-            method="POST"
-            enctype="multipart/form-data"
-            class="space-y-8">
-            @csrf
-            <template x-if="isEdit">
-                @method('PUT')
-            </template>
-
-            <div class="p-6 bg-white border border-gray-200 shadow-sm rounded-xl">
-                <h2 class="flex items-center gap-2 mb-4 text-lg font-semibold text-gray-900">
-                    <span class="p-1.5 bg-indigo-50 text-[#6366f1] rounded-md"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
-                        </svg></span>
-                    Identitas Wilayah Utama
-                </h2>
-                <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700">Nama Desa <span class="text-rose-500">*</span></label>
-                        <input type="text" name="village_name" value="{{ old('village_name', $settings->village_name ?? '') }}" class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-[#6366f1] focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
-                        @error('village_name') <p class="mt-1 text-xs text-rose-500">{{ $message }}</p> @enderror
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700">Kode Wilayah Desa (Kemendagri) <span class="text-rose-500">*</span></label>
-                        <input type="text" name="village_code" value="{{ old('village_code', $settings->village_code ?? '') }}" class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-[#6366f1] focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
-                        @error('village_code') <p class="mt-1 text-xs text-rose-500">{{ $message }}</p> @enderror
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700">Kecamatan <span class="text-rose-500">*</span></label>
-                        <input type="text" name="subdistrict_name" value="{{ old('subdistrict_name', $settings->subdistrict_name ?? '') }}" class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-[#6366f1] focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
-                        @error('subdistrict_name') <p class="mt-1 text-xs text-rose-500">{{ $message }}</p> @enderror
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700">Kabupaten / Kota <span class="text-rose-500">*</span></label>
-                        <input type="text" name="regency_name" value="{{ old('regency_name', $settings->regency_name ?? '') }}" class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-[#6366f1] focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
-                        @error('regency_name') <p class="mt-1 text-xs text-rose-500">{{ $message }}</p> @enderror
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700">Provinsi <span class="text-rose-500">*</span></label>
-                        <input type="text" name="province_name" value="{{ old('province_name', $settings->province_name ?? '') }}" class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-[#6366f1] focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
-                        @error('province_name') <p class="mt-1 text-xs text-rose-500">{{ $message }}</p> @enderror
-                    </div>
-                </div>
-            </div>
-
-            <div class="grid grid-cols-1 gap-8 lg:grid-cols-2">
-                <div class="p-6 bg-white border border-gray-200 shadow-sm rounded-xl">
-                    <h2 class="flex items-center gap-2 mb-4 text-lg font-semibold text-gray-900">
-                        <span class="p-1.5 bg-indigo-50 text-[#6366f1] rounded-md"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
-                            </svg></span>
-                        Manajemen Aparatur Utama
-                    </h2>
-                    <div class="space-y-4">
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700">Nama Kepala Desa</label>
-                            <input type="text" name="village_head_name" value="{{ old('village_head_name', $settings->village_head_name ?? '') }}" class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-[#6366f1] focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
-                            @error('village_head_name') <p class="mt-1 text-xs text-rose-500">{{ $message }}</p> @enderror
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700">NIP Kepala Desa (Jika PNS)</label>
-                            <input type="text" name="village_head_nip" value="{{ old('village_head_nip', $settings->village_head_nip ?? '') }}" class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-[#6366f1] focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
-                            @error('village_head_nip') <p class="mt-1 text-xs text-rose-500">{{ $message }}</p> @enderror
-                        </div>
-                    </div>
-                </div>
-
-                <div class="p-6 bg-white border border-gray-200 shadow-sm rounded-xl">
-                    <h2 class="flex items-center gap-2 mb-4 text-lg font-semibold text-gray-900">
-                        <span class="p-1.5 bg-indigo-50 text-[#6366f1] rounded-md"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"></path>
-                            </svg></span>
-                        Branding & Identitas Web
-                    </h2>
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700">Judul Aplikasi / Website <span class="text-rose-500">*</span></label>
-                        <input type="text" name="app_title" value="{{ old('app_title', $settings->app_title ?? '') }}" class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-[#6366f1] focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
-                        @error('app_title') <p class="mt-1 text-xs text-rose-500">{{ $message }}</p> @enderror
-                    </div>
-                </div>
-            </div>
-
-            <div class="p-6 bg-white border border-gray-200 shadow-sm rounded-xl">
-                <h2 class="flex items-center gap-2 mb-4 text-lg font-semibold text-gray-900">
-                    <span class="p-1.5 bg-indigo-50 text-[#6366f1] rounded-md"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-                        </svg></span>
-                    Berkas Media Visual
-                </h2>
-                <div class="grid grid-cols-1 gap-8 md:grid-cols-2">
-                    <div class="space-y-2">
-                        <label class="block text-sm font-medium text-gray-700">Logo Resmi Desa (Max 2MB, format PNG/JPG/SVG)</label>
-                        @if(!empty($settings->village_logo))
-                        <div class="mb-3">
-                            <img src="{{ asset('storage/' . $settings->village_logo) }}" class="object-contain w-auto h-20 p-1 border rounded" alt="Logo Desa">
-                        </div>
-                        @endif
-                        <input type="file" name="village_logo" class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-[#6366f1] hover:file:bg-indigo-100">
-                        @error('village_logo') <p class="mt-1 text-xs text-rose-500">{{ $message }}</p> @enderror
-                    </div>
-
-                    <div class="space-y-2">
-                        <label class="block text-sm font-medium text-gray-700">Gambar Banner Utama Depan (Max 4MB, format JPG/PNG)</label>
-                        @if(!empty($settings->hero_image))
-                        <div class="mb-3">
-                            <img src="{{ asset('storage/' . $settings->hero_image) }}" class="object-cover w-full h-20 border rounded" alt="Hero Banner">
-                        </div>
-                        @endif
-                        <input type="file" name="hero_image" class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-[#6366f1] hover:file:bg-indigo-100">
-                        @error('hero_image') <p class="mt-1 text-xs text-rose-500">{{ $message }}</p> @enderror
-                    </div>
-                </div>
-            </div>
-
-            <div class="p-6 bg-white border border-gray-200 shadow-sm rounded-xl">
-                <h2 class="flex items-center gap-2 mb-4 text-lg font-semibold text-gray-900">
-                    <span class="p-1.5 bg-indigo-50 text-[#6366f1] rounded-md"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                        </svg></span>
-                    Kontak & Koordinat Geografis Kantor Desa
-                </h2>
-                <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
-                    <div class="md:col-span-2">
-                        <label class="block text-sm font-medium text-gray-700">Alamat Lengkap Kantor Desa</label>
-                        <textarea name="office_address" rows="2" class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-[#6366f1] focus:ring focus:ring-indigo-200 focus:ring-opacity-50">{{ old('office_address', $settings->office_address ?? '') }}</textarea>
-                        @error('office_address') <p class="mt-1 text-xs text-rose-500">{{ $message }}</p> @enderror
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700">Kode Pos</label>
-                        <input type="text" name="postal_code" value="{{ old('postal_code', $settings->postal_code ?? '') }}" class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-[#6366f1] focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
-                        @error('postal_code') <p class="mt-1 text-xs text-rose-500">{{ $message }}</p> @enderror
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700">Email Resmi Instansi</label>
-                        <input type="email" name="official_email" value="{{ old('official_email', $settings->official_email ?? '') }}" class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-[#6366f1] focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
-                        @error('official_email') <p class="mt-1 text-xs text-rose-500">{{ $message }}</p> @enderror
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700">Nomor Telepon / WhatsApp Kerja</label>
-                        <input type="text" name="phone_number" value="{{ old('phone_number', $settings->phone_number ?? '') }}" class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-[#6366f1] focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
-                        @error('phone_number') <p class="mt-1 text-xs text-rose-500">{{ $message }}</p> @enderror
-                    </div>
-                    <div class="grid grid-cols-2 gap-4">
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700">Garis Lintang (Lat)</label>
-                            <input type="text" name="latitude" value="{{ old('latitude', $settings->latitude ?? '') }}" placeholder="-6.123456" class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-[#6366f1] focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
-                            @error('latitude') <p class="mt-1 text-xs text-rose-500">{{ $message }}</p> @enderror
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700">Garis Bujur (Lng)</label>
-                            <input type="text" name="longitude" value="{{ old('longitude', $settings->longitude ?? '') }}" placeholder="106.123456" class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-[#6366f1] focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
-                            @error('longitude') <p class="mt-1 text-xs text-rose-500">{{ $message }}</p> @enderror
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="p-6 bg-white border border-gray-200 shadow-sm rounded-xl">
-                <h2 class="flex items-center gap-2 mb-4 text-lg font-semibold text-gray-900">
-                    <span class="p-1.5 bg-indigo-50 text-[#6366f1] rounded-md"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5l1.5-1.5m3.033-7.317m0 0a4 4 0 00-5.656 0l-4 4a4 4 0 005.656 5l1.5-1.5"></path>
-                        </svg></span>
-                    Integrasi Sosial Media
-                </h2>
-                <div class="grid grid-cols-1 gap-6 md:grid-cols-3">
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700">URL Facebook Resmi</label>
-                        <input type="url" name="facebook_url" value="{{ old('facebook_url', $settings->facebook_url ?? '') }}" placeholder="https://facebook.com/..." class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-[#6366f1] focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
-                        @error('facebook_url') <p class="mt-1 text-xs text-rose-500">{{ $message }}</p> @enderror
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700">URL YouTube Channel</label>
-                        <input type="url" name="youtube_url" value="{{ old('youtube_url', $settings->youtube_url ?? '') }}" placeholder="https://youtube.com/c/..." class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-[#6366f1] focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
-                        @error('youtube_url') <p class="mt-1 text-xs text-rose-500">{{ $message }}</p> @enderror
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700">URL Instagram Resmi</label>
-                        <input type="url" name="instagram_url" value="{{ old('instagram_url', $settings->instagram_url ?? '') }}" placeholder="https://instagram.com/..." class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-[#6366f1] focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
-                        @error('instagram_url') <p class="mt-1 text-xs text-rose-500">{{ $message }}</p> @enderror
-                    </div>
-                </div>
-            </div>
-
-            <div class="flex justify-end pt-4">
-                <button type="submit"
-                    class="inline-flex justify-center rounded-lg border border-transparent bg-[#6366f1] py-2.5 px-6 text-sm font-semibold text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-[#6366f1] focus:ring-offset-2 transition-all duration-150">
-                    <span x-text="isEdit ? 'Perbarui Konfigurasi' : 'Simpan Konfigurasi Pertama'"></span>
-                </button>
-            </div>
-        </form>
-    </div>
-</x-layouts.dashboard>
-
-
-Settings index v2
-<x-layouts.dashboard>
-    <div class="px-4 py-6 mx-auto max-w-7xl sm:px-6 lg:px-8" x-data="{ isEdit: {{ $settings ? 'true' : 'false' }} }">
-
-        <div class="flex flex-col pb-5 mb-6 border-b border-gray-200 md:flex-row md:items-center md:justify-between">
-            <div>
-                <h2 class="text-2xl font-bold tracking-tight text-gray-900">Pengaturan Aplikasi & Wilayah</h2>
-                <p class="mt-1 text-sm text-gray-500">Kelola identitas desa, informasi kontak, branding website, dan koordinat peta GIS.</p>
-            </div>
-
-            <div class="flex justify-end gap-3 pt-4 border-t border-gray-100 md:border-t-0 md:pt-0">
-                <button type="button"
-                    onclick="window.location.reload()"
-                    class="flex items-center justify-center gap-2 px-4 py-2 text-sm font-semibold text-gray-700 transition bg-white border border-gray-300 rounded-lg shadow-sm hover:bg-gray-50">
-                    <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 1121.213 7.5M7 9l4 4M7 9l-4 4"></path>
-                    </svg>
-                    Muat Ulang Data
-                </button>
-            </div>
-        </div>
-
-        @if (session('success'))
-        <div class="flex items-center p-4 mb-6 text-sm text-white rounded-lg shadow-sm bg-emerald-500" role="alert">
-            <svg class="w-5 h-5 mr-2 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-            </svg>
-            <span>{{ session('success') }}</span>
-        </div>
-        @endif
-
-        @if (session('error'))
-        <div class="flex items-center p-4 mb-6 text-sm text-white rounded-lg shadow-sm bg-rose-500" role="alert">
-            <svg class="w-5 h-5 mr-2 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-            </svg>
-            <span>{{ session('error') }}</span>
-        </div>
-        @endif
-
-        <div class="grid items-start grid-cols-1 gap-8 lg:grid-cols-3">
-
-            <div class="lg:col-span-2">
-                <form :action="isEdit ? '{{ route('dashboard.settings.update') }}' : '{{ route('dashboard.settings.store') }}'"
-                    method="POST"
-                    class="space-y-8">
-                    @csrf
-                    <template x-if="isEdit">
-                        @method('PUT')
-                    </template>
-
-                    <div class="p-6 bg-white border border-gray-200 shadow-sm rounded-xl">
-                        <h2 class="flex items-center gap-2 mb-4 text-base font-semibold text-gray-900">
-                            <span class="p-1.5 bg-indigo-50 text-[#6366f1] rounded-md"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg></span>
-                            Identitas Wilayah Utama
-                        </h2>
-                        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                            <div class="sm:col-span-2">
-                                <label class="block text-sm font-medium text-gray-700">Nama Desa <span class="text-rose-500">*</span></label>
-                                <input type="text" name="village_name" value="{{ old('village_name', $settings->village_name ?? '') }}" class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-[#6366f1] focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
-                                @error('village_name') <p class="mt-1 text-xs text-rose-500">{{ $message }}</p> @enderror
-                            </div>
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700">Kode Wilayah Desa (Kemendagri) <span class="text-rose-500">*</span></label>
-                                <input type="text" name="village_code" value="{{ old('village_code', $settings->village_code ?? '') }}" class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-[#6366f1] focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
-                                @error('village_code') <p class="mt-1 text-xs text-rose-500">{{ $message }}</p> @enderror
-                            </div>
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700">Kecamatan <span class="text-rose-500">*</span></label>
-                                <input type="text" name="subdistrict_name" value="{{ old('subdistrict_name', $settings->subdistrict_name ?? '') }}" class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-[#6366f1] focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
-                                @error('subdistrict_name') <p class="mt-1 text-xs text-rose-500">{{ $message }}</p> @enderror
-                            </div>
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700">Kabupaten / Kota <span class="text-rose-500">*</span></label>
-                                <input type="text" name="regency_name" value="{{ old('regency_name', $settings->regency_name ?? '') }}" class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-[#6366f1] focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
-                                @error('regency_name') <p class="mt-1 text-xs text-rose-500">{{ $message }}</p> @enderror
-                            </div>
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700">Provinsi <span class="text-rose-500">*</span></label>
-                                <input type="text" name="province_name" value="{{ old('province_name', $settings->province_name ?? '') }}" class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-[#6366f1] focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
-                                @error('province_name') <p class="mt-1 text-xs text-rose-500">{{ $message }}</p> @enderror
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
-                        <div class="p-6 bg-white border border-gray-200 shadow-sm rounded-xl">
-                            <h2 class="flex items-center gap-2 mb-4 text-base font-semibold text-gray-900">
-                                <span class="p-1.5 bg-indigo-50 text-[#6366f1] rounded-md"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg></span>
-                                Manajemen Aparatur
-                            </h2>
-                            <div class="space-y-4">
-                                <div>
-                                    <label class="block text-sm font-medium text-gray-700">Nama Kepala Desa</label>
-                                    <input type="text" name="village_head_name" value="{{ old('village_head_name', $settings->village_head_name ?? '') }}" class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-[#6366f1] focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
-                                </div>
-                                <div>
-                                    <label class="block text-sm font-medium text-gray-700">NIP Kepala Desa</label>
-                                    <input type="text" name="village_head_nip" value="{{ old('village_head_nip', $settings->village_head_nip ?? '') }}" class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-[#6366f1] focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="p-6 bg-white border border-gray-200 shadow-sm rounded-xl">
-                            <h2 class="flex items-center gap-2 mb-4 text-base font-semibold text-gray-900">
-                                <span class="p-1.5 bg-indigo-50 text-[#6366f1] rounded-md"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 00-2-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"></path></svg></span>
-                                Branding Web
-                            </h2>
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700">Judul Website <span class="text-rose-500">*</span></label>
-                                <input type="text" name="app_title" value="{{ old('app_title', $settings->app_title ?? '') }}" class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-[#6366f1] focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
-                                @error('app_title') <p class="mt-1 text-xs text-rose-500">{{ $message }}</p> @enderror
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="p-6 bg-white border border-gray-200 shadow-sm rounded-xl">
-                        <h2 class="flex items-center gap-2 mb-4 text-base font-semibold text-gray-900">
-                            <span class="p-1.5 bg-indigo-50 text-[#6366f1] rounded-md"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path></svg></span>
-                            Kontak & Koordinat Geografis
-                        </h2>
-                        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                            <div class="sm:col-span-2">
-                                <label class="block text-sm font-medium text-gray-700">Alamat Lengkap</label>
-                                <textarea name="office_address" rows="2" class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-[#6366f1] focus:ring-opacity-50">{{ old('office_address', $settings->office_address ?? '') }}</textarea>
-                            </div>
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700">Kode Pos</label>
-                                <input type="text" name="postal_code" value="{{ old('postal_code', $settings->postal_code ?? '') }}" class="block w-full mt-1 border-gray-300 rounded-lg shadow-sm">
-                            </div>
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700">Email Resmi</label>
-                                <input type="email" name="official_email" value="{{ old('official_email', $settings->official_email ?? '') }}" class="block w-full mt-1 border-gray-300 rounded-lg shadow-sm">
-                            </div>
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700">No Telepon/WA</label>
-                                <input type="text" name="phone_number" value="{{ old('phone_number', $settings->phone_number ?? '') }}" class="block w-full mt-1 border-gray-300 rounded-lg shadow-sm">
-                            </div>
-                            <div class="grid grid-cols-2 gap-2">
-                                <div>
-                                    <label class="block text-xs text-gray-500">Garis Lintang</label>
-                                    <input type="text" name="latitude" value="{{ old('latitude', $settings->latitude ?? '') }}" placeholder="-6.12" class="block w-full mt-1 text-sm border-gray-300 rounded-lg shadow-sm">
-                                </div>
-                                <div>
-                                    <label class="block text-xs text-gray-500">Garis Bujur</label>
-                                    <input type="text" name="longitude" value="{{ old('longitude', $settings->longitude ?? '') }}" placeholder="106.12" class="block w-full mt-1 text-sm border-gray-300 rounded-lg shadow-sm">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="p-6 bg-white border border-gray-200 shadow-sm rounded-xl">
-                        <h2 class="flex items-center gap-2 mb-4 text-base font-semibold text-gray-900">
-                            <span class="p-1.5 bg-indigo-50 text-[#6366f1] rounded-md"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5l1.5-1.5m3.033-7.317m0 0a4 4 0 00-5.656 0l-4 4a4 4 0 005.656 5l1.5-1.5"></path></svg></span>
-                            Integrasi Sosial Media
-                        </h2>
-                        <div class="space-y-3">
-                            <input type="url" name="facebook_url" value="{{ old('facebook_url', $settings->facebook_url ?? '') }}" placeholder="URL Facebook" class="block w-full border-gray-300 rounded-lg shadow-sm">
-                            <input type="url" name="youtube_url" value="{{ old('youtube_url', $settings->youtube_url ?? '') }}" placeholder="URL YouTube" class="block w-full border-gray-300 rounded-lg shadow-sm">
-                            <input type="url" name="instagram_url" value="{{ old('instagram_url', $settings->instagram_url ?? '') }}" placeholder="URL Instagram" class="block w-full border-gray-300 rounded-lg shadow-sm">
-                        </div>
-                    </div>
-
-                    <div class="flex justify-end">
-                        <button type="submit" class="rounded-lg bg-[#6366f1] py-2.5 px-6 text-sm font-semibold text-white shadow-sm hover:bg-indigo-700 transition">
-                            <span x-text="isEdit ? 'Perbarui Informasi Teks' : 'Simpan Konfigurasi Pertama'"></span>
-                        </button>
-                    </div>
-                </form>
-            </div>
-
-            <div class="space-y-6">
-                <template x-if="isEdit">
-                    <div class="contents">
-
-                        <div class="p-6 bg-white border border-gray-200 shadow-sm rounded-xl">
-                            <h2 class="flex items-center gap-2 mb-4 text-sm font-bold tracking-wider text-gray-500 uppercase">
-                                Logo Resmi Desa
-                            </h2>
-                            <form action="{{ route('dashboard.settings.update') }}" method="POST" enctype="multipart/form-data" class="space-y-4">
-                                @csrf
-                                @method('PUT')
-
-                                @if(!empty($settings->village_logo))
-                                <div class="flex justify-center p-4 border bg-gray-50 rounded-xl">
-                                    <img src="{{ asset('storage/' . $settings->village_logo) }}" class="object-contain w-auto max-h-32" alt="Logo Desa">
-                                </div>
-                                @endif
-
-                                <div class="space-y-2">
-                                    <input type="file" name="village_logo" accept="image/*" class="block w-full text-xs text-gray-500 file:mr-3 file:py-2 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-indigo-50 file:text-[#6366f1] hover:file:bg-indigo-100">
-                                    @error('village_logo') <p class="text-xs text-rose-500">{{ $message }}</p> @enderror
-
-                                    <button type="submit" class="w-full py-2 text-xs font-semibold text-center text-white transition bg-gray-900 rounded-lg shadow-sm hover:bg-gray-800">
-                                        Unggah & Ganti Logo
-                                    </button>
-                                </div>
-                            </form>
-                        </div>
-
-                        <div class="p-6 bg-white border border-gray-200 shadow-sm rounded-xl">
-                            <h2 class="flex items-center gap-2 mb-4 text-sm font-bold tracking-wider text-gray-500 uppercase">
-                                Gambar Banner Hero
-                            </h2>
-                            <form action="{{ route('dashboard.settings.update') }}" method="POST" enctype="multipart/form-data" class="space-y-4">
-                                @csrf
-                                @method('PUT')
-
-                                @if(!empty($settings->hero_image))
-                                <div class="p-2 border bg-gray-50 rounded-xl">
-                                    <img src="{{ asset('storage/' . $settings->hero_image) }}" class="object-cover w-full h-24 rounded-lg shadow-sm" alt="Hero Banner">
-                                </div>
-                                @endif
-
-                                <div class="space-y-2">
-                                    <input type="file" name="hero_image" accept="image/*" class="block w-full text-xs text-gray-500 file:mr-3 file:py-2 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-indigo-50 file:text-[#6366f1] hover:file:bg-indigo-100">
-                                    @error('hero_image') <p class="text-xs text-rose-500">{{ $message }}</p> @enderror
-
-                                    <button type="submit" class="w-full py-2 text-xs font-semibold text-center text-white transition bg-gray-900 rounded-lg shadow-sm hover:bg-gray-800">
-                                        Unggah & Ganti Banner
-                                    </button>
-                                </div>
-                            </form>
-                        </div>
-
-                    </div>
-                </template>
-
-                <template x-if="!isEdit">
-                    <div class="p-5 text-sm text-center text-gray-500 border border-gray-300 border-dashed rounded-xl bg-gray-50/50">
-                        Selesaikan pengisian data informasi utama desa di sebelah kiri terlebih dahulu untuk membuka fitur unggah Logo dan Banner media.
-                    </div>
-                </template>
-            </div>
-
-        </div>
-    </div>
-</x-layouts.dashboard>
-
-
-
-DashboardLayout
-<x-layouts.app>
-    <div class="flex h-screen overflow-hidden bg-tertiary" x-cloak x-data="{
-        openStatistik: {{ request()->routeIs('dashboard.statistics.*') ? 'true' : 'false' }},
-        openManageData: {{ request()->routeIs('dashboard.manage-data.*') ? 'true' : 'false' }},
-        openSidebar: window.innerWidth >= 768
-    }"
-        @resize.window="if (window.innerWidth >= 768) { openSidebar = true } else { openSidebar = false }">
-
-        <div x-show="openSidebar" x-transition:enter="transition ease-in-out duration-300"
-            x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
-            x-transition:leave="transition ease-in-out duration-300" x-transition:leave-start="opacity-100"
-            x-transition:leave-end="opacity-0" @click="openSidebar = false"
-            class="fixed inset-0 z-40 bg-black/50 md:hidden">
-        </div>
-
-        <x-layouts.partials.sidebar />
-
-        <div class="flex flex-col flex-1 h-full min-w-0">
-
-            <header
-                class="flex items-center justify-between h-16 px-8 border-b-2 bg-secondary border-textTertiary/20 shrink-0">
-
-                <button @click="openSidebar = !openSidebar"
-                    class="z-30 cursor-pointer text-textSecondary hover:text-primary focus:outline-none">
-                    <x-solar-hamburger-menu-broken class="size-6" />
-                </button>
-
-                <button
-                    class="px-5 py-2 text-sm font-semibold capitalize transition rounded-md text-secondary bg-primary hover:opacity-90">
-                    {{ Auth::user()->fullname ?? 'Petugas' }}
-                </button>
-            </header>
-
-            <main
-                class="container flex-1 p-8 max-lg:p-6 max-md:p-4 mx-auto bg-tertiary overflow-y-auto scroll-smooth [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
-                {{ $slot ?? '' }}
-                @yield('content')
-            </main>
-        </div>
-    </div>
-</x-layouts.app>
-
-
-Sidebar
-<aside
-    class="h-full overflow-y-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] transition-all duration-300 ease-in-out bg-secondary text-textSecondary shrink-0 border-r-2 border-textTertiary/20 fixed top-0 left-0 z-50 w-64 transform -translate-x-full md:relative md:translate-x-0 md:w-64"
-    x-bind:class="{
-        'translate-x-0': openSidebar,
-        '-translate-x-full md:translate-x-0': !openSidebar,
-        'md:w-64': openSidebar,
-        'md:w-20': !openSidebar
-    }">
-
-    <!-- Sidebar Header (Sticky Brand Area) -->
-    <div class="sticky top-0 z-10 flex items-center h-16 p-4 transition-all duration-500 text-textPrimary bg-secondary"
-        x-bind:class="openSidebar ? 'px-6 justify-between md:justify-start' : 'justify-center'">
-
-        @if(!empty($villageSettings->village_logo))
-        <img src="{{ asset('storage/' . $villageSettings->village_logo) }}"
-            alt="Logo Desa"
-            class="object-cover border rounded-full size-10 border-textTertiary/20">
-        @else
-        <div class="flex items-center justify-center rounded-lg shrink-0 text-primary">
-            <x-heroicon-o-square-3-stack-3d class="w-7 h-7" />
-        </div>
-        @endif
-
-        <span
-            class="ml-3 text-sm font-bold tracking-wider uppercase truncate origin-left transform whitespace-nowrap text-textPrimary"
-            x-bind:class="openSidebar ? 'opacity-100 max-w-xs scale-100 transition-all duration-500 delay-200' :
-                'opacity-0 max-w-0 scale-95 absolute pointer-events-none invisible transition-all duration-150'">
-            {{ $villageSettings->village_name ?? '-' }}
-        </span>
-
-        <button @click="openSidebar = false" class="text-textSecondary hover:text-textPrimary md:hidden">
-            <svg class="size-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-            </svg>
-        </button>
-    </div>
-
-    <!-- Navigation Menu Items -->
-    <nav class="flex flex-col w-full gap-2 px-4 mt-6 text-base">
-
-        <!-- Menu: Beranda -->
-        <a href="{{ route('dashboard') }}"
-            @click.prevent="$store.navLoading.start('sb-dashboard'); setTimeout(() => window.location.href = $el.href, 50)"
-            class="flex items-center px-4 py-3 rounded-lg transition-all duration-300 {{ request()->routeIs('dashboard') ? 'bg-primary text-secondary' : 'text-textSecondary hover:bg-tertiary hover:text-textPrimary' }}"
-            x-bind:class="openSidebar ? 'justify-start' : 'md:justify-center'">
-            <x-untitledui-home-line class="transition-all duration-500 size-5 shrink-0" />
-            <span class="ml-4 truncate origin-left transform whitespace-nowrap"
-                x-bind:class="openSidebar ? 'opacity-100 max-w-xs scale-100 transition-all duration-500 delay-200' :
-                    'opacity-0 max-w-0 scale-95 md:absolute pointer-events-none md:invisible transition-all duration-150'">
-                Beranda
-            </span>
-        </a>
-
-        <!-- Menu Dropdown: Statistik -->
-        <div class="relative space-y-2">
-            <button
-                @click="if(window.innerWidth < 768) { openStatistik = !openStatistik } else { if(!openSidebar) { openSidebar = true; openStatistik = true; } else { openStatistik = !openStatistik; } }"
-                class="flex items-center w-full px-4 py-3 transition-all duration-300 rounded-lg text-textSecondary hover:bg-tertiary hover:text-textPrimary"
-                x-bind:class="openSidebar ? 'justify-between' : 'md:justify-center'">
-                <div class="flex items-center min-w-0">
-                    <x-bx-line-chart class="w-5 h-5 transition-all duration-500 shrink-0" />
-                    <span class="ml-3 truncate origin-left transform whitespace-nowrap"
-                        x-bind:class="openSidebar ? 'opacity-100 max-w-xs scale-100 transition-all duration-500 delay-200' :
-                            'opacity-0 max-w-0 scale-95 md:absolute pointer-events-none md:invisible transition-all duration-150'">
-                        Statistik
-                    </span>
-                </div>
-                <x-uiw-up class="w-4 h-4 transition-all duration-300 origin-center shrink-0"
-                    x-bind:class="[openStatistik && (openSidebar || window.innerWidth < 768) ? 'rotate-180' : '', openSidebar ?
-                        'opacity-100 scale-100' :
-                        'opacity-0 scale-0 md:absolute md:invisible'
-                    ]" />
-            </button>
-
-            <!-- Sub-menu: Statistik Halaman -->
-            <div x-show="openStatistik && (openSidebar || window.innerWidth < 768)" x-collapse x-cloak
-                x-init="$el.classList.remove('hidden')" class="hidden pl-2 ml-4 space-y-1 border-l border-textTertiary/30">
-                <a href="{{ route('dashboard.statistics.demograph') }}"
-                    @click.prevent="$store.navLoading.start('sb-statistik-demografi'); setTimeout(() => window.location.href = $el.href, 50)"
-                    class="flex items-center gap-2 px-4 py-2.5 text-sm transition-all duration-300 {{ request()->routeIs('dashboard.statistics.demograph') ? 'bg-primary text-secondary font-semibold' : 'text-textSecondary hover:bg-tertiary hover:text-textPrimary' }} justify-start pl-4 rounded-lg">
-                    <x-ionicon-people-sharp class="size-5 shrink-0" /> <span class="truncate">Demografi</span>
-                </a>
-                <a href="{{ route('dashboard.statistics.social') }}"
-                    @click.prevent="$store.navLoading.start('sb-statistik-social'); setTimeout(() => window.location.href = $el.href, 50)"
-                    class="flex items-center gap-2 px-4 py-2.5 text-sm transition-all duration-300 {{ request()->routeIs('dashboard.statistics.social') ? 'bg-primary text-secondary font-semibold' : 'text-textSecondary hover:bg-tertiary hover:text-textPrimary' }} justify-start pl-4 rounded-lg">
-                    <x-ri-heart-pulse-line class="size-5 shrink-0" /> <span class="truncate">Sosial</span>
-                </a>
-
-                <a href="{{ route('dashboard.statistics.economic') }}"
-                    @click.prevent="$store.navLoading.start('sb-statistik-economic'); setTimeout(() => window.location.href = $el.href, 50)"
-                    class="flex items-center gap-2 px-4 py-2.5 text-sm transition-all duration-300 {{ request()->routeIs('dashboard.statistics.economic') ? 'bg-primary text-secondary font-semibold' : 'text-textSecondary hover:bg-tertiary hover:text-textPrimary' }} justify-start pl-4 rounded-lg">
-                    <x-phosphor-money class="size-5 shrink-0" /> <span class="truncate">Ekonomi</span>
-                </a>
-
-                <a href="{{ route('dashboard.statistics.msme') }}"
-                    @click.prevent="$store.navLoading.start('sb-statistik-msme'); setTimeout(() => window.location.href = $el.href, 50)"
-                    class="flex items-center gap-2 px-4 py-2.5 text-sm transition-all duration-300 {{ request()->routeIs('dashboard.statistics.msme') ? 'bg-primary text-secondary font-semibold' : 'text-textSecondary hover:bg-tertiary hover:text-textPrimary' }} justify-start pl-4 rounded-lg">
-                    <x-bi-shop class="size-5 shrink-0" /> <span class="truncate">Umkm</span>
-                </a>
-                <a href="{{ route('dashboard.statistics.infrastructure') }}"
-                    @click.prevent="$store.navLoading.start('sb-statistik-infrastructure'); setTimeout(() => window.location.href = $el.href, 50)"
-                    class="flex items-center gap-2 px-4 py-2.5 text-sm transition-all duration-300 {{ request()->routeIs('dashboard.statistics.infrastructure') ? 'bg-primary text-secondary font-semibold' : 'text-textSecondary hover:bg-tertiary hover:text-textPrimary' }} justify-start pl-4 rounded-lg">
-                    <x-bi-building-gear class="size-5 shrink-0" /> <span class="truncate">Infrastruktur</span>
-                </a>
-                <a href="{{ route('dashboard.statistics.spatial-data') }}"
-                    @click.prevent="$store.navLoading.start('sb-statistik-spatial'); setTimeout(() => window.location.href = $el.href, 50)"
-                    class="flex items-center gap-2 px-4 py-2.5 text-sm transition-all duration-300 {{ request()->routeIs('dashboard.statistics.spatial-data') ? 'bg-primary text-secondary font-semibold' : 'text-textSecondary hover:bg-tertiary hover:text-textPrimary' }} justify-start pl-4 rounded-lg">
-                    <x-iconsax-out-map class="size-5 shrink-0" /> <span class="truncate">Data Spasial</span>
-                </a>
-            </div>
-        </div>
-
-        <!-- Menu Dropdown: Kelola Data -->
-        <div class="relative space-y-2">
-            <button
-                @click="if(window.innerWidth < 768) { openManageData = !openManageData } else { if(!openSidebar) { openSidebar = true; openManageData = true; } else { openManageData = !openManageData; } }"
-                class="flex items-center w-full px-4 py-3 transition-all duration-300 rounded-lg text-textSecondary hover:bg-tertiary hover:text-textPrimary"
-                x-bind:class="openSidebar ? 'justify-between' : 'md:justify-center'">
-                <div class="flex items-center min-w-0">
-                    <x-iconsax-lin-data-2 class="w-5 h-5 transition-all duration-500 shrink-0" />
-                    <span class="ml-3 truncate origin-left transform whitespace-nowrap"
-                        x-bind:class="openSidebar ? 'opacity-100 max-w-xs scale-100 transition-all duration-500 delay-200' :
-                            'opacity-0 max-w-0 scale-95 md:absolute pointer-events-none md:invisible transition-all duration-150'">
-                        Kelola Data
-                    </span>
-                </div>
-                <x-uiw-up class="w-4 h-4 transition-all duration-300 origin-center shrink-0"
-                    x-bind:class="[openManageData && (openSidebar || window.innerWidth < 768) ? 'rotate-180' : '', openSidebar ?
-                        'opacity-100 scale-100' :
-                        'opacity-0 scale-0 md:absolute md:invisible'
-                    ]" />
-            </button>
-
-            <!-- Sub-menu: Kelola Data Halaman -->
-            <div x-show="openManageData && (openSidebar || window.innerWidth < 768)" x-collapse x-cloak
-                x-init="$el.classList.remove('hidden')" class="hidden pl-2 ml-4 space-y-1 border-l border-textTertiary/30">
-                <a href="{{ route('dashboard.manage-data.territories') }}"
-                    @click.prevent="$store.navLoading.start('sb-manage-territories'); setTimeout(() => window.location.href = $el.href, 50)"
-                    class="flex items-center gap-2 px-4 py-2.5 text-sm transition-all duration-300 {{ request()->routeIs('dashboard.manage-data.territories') ? 'bg-primary text-secondary font-semibold' : 'text-textSecondary hover:bg-tertiary hover:text-textPrimary' }} justify-start pl-4 rounded-lg">
-                    <x-iconsax-out-flag class="size-5 shrink-0" /> <span class="truncate">Data Wilayah</span>
-                </a>
-                <a href="{{ route('dashboard.manage-data.families') }}"
-                    @click.prevent="$store.navLoading.start('sb-manage-families'); setTimeout(() => window.location.href = $el.href, 50)"
-                    class="flex items-center gap-2 px-4 py-2.5 text-sm transition-all duration-300 {{ request()->routeIs('dashboard.manage-data.families') ? 'bg-primary text-secondary font-semibold' : 'text-textSecondary hover:bg-tertiary hover:text-textPrimary' }} justify-start pl-4 rounded-lg">
-                    <x-iconsax-bro-user-add class="size-5 shrink-0" /> <span class="truncate">Data Keluarga</span>
-                </a>
-                <a href="{{ route('dashboard.manage-data.citizens') }}"
-                    @click.prevent="$store.navLoading.start('sb-manage-citizens'); setTimeout(() => window.location.href = $el.href, 50)"
-                    class="flex items-center gap-2 px-4 py-2.5 text-sm transition-all duration-300 {{ request()->routeIs('dashboard.manage-data.citizens') ? 'bg-primary text-secondary font-semibold' : 'text-textSecondary hover:bg-tertiary hover:text-textPrimary' }} justify-start pl-4 rounded-lg">
-                    <x-untitledui-user class="size-5 shrink-0" /> <span class="truncate">Data Penduduk</span>
-                </a>
-                <a href="{{ route('dashboard.manage-data.msmes') }}"
-                    @click.prevent="$store.navLoading.start('sb-manage-msmes'); setTimeout(() => window.location.href = $el.href, 50)"
-                    class="flex items-center gap-2 px-4 py-2.5 text-sm transition-all duration-300 {{ request()->routeIs('dashboard.manage-data.msmes') ? 'bg-primary text-secondary font-semibold' : 'text-textSecondary hover:bg-tertiary hover:text-textPrimary' }} justify-start pl-4 rounded-lg">
-                    <x-bi-shop class="size-5 shrink-0" /> <span class="truncate">Data UMKM (MSMEs)</span>
-                </a>
-                <a href="{{ route('dashboard.manage-data.infrastructures') }}"
-                    @click.prevent="$store.navLoading.start('sb-manage-infrastructures'); setTimeout(() => window.location.href = $el.href, 50)"
-                    class="flex items-center gap-2 px-4 py-2.5 text-sm transition-all duration-300 {{ request()->routeIs('dashboard.manage-data.infrastructures') ? 'bg-primary text-secondary font-semibold' : 'text-textSecondary hover:bg-tertiary hover:text-textPrimary' }} justify-start pl-4 rounded-lg">
-                    <x-iconsax-lin-buildings class="size-5 shrink-0" /> <span class="truncate">Data Infrastruktur</span>
-                </a>
-                <a href="{{ route('dashboard.manage-data.spatial-data') }}"
-                    @click.prevent="$store.navLoading.start('sb-manage-spatial'); setTimeout(() => window.location.href = $el.href, 50)"
-                    class="flex items-center gap-2 px-4 py-2.5 text-sm transition-all duration-300 {{ request()->routeIs('dashboard.manage-data.spatial-data') ? 'bg-primary text-secondary font-semibold' : 'text-textSecondary hover:bg-tertiary hover:text-textPrimary' }} justify-start pl-4 rounded-lg">
-                    <x-iconsax-lin-map class="size-5 shrink-0" /> <span class="truncate">Data Spasial (GIS)</span>
-                </a>
-            </div>
-        </div>
-
-        <!-- Menu: Pandawa Analisis -->
-        <a href="{{ route('dashboard.pandawa-analysis') }}"
-            @click.prevent="$store.navLoading.start('sb-pandawa-analysis'); setTimeout(() => window.location.href = $el.href, 50)"
-            class="flex items-center px-4 py-3 rounded-lg transition-all duration-300 {{ request()->routeIs('dashboard.pandawa-analysis') ? 'bg-primary text-secondary' : 'text-textSecondary hover:bg-tertiary hover:text-textPrimary' }}"
-            x-bind:class="openSidebar ? 'justify-start' : 'md:justify-center'">
-            <x-untitledui-star-06 class="transition-all duration-500 size-5 shrink-0" />
-            <span class="ml-4 truncate origin-left transform whitespace-nowrap"
-                x-bind:class="openSidebar ? 'opacity-100 max-w-xs scale-100 transition-all duration-500 delay-200' :
-                    'opacity-0 max-w-0 scale-95 md:absolute pointer-events-none md:invisible transition-all duration-150'">
-                Pandawa - Analisis
-            </span>
-        </a>
-
-        <!-- Menu: Pengaturan -->
-        <a href="{{ route('dashboard.settings.index') }}"
-            @click.prevent="$store.navLoading.start('sb-settings'); setTimeout(() => window.location.href = $el.href, 50)"
-            class="flex items-center px-4 py-3 rounded-lg transition-all duration-300 {{ request()->routeIs('dashboard.settings.*') ? 'bg-primary text-secondary' : 'text-textSecondary hover:bg-tertiary hover:text-textPrimary' }}"
-            x-bind:class="openSidebar ? 'justify-start' : 'md:justify-center'">
-            <x-iconsax-lin-setting-2 class="transition-all duration-500 size-5 shrink-0" />
-            <span class="ml-4 truncate origin-left transform whitespace-nowrap"
-                x-bind:class="openSidebar ? 'opacity-100 max-w-xs scale-100 transition-all duration-500 delay-200' :
-            'opacity-0 max-w-0 scale-95 md:absolute pointer-events-none md:invisible transition-all duration-150'">
-                Pengaturan Desa
-            </span>
-        </a>
-
-        <!-- Menu: SuperAdmin -->
-        @if(auth()->user()->role->value === $userRole::SUPER_ADMIN->value)
-        <div class="" x-data="{ role: 'Super Admin' }">
-            <div class="flex items-center overflow-hidden min-h-[14px]">
-                <span x-show="openSidebar || window.innerWidth < 768"
-                    class="text-[10px] font-bold tracking-widest uppercase text-textSecondary/50 whitespace-nowrap">
-                    Super Admin
-                </span>
-                <div x-show="openSidebar || window.innerWidth < 768" class="w-full h-[1px] bg-textTertiary/10 ml-3"></div>
-
-                <span x-show="!openSidebar && window.innerWidth >= 768"
-                    class="mx-auto text-[9px] font-black text-primary/60 bg-primary/10 px-1.5 py-0.5 rounded uppercase">
-                    SA
-                </span>
-            </div>
-
-            <a href="{{ route('dashboard.super-admin.manage-admins.index') }}"
-                @click.prevent="$store.navLoading.start('sb-manage-admins'); setTimeout(() => window.location.href = $el.href, 50)"
-                class="flex items-center px-4 py-3 rounded-lg transition-all duration-300 {{ request()->routeIs('dashboard.super-admin.manage-admins.*') ? 'bg-primary text-secondary' : 'text-textSecondary hover:bg-tertiary hover:text-textPrimary' }}"
-                x-bind:class="openSidebar ? 'justify-start' : 'md:justify-center'">
-
-                <x-iconsax-lin-profile-2user class="transition-all duration-500 size-5 shrink-0" />
-
-                <span class="ml-4 truncate origin-left transform whitespace-nowrap"
-                    x-bind:class="openSidebar ? 'opacity-100 max-w-xs scale-100 transition-all duration-500 delay-200' :
-            'opacity-0 max-w-0 scale-95 md:absolute pointer-events-none md:invisible transition-all duration-150'">
-                    Kelola Admin
-                </span>
-            </a>
-        </div>
-        @endif
-
-        <!-- Form: Logout Action (tanpa animasi loading) -->
-        @auth
-        <form method="POST" action="{{ route('auth.logout') }}" class="w-full pt-4 mt-auto">
-            @csrf
-            <button type="submit"
-                class="flex items-center w-full px-4 py-3 text-red-500 transition-all duration-300 rounded-lg hover:bg-red-50/80 hover:text-red-600"
-                x-bind:class="openSidebar ? 'justify-start' : 'md:justify-center'">
-                <x-iconsax-out-logout class="transition-all duration-500 size-5 shrink-0" />
-                <span class="ml-4 truncate origin-left transform whitespace-nowrap"
-                    x-bind:class="openSidebar ? 'opacity-100 max-w-xs scale-100 transition-all duration-500 delay-200' :
-                            'opacity-0 max-w-0 scale-95 md:absolute pointer-events-none md:invisible transition-all duration-150'">
-                    Logout
-                </span>
-            </button>
-        </form>
-        @endauth
-
-    </nav>
-</aside>
-
-
-
 DemographController
 <?php
 
@@ -2718,5 +1782,370 @@ class DemographService
             })->all(),
             'raw' => $rawQuery
         ];
+    }
+}
+
+
+InfrastructureController
+<?php
+
+namespace App\Http\Controllers\Dashboard\Statistics;
+
+use App\Enums\InfrastructureType;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Statistics\InfrastructureRequest;
+use App\Services\ManageData\TerritoriesService;
+use App\Services\Statistics\InfrastructureService;
+
+class InfrastructureController extends Controller
+{
+    public function __construct(
+        protected InfrastructureService $infrastructureService,
+        protected TerritoriesService $territoriesService
+    ) {}
+
+    public function index(InfrastructureRequest $request)
+    {
+        $validated = $request->validated();
+        $rwFilter = !empty($validated['rw']) && $validated['rw'] !== 'all' ? $validated['rw'] : null;
+        $rtFilter = !empty($validated['rt']) && $validated['rt'] !== 'all' ? $validated['rt'] : null;
+
+
+        $stats = $this->infrastructureService->getInfrastructureStats();
+
+        $currentType = InfrastructureType::tryFrom($validated['type'] ?? InfrastructureType::FACILITY_TYPE->value) ?? InfrastructureType::FACILITY_TYPE;
+
+        $data = match ($currentType) {
+            InfrastructureType::FACILITY_TYPE     => $this->infrastructureService->getVillageAggregation($currentType->value, $currentType->options()),
+            InfrastructureType::CONDITION         => $this->infrastructureService->getVillageAggregation($currentType->value, $currentType->options()),
+            InfrastructureType::CONSTRUCTION_YEAR => $this->infrastructureService->getVillageAggregation($currentType->value, $currentType->options()),
+        };
+
+        $formatted = $this->formatInfrastructureData($currentType, $data);
+        $rwList = $this->territoriesService->getUniqueRwOptions();
+        $rtList = $this->territoriesService->getRtOptionsByRw($rwFilter);
+
+        return view('dashboard.statistics.infrastructure.index', compact('stats'))->with([
+            'currentType'                 => $currentType,
+            'chartType'                   => $currentType->chartType(),
+            'chartLabels'                 => $formatted['chartLabels'],
+            'chartData'                   => $formatted['chartData'],
+            'data'                        => $data,
+            'tableAggregateVillageData'   => $formatted['tableAggregateVillageData'],
+            'tableAggregateTerritoryData' => $formatted['tableAggregateTerritoryData'],
+            'rwList'                      => $rwList,
+            'rtList'                      => $rtList,
+        ]);
+    }
+
+    public function formatInfrastructureData(InfrastructureType $type, array $data): array
+    {
+        $chartLabels = $type === InfrastructureType::CONSTRUCTION_YEAR
+            ? collect($data['data'])->pluck('category')->all()
+            : array_values($type->options());
+
+        $chartData = collect($data['data'])->pluck('total')->all();
+
+        $tableAggregateVillageData = [
+            'total'        => $data['total'] ?? 0,
+            'totalPercent' => ($data['total'] ?? 0) > 0 ? 100 : 0,
+            'data'         => $data['data'] ?? [],
+        ];
+
+        $tableAggregateTerritoryData = [
+            'total' => $data['total'] ?? 0,
+            'data'  => [],
+        ];
+
+        return [
+            'chartLabels'                 => $chartLabels,
+            'chartData'                   => $chartData,
+            'tableAggregateVillageData'   => $tableAggregateVillageData,
+            'tableAggregateTerritoryData' => $tableAggregateTerritoryData,
+        ];
+    }
+}
+
+
+
+InfrastructureService
+<?php
+
+namespace App\Services\Statistics;
+
+use App\Models\Infrastructure;
+use Illuminate\Support\Facades\DB;
+
+class InfrastructureService
+{
+    public function getInfrastructureStats(): object
+    {
+        return (object) [
+            'total_facilities' => DB::table('infrastructures')->whereNull('deleted_at')->count(),
+            'good_condition' => DB::table('infrastructures')->whereNull('deleted_at')->where('condition', 'good')->count(),
+            'damaged_facilities' => DB::table('infrastructures')->whereNull('deleted_at')->whereIn('condition', ['damaged_light', 'damaged_severe'])->count(),
+        ];
+    }
+
+    public function getVillageAggregation(string $column, array $categories): array
+    {
+        $query = DB::table('infrastructures')->whereNull('deleted_at');
+
+        if ($column === 'construction_year') {
+            $raw = $query->select($column, DB::raw('COUNT(*) as total'))
+                ->groupBy($column)
+                ->orderBy($column, 'asc')
+                ->get();
+
+            $totalAll = $raw->sum('total');
+            $formattedData = $raw->map(function ($row) use ($totalAll) {
+                return [
+                    'category' => $row->construction_year ?? 'Tanpa Tahun',
+                    'total' => (int) $row->total,
+                    'percent' => $totalAll > 0 ? number_format(($row->total / $totalAll) * 100, 2) : '0.00'
+                ];
+            })->all();
+
+            return [
+                'total' => $totalAll,
+                'data' => $formattedData
+            ];
+        }
+
+        $selectStatements = [];
+        foreach ($categories as $key => $value) {
+            $selectStatements[] = "SUM(CASE WHEN `{$column}` = '{$key}' THEN 1 ELSE 0 END) as `count_{$key}`";
+        }
+
+        $result = $query->selectRaw(implode(", ", $selectStatements))->first();
+
+        $data = [];
+        $totalAll = 0;
+        foreach ($categories as $key => $value) {
+            $count = (int) ($result->{"count_{$key}"} ?? 0);
+            $totalAll += $count;
+            $data[] = [
+                'key' => $key,
+                'category' => $value,
+                'total' => $count,
+            ];
+        }
+
+        foreach ($data as &$item) {
+            $item['percent'] = $totalAll > 0 ? number_format(($item['total'] / $totalAll) * 100, 2) : '0.00';
+        }
+
+        return [
+            'total' => $totalAll,
+            'data' => $data
+        ];
+    }
+}
+
+
+
+MsmeService
+<?php
+
+namespace App\Services\Statistics;
+
+use App\Enums\MsmeType;
+use Illuminate\Support\Facades\DB;
+use stdClass;
+
+class MsmeService
+{
+    /**
+     * Membangun query dasar prapemrosesan data UMKM terikat relasi regional spasial warga
+     */
+    private function baseQuery(?string $rw = null)
+    {
+        $query = DB::table('msmes')
+            ->join('citizens', 'msmes.citizen_id', '=', 'citizens.id')
+            ->join('families', 'citizens.family_id', '=', 'families.id')
+            ->join('territories', 'families.territory_id', '=', 'territories.id')
+            ->whereNull('msmes.deleted_at')
+            ->whereNull('citizens.deleted_at')
+            ->whereNull('families.deleted_at')
+            ->whereNull('territories.deleted_at');
+
+        if ($rw) {
+            $query->where('territories.rw', $rw);
+        }
+
+        return $query;
+    }
+
+    /**
+     * Helper universal untuk mengekstrak data kategori dinamis ke struktur terisolasi gender
+     * Sesuai dengan format penanganan internal EconomicController
+     */
+    private function compileGenderizedData(MsmeType $type, string $dbFieldOrExpression, ?string $rw = null): array
+    {
+        $labels = $type->labels();
+        $totalLabels = count($labels);
+
+        // 1. Ambul Data Agregat Tingkat Kelurahan/Desa
+        $villageQuery = $this->baseQuery($rw)
+            ->select([
+                DB::raw("{$dbFieldOrExpression} as category_label"),
+                DB::raw("SUM(CASE WHEN citizens.gender = 'male' THEN 1 ELSE 0 END) as male_count"),
+                DB::raw("SUM(CASE WHEN citizens.gender = 'female' THEN 1 ELSE 0 END) as female_count"),
+            ])
+            ->groupBy('category_label')
+            ->get();
+
+        $male = array_fill(0, $totalLabels, 0);
+        $female = array_fill(0, $totalLabels, 0);
+
+        foreach ($villageQuery as $row) {
+            $index = array_search($row->category_label, $labels);
+            if ($index !== false) {
+                $male[$index] = (int) $row->male_count;
+                $female[$index] = (int) $row->female_count;
+            }
+        }
+
+        // 2. Ambil Data Distribusi Spasial Wilayah (by_territory) untuk Pengisian Rowspan Tabel RT
+        $territoryQuery = $this->baseQuery($rw)
+            ->select([
+                'territories.rw',
+                'territories.rt',
+                DB::raw("{$dbFieldOrExpression} as category_label"),
+                DB::raw("SUM(CASE WHEN citizens.gender = 'male' THEN 1 ELSE 0 END) as male_count"),
+                DB::raw("SUM(CASE WHEN citizens.gender = 'female' THEN 1 ELSE 0 END) as female_count"),
+            ])
+            ->groupBy('territories.rw', 'territories.rt', 'category_label')
+            ->orderBy('territories.rw')
+            ->orderBy('territories.rt')
+            ->get();
+
+        // Kelompokkan data per RW & RT terlebih dahulu
+        $groupedTerritories = [];
+        foreach ($territoryQuery as $row) {
+            $areaKey = $row->rw . '-' . $row->rt;
+            if (!isset($groupedTerritories[$areaKey])) {
+                $groupedTerritories[$areaKey] = [
+                    'territory' => ['rw' => $row->rw, 'rt' => $row->rt],
+                    'male' => array_fill(0, $totalLabels, 0),
+                    'female' => array_fill(0, $totalLabels, 0),
+                ];
+            }
+
+            $index = array_search($row->category_label, $labels);
+            if ($index !== false) {
+                $groupedTerritories[$areaKey]['male'][$index] = (int) $row->male_count;
+                $groupedTerritories[$areaKey]['female'][$index] = (int) $row->female_count;
+            }
+        }
+
+        return [
+            'male' => $male,
+            'female' => $female,
+            'by_territory' => array_values($groupedTerritories)
+        ];
+    }
+
+    /* |--------------------------------------------------------------------------
+    | MAPPING INDIKATOR UMKM TYPE (12 METODE SINKRON)
+    |--------------------------------------------------------------------------
+    */
+
+    public function getBusinessSector(?string $rw = null)
+    {
+        return $this->compileGenderizedData(MsmeType::BUSINESS_SECTOR, 'msmes.business_category', $rw);
+    }
+
+    public function getOwnerAge(?string $rw = null)
+    {
+        $expression = "CASE
+            WHEN TIMESTAMPDIFF(YEAR, citizens.birth_date, CURDATE()) < 30 THEN 'Gen Z & Milenial Muda (<30 Thn)'
+            WHEN TIMESTAMPDIFF(YEAR, citizens.birth_date, CURDATE()) BETWEEN 30 AND 50 THEN 'Produktif Matang (30-50 Thn)'
+            ELSE 'Senior / Lansia (>50 Thn)'
+        END";
+        return $this->compileGenderizedData(MsmeType::OWNER_AGE, $expression, $rw);
+    }
+
+    public function getOwnerEducation(?string $rw = null)
+    {
+        $expression = "COALESCE((SELECT ep.education_level FROM education_profiles ep WHERE ep.citizen_id = citizens.id LIMIT 1), 'Tidak Sekolah')";
+        return $this->compileGenderizedData(MsmeType::OWNER_EDUCATION, $expression, $rw);
+    }
+
+    public function getBusinessLocation(?string $rw = null)
+    {
+        // return $this->compileGenderizedData(MsmeType::BUSINESS_LOCATION, 'msmes.business_location_type', $rw);
+        $expression = "CASE
+        WHEN EXISTS (
+                SELECT 1 FROM spatial_data sd
+                WHERE sd.feature_type = 'App\\\\Models\\\\Msme'
+                AND sd.feature_id = msmes.id
+            ) THEN 'Sudah Terpetakan (GIS)'
+            ELSE 'Belum Terpetakan'
+        END";
+
+        return $this->compileGenderizedData(MsmeType::BUSINESS_LOCATION, $expression, $rw);
+    }
+
+    public function getLegalStatus(?string $rw = null)
+    {
+        return $this->compileGenderizedData(MsmeType::LEGAL_STATUS, 'msmes.legal_entity_type', $rw);
+    }
+
+    public function getNibOwnership(?string $rw = null)
+    {
+        $expression = "CASE WHEN msmes.license_number IS NOT NULL AND msmes.license_number != '' THEN 'Memiliki NIB' ELSE 'Belum Memiliki NIB' END";
+        return $this->compileGenderizedData(MsmeType::NIB_OWNERSHIP, $expression, $rw);
+    }
+
+    public function getMonthlyTurnover(?string $rw = null)
+    {
+        $expression = "CASE
+            WHEN msmes.monthly_revenue < 5000000 THEN 'Mikro (< 5 Juta)'
+            WHEN msmes.monthly_revenue BETWEEN 5000000 AND 15000000 THEN 'Kecil (5 - 15 Juta)'
+            ELSE 'Menengah (> 15 Juta)'
+        END";
+        return $this->compileGenderizedData(MsmeType::MONTHLY_TURNOVER, $expression, $rw);
+    }
+
+    public function getDigitalTransaction(?string $rw = null)
+    {
+        $expression = "CASE WHEN msmes.uses_digital_payment = 1 THEN 'Menggunakan QRIS/E-Wallet' ELSE 'Tunai / Cash Only' END";
+        return $this->compileGenderizedData(MsmeType::DIGITAL_TRANSACTION, $expression, $rw);
+    }
+
+    public function getDigitalPlatform(?string $rw = null)
+    {
+        return $this->compileGenderizedData(MsmeType::DIGITAL_PLATFORM, 'msmes.digital_platform_type', $rw);
+    }
+
+    public function getCapitalSource(?string $rw = null)
+    {
+        return $this->compileGenderizedData(MsmeType::CAPITAL_SOURCE, 'msmes.capital_source', $rw);
+    }
+
+    public function getEcoFriendly(?string $rw = null)
+    {
+        $expression = "CASE WHEN msmes.is_environmentally_friendly = 1 THEN 'Ramah Lingkungan' ELSE 'Belum Standar Teknis' END";
+        return $this->compileGenderizedData(MsmeType::ECO_FRIENDLY, $expression, $rw);
+    }
+
+    public function getBumdesPartnership(?string $rw = null)
+    {
+        return $this->compileGenderizedData(MsmeType::BUMDES_PARTNERSHIP, 'msmes.bumdes_partnership_status', $rw);
+    }
+
+    /**
+     * Pengambilan data makro teratas (Top Macro Summary)
+     */
+    public function getUmkmMacroStats(): stdClass
+    {
+        $stats = new stdClass();
+        $stats->total_umkm = DB::table('msmes')->whereNull('deleted_at')->count();
+        $stats->total_workers = (int) DB::table('msmes')->whereNull('deleted_at')->sum('employee_count');
+        $stats->total_turnover = (float) DB::table('msmes')->whereNull('deleted_at')->sum('monthly_revenue');
+        $stats->digital_umkm = DB::table('msmes')->whereNull('deleted_at')->where('uses_digital_payment', 1)->count();
+
+        return $stats;
     }
 }

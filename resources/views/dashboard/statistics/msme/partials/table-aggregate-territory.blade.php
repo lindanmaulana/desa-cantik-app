@@ -3,55 +3,61 @@
     x-init="initTable()"
     class="p-4 space-y-4 bg-white border border-gray-100 shadow-sm sm:p-6 rounded-2xl sm:rounded-3xl">
     <div class="flex flex-col justify-between gap-3 pb-2 border-b sm:flex-row sm:items-center border-gray-50">
-        <h3 class="text-[10px] sm:text-xs font-bold tracking-widest text-emerald-600 uppercase">
+        <h3 class="text-[10px] sm:text-xs font-bold tracking-widest text-textSecondary uppercase">
             Agregat Wilayah UMKM (RW / RT)
         </h3>
 
         <div class="flex flex-col w-full gap-2 sm:flex-row sm:w-auto">
-            <div class="relative w-full sm:w-48">
-                <form action="{{ request()->url() }}" method="GET" class="inline-block w-full" id="filter-umkm-territory-form">
-                    {{-- Pertahankan parameter type indikator UMKM yang sedang aktif --}}
-                    @foreach(request()->except(['rw', 'rt']) as $key => $value)
-                    <input type="hidden" name="{{ $key }}" value="{{ $value }}">
-                    @endforeach
+            @if(request('rw') || request('rt'))
+            <div class="flex justify-end w-full">
+                <a href="{{ request()->fullUrlWithQuery(['rw' => null, 'rt' => null]) }}"
+                    class="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-red-600 bg-red-50 hover:bg-red-100 rounded-lg border border-red-200 transition-all duration-200 shadow-sm">
+                    <i class="text-sm ri-refresh-line"></i>
+                    <span>Bersihkan Filter Wilayah</span>
+                </a>
+            </div>
+            @endif
+            <form action="{{ request()->url() }}" method="GET" class="flex flex-col w-full gap-2 sm:flex-row sm:w-auto" id="filter-territory-form">
+                @foreach (request()->except(['rw', 'rt']) as $key => $value)
+                <input type="hidden" name="{{ $key }}" value="{{ $value }}">
+                @endforeach
 
-                    <select name="rw" onchange="document.getElementById('filter-umkm-territory-form').submit()"
-                        class="appearance-none w-full bg-white border cursor-pointer border-emerald-200 text-emerald-900 text-xs sm:text-sm rounded-xl focus:ring-emerald-500 focus:border-emerald-500 block p-2.5 pr-10 outline-none">
-
-                        <option value="" {{ !request('rw') ? 'selected' : '' }}>
-                            -- Pilih Dusun/RW --
+                <div class="relative w-full sm:w-48">
+                    <select name="rw" onchange="this.form.submit()"
+                        class="appearance-none w-full bg-secondary border cursor-pointer border-textTertiary/40 text-textPrimary text-xs sm:text-sm rounded-xl focus:ring-1 focus:ring-primary focus:border-primary block p-2.5 pr-10 outline-none transition-all duration-300">
+                        <option value="all" class="cursor-pointer" {{ request('rw') === 'all' || !request('rw') ? 'selected' : '' }}>
+                            -- Semua Dusun --
                         </option>
 
-                        @foreach($territories as $territory)
-                        <option value="{{ $territory->rw }}" {{ request('rw') == $territory->rw ? 'selected' : '' }}>
-                            {{ $territory->sub_village }} (RW {{ $territory->rw }})
+                        @foreach ($rwList as $item)
+                        <option value="{{ $item->rw }}" class="cursor-pointer" {{ request('rw') == $item->rw ? 'selected' : '' }}>
+                            {{ $item->sub_village }} (RW {{ $item->rw }})
                         </option>
                         @endforeach
                     </select>
-                </form>
-                <div class="absolute inset-y-0 right-0 flex items-center px-3 pointer-events-none text-emerald-500">
-                    <i class="ri-arrow-down-s-line"></i>
+                    <div class="absolute inset-y-0 right-0 flex items-center px-3 pointer-events-none text-textSecondary">
+                        <i class="ri-arrow-down-s-line"></i>
+                    </div>
                 </div>
-            </div>
 
-            {{-- Filter RT otomatis muncul jika RW sudah dipilih --}}
-            @if(request('rw'))
-            <div class="relative w-full sm:w-32">
-                <select name="rt" form="filter-umkm-territory-form" onchange="document.getElementById('filter-umkm-territory-form').submit()"
-                    class="appearance-none w-full bg-white border cursor-pointer border-emerald-200 text-emerald-900 text-xs sm:text-sm rounded-xl focus:ring-emerald-500 focus:border-emerald-500 block p-2.5 pr-10 outline-none">
-                    <option value="" {{ !request('rt') ? 'selected' : '' }}>-- Semua RT --</option>
-                    @for($i = 1; $i <= 12; $i++)
-                        @php $rtVal=str_pad($i, 3, '0' , STR_PAD_LEFT); @endphp
-                        <option value="{{ $rtVal }}" {{ request('rt') == $rtVal ? 'selected' : '' }}>
-                        RT {{ $rtVal }}
+                @if(request('rw') && request('rw') !== 'all')
+                <div class="relative w-full sm:w-32">
+                    <select name="rt" onchange="this.form.submit()"
+                        class="appearance-none w-full bg-secondary border cursor-pointer border-textTertiary/40 text-textPrimary text-xs sm:text-sm rounded-xl focus:ring-1 focus:ring-primary focus:border-primary block p-2.5 pr-10 outline-none transition-all duration-300">
+                        <option value="all" {{ request('rt') === 'all' || !request('rt') ? 'selected' : '' }}>-- Semua RT --</option>
+
+                        @foreach($rtList as $item)
+                        <option value="{{ $item->rt }}" {{ request('rt') == $item->rt ? 'selected' : '' }}>
+                            RT {{ $item->rt }}
                         </option>
-                        @endfor
-                </select>
-                <div class="absolute inset-y-0 right-0 flex items-center px-3 pointer-events-none text-emerald-500">
-                    <i class="ri-arrow-down-s-line"></i>
+                        @endforeach
+                    </select>
+                    <div class="absolute inset-y-0 right-0 flex items-center px-3 pointer-events-none text-textSecondary">
+                        <i class="ri-arrow-down-s-line"></i>
+                    </div>
                 </div>
-            </div>
-            @endif
+                @endif
+            </form>
         </div>
     </div>
 

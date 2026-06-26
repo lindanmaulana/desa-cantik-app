@@ -4,7 +4,7 @@
     class="p-4 space-y-4 bg-white border border-gray-100 shadow-sm sm:p-6 rounded-2xl sm:rounded-3xl">
 
     <div class="pb-2 border-b border-gray-50">
-        <h3 class="text-[10px] sm:text-xs font-bold tracking-widest text-blue-600 uppercase">
+        <h3 class="text-[10px] sm:text-xs font-bold tracking-widest text-textSecondary uppercase">
             Agregat Infrastruktur Tingkat Desa
         </h3>
     </div>

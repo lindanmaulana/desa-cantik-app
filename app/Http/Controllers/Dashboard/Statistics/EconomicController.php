@@ -19,25 +19,30 @@ class EconomicController extends Controller
     {
         $validated = $request->validated();
 
+        $rwFilter = !empty($validated['rw']) && $validated['rw'] !== 'all' ? $validated['rw'] : null;
+        $rtFilter = !empty($validated['rt']) && $validated['rt'] !== 'all' ? $validated['rt'] : null;
+
         $stats = $this->economicService->getEconomicStats();
         $currentType = EconomicType::tryFrom($validated['type'] ?? EconomicType::OCCUPATION->value) ?? EconomicType::OCCUPATION;
 
         $data = match ($currentType) {
-            EconomicType::OCCUPATION           => $this->economicService->getOccupation($validated["rw"] ?? null),
-            EconomicType::JOB_SECTOR          => $this->economicService->getJobSector($validated["rw"] ?? null),
-            EconomicType::EMPLOYMENT_STATUS    => $this->economicService->getEmploymentStatus($validated["rw"] ?? null),
-            EconomicType::HOUSE_OWNERSHIP      => $this->economicService->getHouseOwnership($validated["rw"] ?? null),
-            EconomicType::FLOOR_MATERIAL       => $this->economicService->getFloorMaterial($validated["rw"] ?? null),
-            EconomicType::WALL_MATERIAL        => $this->economicService->getWallMaterial($validated["rw"] ?? null),
-            EconomicType::ROOF_MATERIAL        => $this->economicService->getRoofMaterial($validated["rw"] ?? null),
-            EconomicType::COOKING_FUEL         => $this->economicService->getCookingFuel($validated["rw"] ?? null),
-            EconomicType::ELECTRICITY_SOURCE => $this->economicService->getElectricitySource($validated["rw"] ?? null),
-            EconomicType::ELECTRICITY_CAPACITY => $this->economicService->getElectricityCapacity($validated["rw"] ?? null),
-            EconomicType::ECONOMIC_STATUS      => $this->economicService->getEconomicStatus($validated["rw"] ?? null),
+            EconomicType::OCCUPATION           => $this->economicService->getOccupation($rwFilter),
+            EconomicType::JOB_SECTOR          => $this->economicService->getJobSector($rwFilter),
+            EconomicType::EMPLOYMENT_STATUS    => $this->economicService->getEmploymentStatus($rwFilter),
+            EconomicType::HOUSE_OWNERSHIP      => $this->economicService->getHouseOwnership($rwFilter),
+            EconomicType::FLOOR_MATERIAL       => $this->economicService->getFloorMaterial($rwFilter),
+            EconomicType::WALL_MATERIAL        => $this->economicService->getWallMaterial($rwFilter),
+            EconomicType::ROOF_MATERIAL        => $this->economicService->getRoofMaterial($rwFilter),
+            EconomicType::COOKING_FUEL         => $this->economicService->getCookingFuel($rwFilter),
+            EconomicType::ELECTRICITY_SOURCE => $this->economicService->getElectricitySource($rwFilter),
+            EconomicType::ELECTRICITY_CAPACITY => $this->economicService->getElectricityCapacity($rwFilter),
+            EconomicType::ECONOMIC_STATUS      => $this->economicService->getEconomicStatus($rwFilter),
         };
 
         $formatted = $this->formatEconomicData($currentType, $data);
-        $territories = $this->territoriesService->getAll([]);
+
+        $rwList = $this->territoriesService->getUniqueRwOptions();
+        $rtList = $this->territoriesService->getRtOptionsByRw($rwFilter);
 
         return view('dashboard.statistics.economic.index', compact('stats'))->with([
             'currentType'                 => $currentType,
@@ -47,7 +52,8 @@ class EconomicController extends Controller
             'data'                        => $data,
             'tableAggregateVillageData'   => $formatted['tableAggregateVillageData'],
             'tableAggregateTerritoryData' => $formatted['tableAggregateTerritoryData'],
-            'territories'                 => $territories,
+            'rwList'                      => $rwList,
+            'rtList'                      => $rtList,
         ]);
     }
 

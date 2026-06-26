@@ -18,6 +18,8 @@ class SocialController extends Controller
     public function index(SocialRequest $request)
     {
         $validated = $request->validated();
+        $rwFilter = !empty($validated['rw']) && $validated['rw'] !== 'all' ? $validated['rw'] : null;
+        $rtFilter = !empty($validated['rt']) && $validated['rt'] !== 'all' ? $validated['rt'] : null;
 
         $stats = $this->socialService->getSocialStats();
 
@@ -41,7 +43,9 @@ class SocialController extends Controller
         };
 
         $formatted = $this->formatThematicData($currentType, $data);
-        $territories = $this->territoriesService->getAll([]);
+
+        $rwList = $this->territoriesService->getUniqueRwOptions();
+        $rtList = $this->territoriesService->getRtOptionsByRw($rwFilter);
 
         return view('dashboard.statistics.social.index', compact('stats'))->with([
             'currentType'                  => $currentType,
@@ -51,7 +55,8 @@ class SocialController extends Controller
             'data'                         => $data,
             'tableAggregateVillageData'    => $formatted['tableAggregateVillageData'],
             'tableAggregateTerritoryData'  => $formatted['tableAggregateTerritoryData'],
-            'territories'                  => $territories,
+            'rwList'                      => $rwList,
+            'rtList'                      => $rtList,
         ]);
     }
 
