@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Services\Settings\VillageSettingService;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
@@ -23,7 +24,27 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(VillageSettingService $villageSettingService): void
     {
-        $settings = $villageSettingService->getSettings();
+        $settings = null;
+
+        if (!app()->runningInConsole()) {
+            try {
+                $settings = $villageSettingService->getSettings();
+            } catch (\Throwable $e) {
+                Log::warning('Gagal memuat Village Settings pada boot: ' . $e->getMessage());
+            }
+        }
+
+        if (!$settings) {
+            $settings = new \App\Models\VillageSetting([
+                'id' => (string) \Illuminate\Support\Str::uuid(),
+                'village_name' => 'Nama Desa Belum Di-set',
+                'village_code' => '000000',
+                'subdistrict_name' => 'Kecamatan Belum Di-set',
+                'regency_name' => 'Kabupaten Belum Di-set',
+                'province_name' => 'Provinsi Belum Di-set',
+                'app_title' => 'Web Desa',
+            ]);
+        }
 
         Relation::morphMap([
             'resident_house' => \App\Models\Citizen::class,
@@ -66,6 +87,7 @@ class AppServiceProvider extends ServiceProvider
 
             'demographicsType' => \App\Enums\DemographicsType::class,
             'socialType' => \App\Enums\SocialType::class,
+            'healthType' => \App\Enums\HealthType::class,
             'economicType' => \App\Enums\EconomicType::class,
             'msmeType' => \App\Enums\MsmeType::class,
             'infrastructureType' => \App\Enums\InfrastructureType::class,

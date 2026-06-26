@@ -8,44 +8,28 @@ enum SocialType: string
     case SCHOOL_PARTICIPATION = 'school_participation';
     case EDUCATION_LEVEL = 'education_level';
     case HIGHEST_DIPLOMA = 'highest_diploma';
-    case BLOOD_TYPE = 'blood_type';
-    case DISABILITY = 'disability';
-    case PREGNANCY = 'pregnancy';
-    case FAMILY_PLANNING = 'family_planning';
-    case BPJS_STATUS = 'bpjs_status';
     case WELFARE_ASSISTANCE = 'welfare_assistance';
     case SANITATION = 'sanitation_type';
     case WATER_SOURCE = 'water_source';
     case ELECTRICITY_SOURCE = 'electricity_source';
     case ELECTRICITY_CAPACITY = 'electricity_capacity';
 
-    /**
-     * Menentukan tipe komponen chart yang akan dirender di frontend
-     */
     public function chartType(): string
     {
         return match ($this) {
             self::RELIGION,
             self::EDUCATION_LEVEL,
             self::HIGHEST_DIPLOMA,
-            self::FAMILY_PLANNING,
-            self::BPJS_STATUS,
             self::WELFARE_ASSISTANCE,
             self::SANITATION,
             self::WATER_SOURCE,
             self::ELECTRICITY_SOURCE,
             self::ELECTRICITY_CAPACITY => 'bar',
 
-            self::SCHOOL_PARTICIPATION,
-            self::BLOOD_TYPE,
-            self::DISABILITY,
-            self::PREGNANCY => 'donut',
+            self::SCHOOL_PARTICIPATION => 'donut',
         };
     }
 
-    /**
-     * Menerjemahkan opsi sub-kategori database menjadi teks label UI Dashboard
-     */
     public function labels(): array
     {
         return match ($this) {
@@ -79,46 +63,6 @@ enum SocialType: string
                 'Ijazah SMP',
                 'Ijazah SMA',
                 'Ijazah PT / Diploma'
-            ],
-            self::BLOOD_TYPE => [
-                'A',
-                'B',
-                'AB',
-                'O',
-                'A+',
-                'A-',
-                'B+',
-                'B-',
-                'AB+',
-                'AB-',
-                'O+',
-                'O-',
-                'Tidak Tahu'
-            ],
-            self::DISABILITY => [
-                'Fisik',
-                'Intelektual',
-                'Mental',
-                'Sensorik'
-            ],
-            self::PREGNANCY => [
-                'Hamil (Aktif Pemeriksaan)',
-                'Hamil (Beresiko/Butuh Perhatian)'
-            ],
-            self::FAMILY_PLANNING => [
-                'Suntik',
-                'Pil',
-                'Kondom',
-                'Implant',
-                'IUD',
-                'MOW (Tubektomi)',
-                'MOP (Vasektomi)'
-            ],
-            self::BPJS_STATUS => [
-                'Tidak Ada / Belum Tercover',
-                'PBI (Subsidi Pemerintah)',
-                'Mandiri',
-                'PPU (Pekerja Penerima Upah)'
             ],
             self::WELFARE_ASSISTANCE => [
                 'PKH',
@@ -159,20 +103,15 @@ enum SocialType: string
     public function title(): string
     {
         return match ($this) {
-            self::RELIGION               => 'Agama',
-            self::SCHOOL_PARTICIPATION   => 'Partisipasi Sekolah',
-            self::EDUCATION_LEVEL        => 'Jenjang Pendidikan',
-            self::HIGHEST_DIPLOMA        => 'Ijazah Terakhir',
-            self::BLOOD_TYPE             => 'Golongan Darah',
-            self::DISABILITY             => 'Disabilitas',
-            self::PREGNANCY              => 'Kehamilan',
-            self::FAMILY_PLANNING        => 'Keluarga Berencana',
-            self::BPJS_STATUS            => 'BPJS Kesehatan',
-            self::WELFARE_ASSISTANCE     => 'Bantuan Sosial',
-            self::WATER_SOURCE           => 'Sumber Air',
-            self::ELECTRICITY_SOURCE     => 'Sumber Energi Penerangan',
-            self::ELECTRICITY_CAPACITY   => 'Kapasitas Daya Listrik',
-            self::SANITATION             => 'Fasilitas BAB',
+            self::RELIGION             => 'Agama',
+            self::SCHOOL_PARTICIPATION  => 'Partisipasi Sekolah',
+            self::EDUCATION_LEVEL      => 'Jenjang Pendidikan',
+            self::HIGHEST_DIPLOMA      => 'Ijazah Terakhir',
+            self::WELFARE_ASSISTANCE    => 'Bantuan Sosial',
+            self::WATER_SOURCE          => 'Sumber Air',
+            self::ELECTRICITY_SOURCE    => 'Sumber Energi Penerangan',
+            self::ELECTRICITY_CAPACITY  => 'Kapasitas Daya Listrik',
+            self::SANITATION           => 'Fasilitas BAB',
         };
     }
 }

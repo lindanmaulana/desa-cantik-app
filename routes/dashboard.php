@@ -20,7 +20,8 @@ use App\Http\Controllers\Dashboard\ManageData\InfrastructuresController;
 use App\Http\Controllers\Dashboard\ManageData\SpatialDataController as ManageSpatialDataController;
 use App\Http\Controllers\Dashboard\Settings\VillageSettingController;
 use App\Http\Controllers\Dashboard\Statistics\EconomicController;
-use App\Http\Controllers\SuperAdmin\ManageAdminController;
+use App\Http\Controllers\Dashboard\Statistics\HealthController;
+use App\Http\Controllers\Dashboard\SuperAdmin\ManageAdminController;
 
 Route::middleware(['auth'])->group(function () {
     Route::prefix('dashboard')->group(function () {
@@ -29,6 +30,7 @@ Route::middleware(['auth'])->group(function () {
         Route::prefix('statistics')->group(function () {
             Route::get('/demograph', [DemographController::class, 'index'])->name('dashboard.statistics.demograph');
             Route::get('/social', [SocialController::class, 'index'])->name('dashboard.statistics.social');
+            Route::get('/health', [HealthController::class, 'index'])->name('dashboard.statistics.health');
             Route::get('/economic', [EconomicController::class, 'index'])->name('dashboard.statistics.economic');
             Route::get('/msme', [MsmeController::class, 'index'])->name('dashboard.statistics.msme');
             Route::get('/infrastructure', [InfrastructureController::class, 'index'])->name('dashboard.statistics.infrastructure');
