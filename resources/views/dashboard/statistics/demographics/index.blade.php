@@ -4,16 +4,16 @@
         isGenerating: false
     }">
 
-        @include('dashboard.statistics.demographics.partials.header')
+        @include('dashboard.statistics.demographics.partials._header')
 
         <div class="space-y-4 sm:space-y-6" x-show="isGenerated" x-cloak style="display: none;"
             x-transition:enter="transition ease-out duration-500 delay-200"
             x-transition:enter-start="opacity-0 translate-y-8" x-transition:enter-end="opacity-100 translate-y-0">
-            @include('dashboard.statistics.demographics.partials.stats-card')
-            @include('dashboard.statistics.demographics.partials.filter-aggregate')
-            @include('dashboard.statistics.demographics.partials.chart')
-            @include('dashboard.statistics.demographics.partials.table-aggregate-village')
-            @include('dashboard.statistics.demographics.partials.table-aggregate-territory')
+            @include('dashboard.statistics.demographics.partials._stats-card')
+            @include('dashboard.statistics.demographics.partials._filter-aggregate')
+            @include('dashboard.statistics.demographics.partials._chart')
+            @include('dashboard.statistics.demographics.partials._table-aggregate-village')
+            @include('dashboard.statistics.demographics.partials._table-aggregate-territory')
         </div>
     </div>
 
