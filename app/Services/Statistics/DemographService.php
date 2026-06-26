@@ -23,51 +23,32 @@ class DemographService
         $query = Citizen::query();
 
         $query->leftJoin("families", "citizens.family_id", "=", "families.id")
-            ->leftJoin("territories", "families.territory_id", "=", "territories.id")
-            ->when($rw, function ($q) use ($rw) {
-                return $q->where('territories.rw', $rw);
-            })
-            ->when($rt, function ($q) use ($rt) {
-                return $q->where('territories.rt', $rt);
-            });
+            ->leftJoin("territories", "families.territory_id", "=", "territories.id");
+
+        if ($rw) {
+            $query->where(fn($q) => $q->where('territories.rw', $rw)->orWhere('territories.rw', (int)$rw));
+        }
+        if ($rt) {
+            $query->where(fn($q) => $q->where('territories.rt', $rt)->orWhere('territories.rt', (int)$rt));
+        }
 
         $rawQuery = $query->selectRaw("
-            -- Kita berikan COALESCE agar jika RT/RW null, dia tertulis 'Tanpa Wilayah' di chart
-            COALESCE(territories.rw, 'Tanpa RW') as rw,
-            COALESCE(territories.rt, 'Tanpa RT') as rt,
-
-            -- 1. BALITA (0 - 4)
+            COALESCE(territories.rw, '000') as rw,
+            COALESCE(territories.rt, '000') as rt,
             SUM(CASE WHEN gender = 'male' AND TIMESTAMPDIFF(YEAR, birth_date, CURDATE()) BETWEEN 0 AND 4 THEN 1 ELSE 0 END) as male_toddlers,
             SUM(CASE WHEN gender = 'female' AND TIMESTAMPDIFF(YEAR, birth_date, CURDATE()) BETWEEN 0 AND 4 THEN 1 ELSE 0 END) as female_toddlers,
-
-            -- 2. ANAK-ANAK (5 - 14)
             SUM(CASE WHEN gender = 'male' AND TIMESTAMPDIFF(YEAR, birth_date, CURDATE()) BETWEEN 5 AND 14 THEN 1 ELSE 0 END) as male_children,
             SUM(CASE WHEN gender = 'female' AND TIMESTAMPDIFF(YEAR, birth_date, CURDATE()) BETWEEN 5 AND 14 THEN 1 ELSE 0 END) as female_children,
-
-            -- 3. REMAJA (15 - 24)
             SUM(CASE WHEN gender = 'male' AND TIMESTAMPDIFF(YEAR, birth_date, CURDATE()) BETWEEN 15 AND 24 THEN 1 ELSE 0 END) as male_teenagers,
             SUM(CASE WHEN gender = 'female' AND TIMESTAMPDIFF(YEAR, birth_date, CURDATE()) BETWEEN 15 AND 24 THEN 1 ELSE 0 END) as female_teenagers,
-
-            -- 4. DEWASA PRODUKTIF (25 - 54)
             SUM(CASE WHEN gender = 'male' AND TIMESTAMPDIFF(YEAR, birth_date, CURDATE()) BETWEEN 25 AND 54 THEN 1 ELSE 0 END) as male_adults,
             SUM(CASE WHEN gender = 'female' AND TIMESTAMPDIFF(YEAR, birth_date, CURDATE()) BETWEEN 25 AND 54 THEN 1 ELSE 0 END) as female_adults,
-
-            -- 5. PRA LANSIA (55 - 64)
             SUM(CASE WHEN gender = 'male' AND TIMESTAMPDIFF(YEAR, birth_date, CURDATE()) BETWEEN 55 AND 64 THEN 1 ELSE 0 END) as male_pre_seniors,
             SUM(CASE WHEN gender = 'female' AND TIMESTAMPDIFF(YEAR, birth_date, CURDATE()) BETWEEN 55 AND 64 THEN 1 ELSE 0 END) as female_pre_seniors,
-
-            -- 6. LANSIA (65+)
             SUM(CASE WHEN gender = 'male' AND TIMESTAMPDIFF(YEAR, birth_date, CURDATE()) >= 65 THEN 1 ELSE 0 END) as male_seniors,
             SUM(CASE WHEN gender = 'female' AND TIMESTAMPDIFF(YEAR, birth_date, CURDATE()) >= 65 THEN 1 ELSE 0 END) as female_seniors,
-
-            -- 7. TIDAK DIISI / DATA TIDAK VALID
-            SUM(CASE WHEN (gender = 'male' OR gender NOT IN ('male', 'female') OR gender IS NULL)
-                        AND (birth_date IS NULL OR TIMESTAMPDIFF(YEAR, birth_date, CURDATE()) IS NULL OR TIMESTAMPDIFF(YEAR, birth_date, CURDATE()) < 0)
-                        THEN 1 ELSE 0 END) as male_unmapped,
-
-            SUM(CASE WHEN gender = 'female'
-                        AND (birth_date IS NULL OR TIMESTAMPDIFF(YEAR, birth_date, CURDATE()) IS NULL OR TIMESTAMPDIFF(YEAR, birth_date, CURDATE()) < 0)
-                        THEN 1 ELSE 0 END) as female_unmapped
+            SUM(CASE WHEN (gender = 'male' OR gender NOT IN ('male', 'female') OR gender IS NULL) AND (birth_date IS NULL OR TIMESTAMPDIFF(YEAR, birth_date, CURDATE()) IS NULL OR TIMESTAMPDIFF(YEAR, birth_date, CURDATE()) < 0) THEN 1 ELSE 0 END) as male_unmapped,
+            SUM(CASE WHEN gender = 'female' AND (birth_date IS NULL OR TIMESTAMPDIFF(YEAR, birth_date, CURDATE()) IS NULL OR TIMESTAMPDIFF(YEAR, birth_date, CURDATE()) < 0) THEN 1 ELSE 0 END) as female_unmapped
         ")
             ->groupBy('territories.rw', 'territories.rt')
             ->orderBy('territories.rw')
@@ -75,7 +56,6 @@ class DemographService
             ->get();
 
         return [
-
             'male' => [
                 (int) $rawQuery->sum('male_toddlers'),
                 (int) $rawQuery->sum('male_children'),
@@ -94,14 +74,10 @@ class DemographService
                 (int) $rawQuery->sum('female_seniors'),
                 (int) $rawQuery->sum('female_unmapped'),
             ],
-
             'by_territory' => $rawQuery->map(function ($row) {
                 return [
-                    'label' => ($row->rw === 'Tanpa RW') ? 'Tanpa Wilayah KK' : "RW " . $row->rw . " / RT " . $row->rt,
-                    'territory' => [
-                        'rw' => $row->rw,
-                        'rt' => $row->rt,
-                    ],
+                    'label' => "RW " . $row->rw . " / RT " . $row->rt,
+                    'territory' => ['rw' => $row->rw, 'rt' => $row->rt],
                     'male' => [
                         (int) ($row->male_toddlers ?? 0),
                         (int) ($row->male_children ?? 0),
@@ -126,16 +102,52 @@ class DemographService
         ];
     }
 
-    public function getGender()
+    public function getGender(?string $rw = null, ?string $rt = null)
     {
-        $rawQuery =  Citizen::selectRaw("
+        $query = Citizen::query();
+
+        $query->leftJoin("families", "citizens.family_id", "=", "families.id")
+            ->leftJoin("territories", "families.territory_id", "=", "territories.id");
+
+        if ($rw) {
+            $query->where(fn($q) => $q->where('territories.rw', $rw)->orWhere('territories.rw', (int)$rw));
+        }
+        if ($rt) {
+            $query->where(fn($q) => $q->where('territories.rt', $rt)->orWhere('territories.rt', (int)$rt));
+        }
+
+        $rawQuery = $query->selectRaw("
+            COALESCE(territories.rw, '000') as rw,
+            COALESCE(territories.rt, '000') as rt,
             SUM(CASE WHEN gender = 'male'  THEN 1 ELSE 0 END) as total_male,
             SUM(CASE WHEN gender = 'female' THEN 1 ELSE 0 END) as total_female
-        ")->first();
+        ")
+            ->groupBy('territories.rw', 'territories.rt')
+            ->orderBy('territories.rw')
+            ->orderBy('territories.rt')
+            ->get();
 
         return [
-            'male' => [(int)$rawQuery->total_male ?? 0],
-            'female' => [(int)$rawQuery->total_female ?? 0],
+            'male' => [(int)$rawQuery->sum('total_male')],
+            'female' => [(int)$rawQuery->sum('total_female')],
+            'by_territory' => $rawQuery->map(function ($row) {
+                return [
+                    'label' => "RW " . $row->rw . " / RT " . $row->rt,
+                    'territory' => ['rw' => $row->rw, 'rt' => $row->rt],
+
+                    // PERBAIKAN: Selaraskan susunan baris kategori dengan Enums/Labels Gender
+                    // Baris 1 (Laki-Laki): mengambil total_male, Baris 2 (Perempuan): bernilai 0
+                    'male' => [
+                        (int)($row->total_male ?? 0),
+                        0
+                    ],
+                    'female' => [
+                        0,
+                        (int)($row->total_female ?? 0)
+                    ],
+                ];
+            })->all(),
+            'raw' => $rawQuery
         ];
     }
 
@@ -143,34 +155,25 @@ class DemographService
     {
         $query = Citizen::query();
 
-        // Join ke tabel families dan territories untuk mendapatkan data spasial wilayah
         $query->leftJoin("families", "citizens.family_id", "=", "families.id")
-            ->leftJoin("territories", "families.territory_id", "=", "territories.id")
-            ->when($rw, function ($q) use ($rw) {
-                return $q->where('territories.rw', $rw);
-            })
-            ->when($rt, function ($q) use ($rt) {
-                return $q->where('territories.rt', $rt);
-            });
+            ->leftJoin("territories", "families.territory_id", "=", "territories.id");
+
+        if ($rw) {
+            $query->where(fn($q) => $q->where('territories.rw', $rw)->orWhere('territories.rw', (int)$rw));
+        }
+        if ($rt) {
+            $query->where(fn($q) => $q->where('territories.rt', $rt)->orWhere('territories.rt', (int)$rt));
+        }
 
         $rawQuery = $query->selectRaw("
-            -- COALESCE menjaga agar jika data KK belum diset wilayahnya, tidak merusak grouping UI
-            COALESCE(territories.rw, 'Tanpa RW') as rw,
-            COALESCE(territories.rt, 'Tanpa RT') as rt,
-
-            -- 1. Belum Kawin (Single)
+            COALESCE(territories.rw, '000') as rw,
+            COALESCE(territories.rt, '000') as rt,
             SUM(CASE WHEN gender = 'male' AND marital_status = 'single' THEN 1 ELSE 0 END) as male_single,
             SUM(CASE WHEN gender = 'female' AND marital_status = 'single' THEN 1 ELSE 0 END) as female_single,
-
-            -- 2. Kawin (Married)
             SUM(CASE WHEN gender = 'male' AND marital_status = 'married' THEN 1 ELSE 0 END) as male_married,
             SUM(CASE WHEN gender = 'female' AND marital_status = 'married' THEN 1 ELSE 0 END) as female_married,
-
-            -- 3. Cerai Hidup (Divorced)
             SUM(CASE WHEN gender = 'male' AND marital_status = 'divorced' THEN 1 ELSE 0 END) as male_divorced,
             SUM(CASE WHEN gender = 'female' AND marital_status = 'divorced' THEN 1 ELSE 0 END) as female_divorced,
-
-            -- 4. Cerai Mati (Widowed)
             SUM(CASE WHEN gender = 'male' AND marital_status = 'widowed' THEN 1 ELSE 0 END) as male_widowed,
             SUM(CASE WHEN gender = 'female' AND marital_status = 'widowed' THEN 1 ELSE 0 END) as female_widowed
         ")
@@ -192,14 +195,10 @@ class DemographService
                 (int) $rawQuery->sum('female_divorced'),
                 (int) $rawQuery->sum('female_widowed')
             ],
-
             'by_territory' => $rawQuery->map(function ($row) {
                 return [
-                    'label' => ($row->rw === 'Tanpa RW') ? 'Tanpa Wilayah KK' : "RW " . $row->rw . " / RT " . $row->rt,
-                    'territory' => [
-                        'rw' => $row->rw,
-                        'rt' => $row->rt,
-                    ],
+                    'label' => "RW " . $row->rw . " / RT " . $row->rt,
+                    'territory' => ['rw' => $row->rw, 'rt' => $row->rt],
                     'male' => [
                         (int) ($row->male_single ?? 0),
                         (int) ($row->male_married ?? 0),
@@ -218,7 +217,7 @@ class DemographService
         ];
     }
 
-    public function getTerritory($rw = null)
+    public function getTerritory($rw = null, $rt = null)
     {
         $query = Territory::leftJoin('families', 'families.territory_id', '=', 'territories.id')
             ->leftJoin('citizens', function ($join) {
@@ -227,43 +226,65 @@ class DemographService
             })
             ->whereNull('territories.deleted_at');
 
-        if ($rw !== null && $rw !== 'all') {
-            $results = $query->where('territories.rw', trim($rw))
-                ->selectRaw("
-                CASE
-                    WHEN TRIM(territories.rt) = '' OR territories.rt IS NULL THEN 'Tidak Diisi'
-                    ELSE TRIM(territories.rt)
-                END as region_name,
-                COUNT(CASE WHEN citizens.gender = 'male' THEN 1 END) as male_count,
-                COUNT(CASE WHEN citizens.gender = 'female' THEN 1 END) as female_count
-            ")
-                ->groupBy('territories.rt')
-                ->orderByRaw("
-                CASE WHEN TRIM(territories.rt) = '' OR territories.rt IS NULL THEN 1 ELSE 0 END,
-                CAST(territories.rt AS UNSIGNED) ASC
-            ")
-                ->get();
-        } else {
-            $results = $query->selectRaw("
-                CASE
-                    WHEN TRIM(territories.rw) = '' OR territories.rw IS NULL THEN 'Tidak Diisi'
-                    ELSE TRIM(territories.rw)
-                END as region_name,
-                COUNT(CASE WHEN citizens.gender = 'male' THEN 1 END) as male_count,
-                COUNT(CASE WHEN citizens.gender = 'female' THEN 1 END) as female_count
-            ")
-                ->groupBy('territories.rw')
-                ->orderByRaw("
-                CASE WHEN TRIM(territories.rw) = '' OR territories.rw IS NULL THEN 1 ELSE 0 END,
-                CAST(territories.rw AS UNSIGNED) ASC
-            ")
-                ->get();
+        $isRwFiltered = ($rw !== null && $rw !== 'all');
+        $isRtFiltered = ($rt !== null && $rt !== 'all');
+
+        if ($isRwFiltered) {
+            $query->where(fn($q) => $q->where('territories.rw', trim($rw))->orWhere('territories.rw', (int)$rw));
         }
 
+        if ($isRtFiltered) {
+            $query->where(fn($q) => $q->where('territories.rt', trim($rt))->orWhere('territories.rt', (int)$rt));
+        }
+
+        if ($isRwFiltered) {
+            $query->selectRaw("
+            CASE
+                WHEN TRIM(territories.rt) = '' OR territories.rt IS NULL THEN 'Tidak Diisi'
+                ELSE TRIM(territories.rt)
+            END as region_name,
+            COUNT(CASE WHEN citizens.gender = 'male' THEN 1 END) as male_count,
+            COUNT(CASE WHEN citizens.gender = 'female' THEN 1 END) as female_count
+        ")
+                ->groupBy('territories.rt')
+                ->orderByRaw("
+            CASE WHEN TRIM(territories.rt) = '' OR territories.rt IS NULL THEN 1 ELSE 0 END,
+            CAST(territories.rt AS UNSIGNED) ASC
+        ");
+        } else {
+            $query->selectRaw("
+            CASE
+                WHEN TRIM(territories.rw) = '' OR territories.rw IS NULL THEN 'Tidak Diisi'
+                ELSE TRIM(territories.rw)
+            END as region_name,
+            COUNT(CASE WHEN citizens.gender = 'male' THEN 1 END) as male_count,
+            COUNT(CASE WHEN citizens.gender = 'female' THEN 1 END) as female_count
+        ")
+                ->groupBy('territories.rw')
+                ->orderByRaw("
+            CASE WHEN TRIM(territories.rw) = '' OR territories.rw IS NULL THEN 1 ELSE 0 END,
+            CAST(territories.rw AS UNSIGNED) ASC
+        ");
+        }
+
+        $results = $query->get();
+
+        $byTerritory = $results->map(function ($row) use ($rw, $isRwFiltered, $isRtFiltered) {
+            return [
+                'territory' => [
+                    'rw' => $isRwFiltered ? trim($rw) : $row->region_name,
+                    'rt' => $isRtFiltered ? trim($row->region_name) : ($isRwFiltered ? $row->region_name : '-'),
+                ],
+                'male'   => [(int) $row->male_count],
+                'female' => [(int) $row->female_count],
+            ];
+        })->all();
+
         return [
-            'labels' => $results->pluck('region_name')->toArray(),
-            'male'   => $results->pluck('male_count')->map('intval')->toArray(),
-            'female' => $results->pluck('female_count')->map('intval')->toArray(),
+            'labels'       => $results->pluck('region_name')->toArray(),
+            'male'         => $results->pluck('male_count')->map('intval')->toArray(),
+            'female'       => $results->pluck('female_count')->map('intval')->toArray(),
+            'by_territory' => $byTerritory,
         ];
     }
 
@@ -271,37 +292,27 @@ class DemographService
     {
         $query = Citizen::query();
 
-        // Join terpusat ke tabel pendukung teritorial wilayah
         $query->leftJoin("families", "citizens.family_id", "=", "families.id")
-            ->leftJoin("territories", "families.territory_id", "=", "territories.id")
-            ->when($rw, function ($q) use ($rw) {
-                return $q->where('territories.rw', $rw);
-            })
-            ->when($rt, function ($q) use ($rt) {
-                return $q->where('territories.rt', $rt);
-            });
+            ->leftJoin("territories", "families.territory_id", "=", "territories.id");
+
+        if ($rw) {
+            $query->where(fn($q) => $q->where('territories.rw', $rw)->orWhere('territories.rw', (int)$rw));
+        }
+        if ($rt) {
+            $query->where(fn($q) => $q->where('territories.rt', $rt)->orWhere('territories.rt', (int)$rt));
+        }
 
         $rawQuery = $query->selectRaw("
-            COALESCE(territories.rw, 'Tanpa RW') as rw,
-            COALESCE(territories.rt, 'Tanpa RT') as rt,
-
-            -- 1. Kepala Keluarga (head_of_family)
+            COALESCE(territories.rw, '000') as rw,
+            COALESCE(territories.rt, '000') as rt,
             SUM(CASE WHEN gender = 'male' AND family_role = 'head_of_family' THEN 1 ELSE 0 END) as male_hof,
             SUM(CASE WHEN gender = 'female' AND family_role = 'head_of_family' THEN 1 ELSE 0 END) as female_hof,
-
-            -- 2. Istri/Suami (spouse)
             SUM(CASE WHEN gender = 'male' AND family_role = 'spouse' THEN 1 ELSE 0 END) as male_spouse,
             SUM(CASE WHEN gender = 'female' AND family_role = 'spouse' THEN 1 ELSE 0 END) as female_spouse,
-
-            -- 3. Anak (child)
             SUM(CASE WHEN gender = 'male' AND family_role = 'child' THEN 1 ELSE 0 END) as male_child,
             SUM(CASE WHEN gender = 'female' AND family_role = 'child' THEN 1 ELSE 0 END) as female_child,
-
-            -- 4. Orang Tua/Mertua (parent)
             SUM(CASE WHEN gender = 'male' AND family_role = 'parent' THEN 1 ELSE 0 END) as male_parent,
             SUM(CASE WHEN gender = 'female' AND family_role = 'parent' THEN 1 ELSE 0 END) as female_parent,
-
-            -- 5. Famili Lain (other_relative)
             SUM(CASE WHEN gender = 'male' AND family_role = 'other_relative' THEN 1 ELSE 0 END) as male_other,
             SUM(CASE WHEN gender = 'female' AND family_role = 'other_relative' THEN 1 ELSE 0 END) as female_other
         ")
@@ -325,14 +336,10 @@ class DemographService
                 (int) $rawQuery->sum('female_parent'),
                 (int) $rawQuery->sum('female_other')
             ],
-
             'by_territory' => $rawQuery->map(function ($row) {
                 return [
-                    'label' => ($row->rw === 'Tanpa RW') ? 'Tanpa Wilayah KK' : "RW " . $row->rw . " / RT " . $row->rt,
-                    'territory' => [
-                        'rw' => $row->rw,
-                        'rt' => $row->rt,
-                    ],
+                    'label' => "RW " . $row->rw . " / RT " . $row->rt,
+                    'territory' => ['rw' => $row->rw, 'rt' => $row->rt],
                     'male' => [
                         (int) ($row->male_hof ?? 0),
                         (int) ($row->male_spouse ?? 0),

@@ -75,10 +75,7 @@
                                 name: "Jumlah Warga",
                                 data: this.chartData,
                             }, ],
-                            colors: [
-                                window.AppColors.primary,
-                                window.AppColors.secondary,
-                            ],
+                            colors: window.AppColors.chartPalette,
                             xaxis: {
                                 type: "category",
                                 categories: this.chartLabels.map((region) =>

@@ -27,6 +27,7 @@ class DemographRequest extends FormRequest
         return [
             'type' => ['nullable', 'string', Rule::enum(DemographicsType::class)],
             'rw' => ['nullable', 'string', 'max:5'],
+            'rt'   => ['nullable', 'string', 'max:5'],
         ];
     }
 }

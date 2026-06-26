@@ -27,6 +27,7 @@ class EconomicRequest extends FormRequest
         return [
             'type' => ['nullable', 'string', Rule::enum(EconomicType::class)],
             'rw'   => ['nullable', 'string', 'max:5'],
+            'rt'   => ['nullable', 'string', 'max:5'],
         ];
     }
 }

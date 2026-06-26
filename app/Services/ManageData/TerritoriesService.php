@@ -45,6 +45,26 @@ class TerritoriesService
         return $counts;
     }
 
+    public function getUniqueRwOptions()
+    {
+        return Territory::select('rw', 'sub_village')
+            ->groupBy('rw', 'sub_village')
+            ->orderBy('rw', 'asc')
+            ->get();
+    }
+
+    public function getRtOptionsByRw(?string $rw)
+    {
+        if (!$rw || $rw === 'all') {
+            return [];
+        }
+
+        return Territory::select('rt')
+            ->where('rw', $rw)
+            ->orderBy('rt', 'asc')
+            ->get();
+    }
+
     public function create(array $data)
     {
         $data['id'] = Str::uuid()->toString();
