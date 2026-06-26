@@ -3,7 +3,7 @@
         class="p-2 rounded-md sm:p-3 size-10 sm:size-12 bg-primary/10 text-primary shrink-0" />
     <div>
         <h3 class="text-lg font-bold sm:text-xl text-textPrimary">UMKM</h3>
-        <p class="text-sm sm:text-lg text-textSecondary">Analisis aggregate UMKM Desa Sukaraja</p>
+        <p class="text-sm sm:text-lg text-textSecondary">Analisis aggregate UMKM {{ $villageSettings->village_name ?? '-' }}</p>
     </div>
 </div>
 

@@ -23,9 +23,10 @@ class TerritoriesController extends Controller
 
         $validated = $request->validated();
         $territories = $this->territoriesService->getAll($validated);
+        $rwList = $this->territoriesService->getUniqueRwOptions();
         $counts = $this->territoriesService->getCount();
 
-        return view('dashboard.manage-data.territories.index', compact('territories', 'counts'));
+        return view('dashboard.manage-data.territories.index', compact('territories', 'counts', 'rwList'));
     }
 
     public function create()
