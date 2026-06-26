@@ -32,12 +32,12 @@ class FamiliesController extends Controller
                 $q->whereAny([
                     'family_card_number'
                 ], 'like', "%{$search}%")
-                ->orWhereHas('territory', function ($qt) use ($search) {
-                    $qt->whereAny([
-                        'sub_village',
-                        'area_name',
-                    ], 'like', "%{$search}%");
-                });
+                    ->orWhereHas('territory', function ($qt) use ($search) {
+                        $qt->whereAny([
+                            'sub_village',
+                            'area_name',
+                        ], 'like', "%{$search}%");
+                    });
             });
         }
 
@@ -75,7 +75,7 @@ class FamiliesController extends Controller
             DB::commit();
 
             return redirect()->route('dashboard.manage-data.families')->with('success', 'Data Keluarga berhasil ditambahkan!');
-        } catch(\Throwable $err) {
+        } catch (\Throwable $err) {
             DB::rollBack();
 
             Log::error('Gagal menyimpan keluarga: ' . $err->getMessage(), [
@@ -90,9 +90,17 @@ class FamiliesController extends Controller
         }
     }
 
-    public function show(string $id)
+    public function show(Family $family)
     {
-        //
+        $family->load([
+            'territory',
+            'housingProfile',
+            'citizens' => function ($query) {
+                $query->orderBy('family_role', 'asc');
+            }
+        ]);
+
+        return view('dashboard.manage-data.families.detail', compact('family'));
     }
 
     public function edit(string $id)

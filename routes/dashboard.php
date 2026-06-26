@@ -15,6 +15,7 @@ use App\Http\Controllers\Dashboard\ManageData\CitizensController;
 use App\Http\Controllers\Dashboard\ManageData\EducationProfileController;
 use App\Http\Controllers\Dashboard\ManageData\EmploymentProfileController;
 use App\Http\Controllers\Dashboard\ManageData\HealthProfileController;
+use App\Http\Controllers\Dashboard\ManageData\HousingProfileController;
 use App\Http\Controllers\Dashboard\ManageData\MsmesController;
 use App\Http\Controllers\Dashboard\ManageData\InfrastructuresController;
 use App\Http\Controllers\Dashboard\ManageData\SpatialDataController as ManageSpatialDataController;
@@ -48,9 +49,15 @@ Route::middleware(['auth'])->group(function () {
 
             Route::prefix('families')->group(function () {
                 Route::get('/', [FamiliesController::class, 'index'])->name('dashboard.manage-data.families');
+                Route::get('/families/{family}/detail', [FamiliesController::class, 'show'])->name('dashboard.manage-data.families.detail');
                 Route::post('/store', [FamiliesController::class, 'store'])->name('families.store');
                 Route::put('/{family}/update', [FamiliesController::class, 'update'])->name('families.update');
                 Route::delete('/{family}', [FamiliesController::class, 'destroy'])->name('families.destroy');
+            });
+
+            Route::prefix('housing-profile')->group(function () {
+                Route::post('/{family}/store', [HousingProfileController::class, 'store'])->name('housing-profile.store');
+                Route::put('/{family}/{housingProfile}/update', [HousingProfileController::class, 'update'])->name('housing-profile.update');
             });
 
             Route::prefix('citizens')->group(function () {

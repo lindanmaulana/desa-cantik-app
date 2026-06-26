@@ -19,5 +19,41 @@ export function familyData() {
             };
             this.openUpdate = true;
         },
+
+        housingProfile: {
+            openCreate: false,
+            openUpdate: false,
+
+            data: {
+                id: "",
+                floor_area_per_capita: "",
+                floor_material: "",
+                wall_material: "",
+                water_source: "",
+                sanitation_type: "",
+                cooking_fuel: "",
+                electricity_source: "",
+                electricity_capacity: "",
+            },
+
+            openModal(event) {
+                const jsonData = event.currentTarget.dataset.profile;
+                const data = JSON.parse(jsonData);
+
+                this.data = {
+                    id: data?.id || "",
+                    floor_area_per_capita: data?.floor_area_per_capita || "",
+                    floor_material: data?.floor_material || "",
+                    wall_material: data?.wall_material || "",
+                    water_source: data?.water_source || "",
+                    sanitation_type: data?.sanitation_type || "",
+                    cooking_fuel: data?.cooking_fuel || "",
+                    electricity_source: data?.electricity_source || "",
+                    electricity_capacity: data?.electricity_capacity || "",
+                };
+
+                this.openUpdate = true;
+            },
+        },
     };
 }
