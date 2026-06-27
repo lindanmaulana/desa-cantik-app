@@ -5,14 +5,14 @@ namespace App\Http\Controllers\Dashboard\Statistics;
 use App\Enums\InfrastructureType;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Statistics\InfrastructureRequest;
-use App\Services\ManageData\TerritoriesService;
+use App\Services\ManageData\TerritoryService;
 use App\Services\Statistics\InfrastructureService;
 
 class InfrastructureController extends Controller
 {
     public function __construct(
         protected InfrastructureService $infrastructureService,
-        protected TerritoriesService $territoriesService
+        protected TerritoryService $territoriesService
     ) {}
 
     public function index(InfrastructureRequest $request)

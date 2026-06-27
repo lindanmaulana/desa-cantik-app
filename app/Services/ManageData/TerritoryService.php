@@ -2,14 +2,18 @@
 
 namespace App\Services\ManageData;
 
-use App\Http\Requests\Territories\getAllTerritoryRequest;
 use App\Models\Territory;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+use Illuminate\Database\Eloquent\Collection;
 
-class TerritoriesService
+class TerritoryService
 {
+    public function getAllTerritories(): Collection
+    {
+        return Territory::all();
+    }
+
     public function getAll(array $request)
     {
         $query = Territory::query();

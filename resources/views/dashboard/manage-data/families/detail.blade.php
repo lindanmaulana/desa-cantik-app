@@ -27,7 +27,7 @@
                 <a href="{{ route('dashboard.manage-data.families') }}"
                     class="inline-flex items-center gap-1 px-4 py-2 text-sm font-medium transition-colors rounded-lg shadow-sm text-secondary bg-primary hover:opacity-90">
                     <x-iconsax-lin-arrow-left class="mr-2 size-4 max-xl:mr-0" />
-                    <span class="max-xl:hidden">Kembali ke Daftar Keluarga</span>
+                    <span class="max-xl:hidden">Kembali</span>
                 </a>
             </div>
         </div>
@@ -40,8 +40,8 @@
         <x-alert type="error" :message="session('error')" />
         @endif
 
-        @include('dashboard.manage-data.families.partials.modal.housing-profile-create')
-        @include('dashboard.manage-data.families.partials.modal.housing-profile-update')
+        @include('dashboard.manage-data.families.partials.modal._housing-profile-create')
+        @include('dashboard.manage-data.families.partials.modal._housing-profile-update')
 
         <div class="flex flex-col gap-6">
             <article class="p-4 border border-t-8 shadow sm:p-6 lg:p-8 border-textTertiary/20 border-t-primary rounded-2xl sm:rounded-3xl bg-secondary">
@@ -144,7 +144,7 @@
                     color="text-blue-500"
                     :isValue="$family->housingProfile">
 
-                    @include('dashboard.manage-data.families.partials.profiles.housing-profile')
+                    @include('dashboard.manage-data.families.partials.profiles._housing-profile')
 
                 </x-citizen-profile-card>
             </div>

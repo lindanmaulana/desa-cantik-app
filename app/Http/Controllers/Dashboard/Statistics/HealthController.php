@@ -5,14 +5,14 @@ namespace App\Http\Controllers\Dashboard\Statistics;
 use App\Enums\HealthType;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Statistics\HealthRequest;
-use App\Services\ManageData\TerritoriesService;
+use App\Services\ManageData\TerritoryService;
 use App\Services\Statistics\HealthService;
 
 class HealthController extends Controller
 {
     public function __construct(
         protected HealthService $healthService,
-        protected TerritoriesService $territoriesService
+        protected TerritoryService $territoriesService
     ) {}
 
     public function index(HealthRequest $request)

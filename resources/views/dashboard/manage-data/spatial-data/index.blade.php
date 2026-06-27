@@ -4,7 +4,7 @@ $featureType = App\Enums\FeatureType::class;
 
 <x-layouts.dashboard>
     <div class="p-6" x-data="spatialData()">
-        @include('dashboard.manage-data.spatial-data.partials.header')
+        @include('dashboard.manage-data.spatial-data.partials._header')
 
         @if(session('success'))
         <x-alert type="success" :message="session('success')" />
@@ -14,11 +14,11 @@ $featureType = App\Enums\FeatureType::class;
         <x-alert type="error" :message="session('error')" />
         @endif
 
-        @include('dashboard.manage-data.spatial-data.partials.modal.create')
-        @include('dashboard.manage-data.spatial-data.partials.modal.update')
+        @include('dashboard.manage-data.spatial-data.partials.modal._create')
+        @include('dashboard.manage-data.spatial-data.partials.modal._update')
 
-        @include('dashboard.manage-data.spatial-data.partials.stats')
-        @include('dashboard.manage-data.spatial-data.partials.filter')
-        @include('dashboard.manage-data.spatial-data.partials.table')
+        @include('dashboard.manage-data.spatial-data.partials._stats')
+        @include('dashboard.manage-data.spatial-data.partials._filter')
+        @include('dashboard.manage-data.spatial-data.partials._table')
     </div>
 </x-layouts.dashboard>

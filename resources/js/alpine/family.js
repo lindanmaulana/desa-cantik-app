@@ -3,6 +3,9 @@ export function familyData() {
         openData: false,
         openCreate: false,
         openUpdate: false,
+        openDelete: false,
+        submitting: false,
+
         family: {
             id: "",
             territory_id: "",
@@ -20,20 +23,29 @@ export function familyData() {
             this.openUpdate = true;
         },
 
+        openDeleteModal(event) {
+            const url = event.currentTarget.dataset.url;
+            this.deleteRoute = url;
+            this.openDelete = true;
+        },
+
         housingProfile: {
             openCreate: false,
             openUpdate: false,
 
             data: {
                 id: "",
-                floor_area_per_capita: "",
-                floor_material: "",
-                wall_material: "",
-                water_source: "",
-                sanitation_type: "",
-                cooking_fuel: "",
-                electricity_source: "",
-                electricity_capacity: "",
+                family_id: "",
+                house_ownership: null,
+                house_condition: "",
+                floor_material: "cement_brick",
+                wall_material: "mansory_brick",
+                roof_material: "clay_tile",
+                water_source: "protected_well",
+                sanitation_type: "private_flush_toilet",
+                cooking_fuel: "lpg_gas",
+                electricity_source: "pln_metered",
+                electricity_capacity: "900va",
             },
 
             openModal(event) {
@@ -42,14 +54,19 @@ export function familyData() {
 
                 this.data = {
                     id: data?.id || "",
-                    floor_area_per_capita: data?.floor_area_per_capita || "",
-                    floor_material: data?.floor_material || "",
-                    wall_material: data?.wall_material || "",
-                    water_source: data?.water_source || "",
-                    sanitation_type: data?.sanitation_type || "",
-                    cooking_fuel: data?.cooking_fuel || "",
-                    electricity_source: data?.electricity_source || "",
-                    electricity_capacity: data?.electricity_capacity || "",
+                    family_id: data?.family_id || "",
+                    house_ownership: data?.house_ownership || null,
+                    house_condition: data?.house_condition || "",
+                    floor_material: data?.floor_material || "cement_brick",
+                    wall_material: data?.wall_material || "mansory_brick",
+                    roof_material: data?.roof_material || "clay_tile",
+                    water_source: data?.water_source || "protected_well",
+                    sanitation_type:
+                        data?.sanitation_type || "private_flush_toilet",
+                    cooking_fuel: data?.cooking_fuel || "lpg_gas",
+                    electricity_source:
+                        data?.electricity_source || "pln_metered",
+                    electricity_capacity: data?.electricity_capacity || "900va",
                 };
 
                 this.openUpdate = true;

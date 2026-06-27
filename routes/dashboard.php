@@ -57,7 +57,7 @@ Route::middleware(['auth'])->group(function () {
 
             Route::prefix('housing-profile')->group(function () {
                 Route::post('/{family}/store', [HousingProfileController::class, 'store'])->name('housing-profile.store');
-                Route::put('/{family}/{housingProfile}/update', [HousingProfileController::class, 'update'])->name('housing-profile.update');
+                Route::put('/{family}/update', [HousingProfileController::class, 'update'])->name('housing-profile.update');
             });
 
             Route::prefix('citizens')->group(function () {

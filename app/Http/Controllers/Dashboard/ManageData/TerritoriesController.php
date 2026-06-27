@@ -7,7 +7,7 @@ use App\Http\Requests\Territories\getAllTerritoryRequest;
 use App\Http\Requests\Territories\StoreTerritoryRequest;
 use App\Http\Requests\Territories\UpdateTerritoryRequest;
 use App\Models\Territory;
-use App\Services\ManageData\TerritoriesService;
+use App\Services\ManageData\TerritoryService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -16,15 +16,15 @@ use Illuminate\Support\Facades\Log;
 
 class TerritoriesController extends Controller
 {
-    public function __construct(protected TerritoriesService $territoriesService) {}
+    public function __construct(protected TerritoryService $territoryService) {}
 
     public function index(getAllTerritoryRequest $request)
     {
 
         $validated = $request->validated();
-        $territories = $this->territoriesService->getAll($validated);
-        $rwList = $this->territoriesService->getUniqueRwOptions();
-        $counts = $this->territoriesService->getCount();
+        $territories = $this->territoryService->getAll($validated);
+        $rwList = $this->territoryService->getUniqueRwOptions();
+        $counts = $this->territoryService->getCount();
 
         return view('dashboard.manage-data.territories.index', compact('territories', 'counts', 'rwList'));
     }
@@ -40,7 +40,7 @@ class TerritoriesController extends Controller
         $validated = $request->validated();
 
         try {
-            $this->territoriesService->create($validated);
+            $this->territoryService->create($validated);
 
             return redirect()->back()->with('success', 'Data Wilayah berhasil ditambahkan!');
         } catch (\Throwable $err) {
@@ -73,7 +73,7 @@ class TerritoriesController extends Controller
         $validated = $request->validated();
 
         try {
-            $this->territoriesService->update($territory, $validated);
+            $this->territoryService->update($territory, $validated);
 
             return redirect()->back()->with('success', 'Data Wilayah berhasil di perbarui.');
         } catch (\Throwable $err) {
@@ -92,7 +92,7 @@ class TerritoriesController extends Controller
     public function destroy(Territory $territory)
     {
         try {
-            $this->territoriesService->delete($territory);
+            $this->territoryService->delete($territory);
 
             return redirect()->back()->with('success', 'Data Wilayah berhasil dihapus.');
         } catch (\Throwable $err) {
