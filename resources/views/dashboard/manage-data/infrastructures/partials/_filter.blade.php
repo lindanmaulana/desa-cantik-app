@@ -9,17 +9,17 @@
                 </span>
                 <input type="text" name="search" value="{{ request('search') }}"
                     placeholder="Cari Jembatan, Jalan, atau Anggaran..."
-                    class="w-full py-2 pl-10 pr-4 text-sm border border-gray-200 rounded-lg focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500">
+                    class="w-full py-2 pl-10 pr-4 text-sm border border-gray-200 rounded-lg focus:outline-none focus:border-primary focus:ring-1 focus:ring-emerald-500">
             </div>
         </div>
 
         <div>
             <label class="block mb-1 text-xs font-medium text-gray-500">Jenis Fasilitas</label>
             <select name="facility_type" onchange="this.form.submit()"
-                class="w-full px-3 py-2 text-sm text-gray-700 bg-white border border-gray-200 rounded-lg focus:outline-none focus:border-emerald-500">
+                class="w-full px-3 py-2 text-sm text-gray-700 bg-white border border-gray-200 rounded-lg focus:outline-none focus:border-primary">
                 <option value="">Semua Jenis</option>
                 @foreach ($facilityType::cases() as $val)
-                <option value="{{ $val->value }}" {{ request('facility_type') == $val ? 'selected' : '' }}>
+                <option value="{{ $val->value }}" {{ request('facility_type') == $val->value ? 'selected' : '' }}>
                     {{ $val->label() }}
                 </option>
                 @endforeach
@@ -29,7 +29,7 @@
         <div>
             <label class="block mb-1 text-xs font-medium text-gray-500">Kondisi Kelayakan</label>
             <select name="condition" onchange="this.form.submit()"
-                class="w-full px-3 py-2 text-sm text-gray-700 bg-white border border-gray-200 rounded-lg focus:outline-none focus:border-emerald-500">
+                class="w-full px-3 py-2 text-sm text-gray-700 bg-white border border-gray-200 rounded-lg focus:outline-none focus:border-primary">
                 <option value="">Semua Kondisi</option>
                 @foreach ($conditionInfrastructure::cases() as $val)
                 <option value="{{ $val->value }}" {{ request('condition') == $val->value ? 'selected' : '' }}>
@@ -43,12 +43,12 @@
     <div class="flex items-center justify-end gap-2 pt-2 border-t border-gray-50">
         @if(!empty(request()->query()))
         <a href="{{ route('dashboard.manage-data.infrastructures') }}"
-            class="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-200 rounded-lg hover:bg-gray-50">
+            class="px-4 py-2 text-sm font-medium text-white bg-red-500 border border-transparent rounded-lg max-md:text-xs hover:bg-red-400">
             Reset Filter
         </a>
         @endif
         <button type="submit"
-            class="px-4 py-2 text-sm font-medium text-white transition-colors rounded-lg shadow-sm bg-primary hover:bg-secondary">
+            class="px-4 py-2 text-sm font-medium text-white transition-colors rounded-lg shadow-sm bg-primary hover:opacity-90">
             Terapkan Pencarian
         </button>
     </div>

@@ -1,6 +1,6 @@
 <x-layouts.dashboard>
     <div class="p-6 max-lg:p4 max-md:p-3" x-data="msmeData">
-        @include('dashboard.manage-data.msmes.partials.header')
+        @include('dashboard.manage-data.msmes.partials._header')
 
         @if(session('success'))
         <x-alert type="success" :message="session('success')" />
@@ -10,11 +10,12 @@
         <x-alert type="error" :message="session('error')" />
         @endif
 
-        @include('dashboard.manage-data.msmes.partials.modal.create')
-        @include('dashboard.manage-data.msmes.partials.modal.update')
+        @include('dashboard.manage-data.msmes.partials.modal._create')
+        @include('dashboard.manage-data.msmes.partials.modal._update')
+        @include('dashboard.manage-data.msmes.partials.modal._delete')
 
-        @include('dashboard.manage-data.msmes.partials.stats')
-        @include('dashboard.manage-data.msmes.partials.filter')
-        @include('dashboard.manage-data.msmes.partials.table')
+        @include('dashboard.manage-data.msmes.partials._stats')
+        @include('dashboard.manage-data.msmes.partials._filter')
+        @include('dashboard.manage-data.msmes.partials._table')
     </div>
 </x-layouts.dashboard>

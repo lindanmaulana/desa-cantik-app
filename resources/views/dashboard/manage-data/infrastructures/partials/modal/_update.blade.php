@@ -4,7 +4,7 @@
 
         <div class="flex items-center justify-between px-6 py-4 border-b border-gray-100 bg-gray-50">
             <div class="flex items-center gap-2">
-                <div class="p-2 rounded-lg text-emerald-600 bg-emerald-50">
+                <div class="p-2 rounded-lg text-primary bg-primary/10">
                     <x-heroicon-o-pencil-square class="w-5 h-5" />
                 </div>
                 <div>
@@ -24,14 +24,14 @@
             <div>
                 <label for="update_facility_name" class="block mb-1 text-xs font-semibold tracking-wider text-gray-600 uppercase">Nama Sarana Prasarana <span class="text-red-500">*</span></label>
                 <input type="text" id="update_facility_name" name="facility_name" required x-model="infrastructure.facility_name" placeholder="Contoh: Jembatan Ciherang, Jalan RT 02 Dusun A"
-                    class="w-full px-3 py-2 text-sm transition-all border border-gray-200 rounded-lg bg-gray-50/50 focus:outline-none focus:bg-white focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500">
+                    class="w-full px-3 py-2 text-sm transition-all border border-gray-200 rounded-lg bg-gray-50/50 focus:outline-none focus:bg-white focus:border-primary focus:ring-1 focus:ring-primary">
             </div>
 
             <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
                 <div>
                     <label for="update_facility_type" class="block mb-1 text-xs font-semibold tracking-wider text-gray-600 uppercase">Jenis Fasilitas <span class="text-red-500">*</span></label>
                     <select id="update_facility_type" name="facility_type" required x-model="infrastructure.facility_type"
-                        class="w-full px-3 py-2 text-sm transition-all border border-gray-200 rounded-lg bg-gray-50/50 focus:outline-none focus:bg-white focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500">
+                        class="w-full px-3 py-2 text-sm transition-all border border-gray-200 rounded-lg bg-gray-50/50 focus:outline-none focus:bg-white focus:border-primary focus:ring-1 focus:ring-primary">
                             <option value="">-- Pilih Jenis Fasilitas --</option>
                         @foreach($facilityType::cases() as $val)
                             <option value="{{ $val->value }}">{{ $val->label() }}</option>
@@ -42,7 +42,7 @@
                 <div>
                     <label for="update_condition" class="block mb-1 text-xs font-semibold tracking-wider text-gray-600 uppercase">Kondisi Kelayakan Fisik <span class="text-red-500">*</span></label>
                     <select id="update_condition" name="condition" required x-model="infrastructure.condition"
-                        class="w-full px-3 py-2 text-sm transition-all border border-gray-200 rounded-lg bg-gray-50/50 focus:outline-none focus:bg-white focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500">
+                        class="w-full px-3 py-2 text-sm transition-all border border-gray-200 rounded-lg bg-gray-50/50 focus:outline-none focus:bg-white focus:border-primary focus:ring-1 focus:ring-primary">
                             <option value="">-- Pilih Kondisi --</option>
                         @foreach($conditionInfrastructure::cases() as $val)
                             <option value="{{ $val->value }}">{{ $val->label() }}</option>
@@ -55,13 +55,13 @@
                 <div>
                     <label for="update_construction_year" class="block mb-1 text-xs font-semibold tracking-wider text-gray-600 uppercase">Tahun Pembangunan</label>
                     <input type="number" id="update_construction_year" name="construction_year" min="1900" max="{{ date('Y') }}" x-model="infrastructure.construction_year" placeholder="Contoh: 2024"
-                        class="w-full px-3 py-2 text-sm transition-all border border-gray-200 rounded-lg bg-gray-50/50 focus:outline-none focus:bg-white focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500">
+                        class="w-full px-3 py-2 text-sm transition-all border border-gray-200 rounded-lg bg-gray-50/50 focus:outline-none focus:bg-white focus:border-primary focus:ring-1 focus:ring-primary">
                 </div>
 
                 <div class="md:col-span-2">
                     <label for="update_funding_source" class="block mb-1 text-xs font-semibold tracking-wider text-gray-600 uppercase">Sumber Pendanaan Anggaran <span class="text-red-500">*</span></label>
                     <input type="text" id="update_funding_source" name="funding_source" required x-model="infrastructure.funding_source" placeholder="Contoh: Dana Desa (Village Fund), APBD Kabupaten"
-                        class="w-full px-3 py-2 text-sm transition-all border border-gray-200 rounded-lg bg-gray-50/50 focus:outline-none focus:bg-white focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500">
+                        class="w-full px-3 py-2 text-sm transition-all border border-gray-200 rounded-lg bg-gray-50/50 focus:outline-none focus:bg-white focus:border-primary focus:ring-1 focus:ring-primary">
                 </div>
             </div>
 
@@ -69,7 +69,7 @@
                 <button type="button" @click="openUpdate = false" class="px-4 py-2 text-sm font-medium text-gray-700 transition-colors bg-white border border-gray-200 rounded-lg hover:bg-gray-50 focus:outline-none">
                     Batal
                 </button>
-                <button type="submit" class="px-4 py-2 text-sm font-medium text-white transition-colors rounded-lg shadow-sm bg-emerald-600 hover:bg-emerald-700 focus:outline-none">
+                <button type="submit" class="px-4 py-2 text-sm font-medium transition-colors rounded-lg shadow-sm text-secondary bg-primary hover:opacity-90 focus:outline-none">
                     Simpan Perubahan
                 </button>
             </div>

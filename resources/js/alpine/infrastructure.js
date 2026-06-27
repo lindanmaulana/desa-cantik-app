@@ -3,6 +3,9 @@ export function infrastructureData() {
         openData: false,
         openCreate: false,
         openUpdate: false,
+        openDelete: false,
+        submitting: false,
+
         infrastructure: {
             id: "",
             facility_name: "",
@@ -22,6 +25,12 @@ export function infrastructureData() {
                 funding_source: data.funding_source || "",
             };
             this.openUpdate = true;
+        },
+
+        openDeleteModal(event) {
+            const url = event.currentTarget.dataset.url;
+            this.deleteRoute = url;
+            this.openDelete = true;
         },
     };
 }

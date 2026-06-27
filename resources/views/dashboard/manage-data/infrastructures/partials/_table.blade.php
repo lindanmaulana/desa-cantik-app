@@ -61,13 +61,13 @@
                             <button @click='openModal(@json($item))' class="p-1.5 text-blue-600 hover:bg-blue-50 rounded-md transition-colors" title="Edit Aset">
                                 <x-heroicon-o-pencil-square class="w-4 h-4" />
                             </button>
-                            <form action="{{ route('infrastructures.destroy', $item->id) }}" method="POST" class="inline" onsubmit="return confirm('Apakah Anda yakin ingin menghapus aset infrastruktur ini?');">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="p-1.5 text-red-600 hover:bg-red-50 rounded-md transition-colors" title="Hapus Aset">
-                                    <x-heroicon-o-trash class="w-4 h-4" />
-                                </button>
-                            </form>
+
+                            <button type="button" @click.stop.prevent="openDeleteModal($event)"
+                                data-url="{{ route('infrastructures.destroy', $item->id) }}"
+                                class="p-1.5 text-red-500 hover:bg-red-50 rounded-md transition-colors"
+                                title="Hapus Data">
+                                <x-heroicon-o-trash class="w-4 h-4 pointer-events-none" />
+                            </button>
                         </div>
                     </td>
                 </tr>

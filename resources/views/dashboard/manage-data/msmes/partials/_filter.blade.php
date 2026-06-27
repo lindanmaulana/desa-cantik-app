@@ -21,9 +21,11 @@
         </div>
 
         <div class="flex items-end self-end justify-end gap-2">
-            <a href="{{ route('dashboard.manage-data.msmes') }}" class="px-4 py-2 text-sm font-medium text-gray-700 truncate bg-white border border-gray-200 rounded-lg max-md:text-xs hover:bg-gray-50">
+            @if(!empty(request()->query()))
+            <a href="{{ route('dashboard.manage-data.msmes') }}" class="px-4 py-2 text-sm font-medium text-white bg-red-500 border border-transparent rounded-lg max-md:text-xs hover:bg-red-400">
                 Reset Filter
             </a>
+            @endif
             <button type="submit" class="px-4 py-2 text-sm font-medium transition-colors rounded-lg shadow-sm max-md:text-xs text-secondary bg-primary hover:opacity-90">
                 Cari
             </button>

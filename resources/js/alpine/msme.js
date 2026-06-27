@@ -3,6 +3,9 @@ export function msmeData() {
         openData: false,
         openCreate: false,
         openUpdate: false,
+        openDelete: false,
+        submitting: false,
+        
         msme: {
             id: "",
             citizen_id: "",
@@ -55,6 +58,12 @@ export function msmeData() {
                     "none",
             };
             this.openUpdate = true;
+        },
+
+        openDeleteModal(event) {
+            const url = event.currentTarget.dataset.url;
+            this.deleteRoute = url;
+            this.openDelete = true;
         },
     };
 }
