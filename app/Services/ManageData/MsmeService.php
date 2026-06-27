@@ -2,7 +2,6 @@
 
 namespace App\Services\ManageData;
 
-use App\Models\Citizen;
 use App\Models\Msme;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
@@ -17,7 +16,7 @@ class MsmeService
             'total_Revenue'   => Msme::sum('monthly_revenue') ?? 0.00,
         ];
     }
-    
+
     public function getAll(array $filters)
     {
         $query = Msme::with('citizen');

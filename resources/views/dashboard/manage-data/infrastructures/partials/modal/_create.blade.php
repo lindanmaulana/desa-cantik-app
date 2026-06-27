@@ -23,14 +23,14 @@
             <div>
                 <label for="facility_name" class="block mb-1 text-xs font-semibold tracking-wider text-gray-600 uppercase">Nama Sarana Prasarana <span class="text-red-500">*</span></label>
                 <input type="text" id="facility_name" name="facility_name" required placeholder="Contoh: Jembatan Ciherang, Jalan RT 02 Dusun A"
-                    class="w-full px-3 py-2 text-sm transition-all border border-gray-200 rounded-lg bg-gray-50/50 focus:outline-none focus:bg-white focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500">
+                    class="w-full px-3 py-2 text-sm transition-all border border-gray-200 rounded-lg bg-gray-50/50 focus:outline-none focus:bg-white focus:border-primary focus:ring-1 focus:ring-primary">
             </div>
 
             <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
                 <div>
                     <label for="facility_type" class="block mb-1 text-xs font-semibold tracking-wider text-gray-600 uppercase">Jenis Fasilitas <span class="text-red-500">*</span></label>
                     <select id="facility_type" name="facility_type" required
-                        class="w-full px-3 py-2 text-sm transition-all border border-gray-200 rounded-lg bg-gray-50/50 focus:outline-none focus:bg-white focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500">
+                        class="w-full px-3 py-2 text-sm transition-all border border-gray-200 rounded-lg bg-gray-50/50 focus:outline-none focus:bg-white focus:border-primary focus:ring-1 focus:ring-primary">
                         <option value="">-- Pilih Jenis Fasilitas --</option>
                         @foreach($facilityType::cases() as $val)
                             <option value="{{ $val->value }}">{{ $val->label() }}</option>
@@ -41,7 +41,7 @@
                 <div>
                     <label for="condition" class="block mb-1 text-xs font-semibold tracking-wider text-gray-600 uppercase">Kondisi Kelayakan Fisik</label>
                     <select id="condition" name="condition"
-                        class="w-full px-3 py-2 text-sm transition-all border border-gray-200 rounded-lg bg-gray-50/50 focus:outline-none focus:bg-white focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500">
+                        class="w-full px-3 py-2 text-sm transition-all border border-gray-200 rounded-lg bg-gray-50/50 focus:outline-none focus:bg-white focus:border-primary focus:ring-1 focus:ring-primary">
                         <option value="">-- Pilih Kondisi (Default: Baik / Layak) --</option>
                         @foreach($conditionInfrastructure::cases() as $val)
                             <option value="{{ $val->value }}">{{ $val->label() }}</option>
@@ -55,13 +55,13 @@
                 <div>
                     <label for="construction_year" class="block mb-1 text-xs font-semibold tracking-wider text-gray-600 uppercase">Tahun Pembangunan</label>
                     <input type="number" id="construction_year" name="construction_year" min="1900" max="{{ date('Y') }}" placeholder="Contoh: 2024"
-                        class="w-full px-3 py-2 text-sm transition-all border border-gray-200 rounded-lg bg-gray-50/50 focus:outline-none focus:bg-white focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500">
+                        class="w-full px-3 py-2 text-sm transition-all border border-gray-200 rounded-lg bg-gray-50/50 focus:outline-none focus:bg-white focus:border-primary focus:ring-1 focus:ring-primary">
                 </div>
 
                 <div class="md:col-span-2">
                     <label for="funding_source" class="block mb-1 text-xs font-semibold tracking-wider text-gray-600 uppercase">Sumber Pendanaan Anggaran <span class="text-red-500">*</span></label>
                     <input type="text" id="funding_source" name="funding_source" required placeholder="Contoh: Dana Desa (Village Fund), APBD Kabupaten"
-                        class="w-full px-3 py-2 text-sm transition-all border border-gray-200 rounded-lg bg-gray-50/50 focus:outline-none focus:bg-white focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500">
+                        class="w-full px-3 py-2 text-sm transition-all border border-gray-200 rounded-lg bg-gray-50/50 focus:outline-none focus:bg-white focus:border-primary focus:ring-1 focus:ring-primary">
                 </div>
             </div>
 
