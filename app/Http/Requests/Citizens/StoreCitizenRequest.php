@@ -9,10 +9,6 @@ use App\Enums\FamilyRole;
 use App\Enums\Gender;
 use App\Enums\MaritalStatus;
 use App\Enums\Religion;
-use App\Http\Requests\EducationProfiles\StoreEducationProfileRequest;
-use App\Http\Requests\EmploymentProfiles\StoreEmploymentProfileRequest;
-use App\Http\Requests\HealthProfiles\StoreHealthProfileRequest;
-use App\Http\Requests\HousingProfiles\StoreHousingProfileRequest;
 
 class StoreCitizenRequest extends FormRequest
 {
