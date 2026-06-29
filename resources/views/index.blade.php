@@ -7,13 +7,13 @@
                 <div
                     class="px-3 py-1 text-xs font-semibold tracking-wide capitalize rounded-md w-fit bg-primary/10 text-primary border border-primary/20 flex items-center gap-1.5">
                     <span class="w-1.5 h-1.5 bg-primary rounded-full animate-ping"></span>
-                    Pemerintah Desa Sukaraja
+                    Pemerintah Desa {{ $villageSettings->village_name ?? '-' }}
                 </div>
 
                 <h2
                     class="flex flex-col text-3xl sm:text-4xl md:text-5xl font-bold uppercase tracking-tight text-textPrimary leading-none">
                     <span>pandawa statistik</span>
-                    <span class="text-primary mt-1">desa sukaraja</span>
+                    <span class="text-primary mt-1">desa {{ $villageSettings->village_name ?? '-' }}</span>
                 </h2>
 
                 <h3 class="text-base sm:text-lg md:text-xl font-bold text-textSecondary">
@@ -174,7 +174,7 @@
                     class="px-3 py-1 text-xs font-semibold tracking-wide rounded-full w-fit bg-primary/10 text-primary border border-primary/20">
                     Wawasan Publik
                 </div>
-                <h2 class="text-2xl sm:text-3xl font-bold text-textPrimary tracking-tight">5 Pilar Data Desa Sukaraja
+                <h2 class="text-2xl sm:text-3xl font-bold text-textPrimary tracking-tight">5 Pilar Data Desa {{ $villageSettings->village_name ?? '-' }}
                 </h2>
                 <p class="text-xs sm:text-sm text-textSecondary leading-relaxed">
                     Setiap pilar dirancang untuk memberikan gambaran komprehensif dan transparan kepada masyarakat luas.

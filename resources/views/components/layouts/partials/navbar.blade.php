@@ -8,7 +8,7 @@
             </div>
             <div
                 class="max-w-[150px] truncate capitalize text-sm font-bold tracking-tight text-textPrimary sm:max-w-none sm:text-base">
-                Nama Desa
+                {{ $villageSettings->village_name ?? '-' }}
             </div>
         </div>
 
@@ -109,8 +109,8 @@
             </div>
 
             <div class="relative">
-                <a href="{{ route('dashboard') }}"
-                    class="block px-3 lg:px-4 py-1.5 rounded-lg text-xs font-semibold tracking-wide {{ request()->routeIs('dashboard') ? 'bg-white text-primary shadow-sm' : 'text-slate-600 hover:text-primary hover:bg-white/50' }} transition-all duration-200">
+                <a href="{{ route('analisis') }}"
+                    class="block px-3 lg:px-4 py-1.5 rounded-lg text-xs font-semibold tracking-wide {{ request()->routeIs('analisis') ? 'bg-white text-primary shadow-sm' : 'text-slate-600 hover:text-primary hover:bg-white/50' }} transition-all duration-200">
                     <span>Analisis</span>
                 </a>
             </div>
@@ -199,8 +199,8 @@
                 </div>
             </div>
 
-            <a href="{{ route('dashboard') }}"
-                class="block rounded-xl px-3 py-3 text-sm font-semibold transition-colors {{ request()->routeIs('dashboard') ? 'bg-primary/10 text-primary' : 'text-slate-600 hover:bg-slate-50 hover:text-primary' }}">
+            <a href="{{ route('analisis') }}"
+                class="block rounded-xl px-3 py-3 text-sm font-semibold transition-colors {{ request()->routeIs('analisis') ? 'bg-primary/10 text-primary' : 'text-slate-600 hover:bg-slate-50 hover:text-primary' }}">
                 Analisis
             </a>
 

@@ -40,7 +40,7 @@
                             <div class="rounded-xl bg-primary/10 p-2 text-primary shadow-inner">
                                 <x-heroicon-o-square-3-stack-3d class="w-6 h-6" />
                             </div>
-                            <span class="text-base font-bold tracking-tight text-slate-900 capitalize">Nama Desa</span>
+                            <span class="text-base font-bold tracking-tight text-slate-900 capitalize">{{ $villageSettings->village_name ?? '-' }}</span>
                         </div>
                         <p class="text-xs leading-relaxed text-slate-400">
                             Platform Satu Data Desa terintegrasi. Menghadirkan transparansi, akurasi, dan kemudahan
@@ -101,7 +101,7 @@
                 <div
                     class="flex flex-col gap-3 md:flex-row md:items-center md:justify-between text-xs text-slate-400 max-md:text-center">
                     <div class="font-medium max-md:text-slate-500">
-                        <span class="md:hidden font-bold text-slate-800 block mb-1 text-sm">Nama Desa</span>
+                        <span class="md:hidden font-bold text-slate-800 block mb-1 text-sm">{{ $villageSettings->village_name ?? '-' }}</span>
                         &copy; {{ date('Y') }} Pemerintah Desa. <span class="max-md:hidden">Hak Cipta
                             Dilindungi.</span>
                     </div>
