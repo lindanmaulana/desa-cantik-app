@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Family extends Model
@@ -21,11 +22,18 @@ class Family extends Model
         'address_detail',
     ];
 
-    public function territory() {
+    public function housingProfile(): HasOne
+    {
+        return $this->hasOne(HousingProfile::class);
+    }
+
+    public function territory()
+    {
         return $this->belongsTo(Territory::class);
     }
 
-    public function citizens() {
+    public function citizens()
+    {
         return $this->hasMany(Citizen::class);
     }
 }

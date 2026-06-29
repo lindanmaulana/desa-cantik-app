@@ -7,6 +7,8 @@ export default function citizenData() {
         citizen: {
             openCreate: false,
             openUpdate: false,
+            openDelete: false,
+            submitting: false,
 
             data: {
                 id: "",
@@ -44,6 +46,12 @@ export default function citizenData() {
                 };
 
                 this.openUpdate = true;
+            },
+
+            openDeleteModal(event) {
+                const url = event.currentTarget.dataset.url;
+                this.deleteRoute = url;
+                this.openDelete = true;
             },
         },
 

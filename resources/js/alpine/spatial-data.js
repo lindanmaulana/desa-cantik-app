@@ -4,6 +4,9 @@ function spatialData() {
     return {
         openCreate: false,
         openUpdate: false,
+        openDelete: false,   // 1. Definisikan state visibilitas modal hapus
+        deleteRoute: '',     // 2. Definisikan wadah rute penghapusan
+
         spatial: {
             id: "",
             feature_type: "",
@@ -11,6 +14,14 @@ function spatialData() {
             latitude: "",
             longitude: "",
             geojson: "",
+        },
+
+        // 3. Daftarkan fungsi pemicu modal hapus yang dipanggil oleh tombol di tabel Anda
+        openDeleteModal(event) {
+            // Ambil URL rute dari attribute data-url button yang di-klik
+            const button = event.currentTarget;
+            this.deleteRoute = button.getAttribute('data-url');
+            this.openDelete = true;
         },
 
         openModal(data) {

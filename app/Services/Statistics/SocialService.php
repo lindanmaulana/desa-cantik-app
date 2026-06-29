@@ -31,9 +31,7 @@ class SocialService
         ")
             ->first();
     }
-    /**
-     * 1. AGAMA (Religion)
-     */
+
     public function getReligion(?string $rw = null, ?string $rt = null)
     {
         $query = Citizen::query()
@@ -85,9 +83,7 @@ class SocialService
         ];
     }
 
-    /**
-     * 2. PARTISIPASI SEKOLAH (School Participation)
-     */
+
     public function getSchoolParticipation(?string $rw = null, ?string $rt = null)
     {
         $query = Citizen::query()
@@ -136,10 +132,6 @@ class SocialService
         ];
     }
 
-    /**
-     * 3. JENJANG PENDIDIKAN (Education Level)
-     * Mengacu pada skema tabel `education_profiles` kolom `education_level`
-     */
     public function getEducationLevel(?string $rw = null, ?string $rt = null)
     {
         $query = Citizen::query()
@@ -209,10 +201,6 @@ class SocialService
         ];
     }
 
-    /**
-     * 4. IJAZAH TERAKHIR (Highest Diploma)
-     * Mengacu pada skema tabel `education_profiles` kolom `highest_diploma`
-     */
     public function getHighestDiploma(?string $rw = null, ?string $rt = null)
     {
         $query = Citizen::query()
@@ -281,306 +269,6 @@ class SocialService
         ];
     }
 
-    /**
-     * 5. GOLONGAN DARAH (Blood Type)
-     */
-    public function getBloodType(?string $rw = null, ?string $rt = null)
-    {
-        $query = Citizen::query()
-            ->leftJoin("families", "citizens.family_id", "=", "families.id")
-            ->leftJoin("territories", "families.territory_id", "=", "territories.id")
-            ->when($rw, fn($q) => $q->where('territories.rw', $rw))
-            ->when($rt, fn($q) => $q->where('territories.rt', $rt));
-
-        $rawQuery = $query->selectRaw("
-            COALESCE(territories.rw, 'Tanpa RW') as rw,
-            COALESCE(territories.rt, 'Tanpa RT') as rt,
-            SUM(CASE WHEN blood_type = 'A' THEN 1 ELSE 0 END) as type_a,
-            SUM(CASE WHEN blood_type = 'B' THEN 1 ELSE 0 END) as type_b,
-            SUM(CASE WHEN blood_type = 'AB' THEN 1 ELSE 0 END) as type_ab,
-            SUM(CASE WHEN blood_type = 'O' THEN 1 ELSE 0 END) as type_o,
-            SUM(CASE WHEN blood_type = 'A+' THEN 1 ELSE 0 END) as type_a_plus,
-            SUM(CASE WHEN blood_type = 'A-' THEN 1 ELSE 0 END) as type_a_minus,
-            SUM(CASE WHEN blood_type = 'B+' THEN 1 ELSE 0 END) as type_b_plus,
-            SUM(CASE WHEN blood_type = 'B-' THEN 1 ELSE 0 END) as type_b_minus,
-            SUM(CASE WHEN blood_type = 'AB+' THEN 1 ELSE 0 END) as type_ab_plus,
-            SUM(CASE WHEN blood_type = 'AB-' THEN 1 ELSE 0 END) as type_ab_minus,
-            SUM(CASE WHEN blood_type = 'O+' THEN 1 ELSE 0 END) as type_o_plus,
-            SUM(CASE WHEN blood_type = 'O-' THEN 1 ELSE 0 END) as type_o_minus,
-            SUM(CASE WHEN blood_type = 'unknown' OR blood_type IS NULL THEN 1 ELSE 0 END) as unknown
-        ")
-            ->groupBy('territories.rw', 'territories.rt')
-            ->orderBy('territories.rw')->orderBy('territories.rt')->get();
-
-        return [
-            'labels' => SocialType::BLOOD_TYPE->labels(),
-            'datasets' => [
-                (int) $rawQuery->sum('type_a'),
-                (int) $rawQuery->sum('type_b'),
-                (int) $rawQuery->sum('type_ab'),
-                (int) $rawQuery->sum('type_o'),
-                (int) $rawQuery->sum('type_a_plus'),
-                (int) $rawQuery->sum('type_a_minus'),
-                (int) $rawQuery->sum('type_b_plus'),
-                (int) $rawQuery->sum('type_b_minus'),
-                (int) $rawQuery->sum('type_ab_plus'),
-                (int) $rawQuery->sum('type_ab_minus'),
-                (int) $rawQuery->sum('type_o_plus'),
-                (int) $rawQuery->sum('type_o_minus'),
-                (int) $rawQuery->sum('unknown')
-            ],
-            'by_territory' => $rawQuery->map(fn($row) => [
-                'label' => ($row->rw === 'Tanpa RW') ? 'Tanpa Wilayah KK' : "RW {$row->rw} / RT {$row->rt}",
-                'territory' => ['rw' => $row->rw, 'rt' => $row->rt],
-                'datasets' => [
-                    (int)$row->type_a,
-                    (int)$row->type_b,
-                    (int)$row->type_ab,
-                    (int)$row->type_o,
-                    (int)$row->type_a_plus,
-                    (int)$row->type_a_minus,
-                    (int)$row->type_b_plus,
-                    (int)$row->type_b_minus,
-                    (int)$row->type_ab_plus,
-                    (int)$row->type_ab_minus,
-                    (int)$row->type_o_plus,
-                    (int)$row->type_o_minus,
-                    (int)$row->unknown
-                ]
-            ])->all()
-        ];
-    }
-
-    /**
-     * 6. DISABILITAS (Disability)
-     * Catatan: Memakai leftJoin ke tabel relasi 'health_profiles'
-     */
-    public function getDisability(?string $rw = null, ?string $rt = null)
-    {
-        $query = Citizen::query()
-            ->leftJoin("health_profiles", "citizens.id", "=", "health_profiles.citizen_id")
-            ->leftJoin("families", "citizens.family_id", "=", "families.id")
-            ->leftJoin("territories", "families.territory_id", "=", "territories.id")
-            ->when($rw, fn($q) => $q->where('territories.rw', $rw))
-            ->when($rt, fn($q) => $q->where('territories.rt', $rt));
-
-        $rawQuery = $query->selectRaw("
-            COALESCE(territories.rw, 'Tanpa RW') as rw,
-            COALESCE(territories.rt, 'Tanpa RT') as rt,
-            SUM(CASE WHEN health_profiles.disability_type = 'physical' THEN 1 ELSE 0 END) as physical,
-            SUM(CASE WHEN health_profiles.disability_type = 'intellectual' THEN 1 ELSE 0 END) as intellectual,
-            SUM(CASE WHEN health_profiles.disability_type = 'mental' THEN 1 ELSE 0 END) as mental,
-            SUM(CASE WHEN health_profiles.disability_type = 'sensory' THEN 1 ELSE 0 END) as sensory
-        ")
-            ->where('health_profiles.disability_type', '!=', 'none') // Menyaring warga normal agar tidak mengacaukan chart disabilitas
-            ->groupBy('territories.rw', 'territories.rt')
-            ->orderBy('territories.rw')->orderBy('territories.rt')->get();
-
-        return [
-            'labels' => SocialType::DISABILITY->labels(),
-            'datasets' => [
-                (int) $rawQuery->sum('physical'),
-                (int) $rawQuery->sum('intellectual'),
-                (int) $rawQuery->sum('mental'),
-                (int) $rawQuery->sum('sensory'),
-            ],
-            'by_territory' => $rawQuery->map(fn($row) => [
-                'label' => ($row->rw === 'Tanpa RW') ? 'Tanpa Wilayah KK' : "RW {$row->rw} / RT {$row->rt}",
-                'territory' => ['rw' => $row->rw, 'rt' => $row->rt],
-                'datasets' => [
-                    (int) ($row->physical ?? 0),
-                    (int) ($row->intellectual ?? 0),
-                    (int) ($row->mental ?? 0),
-                    (int) ($row->sensory ?? 0),
-                ]
-            ])->all()
-        ];
-    }
-
-    /**
-     * 8. STATUS KEHAMILAN (Pregnancy Status)
-     * Mengacu pada data agregat warga perempuan yang sedang hamil
-     */
-    public function getPregnancyStatus(?string $rw = null, ?string $rt = null)
-    {
-        $query = Citizen::query()
-            ->leftJoin("health_profiles", "citizens.id", "=", "health_profiles.citizen_id")
-            ->leftJoin("families", "citizens.family_id", "=", "families.id")
-            ->leftJoin("territories", "families.territory_id", "=", "territories.id")
-            ->when($rw, fn($q) => $q->where('territories.rw', $rw))
-            ->when($rt, fn($q) => $q->where('territories.rt', $rt));
-
-        $rawQuery = $query->selectRaw("
-            COALESCE(territories.rw, 'Tanpa RW') as rw,
-            COALESCE(territories.rt, 'Tanpa RT') as rt,
-
-            -- 1. Hamil Beresiko (Contoh: Bumil yang usianya < 20 tahun atau > 35 tahun)
-            SUM(CASE
-                WHEN citizens.gender = 'female'
-                     AND health_profiles.is_pregnant = 1
-                     AND (TIMESTAMPDIFF(YEAR, citizens.birth_date, NOW()) < 20
-                          OR TIMESTAMPDIFF(YEAR, citizens.birth_date, NOW()) > 35)
-                THEN 1
-                ELSE 0
-            END) as risky_pregnant,
-
-            -- 2. Hamil Aktif Pemeriksaan (Bumil di usia aman 20-35 tahun)
-            SUM(CASE
-                WHEN citizens.gender = 'female'
-                     AND health_profiles.is_pregnant = 1
-                     AND TIMESTAMPDIFF(YEAR, citizens.birth_date, NOW()) BETWEEN 20 AND 35
-                THEN 1
-                ELSE 0
-            END) as active_pregnant
-        ")
-            ->groupBy('territories.rw', 'territories.rt')
-            ->orderBy('territories.rw')->orderBy('territories.rt')->get();
-
-        return [
-            'labels' => SocialType::PREGNANCY->labels(),
-            'datasets' => [
-                (int) $rawQuery->sum('active_pregnant'), // Indeks 0: Hamil (Aktif Pemeriksaan)
-                (int) $rawQuery->sum('risky_pregnant'),  // Indeks 1: Hamil (Beresiko)
-            ],
-            'by_territory' => $rawQuery->map(fn($row) => [
-                'label' => ($row->rw === 'Tanpa RW') ? 'Tanpa Wilayah KK' : "RW {$row->rw} / RT {$row->rt}",
-                'territory' => ['rw' => $row->rw, 'rt' => $row->rt],
-                'datasets' => [
-                    (int) ($row->active_pregnant ?? 0),
-                    (int) ($row->risky_pregnant ?? 0),
-                ]
-            ])->all()
-        ];
-    }
-
-    /**
-     * 9. KELUARGA BERENCANA (Family Planning)
-     * Mengacu pada data kepesertaan KB bagi Pasangan Usia Subur (PUS)
-     */
-    public function getFamilyPlanning(?string $rw = null, ?string $rt = null)
-    {
-        $query = Citizen::query()
-            ->leftJoin("health_profiles", "citizens.id", "=", "health_profiles.citizen_id")
-            ->leftJoin("families", "citizens.family_id", "=", "families.id")
-            ->leftJoin("territories", "families.territory_id", "=", "territories.id") // Kembali ke territories
-            ->when($rw, fn($q) => $q->where('territories.rw', $rw))
-            ->when($rt, fn($q) => $q->where('territories.rt', $rt));
-
-        $rawQuery = $query->selectRaw("
-            COALESCE(territories.rw, 'Tanpa RW') as rw,
-            COALESCE(territories.rt, 'Tanpa RT') as rt,
-
-            -- 1. Peserta KB Aktif (Sudah menikah & metode KB bukan 'none')
-            SUM(CASE
-                WHEN citizens.marital_status = 'married'
-                     AND health_profiles.kb_method != 'none'
-                     AND health_profiles.kb_method IS NOT NULL
-                THEN 1
-                ELSE 0
-            END) as active_kb,
-
-            -- 2. Bukan Peserta KB (Pasangan Usia Subur 15-49 tahun yang tidak KB / 'none')
-            SUM(CASE
-                WHEN citizens.marital_status = 'married'
-                     AND citizens.gender = 'female'
-                     AND TIMESTAMPDIFF(YEAR, citizens.birth_date, NOW()) BETWEEN 15 AND 49
-                     AND (health_profiles.kb_method = 'none' OR health_profiles.kb_method IS NULL)
-                THEN 1
-                ELSE 0
-            END) as non_kb,
-
-            -- 3. Tidak Memenuhi Syarat / Lainnya (Belum/tidak menikah, atau di luar usia subur)
-            SUM(CASE
-                WHEN citizens.marital_status != 'married'
-                     OR (citizens.gender = 'female' AND TIMESTAMPDIFF(YEAR, citizens.birth_date, NOW()) NOT BETWEEN 15 AND 49)
-                THEN 1
-                ELSE 0
-            END) as not_applicable
-        ")
-            ->groupBy('territories.rw', 'territories.rt')
-            ->orderBy('territories.rw')->orderBy('territories.rt')->get();
-
-        return [
-            'labels' => SocialType::FAMILY_PLANNING->labels(),
-            'datasets' => [
-                (int) $rawQuery->sum('active_kb'),
-                (int) $rawQuery->sum('non_kb'),
-                (int) $rawQuery->sum('not_applicable'),
-            ],
-            'by_territory' => $rawQuery->map(fn($row) => [
-                'label' => ($row->rw === 'Tanpa RW') ? 'Tanpa Wilayah KK' : "RW {$row->rw} / RT {$row->rt}",
-                'territory' => ['rw' => $row->rw, 'rt' => $row->rt],
-                'datasets' => [
-                    (int) ($row->active_kb ?? 0),
-                    (int) ($row->non_kb ?? 0),
-                    (int) ($row->not_applicable ?? 0),
-                ]
-            ])->all()
-        ];
-    }
-
-    /**
-     * 10. JAMINAN KESEHATAN (BPJS Kesehatan Status)
-     * Mengacu pada profil kepesertaan BPJS Kesehatan warga
-     */
-    public function getBpjsStatus(?string $rw = null, ?string $rt = null)
-    {
-        $query = Citizen::query()
-            ->leftJoin("health_profiles", "citizens.id", "=", "health_profiles.citizen_id")
-            ->leftJoin("families", "citizens.family_id", "=", "families.id")
-            ->leftJoin("territories", "families.territory_id", "=", "territories.id")
-            ->when($rw, fn($q) => $q->where('territories.rw', $rw))
-            ->when($rt, fn($q) => $q->where('territories.rt', $rt));
-
-        $rawQuery = $query->selectRaw("
-            COALESCE(territories.rw, 'Tanpa RW') as rw,
-            COALESCE(territories.rt, 'Tanpa RT') as rt,
-
-            -- 1. PBI (Penerima Bantuan Iuran / Subsidi Pemerintah)
-            SUM(CASE WHEN health_profiles.bpjs_status = 'goverment_subsidized' THEN 1 ELSE 0 END) as pbi_member,
-
-            -- 2. Mandiri (Peserta Swadaya/Independen)
-            SUM(CASE WHEN health_profiles.bpjs_status = 'independent_member' THEN 1 ELSE 0 END) as independent_member,
-
-            -- 3. Pekerja (Didaftarkan oleh Perusahaan/Tempat Kerja)
-            SUM(CASE WHEN health_profiles.bpjs_status = 'company_member' THEN 1 ELSE 0 END) as company_member,
-
-            -- 4. Tidak Memiliki Jaminan Kesehatan
-            SUM(CASE WHEN health_profiles.bpjs_status = 'none' OR health_profiles.bpjs_status IS NULL THEN 1 ELSE 0 END) as no_insurance
-        ")
-            ->groupBy('territories.rw', 'territories.rt')
-            ->orderBy('territories.rw')->orderBy('territories.rt')->get();
-
-        return [
-            'labels' => [
-                'PBI (Subsidi Pemerintah)',
-                'Mandiri (Swadaya)',
-                'Pekerja (Tanggungan Perusahaan)',
-                'Tidak Ada Jaminan'
-            ],
-            'datasets' => [
-                (int) $rawQuery->sum('pbi_member'),
-                (int) $rawQuery->sum('independent_member'),
-                (int) $rawQuery->sum('company_member'),
-                (int) $rawQuery->sum('no_insurance'),
-            ],
-            'by_territory' => $rawQuery->map(fn($row) => [
-                'label' => ($row->rw === 'Tanpa RW') ? 'Tanpa Wilayah KK' : "RW {$row->rw} / RT {$row->rt}",
-                'territory' => ['rw' => $row->rw, 'rt' => $row->rt],
-                'datasets' => [
-                    (int) ($row->pbi_member ?? 0),
-                    (int) ($row->independent_member ?? 0),
-                    (int) ($row->company_member ?? 0),
-                    (int) ($row->no_insurance ?? 0),
-                ]
-            ])->all()
-        ];
-    }
-
-    /**
-     * 11. BANTUAN SOSIAL (Social Assistance / Welfare Recipient)
-     * Mengacu pada data agregat warga yang menerima jaring pengaman sosial/bansos
-     */
     public function getSocialAssistanceStatus(?string $rw = null, ?string $rt = null)
     {
         $query = Citizen::query()
@@ -650,10 +338,6 @@ class SocialService
         ];
     }
 
-    /**
-     * 4. SANITASI / FASILITAS BAB (Housing / Environment Aspect)
-     * Catatan: Agregasi berbasis KK (Family / Housing Profiles) bukan per kepala orang
-     */
     public function getSanitation(?string $rw = null, ?string $rt = null)
     {
         // Asumsi relasi: Family memiliki housing_profile (one-to-one atau join langsung)
@@ -695,10 +379,6 @@ class SocialService
         ];
     }
 
-    /**
-     * 12. SUMBER AIR BERSIH (Water Source)
-     * Mengacu pada data master tabel housing_profiles & territories asli database
-     */
     public function getWaterSource(?string $rw = null, ?string $rt = null)
     {
         $query = Family::query()
@@ -754,10 +434,6 @@ class SocialService
         ];
     }
 
-    /**
-     * 13a. SUMBER ENERGI PENERANGAN (Electricity Source)
-     * Mengacu pada SocialType::ELECTRICITY_SOURCE
-     */
     public function getElectricitySource(?string $rw = null, ?string $rt = null)
     {
         $query = Family::query()
@@ -798,10 +474,6 @@ class SocialService
         ];
     }
 
-    /**
-     * 13b. KAPASITAS DAYA LISTRIK (Electricity Capacity)
-     * Mengacu pada SocialType::ELECTRICITY_CAPACITY
-     */
     public function getElectricityCapacity(?string $rw = null, ?string $rt = null)
     {
         $query = Family::query()

@@ -5,14 +5,14 @@ namespace App\Http\Controllers\Dashboard\Statistics;
 use App\Enums\DemographicsType;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Statistics\DemographRequest;
-use App\Services\ManageData\TerritoriesService;
+use App\Services\ManageData\TerritoryService;
 use App\Services\Statistics\DemographService;
 
 class DemographController extends Controller
 {
     public function __construct(
         protected DemographService $demographService,
-        protected TerritoriesService $territoriesService
+        protected TerritoryService $territoriesService
     ) {}
 
     public function index(DemographRequest $request)

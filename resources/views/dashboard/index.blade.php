@@ -28,7 +28,7 @@
                 <div class="flex flex-col items-stretch gap-3 pt-2 sm:flex-row sm:items-center">
                     @auth
                         <x-button variant="primary" size="md">
-                            <x-heroicon-o-arrow-left-on-rectangle class="w-5 h-5" />
+                            {{-- <x-heroicon-o-arrow-left-on-rectangle class="w-5 h-5" /> --}}
                             {{ Auth::user()->fullname ?? 'Petugas' }}
                         </x-button>
                     @else

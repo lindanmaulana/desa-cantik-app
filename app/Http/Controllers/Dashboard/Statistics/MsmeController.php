@@ -5,14 +5,14 @@ namespace App\Http\Controllers\Dashboard\Statistics;
 use App\Enums\MsmeType;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Statistics\MsmeRequest;
-use App\Services\ManageData\TerritoriesService;
+use App\Services\ManageData\TerritoryService;
 use App\Services\Statistics\MsmeService;
 
 class MsmeController extends Controller
 {
     public function __construct(
         protected MsmeService $msmeService,
-        protected TerritoriesService $territoriesService
+        protected TerritoryService $territoriesService
     ) {}
 
     public function index(MsmeRequest $request)
@@ -21,11 +21,9 @@ class MsmeController extends Controller
         $rwFilter = !empty($validated['rw']) && $validated['rw'] !== 'all' ? $validated['rw'] : null;
         $rtFilter = !empty($validated['rt']) && $validated['rt'] !== 'all' ? $validated['rt'] : null;
 
-
         $stats = $this->msmeService->getUmkmMacroStats();
         $currentType = MsmeType::tryFrom($validated['type'] ?? MsmeType::BUSINESS_SECTOR->value) ?? MsmeType::BUSINESS_SECTOR;
 
-        // Mencerminkan pola 'match' yang eksplisit di EconomicController
         $data = match ($currentType) {
             MsmeType::BUSINESS_SECTOR    => $this->msmeService->getBusinessSector($rwFilter, $rtFilter),
             MsmeType::OWNER_AGE          => $this->msmeService->getOwnerAge($rwFilter, $rtFilter),
@@ -60,7 +58,6 @@ class MsmeController extends Controller
 
     public function formatUmkmData(MsmeType $type, array $data)
     {
-        // Mendapatkan label konstan dari Enum target
         $chartLabels = $type->labels();
 
         $maleData = $data["male"] ?? [];

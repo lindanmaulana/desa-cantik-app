@@ -15,12 +15,14 @@ use App\Http\Controllers\Dashboard\ManageData\CitizensController;
 use App\Http\Controllers\Dashboard\ManageData\EducationProfileController;
 use App\Http\Controllers\Dashboard\ManageData\EmploymentProfileController;
 use App\Http\Controllers\Dashboard\ManageData\HealthProfileController;
+use App\Http\Controllers\Dashboard\ManageData\HousingProfileController;
 use App\Http\Controllers\Dashboard\ManageData\MsmesController;
 use App\Http\Controllers\Dashboard\ManageData\InfrastructuresController;
 use App\Http\Controllers\Dashboard\ManageData\SpatialDataController as ManageSpatialDataController;
 use App\Http\Controllers\Dashboard\Settings\VillageSettingController;
 use App\Http\Controllers\Dashboard\Statistics\EconomicController;
-use App\Http\Controllers\SuperAdmin\ManageAdminController;
+use App\Http\Controllers\Dashboard\Statistics\HealthController;
+use App\Http\Controllers\Dashboard\SuperAdmin\ManageAdminController;
 
 Route::middleware(['auth'])->group(function () {
     Route::prefix('dashboard')->group(function () {
@@ -29,6 +31,7 @@ Route::middleware(['auth'])->group(function () {
         Route::prefix('statistics')->group(function () {
             Route::get('/demograph', [DemographController::class, 'index'])->name('dashboard.statistics.demograph');
             Route::get('/social', [SocialController::class, 'index'])->name('dashboard.statistics.social');
+            Route::get('/health', [HealthController::class, 'index'])->name('dashboard.statistics.health');
             Route::get('/economic', [EconomicController::class, 'index'])->name('dashboard.statistics.economic');
             Route::get('/msme', [MsmeController::class, 'index'])->name('dashboard.statistics.msme');
             Route::get('/infrastructure', [InfrastructureController::class, 'index'])->name('dashboard.statistics.infrastructure');
@@ -46,9 +49,15 @@ Route::middleware(['auth'])->group(function () {
 
             Route::prefix('families')->group(function () {
                 Route::get('/', [FamiliesController::class, 'index'])->name('dashboard.manage-data.families');
+                Route::get('/families/{family}/detail', [FamiliesController::class, 'show'])->name('dashboard.manage-data.families.detail');
                 Route::post('/store', [FamiliesController::class, 'store'])->name('families.store');
                 Route::put('/{family}/update', [FamiliesController::class, 'update'])->name('families.update');
                 Route::delete('/{family}', [FamiliesController::class, 'destroy'])->name('families.destroy');
+            });
+
+            Route::prefix('housing-profile')->group(function () {
+                Route::post('/{family}/store', [HousingProfileController::class, 'store'])->name('housing-profile.store');
+                Route::put('/{family}/update', [HousingProfileController::class, 'update'])->name('housing-profile.update');
             });
 
             Route::prefix('citizens')->group(function () {

@@ -5,14 +5,14 @@ namespace App\Http\Controllers\Dashboard\Statistics;
 use App\Enums\SocialType;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Statistics\SocialRequest;
-use App\Services\ManageData\TerritoriesService;
+use App\Services\ManageData\TerritoryService;
 use App\Services\Statistics\SocialService;
 
 class SocialController extends Controller
 {
     public function __construct(
         protected SocialService $socialService,
-        protected TerritoriesService $territoriesService
+        protected TerritoryService $territoriesService
     ) {}
 
     public function index(SocialRequest $request)
@@ -30,11 +30,6 @@ class SocialController extends Controller
             SocialType::SCHOOL_PARTICIPATION => $this->socialService->getSchoolParticipation($validated["rw"] ?? null, $validated["rt"] ?? null),
             SocialType::EDUCATION_LEVEL => $this->socialService->getEducationLevel($validated["rw"] ?? null, $validated["rt"] ?? null),
             SocialType::HIGHEST_DIPLOMA => $this->socialService->getHighestDiploma($validated["rw"] ?? null, $validated["rt"] ?? null),
-            SocialType::BLOOD_TYPE   => $this->socialService->getBloodType($validated["rw"] ?? null, $validated["rt"] ?? null),
-            SocialType::DISABILITY   => $this->socialService->getDisability($validated["rw"] ?? null, $validated["rt"] ?? null),
-            SocialType::PREGNANCY   => $this->socialService->getPregnancyStatus($validated["rw"] ?? null, $validated["rt"] ?? null),
-            SocialType::FAMILY_PLANNING   => $this->socialService->getFamilyPlanning($validated["rw"] ?? null, $validated["rt"] ?? null),
-            SocialType::BPJS_STATUS   => $this->socialService->getBpjsStatus($validated["rw"] ?? null, $validated["rt"] ?? null),
             SocialType::WELFARE_ASSISTANCE   => $this->socialService->getSocialAssistanceStatus($validated["rw"] ?? null, $validated["rt"] ?? null),
             SocialType::SANITATION   => $this->socialService->getSanitation($validated["rw"] ?? null, $validated["rt"] ?? null),
             SocialType::WATER_SOURCE   => $this->socialService->getWaterSource($validated["rw"] ?? null, $validated["rt"] ?? null),
