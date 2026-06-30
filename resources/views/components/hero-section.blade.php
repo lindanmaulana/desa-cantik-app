@@ -18,7 +18,7 @@
 
             <h2
                 class="flex flex-col text-2xl sm:text-4xl md:text-5xl font-bold uppercase tracking-tight text-white leading-none">
-                <span>pandawa statistik</span>
+                <span>{{ $villageSettings->app_title ?? 'pandawa' }} statistik</span>
                 <span class="text-primary mt-1">desa {{ $villageSettings->village_name ?? '-' }}</span>
             </h2>
 
@@ -73,14 +73,15 @@
                             </div>
                         @endif
                         <div>
-                            <h4 class="font-bold text-slate-800 tracking-wide text-sm sm:text-base">PANDAWA</h4>
+                            <h4 class="font-bold text-slate-800 tracking-wide text-sm sm:text-base uppercase">
+                                {{ $villageSettings->app_title ?? 'pandawa' }}</h4>
                             <p class="text-xs text-slate-500 leading-tight">Sistem Orkestrasi dan Analisis Data
                                 sebagai wawasan pengambilan keputusan</p>
                         </div>
                     </div>
                     <p class="text-xs text-slate-500 mt-4 leading-relaxed">
                         Dibangun di atas 5 pilar data utama untuk mendukung kemajuan Desa
-                        {{ $villageSettings->village_name ?? 'Sukaraja' }}:
+                        {{ $villageSettings->village_name ?? '-' }}:
                     </p>
                 </div>
 
@@ -127,7 +128,7 @@
             <!-- Map Embed -->
             <div class="hidden sm:block sm:col-span-5 bg-tertiary relative overflow-hidden min-h-[180px] sm:min-h-full">
                 <iframe
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d63362.13224381473!2d108.47197398521011!3d-6.993581459840739!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e6f105206de9acd%3A0x23809bb2c0f8e66e!2sSukaraja%2C%20Kec.%20Ciawigebang%2C%20Kabupaten%20Kuningan%2C%20Jawa%20Barat!5e0!3m2!1sid!2sid!4v1781874424452!5m2!1sid!2sid"
+                    src="https://maps.google.com/maps?q={{ $villageSettings->latitude ?? '-6.977484656144307' }},{{ $villageSettings->longitude ?? '108.48431009591388' }}&z=14&output=embed"
                     class="absolute inset-0 w-full h-full transition-opacity duration-300 border-0 opacity-90 hover:opacity-100"
                     allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
                 </iframe>

@@ -58,7 +58,7 @@
             <div class="space-y-3">
                 <h4 class="text-xs font-bold uppercase tracking-wider text-slate-800">Kantor Desa</h4>
                 <ul class="space-y-2 text-xs text-slate-500">
-                    <li>Jl. Utama No. 01, Wilayah Desa, Indonesia</li>
+                    <li>{{ $villageSettings->office_address ?? '-' }}</li>
                     <li class="pt-1">
                         <span
                             class="inline-flex items-center rounded-md bg-emerald-50 px-1.5 py-0.5 text-[10px] font-medium text-emerald-700 ring-1 ring-inset ring-emerald-600/10">08:00

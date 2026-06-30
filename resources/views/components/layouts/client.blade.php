@@ -26,8 +26,8 @@
                     x-transition:leave-start="opacity-100 translate-y-0 scale-100"
                     x-transition:leave-end="opacity-0 translate-y-4 scale-90"
                     class="flex flex-col items-center gap-2.5 mb-1" style="display: none;" @click.away="open = false">
-                    <x-cta.item-cta icon="bi-instagram" url="https://instagram.com/andrnshhrwn._" />
-                    <x-cta.item-cta icon="bi-whatsapp" url="https://wa.me/nomorhp" />
+                    <x-cta.item-cta icon="bi-instagram" url="{{ $villageSettings->instagram_url ?? 'https://instagram.com/' }}" />
+                    <x-cta.item-cta icon="bi-whatsapp" url="https://wa.me/{{ $villageSettings->phone_number ?? '' }}" />
                 </div>
             </div>
         </main>

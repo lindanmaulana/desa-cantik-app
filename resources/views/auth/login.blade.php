@@ -3,7 +3,7 @@
 
         <!-- Header Section -->
         <div class="mb-8 space-y-3">
-            <x-button variant="ghost" class="!p-2 !text-primary !border-primary">
+            <x-button variant="ghost" class="!p-2 !text-primary !border-primary max-md:hidden">
                 <a href="{{ route('home') }}">
                     <x-bx-left-arrow-alt class="w-4 h-4 max-w-6 max-h-6" />
                 </a>
@@ -16,7 +16,7 @@
         <x-auth-session-status class="mb-4" :status="session('status')" />
 
         <!-- Form Login -->
-        <form method="POST" action="{{ route('auth.login') }}" class="space-y-5" x-data="{ submitting: false }"
+        <form method="POST" action="{{ route('auth.login') }}" class="space-y-5 mb-8" x-data="{ submitting: false }"
             @submit="submitting = true">
             @csrf
 
@@ -48,7 +48,7 @@
                 </label>
 
                 @if (Route::has('auth.password.request'))
-                    <a class="text-xs text-primary hover:opacity-80 font-semibold underline transition duration-150"
+                    <a class="text-xs text-primary hover:opacity-80 font-semibold underline transition duration-150 hidden"
                         href="{{ route('auth.password.request') }}">
                         {{ __('Lupa Password?') }}
                     </a>
@@ -68,7 +68,7 @@
                     <span x-text="submitting ? 'Memproses...' : '{{ __('Masuk Aplikasi') }}'"></span>
                 </button>
 
-                <div class="text-center">
+                <div class="text-center hidden">
                     <span class="text-xs text-textTertiary">Belum punya akun resmi?</span>
                     <a class="text-xs text-primary hover:opacity-80 font-bold underline ms-1 transition duration-150"
                         href="{{ route('auth.register') }}">

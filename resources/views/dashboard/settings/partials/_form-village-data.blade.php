@@ -110,7 +110,7 @@
     </div>
 
     <div class="flex items-center justify-end pt-6 border-t gap-x-6 border-gray-900/10">
-        <button type="submit" class="rounded-lg bg-indigo-600 px-5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+        <button type="submit" class="rounded-lg bg-primary px-5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-primary/90 transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
             <span x-text="isEdit ? 'Simpan Perubahan Data' : 'Inisialisasi Pengaturan'"></span>
         </button>
     </div>
