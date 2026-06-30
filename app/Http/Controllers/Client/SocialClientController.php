@@ -44,14 +44,10 @@ class SocialClientController extends Controller
         ]);
     }
 
-    /**
-     * Memformat data tematik murni (Tanpa split gender kaku)
-     */
     public function formatThematicData(SocialType $type, array $data): array
     {
         $chartLabels = $data['labels'] ?? [];
         $datasets    = $data['datasets'] ?? [];
-        // $grandTotal  = array_sum($datasets);
 
         return [
             'chartLabels'                 => $chartLabels,
