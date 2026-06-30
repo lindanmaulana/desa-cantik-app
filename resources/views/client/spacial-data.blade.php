@@ -1,6 +1,6 @@
 <x-layouts.client>
     <div class="flex items-center justify-center h-full">
-        <x-comming-soon title="Fitur Analisis Statistik"
+        <x-comming-soon title="Fitur Data Spasial"
             description="Fitur ini sedang dalam tahap pengembangan untuk memberikan wawasan data yang lebih akurat."
             icon="bi-graph-up-arrow" />
     </div>

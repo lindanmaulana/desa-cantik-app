@@ -3,9 +3,14 @@
     <div class="relative z-50 flex h-16 items-center justify-between px-4 sm:px-6 lg:px-8">
 
         <div class="flex flex-shrink-0 items-center justify-start gap-2.5">
-            <div class="rounded-xl bg-primary/10 p-2 text-primary shadow-inner">
-                <x-heroicon-o-square-3-stack-3d class="w-6 h-6" />
-            </div>
+            @if (!empty($villageSettings->village_logo))
+                <img src="{{ asset('storage/' . $villageSettings->village_logo) }}" alt="Logo Desa"
+                    class="object-cover border rounded-full size-10 border-textTertiary/20">
+            @else
+                <div class="flex items-center justify-center rounded-lg shrink-0 text-primary">
+                    <x-heroicon-o-square-3-stack-3d class="w-7 h-7" />
+                </div>
+            @endif
             <div
                 class="max-w-[150px] truncate capitalize text-sm font-bold tracking-tight text-textPrimary sm:max-w-none sm:text-base">
                 {{ $villageSettings->village_name ?? '-' }}
@@ -47,8 +52,7 @@
                                     <div
                                         class="text-[11px] font-bold uppercase tracking-wider transition-colors {{ request()->routeIs('statistik.demografi') ? 'text-primary' : 'text-slate-800 group-hover:text-primary' }}">
                                         Demografi</div>
-                                    <div class="mt-0.5 text-[11px] text-slate-400">Data kependudukan, usia, dan struktur
-                                        warga.</div>
+                                    <div class="mt-0.5 text-[11px] text-slate-400"></div>
                                 </a>
                             </li>
                             <li>
@@ -57,8 +61,7 @@
                                     <div
                                         class="text-[11px] font-bold uppercase tracking-wider transition-colors {{ request()->routeIs('statistik.social') ? 'text-primary' : 'text-slate-800 group-hover:text-primary' }}">
                                         Sosial</div>
-                                    <div class="mt-0.5 text-[11px] text-slate-400">Informasi kesehatan, pendidikan, dan
-                                        kesejahteraan.</div>
+                                    <div class="mt-0.5 text-[11px] text-slate-400"></div>
                                 </a>
                             </li>
                             <li>
@@ -67,8 +70,7 @@
                                     <div
                                         class="text-[11px] font-bold uppercase tracking-wider transition-colors {{ request()->routeIs('statistik.economy') ? 'text-primary' : 'text-slate-800 group-hover:text-primary' }}">
                                         Ekonomi</div>
-                                    <div class="mt-0.5 text-[11px] text-slate-400">Laporan pendapatan dan pertumbuhan
-                                        pasar.</div>
+                                    <div class="mt-0.5 text-[11px] text-slate-400"></div>
                                 </a>
                             </li>
                         </ul>
@@ -79,8 +81,7 @@
                                     <div
                                         class="text-[11px] font-bold uppercase tracking-wider transition-colors {{ request()->routeIs('statistik.msme') ? 'text-primary' : 'text-slate-800 group-hover:text-primary' }}">
                                         UMKM</div>
-                                    <div class="mt-0.5 text-[11px] text-slate-400">Data usaha mikro, kecil, menengah,
-                                        dan komoditas.</div>
+                                    <div class="mt-0.5 text-[11px] text-slate-400"></div>
                                 </a>
                             </li>
                             <li>
@@ -89,8 +90,7 @@
                                     <div
                                         class="text-[11px] font-bold uppercase tracking-wider transition-colors {{ request()->routeIs('statistik.infrastructure') ? 'text-primary' : 'text-slate-800 group-hover:text-primary' }}">
                                         Infrastruktur</div>
-                                    <div class="mt-0.5 text-[11px] text-slate-400">Fasilitas umum, akses jalan, dan
-                                        pembangunan fisik.</div>
+                                    <div class="mt-0.5 text-[11px] text-slate-400"></div>
                                 </a>
                             </li>
                             <li>
@@ -99,8 +99,7 @@
                                     <div
                                         class="text-[11px] font-bold uppercase tracking-wider transition-colors {{ request()->routeIs('statistik.spacial-data') ? 'text-primary' : 'text-slate-800 group-hover:text-primary' }}">
                                         Data Spasial</div>
-                                    <div class="mt-0.5 text-[11px] text-slate-400">Pemetaan wilayah, tata ruang, dan
-                                        geografis.</div>
+                                    <div class="mt-0.5 text-[11px] text-slate-400"></div>
                                 </a>
                             </li>
                         </ul>
