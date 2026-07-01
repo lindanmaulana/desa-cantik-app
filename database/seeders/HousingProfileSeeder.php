@@ -20,19 +20,36 @@ class HousingProfileSeeder extends Seeder
 {
     public function run(): void
     {
-        foreach (Family::all() as $family) {
+        $families = Family::all();
+
+        if ($families->isEmpty()) {
+            return;
+        }
+
+        $houseOwnerships = array_column(HouseOwnership::cases(), 'value');
+        $houseConditions = array_column(HouseCondition::cases(), 'value');
+        $floorMaterials  = array_column(FloorMaterial::cases(), 'value');
+        $wallMaterials   = array_column(WallMaterial::cases(), 'value');
+        $roofMaterials   = array_column(RoofMaterial::cases(), 'value');
+        $waterSources    = array_column(WaterSource::cases(), 'value');
+        $sanitationTypes = array_column(SanitationType::cases(), 'value');
+        $cookingFuels    = array_column(CookingFuel::cases(), 'value');
+        $electricitySrcs = array_column(ElectricitySource::cases(), 'value');
+        $electricityCaps = array_column(ElectricityCapacity::cases(), 'value');
+
+        foreach ($families as $family) {
             HousingProfile::create([
-                'family_id' => $family->id,
-                'house_ownership' => fake()->randomElement(array_column(HouseOwnership::cases(), 'value')),
-                'house_condition' => fake()->randomElement(array_column(HouseCondition::cases(), 'value')),
-                'floor_material' => fake()->randomElement(array_column(FloorMaterial::cases(), 'value')),
-                'wall_material' => fake()->randomElement(array_column(WallMaterial::cases(), 'value')),
-                'roof_material' => fake()->randomElement(array_column(RoofMaterial::cases(), 'value')),
-                'water_source' => fake()->randomElement(array_column(WaterSource::cases(), 'value')),
-                'sanitation_type' => fake()->randomElement(array_column(SanitationType::cases(), 'value')),
-                'cooking_fuel' => fake()->randomElement(array_column(CookingFuel::cases(), 'value')),
-                'electricity_source' => fake()->randomElement(array_column(ElectricitySource::cases(), 'value')),
-                'electricity_capacity' => fake()->randomElement(array_column(ElectricityCapacity::cases(), 'value')),
+                'family_id'            => $family->id,
+                'house_ownership'      => $houseOwnerships[array_rand($houseOwnerships)],
+                'house_condition'      => $houseConditions[array_rand($houseConditions)],
+                'floor_material'       => $floorMaterials[array_rand($floorMaterials)],
+                'wall_material'        => $wallMaterials[array_rand($wallMaterials)],
+                'roof_material'        => $roofMaterials[array_rand($roofMaterials)],
+                'water_source'         => $waterSources[array_rand($waterSources)],
+                'sanitation_type'      => $sanitationTypes[array_rand($sanitationTypes)],
+                'cooking_fuel'         => $cookingFuels[array_rand($cookingFuels)],
+                'electricity_source'   => $electricitySrcs[array_rand($electricitySrcs)],
+                'electricity_capacity' => $electricityCaps[array_rand($electricityCaps)],
             ]);
         }
     }

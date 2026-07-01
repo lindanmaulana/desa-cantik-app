@@ -35,7 +35,6 @@
     </div>
 
     <nav class="flex flex-col w-full gap-2 px-4 mt-6 text-base">
-
         <a href="{{ route('dashboard') }}"
             class="flex items-center px-4 py-3 rounded-lg transition-all duration-300 {{ request()->routeIs('dashboard') ? 'bg-primary text-secondary' : 'text-textSecondary hover:bg-tertiary hover:text-textPrimary' }}"
             x-bind:class="openSidebar ? 'justify-start' : 'md:justify-center'">
@@ -161,23 +160,12 @@
             </span>
         </a>
 
-        <a href="{{ route('dashboard.settings.index') }}"
-            class="flex items-center px-4 py-3 rounded-lg transition-all duration-300 {{ request()->routeIs('dashboard.settings.*') ? 'bg-primary text-secondary' : 'text-textSecondary hover:bg-tertiary hover:text-textPrimary' }}"
-            x-bind:class="openSidebar ? 'justify-start' : 'md:justify-center'">
-            <x-iconsax-lin-setting-2 class="transition-all duration-500 size-5 shrink-0" />
-            <span class="ml-4 truncate origin-left transform whitespace-nowrap"
-                x-bind:class="openSidebar ? 'opacity-100 max-w-xs scale-100 transition-all duration-500 delay-200' :
-                'opacity-0 max-w-0 scale-95 md:absolute pointer-events-none md:invisible transition-all duration-150'">
-                Pengaturan Desa
-            </span>
-        </a>
-
-        @if(auth()->user()->role->value === $userRole::SUPER_ADMIN->value)
+        @if(auth()->user()->role->value === $userRole::ADMIN->value)
         <div class="" x-data="{ role: 'Super Admin' }">
             <div class="flex items-center overflow-hidden min-h-[14px]">
                 <span x-show="openSidebar || window.innerWidth < 768"
                     class="text-[10px] font-bold tracking-widest uppercase text-textSecondary/50 whitespace-nowrap">
-                    Super Admin
+                    Admin
                 </span>
                 <div x-show="openSidebar || window.innerWidth < 768" class="w-full h-[1px] bg-textTertiary/10 ml-3"></div>
 
@@ -186,6 +174,17 @@
                     SA
                 </span>
             </div>
+
+            <a href="{{ route('dashboard.settings.index') }}"
+                class="flex items-center px-4 py-3 rounded-lg transition-all duration-300 {{ request()->routeIs('dashboard.settings.*') ? 'bg-primary text-secondary' : 'text-textSecondary hover:bg-tertiary hover:text-textPrimary' }}"
+                x-bind:class="openSidebar ? 'justify-start' : 'md:justify-center'">
+                <x-iconsax-lin-setting-2 class="transition-all duration-500 size-5 shrink-0" />
+                <span class="ml-4 truncate origin-left transform whitespace-nowrap"
+                    x-bind:class="openSidebar ? 'opacity-100 max-w-xs scale-100 transition-all duration-500 delay-200' :
+                'opacity-0 max-w-0 scale-95 md:absolute pointer-events-none md:invisible transition-all duration-150'">
+                    Pengaturan Desa
+                </span>
+            </a>
 
             <a href="{{ route('dashboard.super-admin.manage-admins.index') }}"
                 class="flex items-center px-4 py-3 rounded-lg transition-all duration-300 {{ request()->routeIs('dashboard.super-admin.manage-admins.*') ? 'bg-primary text-secondary' : 'text-textSecondary hover:bg-tertiary hover:text-textPrimary' }}"

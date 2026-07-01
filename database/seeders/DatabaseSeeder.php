@@ -21,10 +21,10 @@ class DatabaseSeeder extends Seeder
         ]);
 
         User::factory()->create([
-            'fullname' => 'Super Admin User',
-            'username' => 'superadmin',
-            'password' => bcrypt('superadmin123'),
-            'role'     => UserRole::SUPER_ADMIN->value,
+            'fullname' => 'Operator1',
+            'username' => 'operator1',
+            'password' => bcrypt('operator123'),
+            'role'     => UserRole::OPERATOR->value,
         ]);
 
         $this->call([
@@ -35,7 +35,7 @@ class DatabaseSeeder extends Seeder
             EmploymentProfileSeeder::class,
             HealthProfileSeeder::class,
             HousingProfileSeeder::class,
-            MSMESeeder::class,
+            MsmeSeeder::class,
             InfrastructureSeeder::class,
             ChildGrowthLogSeeder::class,
         ]);
