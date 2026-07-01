@@ -33,3 +33,19 @@ docker compose run --rm app php artisan key:generate
 ```
 docker compose down && docker compose up -d
 ```
+
+
+
+
+
+# Panduan2
+
+## Langkah 1:
+```
+docker compose build
+```
+
+## Langkah 2:
+```
+docker compose up -d
+```
