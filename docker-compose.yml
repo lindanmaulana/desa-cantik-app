@@ -11,6 +11,7 @@ services:
     volumes:
       - pandawa_public_assets:/var/www/public
       - pandawa_user_uploads:/var/www/storage/app/public
+      - ./docker/php/uploads.ini:/usr/local/etc/php/conf.d/uploads.ini
     networks:
       - pandawa-network
 

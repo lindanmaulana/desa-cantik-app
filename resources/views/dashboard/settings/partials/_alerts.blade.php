@@ -18,3 +18,9 @@
     @endif
 </div>
 @endif
+
+@if (session('error_upload'))
+    <div class="alert alert-danger" style="background-color: #f8d7da; color: #721c24; padding: 15px; border-radius: 5px; margin-bottom: 20px;">
+        {{ session('error_upload') }}
+    </div>
+@endif
