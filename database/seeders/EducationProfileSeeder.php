@@ -12,16 +12,22 @@ class EducationProfileSeeder extends Seeder
 {
     public function run(): void
     {
-        foreach (Citizen::all() as $citizen) {
+        $citizens = Citizen::all();
 
+        if ($citizens->isEmpty()) {
+            return;
+        }
+
+        $educationLevels     = array_column(EducationLevel::cases(), 'value');
+        $schoolParticipations = array_column(SchoolParticipation::cases(), 'value');
+
+        foreach ($citizens as $citizen) {
             EducationProfile::create([
-                'citizen_id' => $citizen->id,
-                'education_level' => fake()->randomElement(array_column(EducationLevel::cases(), 'value')),
-                'highest_diploma' => 'high_school',
-                'school_participation' => fake()->randomElement(array_column(SchoolParticipation::cases(), 'value'))
+                'citizen_id'           => $citizen->id,
+                'education_level'      => $educationLevels[array_rand($educationLevels)],
+                'highest_diploma'      => 'high_school',
+                'school_participation' => $schoolParticipations[array_rand($schoolParticipations)]
             ]);
         }
     }
 }
-
-

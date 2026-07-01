@@ -27,20 +27,19 @@
 
                 <div class="flex flex-col items-stretch gap-3 pt-2 sm:flex-row sm:items-center">
                     @auth
-                        <x-button variant="primary" size="md">
-                            {{-- <x-heroicon-o-arrow-left-on-rectangle class="w-5 h-5" /> --}}
-                            {{ Auth::user()->fullname ?? 'Petugas' }}
-                        </x-button>
+                    <x-button variant="primary" size="md">
+                        {{ Auth::user()->fullname ?? 'Petugas' }}
+                    </x-button>
                     @else
-                        <x-button variant="primary" size="md">
-                            <x-heroicon-o-arrow-right-on-rectangle class="w-5 h-5" />
-                            Login Petugas
-                        </x-button>
+                    <x-button variant="primary" size="md">
+                        <x-iconsax-bro-arrow-square-right class="w-5 h-5" />
+                        Login Petugas
+                    </x-button>
                     @endauth
 
                     <a href="#pelajari-lebih" class="inline-block max-sm:w-full">
                         <x-button variant="ghost" size="md">
-                            <x-heroicon-o-chevron-down class="w-4 h-4 text-textSecondary" />
+                            <x-iconsax-lin-arrow-down class="w-4 h-4 text-textSecondary" />
                             Pelajari Lebih
                         </x-button>
                     </a>
@@ -76,19 +75,19 @@
                         </li>
                         <li class="flex items-center gap-3">
                             <span
-                                class="flex items-center justify-center w-6 h-6 rounded-full bg-emerald-50 text-emerald-500 shrink-0"><x-heroicon-o-chart-bar
+                                class="flex items-center justify-center w-6 h-6 rounded-full bg-emerald-50 text-emerald-500 shrink-0"><x-iconsax-bul-chart-1
                                     class="w-3.5 h-3.5" /></span>
                             <span>2. Data Sosial & Ekonomi</span>
                         </li>
                         <li class="flex items-center gap-3">
                             <span
-                                class="flex items-center justify-center w-6 h-6 rounded-full bg-amber-50 text-amber-500 shrink-0"><x-heroicon-o-building-storefront
+                                class="flex items-center justify-center w-6 h-6 rounded-full bg-amber-50 text-amber-500 shrink-0"><x-iconsax-bro-shop
                                     class="w-3.5 h-3.5" /></span>
                             <span>3. Data UMKM</span>
                         </li>
                         <li class="flex items-center gap-3">
                             <span
-                                class="flex items-center justify-center w-6 h-6 rounded-full bg-cyan-50 text-cyan-500 shrink-0"><x-heroicon-o-building-office
+                                class="flex items-center justify-center w-6 h-6 rounded-full bg-cyan-50 text-cyan-500 shrink-0"><x-iconsax-lin-buildings
                                     class="w-3.5 h-3.5" /></span>
                             <span>4. Data Infrastruktur Desa</span>
                         </li>
@@ -147,7 +146,7 @@
             <div
                 class="bg-secondary p-5 sm:p-6 rounded-2xl border border-tertiary shadow-sm hover:shadow-md transition-all flex flex-col items-center text-center justify-center min-h-[130px]">
                 <div class="p-2.5 bg-amber-50 text-amber-500 rounded-xl mb-2.5 shrink-0">
-                    <x-heroicon-o-building-office-2 class="w-6 h-6" />
+                    <x-bi-building class="w-6 h-6" />
                 </div>
                 <span class="text-2xl font-bold tracking-tight sm:text-3xl text-textPrimary">0</span>
                 <span class="text-[11px] font-semibold text-textSecondary mt-1 uppercase tracking-wider">Unit
@@ -197,7 +196,7 @@
                 <div
                     class="bg-secondary p-6 sm:p-8 rounded-2xl border border-tertiary shadow-sm hover:shadow-md transition-all flex flex-col justify-between min-h-[200px]">
                     <div class="space-y-3.5">
-                        <div class="p-3 bg-emerald-50 text-emerald-500 rounded-xl w-fit"><x-heroicon-o-chart-bar
+                        <div class="p-3 bg-emerald-50 text-emerald-500 rounded-xl w-fit"><x-iconsax-bul-chart-1
                                 class="w-6 h-6" /></div>
                         <h4 class="text-base font-bold sm:text-lg text-textPrimary">Data Sosial & Ekonomi</h4>
                         <p class="text-xs font-normal leading-relaxed text-textSecondary">
@@ -210,7 +209,7 @@
                 <div
                     class="bg-secondary p-6 sm:p-8 rounded-2xl border border-tertiary shadow-sm hover:shadow-md transition-all flex flex-col justify-between min-h-[200px]">
                     <div class="space-y-3.5">
-                        <div class="p-3 bg-amber-50 text-amber-500 rounded-xl w-fit"><x-heroicon-o-building-storefront
+                        <div class="p-3 bg-amber-50 text-amber-500 rounded-xl w-fit"><x-iconsax-bro-shop
                                 class="w-6 h-6" /></div>
                         <h4 class="text-base font-bold sm:text-lg text-textPrimary">Data UMKM</h4>
                         <p class="text-xs font-normal leading-relaxed text-textSecondary">
@@ -223,7 +222,7 @@
                 <div
                     class="bg-secondary p-6 sm:p-8 rounded-2xl border border-tertiary shadow-sm hover:shadow-md transition-all flex flex-col justify-between min-h-[200px]">
                     <div class="space-y-3.5">
-                        <div class="p-3 bg-cyan-50 text-cyan-500 rounded-xl w-fit"><x-heroicon-o-building-office
+                        <div class="p-3 bg-cyan-50 text-cyan-500 rounded-xl w-fit"><x-iconsax-lin-buildings
                                 class="w-6 h-6" /></div>
                         <h4 class="text-base font-bold sm:text-lg text-textPrimary">Data Infrastruktur Desa</h4>
                         <p class="text-xs font-normal leading-relaxed text-textSecondary">
@@ -247,29 +246,29 @@
                 </div>
 
                 @guest
-                    <div
-                        class="bg-primary p-6 sm:p-8 rounded-2xl shadow-lg shadow-primary/10 flex flex-col justify-between min-h-[200px] md:col-span-2 lg:col-span-1">
-                        <div class="space-y-2">
-                            <h4 class="text-base font-bold tracking-wide sm:text-lg text-secondary">Akses Data Lengkap</h4>
-                            <p class="text-xs font-normal leading-relaxed text-secondary/90">
-                                Masuk sebagai petugas untuk mengakses, mengelola, dan menganalisis data secara mendalam.
-                            </p>
-                        </div>
-
-                        <div class="flex w-full pt-4">
-                            @auth
-                                <x-button variant="secondary" size="md" class="w-full">
-                                    <x-heroicon-o-arrow-right-on-rectangle class="w-4 h-4" />
-                                    Dashboard Petugas
-                                </x-button>
-                            @else
-                                <x-button variant="secondary" size="md" class="w-full">
-                                    <x-heroicon-o-arrow-right-on-rectangle class="w-4 h-4" />
-                                    Login Sekarang
-                                </x-button>
-                            @endauth
-                        </div>
+                <div
+                    class="bg-primary p-6 sm:p-8 rounded-2xl shadow-lg shadow-primary/10 flex flex-col justify-between min-h-[200px] md:col-span-2 lg:col-span-1">
+                    <div class="space-y-2">
+                        <h4 class="text-base font-bold tracking-wide sm:text-lg text-secondary">Akses Data Lengkap</h4>
+                        <p class="text-xs font-normal leading-relaxed text-secondary/90">
+                            Masuk sebagai petugas untuk mengakses, mengelola, dan menganalisis data secara mendalam.
+                        </p>
                     </div>
+
+                    <div class="flex w-full pt-4">
+                        @auth
+                        <x-button variant="secondary" size="md" class="w-full">
+                            <x-iconsax-bro-arrow-square-right class="w-4 h-4" />
+                            Dashboard Petugas
+                        </x-button>
+                        @else
+                        <x-button variant="secondary" size="md" class="w-full">
+                            <x-iconsax-bro-arrow-square-right class="w-4 h-4" />
+                            Login Sekarang
+                        </x-button>
+                        @endauth
+                    </div>
+                </div>
                 @endguest
 
             </div>

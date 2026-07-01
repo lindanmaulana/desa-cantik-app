@@ -1,0 +1,48 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: pandawa-app:prod
+    container_name: pandawa-app
+    restart: always
+    env_file:
+      - .env
+    networks:
+      - pandawa-network
+
+  nginx:
+    image: nginx:alpine
+    container_name: pandawa_nginx
+    restart: always
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf
+      - .:/var/www:ro
+    networks:
+      - pandawa-network
+    depends_on:
+      - app
+
+  db:
+    image: mysql:8.0
+    container_name: pandawa_db
+    restart: always
+    environment:
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+      MYSQL_USER: ${DB_USERNAME}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - pandawa_mysql_data:/var/lib/mysql
+    networks:
+      - pandawa-network
+
+networks:
+  pandawa-network:
+    driver: bridge
+
+volumes:
+  pandawa_mysql_data:
+    driver: local

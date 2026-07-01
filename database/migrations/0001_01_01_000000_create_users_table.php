@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('username')->unique();
 
             $table->foreignUuid('territory_id')->nullable()->constrained('territories')->onDelete('set null');
-            $table->enum('role', array_column(UserRole::cases(), 'value'))->default(UserRole::HEAD_OF_RT->value);
+            $table->enum('role', array_column(UserRole::cases(), 'value'));
 
             $table->rememberToken();
             $table->timestamps();

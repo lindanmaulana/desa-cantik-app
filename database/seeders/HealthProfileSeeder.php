@@ -14,22 +14,32 @@ class HealthProfileSeeder extends Seeder
 {
     public function run(): void
     {
-        foreach (Citizen::all() as $citizen) {
+        $citizens = Citizen::all();
 
-            $age = $citizen->birth_date?->age;
+        if ($citizens->isEmpty()) {
+            return;
+        }
 
-            $isPregnant =
-                $citizen->gender === Gender::FEMALE->value
+        $disabilities = array_column(DisabilityType::cases(), 'value');
+        $kbMethods    = array_column(KbMethod::cases(), 'value');
+        $bpjsStatuses = array_column(BpjsStatus::cases(), 'value');
+
+        foreach ($citizens as $citizen) {
+            $age = $citizen->birth_date?->age ?? rand(10, 60);
+
+            $chance10Percent = rand(1, 100) <= 10;
+
+            $isPregnant = $citizen->gender === Gender::FEMALE->value
                 && $age >= 18
                 && $age <= 45
-                && fake()->boolean(10);
+                && $chance10Percent;
 
             HealthProfile::create([
-                'citizen_id' => $citizen->id,
-                'disability_type' => fake()->randomElement(array_column(DisabilityType::cases(), 'value')),
-                'is_pregnant' => $isPregnant,
-                'kb_method' => fake()->randomElement(array_column(KbMethod::cases(), 'value')),
-                'bpjs_status' => fake()->randomElement(array_column(BpjsStatus::cases(), 'value')),
+                'citizen_id'      => $citizen->id,
+                'disability_type' => $disabilities[array_rand($disabilities)],
+                'is_pregnant'     => $isPregnant,
+                'kb_method'       => $kbMethods[array_rand($kbMethods)],
+                'bpjs_status'     => $bpjsStatuses[array_rand($bpjsStatuses)],
             ]);
         }
     }
