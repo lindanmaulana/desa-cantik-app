@@ -10,6 +10,7 @@ services:
       - .env
     volumes:
       - pandawa_public_assets:/var/www/public
+      - pandawa_user_uploads:/var/www/storage/app/public
     networks:
       - pandawa-network
 
@@ -22,6 +23,7 @@ services:
     volumes:
       - ./nginx.conf:/etc/nginx/conf.d/default.conf
       - pandawa_public_assets:/var/www/public:ro
+      - pandawa_user_uploads:/var/www/storage/app/public:ro
     networks:
       - pandawa-network
     depends_on:
@@ -49,4 +51,6 @@ volumes:
   pandawa_mysql_data:
     driver: local
   pandawa_public_assets:
+    driver: local
+  pandawa_user_uploads:
     driver: local
