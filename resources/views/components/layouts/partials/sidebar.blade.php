@@ -20,12 +20,12 @@
         </div>
         @endif
 
-        <span
+        <a href="/"
             class="ml-3 text-sm font-bold tracking-wider uppercase truncate origin-left transform whitespace-nowrap text-textPrimary"
             x-bind:class="openSidebar ? 'opacity-100 max-w-xs scale-100 transition-all duration-500 delay-200' :
                 'opacity-0 max-w-0 scale-95 absolute pointer-events-none invisible transition-all duration-150'">
             {{ $villageSettings->village_name ?? '-' }}
-        </span>
+        </a>
 
         <button @click="openSidebar = false" class="text-textSecondary hover:text-textPrimary md:hidden">
             <svg class="size-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -186,14 +186,14 @@
                 </span>
             </a>
 
-            <a href="{{ route('dashboard.super-admin.manage-admins.index') }}"
-                class="flex items-center px-4 py-3 rounded-lg transition-all duration-300 {{ request()->routeIs('dashboard.super-admin.manage-admins.*') ? 'bg-primary text-secondary' : 'text-textSecondary hover:bg-tertiary hover:text-textPrimary' }}"
+            <a href="{{ route('dashboard.admin.manage-operator.index') }}"
+                class="flex items-center px-4 py-3 rounded-lg transition-all duration-300 {{ request()->routeIs('dashboard.admin.manage-operator.*') ? 'bg-primary text-secondary' : 'text-textSecondary hover:bg-tertiary hover:text-textPrimary' }}"
                 x-bind:class="openSidebar ? 'justify-start' : 'md:justify-center'">
                 <x-iconsax-lin-profile-2user class="transition-all duration-500 size-5 shrink-0" />
                 <span class="ml-4 truncate origin-left transform whitespace-nowrap"
                     x-bind:class="openSidebar ? 'opacity-100 max-w-xs scale-100 transition-all duration-500 delay-200' :
                 'opacity-0 max-w-0 scale-95 md:absolute pointer-events-none md:invisible transition-all duration-150'">
-                    Kelola Admin
+                    Kelola Operator
                 </span>
             </a>
         </div>

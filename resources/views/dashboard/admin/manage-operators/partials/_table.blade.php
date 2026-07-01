@@ -47,7 +47,7 @@
                                 <x-heroicon-o-pencil-square class="w-4 h-4" />
                             </button>
 
-                            <form action="{{ route('super-admin.manage-admins.destroy', $item->id) }}" method="POST"
+                            <form action="{{ route('admin.manage-operator.destroy', $item->id) }}" method="POST"
                                 class="inline"
                                 onsubmit="return confirm('Apakah Anda yakin ingin menonaktifkan akun admin ini?');">
                                 @csrf

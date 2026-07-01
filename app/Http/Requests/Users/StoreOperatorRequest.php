@@ -4,7 +4,7 @@ namespace App\Http\Requests\Users;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreAdminRequest extends FormRequest
+class StoreOperatorRequest extends FormRequest
 {
     /**
      * Tentukan apakah pengguna diizinkan untuk membuat request ini.
@@ -35,7 +35,7 @@ class StoreAdminRequest extends FormRequest
             'role' => [
                 'required',
                 'string',
-                'in:admin',
+                'in:operator',
             ],
             'password' => [
                 'nullable',

@@ -33,6 +33,7 @@
                     <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
                 </svg>
 
+                <x-ri-play-circle-fill x-show="!isGenerating" class="size-4 sm:size-5 text-secondary" />
                 <span x-text="isGenerating ? 'Memproses Data...' : 'Generate Aggregate'"></span>
             </button>
         </form>

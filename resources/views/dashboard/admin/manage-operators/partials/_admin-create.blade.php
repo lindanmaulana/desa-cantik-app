@@ -20,10 +20,10 @@
             </button>
         </div>
 
-        <form action="{{ route('super-admin.manage-admins.store') }}" method="POST" class="p-6 space-y-4">
+        <form action="{{ route('admin.manage-operator.store') }}" method="POST" class="p-6 space-y-4">
             @csrf
 
-            <input type="hidden" name="role" value="admin">
+            <input type="hidden" name="role" value="operator">
             <input type="hidden" name="territory_id" value="">
 
             <div class="space-y-4">

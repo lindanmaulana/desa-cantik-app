@@ -4,7 +4,7 @@ namespace App\Http\Requests\Users;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateAdminRequest extends FormRequest
+class UpdateOperatorRequest extends FormRequest
 {
     /**
      * Tentukan apakah pengguna diizinkan untuk membuat request ini.
@@ -28,7 +28,7 @@ class UpdateAdminRequest extends FormRequest
             'role' => [
                 'required',
                 'string',
-                'in:admin',
+                'in:operator',
             ],
             'password' => [
                 'nullable',

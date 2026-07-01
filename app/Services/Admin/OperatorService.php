@@ -1,18 +1,18 @@
 <?php
 
-namespace App\Services\SuperAdmin;
+namespace App\Services\Admin;
 
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Exception;
 
-class AdminService
+class OperatorService
 {
     /**
      * Membuat akun user/pengelola baru dengan database transaction.
      */
-    public function createAdmin(array $data): User
+    public function createOperator(array $data): User
     {
         return DB::transaction(function () use ($data) {
             $password = !empty($data['password'])
@@ -32,7 +32,7 @@ class AdminService
     /**
      * Memperbarui data user/pengelola dengan database transaction.
      */
-    public function updateAdmin(string $id, array $data): User
+    public function updateOperator(string $id, array $data): User
     {
         return DB::transaction(function () use ($id, $data) {
             $user = User::findOrFail($id);

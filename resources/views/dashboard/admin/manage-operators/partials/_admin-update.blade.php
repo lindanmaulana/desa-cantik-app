@@ -20,13 +20,13 @@
                 <x-heroicon-o-x-mark class="w-5 h-5" />
             </button>
         </div>
-        <form :action="'{{ route('super-admin.manage-admins.update', ['admin' => 'ADMIN_ID']) }}'.replace('ADMIN_ID', user.id)"
+        <form :action="'{{ route('admin.manage-operator.update', ['operator' => 'OPERATOR_ID']) }}'.replace('OPERATOR_ID', user.id)"
             method="POST"
             class="p-6 space-y-4">
             @csrf
             @method('PUT')
 
-            <input type="hidden" name="role" value="admin">
+            <input type="hidden" name="role" value="operator">
 
             <div class="space-y-4">
                 <h4 class="pb-1 text-sm font-bold border-b text-primary border-textTertiary/20">Perbarui Kredensial</h4>

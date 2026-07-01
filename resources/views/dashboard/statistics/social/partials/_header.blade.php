@@ -2,7 +2,8 @@
     <x-ri-heart-pulse-line class="p-2 rounded-md sm:p-3 size-10 sm:size-12 bg-primary/10 text-primary shrink-0" />
     <div>
         <h3 class="text-lg font-bold sm:text-xl text-textPrimary">Sosial</h3>
-        <p class="text-sm sm:text-lg text-textSecondary">Analisis agregat sosial {{ $villageSettings->village_name ?? '-' }}</p>
+        <p class="text-sm sm:text-lg text-textSecondary">Analisis agregat sosial
+            {{ $villageSettings->village_name ?? '-' }}</p>
     </div>
 </div>
 
@@ -10,8 +11,7 @@
     <div
         class="flex items-center justify-center border-2 border-dashed rounded-2xl border-textTertiary/60 bg-secondary min-h-[300px] sm:min-h-96 p-4 shadow-sm relative overflow-hidden">
 
-        <form action="{{ route('dashboard.statistics.social') }}" method="GET"
-            @submit="isGenerating = true"
+        <form action="{{ route('dashboard.statistics.social') }}" method="GET" @submit="isGenerating = true"
             class="flex flex-col items-center justify-center max-w-md gap-2 text-center transition-all duration-300"
             :class="isGenerating ? 'opacity-30 pointer-events-none scale-95' : ''">
 
@@ -26,8 +26,7 @@
                 sekali per sesi.
             </p>
 
-            <button type="submit"
-                :disabled="isGenerating"
+            <button type="submit" :disabled="isGenerating"
                 class="flex items-center justify-center gap-2 px-6 py-2.5 sm:px-8 sm:py-3 text-sm sm:text-base font-semibold text-secondary rounded-full shadow-lg bg-gradient-to-r from-primary to-textPrimary hover:opacity-95 active:scale-95 transition-all disabled:opacity-50 min-w-[200px]">
 
                 <svg x-show="isGenerating" x-cloak class="animate-spin size-5 text-secondary" viewBox="0 0 24 24"
@@ -37,6 +36,7 @@
                     <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
                 </svg>
 
+                <x-ri-play-circle-fill x-show="!isGenerating" class="size-4 sm:size-5 text-secondary" />
                 <span x-text="isGenerating ? 'Memproses Data...' : 'Generate Aggregate'"></span>
             </button>
         </form>
@@ -50,7 +50,8 @@
                         class="h-full bg-primary rounded-full w-full origin-left animate-[loading_1.5s_infinite_ease-in-out]">
                     </div>
                 </div>
-                <p class="text-xs font-medium text-textSecondary animate-pulse">Mengalkulasi data sosial & faskes warga...</p>
+                <p class="text-xs font-medium text-textSecondary animate-pulse">Mengalkulasi data sosial & faskes
+                    warga...</p>
             </div>
         </div>
 
