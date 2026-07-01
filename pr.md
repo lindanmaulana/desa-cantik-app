@@ -15,31 +15,28 @@ COPY . /var/www
 
 
 docker-compose.yml
-version: '3.8'
-
 services:
   app:
     build:
       context: .
       dockerfile: Dockerfile
-    image: pandawa-app:latest
+    image: pandawa-app:prod
     container_name: pandawa-app
-    restart: unless-stopped
-    tty: true
-    volumes:
-      - .:/var/www
+    restart: always
+    env_file:
+      - .env
     networks:
       - pandawa-network
 
   nginx:
     image: nginx:alpine
     container_name: pandawa_nginx
-    restart: unless-stopped
+    restart: always
     ports:
-      - "8000:80"
+      - "80:80"
     volumes:
-      - .:/var/www
-    command: /bin/sh -c "echo 'server { listen 80; index index.php; root /var/www/public; location ~ \.php$$ { fastcgi_pass app:9000; fastcgi_index index.php; include fastcgi_params; fastcgi_param SCRIPT_FILENAME $$document_root$$fastcgi_script_name; } location / { try_files $$uri $$uri/ /index.php?$$query_string; } }' > /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;'"
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf
+      - .:/var/www:ro
     networks:
       - pandawa-network
     depends_on:
@@ -48,15 +45,12 @@ services:
   db:
     image: mysql:8.0
     container_name: pandawa_db
-    restart: unless-stopped
-    tty: true
-    ports:
-      - "3306:3306"
+    restart: always
     environment:
-      MYSQL_DATABASE: ${DB_DATABASE:-pandawa_db}
-      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD:-pandawasecret}
-      MYSQL_USER: ${DB_USERNAME:-pandawa_user}
-      MYSQL_PASSWORD: ${DB_PASSWORD:-pandawasecret}
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+      MYSQL_USER: ${DB_USERNAME}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
     volumes:
       - pandawa_mysql_data:/var/lib/mysql
     networks:
