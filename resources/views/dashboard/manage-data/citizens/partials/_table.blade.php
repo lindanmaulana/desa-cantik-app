@@ -74,6 +74,7 @@
                                 title="Edit Data">
                                 <x-heroicon-o-pencil-square class="w-4 h-4" />
                             </button>
+
                             <a href="{{ route('dashboard.manage-data.citizens.detail', $item) }}"
                                 class="p-1.5 text-primary hover:bg-primary/10 rounded-md transition-colors"
                                 title="Lihat Detail">

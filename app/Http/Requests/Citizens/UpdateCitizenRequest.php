@@ -36,18 +36,20 @@ class UpdateCitizenRequest extends FormRequest
             'blood_type' => ['nullable', 'string', 'max:5'],
         ];
 
-        $educationRules = (new UpdateEducationProfileRequest())->rules();
-        $employmentRules = (new UpdateEmploymentProfileRequest())->rules();
-        $healthRules     = (new UpdateHealthProfileRequest())->rules();
-        $housingRules    = (new UpdateHousingProfileRequest())->rules();
+        return $citizenRules;
 
-        return array_merge(
-            $citizenRules,
-            $educationRules,
-            $employmentRules,
-            $healthRules,
-            $housingRules,
-        );
+        // $educationRules = (new UpdateEducationProfileRequest())->rules();
+        // $employmentRules = (new UpdateEmploymentProfileRequest())->rules();
+        // $healthRules     = (new UpdateHealthProfileRequest())->rules();
+        // $housingRules    = (new UpdateHousingProfileRequest())->rules();
+
+        // return array_merge(
+        //     $citizenRules,
+        //     $educationRules,
+        //     $employmentRules,
+        //     $healthRules,
+        //     $housingRules,
+        // );
     }
 
     public function messages(): array

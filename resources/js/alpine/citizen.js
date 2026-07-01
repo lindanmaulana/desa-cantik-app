@@ -31,6 +31,20 @@ export default function citizenData() {
                 const rawDate = data?.birth_date || "";
                 const formattedDate = rawDate ? rawDate.substring(0, 10) : "";
 
+                // this.data = {
+                //     id: data.id,
+                //     family_id: data.family_id || "",
+                //     id_number: data.id_number,
+                //     full_name: data.full_name,
+                //     family_role: data.family_role || "",
+                //     gender: data.gender || "",
+                //     birth_place: data.birth_place || "",
+                //     birth_date: formattedDate,
+                //     blood_type: data.blood_type || "",
+                //     religion: data.religion || "",
+                //     marital_status: data.marital_status || "",
+                // };
+
                 this.data = {
                     id: data.id,
                     family_id: data.family_id || "",

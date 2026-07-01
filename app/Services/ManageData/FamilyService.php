@@ -3,6 +3,7 @@
 namespace App\Services\ManageData;
 
 use App\Models\Family;
+use App\Models\Citizen;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -10,66 +11,82 @@ use Illuminate\Pagination\LengthAwarePaginator;
 
 class FamilyService
 {
-    public function getCount()
-    {
-        return Family::count();
+  public function getCount()
+  {
+    return Family::count();
+  }
+
+  // public function getStats(): object
+  // {
+  //     return (object) DB::selectOne("
+  //         SELECT
+  //             (SELECT COUNT(*) FROM families) as total_Families,
+  //             (SELECT COUNT(DISTINCT sub_village) FROM territories) as total_SubVillage,
+  //             (SELECT COUNT(*) FROM citizens) as total_Citizens
+  //     ");
+  // }
+
+  public function getStats(): object
+  {
+    return (object) [
+      'total_families'   => Family::count(),
+      'total_subvillage' => DB::table('territories')
+        ->select('rw')
+        ->whereNull('deleted_at')
+        ->whereNotNull('rw')
+        ->where('rw', '<>', '')
+        ->groupBy('rw')
+        ->get()
+        ->count(),
+      'total_citizens'   => Citizen::count(),
+    ];
+  }
+
+  public function getFamilies()
+  {
+    return Family::all();
+  }
+
+  public function getAll(array $filters): LengthAwarePaginator
+  {
+    $query = Family::with(['territory', 'citizens']);
+
+    if (!empty($filters['search'])) {
+      $search = $filters['search'];
+      $query->where(function ($q) use ($search) {
+        $q->whereAny([
+          'family_card_number'
+        ], 'like', "%{$search}%")
+          ->orWhereHas('territory', function ($qt) use ($search) {
+            $qt->whereAny([
+              'sub_village',
+              'area_name',
+            ], 'like', "%{$search}%");
+          });
+      });
     }
 
-    public function getStats(): object
-    {
-        return (object) DB::selectOne("
-            SELECT
-                (SELECT COUNT(*) FROM families) as total_Families,
-                (SELECT COUNT(DISTINCT sub_village) FROM territories) as total_SubVillage,
-                (SELECT COUNT(*) FROM citizens) as total_Citizens
-        ");
+    if (!empty($filters['territory_id'])) {
+      $query->where('territory_id', $filters['territory_id']);
     }
 
-    public function getFamilies()
-    {
-        return Family::all();
-    }
+    return $query->latest()->paginate(10)->withQueryString();
+  }
 
-    public function getAll(array $filters): LengthAwarePaginator
-    {
-        $query = Family::with(['territory', 'citizens']);
+  public function create(array $data)
+  {
+    $data['id'] = Str::uuid()->toString();
 
-        if (!empty($filters['search'])) {
-            $search = $filters['search'];
-            $query->where(function ($q) use ($search) {
-                $q->whereAny([
-                    'family_card_number'
-                ], 'like', "%{$search}%")
-                    ->orWhereHas('territory', function ($qt) use ($search) {
-                        $qt->whereAny([
-                            'sub_village',
-                            'area_name',
-                        ], 'like', "%{$search}%");
-                    });
-            });
-        }
+    DB::transaction(fn() => Family::create($data));
+  }
 
-        if (!empty($filters['territory_id'])) {
-            $query->where('territory_id', $filters['territory_id']);
-        }
+  public function update(Family $family, array $data)
+  {
+    return DB::transaction(fn() => $family->update($data));
+  }
 
-        return $query->latest()->paginate(10)->withQueryString();
-    }
-
-    public function create(array $data)
-    {
-        $data['id'] = Str::uuid()->toString();
-
-        DB::transaction(fn() => Family::create($data));
-    }
-
-    public function update(Family $family, array $data)
-    {
-        return DB::transaction(fn() => $family->update($data));
-    }
-
-    public function delete(Family $family)
-    {
-        return DB::transaction(fn() => $family->delete());
-    }
+  public function delete(Family $family)
+  {
+    return DB::transaction(fn() => $family->delete());
+  }
 }

@@ -6,7 +6,7 @@
             <div>
                 <h2 class="flex items-center gap-2 text-2xl font-bold max-lg:text-xl max-md:text-lg text-textPrimary">
                     <x-heroicon-o-identification class="w-6 h-6 text-primary" />
-                    Detail Penduduk {{ $citizen->full_name }}
+                    Detail Penduduk {{ $citizen->full_name ?? '-' }}
                 </h2>
                 <p class="mt-1 text-sm max-md:text-xs text-textSecondary">
                     Manajemen data demografi warga desa, NIK, peran keluarga, dan status kependudukan.
@@ -71,10 +71,10 @@
                                 <div>
                                     <div class="flex flex-wrap items-center justify-center gap-2 sm:justify-start">
                                         <h4 class="text-xl font-bold tracking-tight break-words text-slate-900 md:text-2xl">
-                                            {{ $citizen->full_name }}
+                                            {{ $citizen->full_name ?? '-' }}
                                         </h4>
                                         <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-indigo-50 text-indigo-700 border border-indigo-100 whitespace-nowrap">
-                                            {{ $citizen->family_role->label() }}
+                                            {{ $citizen->family_role->label() ?? '-' }}
                                         </span>
                                     </div>
 
@@ -87,7 +87,7 @@
                                         </span>
                                         <span class="hidden text-slate-300 sm:inline">•</span>
                                         <span class="font-medium text-slate-700 whitespace-nowrap">
-                                            {{ $citizen->birth_date->age }} Tahun
+                                            {{ $citizen->birth_date->age ?? '-' }} Tahun
                                         </span>
                                     </div>
                                 </div>
@@ -95,16 +95,16 @@
                                 <dl class="grid grid-cols-1 pt-3 border-t gap-x-6 gap-y-3 border-slate-100 sm:grid-cols-3">
                                     <div class="space-y-0.5">
                                         <dt class="text-xs font-medium tracking-wider uppercase text-slate-400">Jenis Kelamin</dt>
-                                        <dd class="text-sm font-semibold text-slate-700">{{ $citizen->gender->label() }}</dd>
+                                        <dd class="text-sm font-semibold text-slate-700">{{ $citizen->gender->label() ?? '-' }}</dd>
                                     </div>
                                     <div class="space-y-0.5">
                                         <dt class="text-xs font-medium tracking-wider uppercase text-slate-400">Hubungan KK</dt>
-                                        <dd class="text-sm font-semibold text-slate-700">{{ $citizen->family_role->label() }}</dd>
+                                        <dd class="text-sm font-semibold text-slate-700">{{ $citizen->family_role->label() ?? '-' }}</dd>
                                     </div>
                                     <div class="space-y-0.5 sm:col-span-1">
                                         <dt class="text-xs font-medium tracking-wider uppercase text-slate-400">No. KK</dt>
                                         <dd x-show="openData" class="text-sm font-semibold break-all text-slate-700">
-                                            {{ $citizen->family->family_card_number }}
+                                            {{ $citizen->family->family_card_number ?? '-' }}
                                         </dd>
                                         <dd x-show="!openData" class="inline-flex items-center">
                                             <x-vaadin-ellipsis-h class="size-4 text-slate-400" />
@@ -121,7 +121,7 @@
                             </div>
                             <div class="flex flex-col items-center justify-center p-3 text-center border rounded-xl bg-slate-50 border-slate-100">
                                 <dt class="text-[10px] font-bold uppercase tracking-widest text-slate-400">Agama</dt>
-                                <dd class="max-w-full mt-1 text-sm font-bold truncate text-slate-800">{{ $citizen->religion->label() }}</dd>
+                                <dd class="max-w-full mt-1 text-sm font-bold truncate text-slate-800">{{ $citizen->religion->label() ?? '-' }}</dd>
                             </div>
                         </div>
 
@@ -134,15 +134,15 @@
                             <div class="space-y-1">
                                 <dt class="text-xs font-medium tracking-wider uppercase text-slate-400">Tempat, Tanggal Lahir</dt>
                                 <dd class="text-sm font-medium text-slate-800">
-                                    {{ $citizen->birth_place }},
-                                    <span class="inline-block font-semibold text-slate-900">{{ $citizen->birth_date->translatedFormat('d F Y') }}</span>
+                                    {{ $citizen->birth_place ?? '-' }},
+                                    <span class="inline-block font-semibold text-slate-900">{{ $citizen->birth_date->translatedFormat('d F Y') ?? '-' }}</span>
                                 </dd>
                             </div>
 
                             <div class="space-y-1">
                                 <dt class="text-xs font-medium tracking-wider uppercase text-slate-400">Status Pernikahan</dt>
                                 <dd class="text-sm font-semibold text-slate-900">
-                                    {{ $citizen->marital_status->label() }}
+                                    {{ $citizen->marital_status->label() ?? '-' }}
                                 </dd>
                             </div>
 
@@ -159,7 +159,7 @@
                                 <div>
                                     <dd x-show="openData" class="inline-block max-w-full">
                                         <code class="px-2 py-1 font-mono text-xs font-medium break-all border rounded select-all text-slate-600 bg-slate-50 border-slate-200">
-                                            {{ $citizen->id }}
+                                            {{ $citizen->id ?? '-' }}
                                         </code>
                                     </dd>
                                     <dd x-show="!openData" class="inline-flex items-center">

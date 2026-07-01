@@ -15,7 +15,7 @@
         :req-type="request('type')" />
 </div>
 @else
-{{-- Placeholder State saat User belum memilih jenis agregat UMKM di tombol atas --}}
+
 <div class="w-full h-[400px] flex flex-col items-center justify-center text-gray-400 bg-white border border-gray-100 shadow-sm rounded-3xl italic gap-4">
     <x-tabler-chart-arcs class="size-20 text-emerald-500/40" />
     <div class="text-sm not-italic font-medium text-gray-500">Pilih Kategori Indikator UMKM di atas.</div>

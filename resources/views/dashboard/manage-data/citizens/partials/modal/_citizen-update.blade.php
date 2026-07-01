@@ -18,9 +18,10 @@
             </button>
         </div>
 
-        <form action="{{ route('citizens.store') }}" method="POST" class="p-6 space-y-4 max-h-[70vh] overflow-y-auto"
-            x-data="{ submitting: false }" @submit="submitting = true">
+        <form :action="`/dashboard/manage-data/citizens/${citizen.data.id}/update`" method="POST"
+            class="p-6 space-y-4 max-h-[70vh] overflow-y-auto" x-data="{ submitting: false }" @submit="submitting = true">
             @csrf
+            @method('PUT')
 
             <div class="space-y-4">
                 <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
