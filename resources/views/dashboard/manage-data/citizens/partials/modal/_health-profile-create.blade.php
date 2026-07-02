@@ -22,13 +22,12 @@
 
         <!-- Form Input Data Kesehatan -->
         <form action="{{ route('health-profile.store', $citizen) }}" method="POST"
-            class="p-6 space-y-4 max-h-[70vh] overflow-y-auto">
+            class="p-6 space-y-4 max-h-[70vh] overflow-y-auto w-full mx-auto">
             @csrf
 
             <div class="space-y-4">
-                <!-- Baris 1: Jenis Disabilitas & Status Kehamilan -->
-                <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
-                    <div>
+                <div class="flex flex-col gap-4 md:flex-row">
+                    <div class="flex-1 min-w-[250px]">
                         <label for="disability_type"
                             class="block mb-1 text-xs font-semibold tracking-wider uppercase text-textSecondary">Jenis
                             Disabilitas <span class="text-red-500">*</span></label>
@@ -38,10 +37,12 @@
                             <option value="{{ $val->value }}" class="bg-secondary">{{ $val->label() }}</option>
                             @endforeach
                         </select>
+                        @error('disability_type')
+                        <p class="mt-1 text-xs font-medium text-red-600">{{ $message }}</p>
+                        @enderror
                     </div>
 
-                    @if ($citizen->gender === $gender::FEMALE)
-                    <div>
+                    <div class="flex-1 min-w-[250px]" x-show="'{{ $citizen->gender }}' === '{{ $gender::FEMALE->value ?? $gender::FEMALE }}'">
                         <label for="is_pregnant"
                             class="block mb-1 text-xs font-semibold tracking-wider uppercase text-textSecondary">Sedang
                             Hamil? <span class="text-red-500">*</span></label>
@@ -50,13 +51,14 @@
                             <option value="0" class="bg-secondary">Tidak</option>
                             <option value="1" class="bg-secondary">Ya</option>
                         </select>
+                        @error('is_pregnant')
+                        <p class="mt-1 text-xs font-medium text-red-600">{{ $message }}</p>
+                        @enderror
                     </div>
-                    @endif
                 </div>
 
-                <!-- Baris 2: Kepesertaan BPJS & Metode KB -->
-                <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
-                    <div>
+                <div class="flex flex-col gap-4 md:flex-row">
+                    <div class="flex-1 min-w-[250px]">
                         <label for="bpjs_status"
                             class="block mb-1 text-xs font-semibold tracking-wider uppercase text-textSecondary">Kepesertaan
                             BPJS <span class="text-red-500">*</span></label>
@@ -66,8 +68,12 @@
                             <option value="{{ $val->value }}" class="bg-secondary">{{ $val->label() }}</option>
                             @endforeach
                         </select>
+                        @error('bpjs_status')
+                        <p class="mt-1 text-xs font-medium text-red-600">{{ $message }}</p>
+                        @enderror
                     </div>
-                    <div>
+
+                    <div class="flex-1 min-w-[250px]" x-show="{{ $citizen->birth_date->age }} >= 17">
                         <label for="kb_method"
                             class="block mb-1 text-xs font-semibold tracking-wider uppercase text-textSecondary">Metode
                             KB Terpilih <span class="text-red-500">*</span></label>
@@ -77,11 +83,13 @@
                             <option value="{{ $val->value }}" class="bg-secondary">{{ $val->label() }}</option>
                             @endforeach
                         </select>
+                        @error('kb_method')
+                        <p class="mt-1 text-xs font-medium text-red-600">{{ $message }}</p>
+                        @enderror
                     </div>
                 </div>
             </div>
 
-            <!-- Footer Modal Actions -->
             <div class="flex items-center justify-end gap-2 pt-4 border-t border-textTertiary/10">
                 <button type="button" @click="healthProfile.openCreate = false"
                     class="px-4 py-2 text-sm font-medium transition-colors border rounded-lg text-textPrimary bg-secondary border-textTertiary/40 hover:bg-tertiary focus:outline-none">

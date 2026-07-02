@@ -22,12 +22,12 @@
 
         <!-- Form Update Data -->
         <form action="{{ route('health-profile.update', $citizen) }}" method="POST"
-            class="p-6 space-y-4 max-h-[70vh] overflow-y-auto">
+            class="p-6 space-y-4 max-h-[70vh] overflow-y-auto w-full mx-auto">
             @csrf
             @method('PUT')
 
-            <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
-                <div>
+            <div class="flex flex-col gap-4 md:flex-row">
+                <div class="flex-1 min-w-[250px]">
                     <label for="update_disability_type"
                         class="block mb-1 text-xs font-semibold tracking-wider uppercase text-textSecondary">Jenis
                         Disabilitas <span class="text-red-500">*</span></label>
@@ -35,61 +35,58 @@
                         x-model="healthProfile.data.disability_type"
                         class="w-full px-3 py-2 text-sm transition-all border rounded-lg border-textTertiary/40 bg-tertiary text-textPrimary focus:outline-none focus:bg-secondary focus:border-primary focus:ring-1 focus:ring-primary">
                         @foreach ($disabilityType::cases() as $val)
-                            <option value="{{ $val->value }}" class="bg-secondary">{{ $val->label() }}</option>
+                        <option value="{{ $val->value }}" class="bg-secondary">{{ $val->label() }}</option>
                         @endforeach
                     </select>
                     @error('disability_type')
-                        <p class="mt-1 text-xs font-medium text-red-600">{{ $message }}</p>
+                    <p class="mt-1 text-xs font-medium text-red-600">{{ $message }}</p>
                     @enderror
                 </div>
 
-                @if ($citizen->gender === $gender::FEMALE)
-                    <div>
-                        <label for="update_is_pregnant"
-                            class="block mb-1 text-xs font-semibold tracking-wider uppercase text-textSecondary">Sedang
-                            Hamil? <span class="text-red-500">*</span></label>
-                        <select id="update_is_pregnant" name="is_pregnant" required
-                            x-model="healthProfile.data.is_pregnant"
-                            class="w-full px-3 py-2 text-sm transition-all border rounded-lg border-textTertiary/40 bg-tertiary text-textPrimary focus:outline-none focus:bg-secondary focus:border-primary focus:ring-1 focus:ring-primary">
-                            <option value="0" class="bg-secondary">Tidak</option>
-                            <option value="1" class="bg-secondary">Ya</option>
-                        </select>
-                        @error('is_pregnant')
-                            <p id="error-is-pregnant" class="mt-1 text-xs font-medium text-red-600">{{ $message }}</p>
-                        @enderror
-                    </div>
-                @endif
+                <div class="flex-1 min-w-[250px]" x-show="'{{ $citizen->gender }}' === '{{ $gender::FEMALE->value ?? $gender::FEMALE }}'">
+                    <label for="update_is_pregnant"
+                        class="block mb-1 text-xs font-semibold tracking-wider uppercase text-textSecondary">Sedang
+                        Hamil? <span class="text-red-500">*</span></label>
+                    <select id="update_is_pregnant" name="is_pregnant" required
+                        x-model="healthProfile.data.is_pregnant"
+                        class="w-full px-3 py-2 text-sm transition-all border rounded-lg border-textTertiary/40 bg-tertiary text-textPrimary focus:outline-none focus:bg-secondary focus:border-primary focus:ring-1 focus:ring-primary">
+                        <option value="0" class="bg-secondary">Tidak</option>
+                        <option value="1" class="bg-secondary">Ya</option>
+                    </select>
+                    @error('is_pregnant')
+                    <p id="error-is-pregnant" class="mt-1 text-xs font-medium text-red-600">{{ $message }}</p>
+                    @enderror
+                </div>
             </div>
 
-            <!-- Baris 2: Kepesertaan BPJS & Metode KB -->
-            <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
-                <div>
+            <div class="flex flex-col gap-4 md:flex-row">
+                <div class="flex-1 min-w-[250px]">
                     <label for="update_bpjs_status"
                         class="block mb-1 text-xs font-semibold tracking-wider uppercase text-textSecondary">Kepesertaan
                         BPJS <span class="text-red-500">*</span></label>
                     <select id="update_bpjs_status" name="bpjs_status" required x-model="healthProfile.data.bpjs_status"
                         class="w-full px-3 py-2 text-sm transition-all border rounded-lg border-textTertiary/40 bg-tertiary text-textPrimary focus:outline-none focus:bg-secondary focus:border-primary focus:ring-1 focus:ring-primary">
                         @foreach ($bpjsStatus::cases() as $val)
-                            <option value="{{ $val->value }}" class="bg-secondary">{{ $val->label() }}</option>
+                        <option value="{{ $val->value }}" class="bg-secondary">{{ $val->label() }}</option>
                         @endforeach
                     </select>
                     @error('bpjs_status')
-                        <p class="mt-1 text-xs font-medium text-red-600">{{ $message }}</p>
+                    <p class="mt-1 text-xs font-medium text-red-600">{{ $message }}</p>
                     @enderror
                 </div>
 
-                <div>
+                <div class="flex-1 min-w-[250px]" x-show="{{ $citizen->birth_date->age }} >= 17">
                     <label for="update_kb_method"
                         class="block mb-1 text-xs font-semibold tracking-wider uppercase text-textSecondary">Metode KB
                         Terpilih <span class="text-red-500">*</span></label>
                     <select id="update_kb_method" name="kb_method" required x-model="healthProfile.data.kb_method"
                         class="w-full px-3 py-2 text-sm transition-all border rounded-lg border-textTertiary/40 bg-tertiary text-textPrimary focus:outline-none focus:bg-secondary focus:border-primary focus:ring-1 focus:ring-primary">
                         @foreach ($kbMethod::cases() as $val)
-                            <option value="{{ $val->value }}" class="bg-secondary">{{ $val->label() }}</option>
+                        <option value="{{ $val->value }}" class="bg-secondary">{{ $val->label() }}</option>
                         @endforeach
                     </select>
                     @error('kb_method')
-                        <p class="mt-1 text-xs font-medium text-red-600">{{ $message }}</p>
+                    <p class="mt-1 text-xs font-medium text-red-600">{{ $message }}</p>
                     @enderror
                 </div>
             </div>
