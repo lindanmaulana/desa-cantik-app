@@ -11,7 +11,7 @@ enum ConditionInfrastructure: string {
         return match($this) {
             self::GOOD => 'Baik / Layak',
             self::DAMAGED_LIGHT => 'Rusak Ringan',
-            self::DAMAGED_SEVERE => 'Rusah Berat',
+            self::DAMAGED_SEVERE => 'Rusak Berat',
         };
     }
 }
