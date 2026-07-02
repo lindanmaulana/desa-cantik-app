@@ -25,8 +25,6 @@
             x-data="{ electricitySource: 'pln_metered' }">
             @csrf
 
-            @dump($family)
-
             <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
                 <div>
                     <label for="create_house_condition" class="block mb-1 text-xs font-semibold tracking-wider uppercase text-textSecondary">
