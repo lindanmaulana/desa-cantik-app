@@ -24,12 +24,13 @@ class StoreFamilyRequest extends FormRequest
     {
         return [
             'territory_id' => ['required', 'exists:territories,id'],
-            'family_card_number' => ['required', 'string', 'min:16', 'max:16'],
+            'family_card_number' => ['required', 'numeric', 'digits:16'],
             'address_detail' => ['string'],
         ];
     }
 
-    public function messages(): array {
+    public function messages(): array
+    {
         return [
             'territory_id.required' => 'Wilayah wajib diisi',
             'family_card_number.required' => 'Nomor Kartu Keluarga wajib diisi',
