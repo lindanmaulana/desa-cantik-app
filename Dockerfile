@@ -32,6 +32,15 @@ USER www-data
 RUN composer install --no-interaction --optimize-autoloader --no-dev
 RUN npm install && npm run build
 
+USER root
+
+RUN apt-get clean && apt-get update --fix-missing && apt-get install -y \
+    libicu-dev \
+    && docker-php-ext-configure intl \
+    && docker-php-ext-install intl \
+    && rm -rf /var/lib/apt/lists/*
+
+USER www-data
 
 EXPOSE 9000
 CMD ["php-fpm"]
