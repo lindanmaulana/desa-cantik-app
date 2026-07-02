@@ -42,3 +42,4 @@ class HousingProfileController extends Controller
         }
     }
 }
+

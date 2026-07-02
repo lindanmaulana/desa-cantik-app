@@ -38,7 +38,7 @@
             <dt class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Kondisi & Kepemilikan</dt>
             <dd class="mt-2 space-y-1 text-sm font-semibold text-slate-800">
                 <div>
-                    @if($family->housingProfile->house_condition === 'proper')
+                    @if($family->housingProfile->house_condition == $houseCondition::PROPER)
                     <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium bg-emerald-50 text-emerald-700 border border-emerald-200">
                         <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> Rumah Layak
                     </span>
@@ -50,10 +50,10 @@
                 </div>
                 <div class="text-xs font-medium text-slate-500">
                     Status:
-                    @if($family->housingProfile->house_ownership === 'owned') Milik Sendiri
-                    @elseif($family->housingProfile->house_ownership === 'rented') Sewa/Kontrak
-                    @elseif($family->housingProfile->house_ownership === 'free_rent') Bebas Sewa
-                    @elseif($family->housingProfile->house_ownership === 'official_house') Dinas
+                    @if($family->housingProfile->house_ownership == $houseOwnership::OWNED->value) Milik Sendiri
+                    @elseif($family->housingProfile->house_ownership == $houseOwnership::RENTED->value) Sewa/Kontrak
+                    @elseif($family->housingProfile->house_ownership == $houseOwnership::FREE_RENT->value) Bebas Sewa
+                    @elseif($family->housingProfile->house_ownership == $houseOwnership::OFFICIAL_HOUSE->value) Dinas
                     @else -
                     @endif
                 </div>
@@ -63,11 +63,11 @@
         <div class="p-4 bg-white border shadow-sm rounded-xl border-slate-200">
             <dt class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Bahan Lantai Utama</dt>
             <dd class="mt-2 text-sm font-semibold text-slate-800">
-                @if(in_array($family->housingProfile->floor_material, ['marble_granite', 'ceramic_tile']))
+                @if(in_array($family->housingProfile->floor_material, [$floorMaterial::MARBLE_GRANITE, $floorMaterial::CERAMIC_TILE]))
                 Marmer / Granit / Keramik
-                @elseif($family->housingProfile->floor_material === 'cement_brick')
+                @elseif($family->housingProfile->floor_material == $floorMaterial::CEMENT_BRICK)
                 Ubin Semen / Bata Merah
-                @elseif($family->housingProfile->floor_material === 'wood_timber')
+                @elseif($family->housingProfile->floor_material == $floorMaterial::WOOD_TIMBER)
                 Kayu / Papan
                 @else
                 <span class="font-medium text-rose-600">Bambu / Tanah</span>
@@ -81,19 +81,22 @@
                 <div class="text-xs text-slate-500">
                     Dinding:
                     <span class="font-semibold text-slate-800">
-                        @if(in_array($family->housingProfile->wall_material, ['mansory_brick', 'reinforced_concrete'])) Tembok/Beton
-                        @elseif($family->housingProfile->wall_material === 'wood_plank') Kayu/Papan
-                        @else <span class="text-rose-600">Bambu/Rumbia</span>
+                        @if(in_array($family->housingProfile->wall_material, [$wallMaterial::MASONRY_BRICK, $wallMaterial::REINFORCED_CONCRETE]))
+                        Tembok/Beton
+                        @elseif($family->housingProfile->wall_material == $wallMaterial::WOOD_PLANK)
+                        Kayu/Papan
+                        @else
+                        <span class="text-rose-600">Bambu/Rumbia</span>
                         @endif
                     </span>
                 </div>
                 <div class="text-xs text-slate-500">
                     Atap:
                     <span class="font-semibold text-slate-800">
-                        @if($family->housingProfile->roof_material === 'concrete_tile') Genteng Beton
-                        @elseif($family->housingProfile->roof_material === 'clay_tile') Genteng Tanah
-                        @elseif($family->housingProfile->roof_material === 'metal_sheet') Seng/Spandek
-                        @elseif($family->housingProfile->roof_material === 'asbestos') Asbes
+                        @if($family->housingProfile->roof_material == $roofMaterial::CONCRETE_TILE) Genteng Beton
+                        @elseif($family->housingProfile->roof_material == $roofMaterial::CLAY_TILE) Genteng Tanah
+                        @elseif($family->housingProfile->roof_material == $roofMaterial::METAL_SHEET) Seng/Spandek
+                        @elseif($family->housingProfile->roof_material == $roofMaterial::ASBESTOS) Asbes
                         @else <span class="text-amber-700">Rumbia/Ijuk</span>
                         @endif
                     </span>
@@ -104,13 +107,13 @@
         <div class="p-4 bg-white border shadow-sm rounded-xl border-slate-200">
             <dt class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Bahan Bakar Memasak</dt>
             <dd class="mt-2 text-sm font-semibold text-slate-800">
-                @if($family->housingProfile->cooking_fuel === 'electricity')
+                @if($family->housingProfile->cooking_fuel == $cookingFuel::ELECTRICITY)
                 Listrik / Induksi
-                @elseif($family->housingProfile->cooking_fuel === 'lpg_gas')
+                @elseif($family->housingProfile->cooking_fuel == $cookingFuel::LPG_GAS)
                 Gas LPG
-                @elseif($family->housingProfile->cooking_fuel === 'biogas')
+                @elseif($family->housingProfile->cooking_fuel == $cookingFuel::BIOGAS)
                 Biogas
-                @elseif($family->housingProfile->cooking_fuel === 'kerosene')
+                @elseif($family->housingProfile->cooking_fuel == $cookingFuel::KEROSENE)
                 Minyak Tanah
                 @else
                 <span class="font-medium text-amber-700">Kayu / Arang</span>
@@ -128,13 +131,13 @@
             <div class="space-y-0.5">
                 <dt class="text-[10px] font-bold tracking-wider uppercase text-slate-400">Sumber Air Minum</dt>
                 <dd class="text-sm font-semibold text-slate-800">
-                    @if($family->housingProfile->water_source === 'piped_water')
+                    @if($family->housingProfile->water_source == $waterSource::PIPED_WATER)
                     Air Pipa (PDAM)
-                    @elseif($family->housingProfile->water_source === 'protected_well')
+                    @elseif($family->housingProfile->water_source == $waterSource::PROTECTED_WELL)
                     Sumur Terlindung
-                    @elseif($family->housingProfile->water_source === 'bore_well')
+                    @elseif($family->housingProfile->water_source == $waterSource::BORE_WELL)
                     Sumur Bor
-                    @elseif($family->housingProfile->water_source === 'spring_water')
+                    @elseif($family->housingProfile->water_source == $waterSource::SPRING_WATER)
                     Mata Air
                     @else
                     <span class="font-medium text-rose-600">Air Sungai / Hujan</span>
@@ -150,11 +153,11 @@
             <div class="space-y-0.5">
                 <dt class="text-[10px] font-bold tracking-wider uppercase text-slate-400">Fasilitas Sanitasi</dt>
                 <dd class="text-sm font-semibold text-slate-800">
-                    @if($family->housingProfile->sanitation_type === 'private_flush_toilet')
+                    @if($family->housingProfile->sanitation_type == $sanitationType::PRIVATE_FLUSH_TOILET)
                     <span class="font-semibold text-emerald-700">Jamban Sendiri</span>
-                    @elseif($family->housingProfile->sanitation_type === 'shared_flush_toilet')
+                    @elseif($family->housingProfile->sanitation_type == $sanitationType::SHARED_FLUSH_TOILET)
                     Jamban Bersama / MCK
-                    @elseif($family->housingProfile->sanitation_type === 'pit_latrine')
+                    @elseif($family->housingProfile->sanitation_type == $sanitationType::PIT_LATRINE)
                     <span class="font-medium text-amber-700">Jamban Cemplung</span>
                     @else
                     <span class="font-medium text-rose-600">Tidak Ada Fasilitas</span>
@@ -170,11 +173,11 @@
             <div class="space-y-0.5">
                 <dt class="text-[10px] font-bold tracking-wider uppercase text-slate-400">Daya & Sumber Energi</dt>
                 <dd class="text-sm font-semibold text-slate-800">
-                    @if($family->housingProfile->electricity_source === 'pln_metered')
+                    @if($family->housingProfile->electricity_source == $electricitySource::PLN_METERED)
                     PLN (Meteran)
-                    @elseif($family->housingProfile->electricity_source === 'pln_unmetered')
+                    @elseif($family->housingProfile->electricity_source == $electricitySource::PLN_UNMETERED)
                     PLN (Non-Meteran)
-                    @elseif($family->housingProfile->electricity_source === 'non_pln')
+                    @elseif($family->housingProfile->electricity_source == $electricitySource::NON_PLN)
                     Non-PLN
                     @else
                     <span class="font-medium text-rose-600">Bukan Listrik</span>
