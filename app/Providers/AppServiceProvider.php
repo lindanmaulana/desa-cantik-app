@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\URL;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -24,6 +25,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(VillageSettingService $villageSettingService): void
     {
+        // if (config('app.env') === 'production' || env('FORCE_HTTPS', false)) {
+        //     URL::forceScheme('https');
+        // }
+
         $settings = null;
 
         if (!app()->runningInConsole()) {
