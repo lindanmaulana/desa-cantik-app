@@ -5,7 +5,7 @@
             <div>
                 <h2 class="flex items-center gap-2 text-2xl font-bold max-lg:text-xl max-md:text-lg text-textPrimary">
                     <x-heroicon-o-home class="w-6 h-6 text-primary" />
-                    Detail Keluarga KK: {{ $family->family_card_number }}
+                    Detail Keluarga KK: <span x-show="openData">{{ $family->family_card_number }}</span> <x-vaadin-ellipsis-h x-show="!openData" class="mt-1.5 tracking-widest size-6 text-textTertiary" />
                 </h2>
                 <p class="mt-1 text-sm max-md:text-xs text-textSecondary">
                     Manajemen data kartu keluarga, wilayah yurisdiksi tinggal, jumlah anggota, serta profil kelayakan hunian (housing profile).

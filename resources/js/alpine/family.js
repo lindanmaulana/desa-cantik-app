@@ -40,7 +40,7 @@ export function familyData() {
                 house_ownership: null,
                 house_condition: "",
                 floor_material: "cement_brick",
-                wall_material: "mansory_brick",
+                wall_material: "masonry_brick",
                 roof_material: "clay_tile",
                 water_source: "protected_well",
                 sanitation_type: "private_flush_toilet",

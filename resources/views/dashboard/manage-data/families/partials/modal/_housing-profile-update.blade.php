@@ -20,12 +20,13 @@
             </button>
         </div>
 
-        <form :action="`{{ route('housing-profile.update', ['family' => ':familyId']) }}`.replace(':familyId', housingProfile.data.family_id)"
+        <form :action="'{{ route('housing-profile.update', ['family' => ':familyId']) }}'.replace(':familyId', housingProfile.data.family_id)"
             method="POST" class="p-6 space-y-5 max-h-[75vh] overflow-y-auto">
             @csrf
             @method('PUT')
 
             <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                {{-- Kondisi Rumah --}}
                 <div>
                     <label for="update_house_condition" class="block mb-1 text-xs font-semibold tracking-wider uppercase text-textSecondary">
                         Kondisi Kelayakan Rumah <span class="text-red-500">*</span>
@@ -39,6 +40,7 @@
                     </select>
                 </div>
 
+                {{-- Kepemilikan Rumah --}}
                 <div>
                     <label for="update_house_ownership" class="block mb-1 text-xs font-semibold tracking-wider uppercase text-textSecondary">
                         Status Kepemilikan Rumah
@@ -56,6 +58,7 @@
             </div>
 
             <div class="grid grid-cols-1 gap-4 sm:grid-cols-3">
+                {{-- Bahan Lantai --}}
                 <div>
                     <label for="update_floor_material" class="block mb-1 text-xs font-semibold tracking-wider uppercase text-textSecondary">
                         Bahan Lantai Utama <span class="text-red-500">*</span>
@@ -64,15 +67,16 @@
                         x-model="housingProfile.data.floor_material"
                         class="w-full px-3 py-2 text-sm transition-all border rounded-lg border-textTertiary/40 bg-tertiary text-textPrimary focus:outline-none focus:bg-secondary focus:border-primary focus:ring-1 focus:ring-primary">
                         <option value="" class="bg-secondary">-- Pilih Lantai --</option>
+                        <option value="cement_brick" class="bg-secondary">Ubin Semen / Bata (Default)</option>
                         <option value="marble_granite" class="bg-secondary">Marmer / Granit</option>
                         <option value="ceramic_tile" class="bg-secondary">Keramik</option>
-                        <option value="cement_brick" class="bg-secondary">Ubin Semen / Bata</option>
                         <option value="wood_timber" class="bg-secondary">Kayu / Papan</option>
                         <option value="bamboo" class="bg-secondary">Bambu</option>
                         <option value="dirt_earth" class="bg-secondary">Tanah</option>
                     </select>
                 </div>
 
+                {{-- Bahan Dinding --}}
                 <div>
                     <label for="update_wall_material" class="block mb-1 text-xs font-semibold tracking-wider uppercase text-textSecondary">
                         Bahan Dinding Utama <span class="text-red-500">*</span>
@@ -81,7 +85,7 @@
                         x-model="housingProfile.data.wall_material"
                         class="w-full px-3 py-2 text-sm transition-all border rounded-lg border-textTertiary/40 bg-tertiary text-textPrimary focus:outline-none focus:bg-secondary focus:border-primary focus:ring-1 focus:ring-primary">
                         <option value="" class="bg-secondary">-- Pilih Dinding --</option>
-                        <option value="mansory_brick" class="bg-secondary">Bata / Plesteran</option>
+                        <option value="masonry_brick" class="bg-secondary">Bata / Plesteran (Default)</option>
                         <option value="reinforced_concrete" class="bg-secondary">Beton Bertulang</option>
                         <option value="wood_plank" class="bg-secondary">Papan Kayu</option>
                         <option value="bamboo_woven" class="bg-secondary">Anyaman Bambu</option>
@@ -89,6 +93,7 @@
                     </select>
                 </div>
 
+                {{-- Bahan Atap --}}
                 <div>
                     <label for="update_roof_material" class="block mb-1 text-xs font-semibold tracking-wider uppercase text-textSecondary">
                         Bahan Atap Utama <span class="text-red-500">*</span>
@@ -97,8 +102,8 @@
                         x-model="housingProfile.data.roof_material"
                         class="w-full px-3 py-2 text-sm transition-all border rounded-lg border-textTertiary/40 bg-tertiary text-textPrimary focus:outline-none focus:bg-secondary focus:border-primary focus:ring-1 focus:ring-primary">
                         <option value="" class="bg-secondary">-- Pilih Atap --</option>
+                        <option value="clay_tile" class="bg-secondary">Genteng Tanah (Default)</option>
                         <option value="concrete_tile" class="bg-secondary">Genteng Beton</option>
-                        <option value="clay_tile" class="bg-secondary">Genteng Tanah</option>
                         <option value="metal_sheet" class="bg-secondary">Seng / Spandek</option>
                         <option value="asbestos" class="bg-secondary">Asbes</option>
                         <option value="thatch_palm" class="bg-secondary">Rumbia / Ijuk</option>
@@ -107,6 +112,7 @@
             </div>
 
             <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                {{-- Sumber Air --}}
                 <div>
                     <label for="update_water_source" class="block mb-1 text-xs font-semibold tracking-wider uppercase text-textSecondary">
                         Sumber Air Minum <span class="text-red-500">*</span>
@@ -115,14 +121,15 @@
                         x-model="housingProfile.data.water_source"
                         class="w-full px-3 py-2 text-sm transition-all border rounded-lg border-textTertiary/40 bg-tertiary text-textPrimary focus:outline-none focus:bg-secondary focus:border-primary focus:ring-1 focus:ring-primary">
                         <option value="" class="bg-secondary">-- Pilih Sumber Air --</option>
+                        <option value="protected_well" class="bg-secondary">Sumur Terlindung (Default)</option>
                         <option value="piped_water" class="bg-secondary">Air Pipa (PDAM)</option>
-                        <option value="protected_well" class="bg-secondary">Sumur Terlindung</option>
                         <option value="bore_well" class="bg-secondary">Sumur Bor / Pompa</option>
                         <option value="spring_water" class="bg-secondary">Mata Air</option>
                         <option value="river_rainwater" class="bg-secondary">Air Sungai / Air Hujan</option>
                     </select>
                 </div>
 
+                {{-- Fasilitas Sanitasi --}}
                 <div>
                     <label for="update_sanitation_type" class="block mb-1 text-xs font-semibold tracking-wider uppercase text-textSecondary">
                         Fasilitas Toilet / Sanitasi <span class="text-red-500">*</span>
@@ -131,7 +138,7 @@
                         x-model="housingProfile.data.sanitation_type"
                         class="w-full px-3 py-2 text-sm transition-all border rounded-lg border-textTertiary/40 bg-tertiary text-textPrimary focus:outline-none focus:bg-secondary focus:border-primary focus:ring-1 focus:ring-primary">
                         <option value="" class="bg-secondary">-- Pilih Sanitasi --</option>
-                        <option value="private_flush_toilet" class="bg-secondary">Jamban Sendiri</option>
+                        <option value="private_flush_toilet" class="bg-secondary">Jamban Sendiri (Default)</option>
                         <option value="shared_flush_toilet" class="bg-secondary">Jamban Bersama / MCK</option>
                         <option value="pit_latrine" class="bg-secondary">Cemplung / Tradisional</option>
                         <option value="no_toilet" class="bg-secondary">Tidak Ada Fasilitas</option>
@@ -140,6 +147,7 @@
             </div>
 
             <div class="grid grid-cols-1 gap-4 sm:grid-cols-3">
+                {{-- Bahan Bakar Memasak --}}
                 <div class="sm:col-span-1">
                     <label for="update_cooking_fuel" class="block mb-1 text-xs font-semibold tracking-wider uppercase text-textSecondary">
                         Bahan Bakar Memasak <span class="text-red-500">*</span>
@@ -148,14 +156,15 @@
                         x-model="housingProfile.data.cooking_fuel"
                         class="w-full px-3 py-2 text-sm transition-all border rounded-lg border-textTertiary/40 bg-tertiary text-textPrimary focus:outline-none focus:bg-secondary focus:border-primary focus:ring-1 focus:ring-primary">
                         <option value="" class="bg-secondary">-- Pilih Bahan Bakar --</option>
+                        <option value="lpg_gas" class="bg-secondary">Gas LPG (Default)</option>
                         <option value="electricity" class="bg-secondary">Listrik / Induksi</option>
-                        <option value="lpg_gas" class="bg-secondary">Gas LPG</option>
                         <option value="biogas" class="bg-secondary">Biogas</option>
                         <option value="kerosene" class="bg-secondary">Minyak Tanah</option>
                         <option value="wood_charcoal" class="bg-secondary">Kayu / Arang</option>
                     </select>
                 </div>
 
+                {{-- Sumber Listrik --}}
                 <div class="sm:col-span-1">
                     <label for="update_electricity_source" class="block mb-1 text-xs font-semibold tracking-wider uppercase text-textSecondary">
                         Sumber Penerangan <span class="text-red-500">*</span>
@@ -164,27 +173,29 @@
                         x-model="housingProfile.data.electricity_source"
                         class="w-full px-3 py-2 text-sm transition-all border rounded-lg border-textTertiary/40 bg-tertiary text-textPrimary focus:outline-none focus:bg-secondary focus:border-primary focus:ring-1 focus:ring-primary">
                         <option value="" class="bg-secondary">-- Pilih Sumber Listrik --</option>
-                        <option value="pln_metered" class="bg-secondary">PLN (Meteran)</option>
+                        <option value="pln_metered" class="bg-secondary">PLN (Meteran) (Default)</option>
                         <option value="pln_unmetered" class="bg-secondary">PLN (Non Meteran)</option>
                         <option value="non_pln" class="bg-secondary">Non-PLN (Solar/Genset)</option>
                         <option value="no_electricity" class="bg-secondary">Bukan Listrik</option>
                     </select>
                 </div>
 
+                {{-- Daya Listrik --}}
                 <div class="sm:col-span-1">
                     <label for="update_electricity_capacity" class="block mb-1 text-xs font-semibold tracking-wider uppercase text-textSecondary">
                         Daya Listrik <span class="text-red-500">*</span>
                     </label>
                     <select id="update_electricity_capacity" name="electricity_capacity" required
                         x-model="housingProfile.data.electricity_capacity"
+                        :disabled="housingProfile.data.electricity_source === 'no_electricity'"
                         class="w-full px-3 py-2 text-sm transition-all border rounded-lg border-textTertiary/40 bg-tertiary text-textPrimary focus:outline-none focus:bg-secondary focus:border-primary focus:ring-1 focus:ring-primary">
                         <option value="" class="bg-secondary">-- Pilih Daya --</option>
-                        <option value="450va" class="bg-secondary">450 VA</option>
-                        <option value="900va" class="bg-secondary">900 VA</option>
-                        <option value="1300va" class="bg-secondary">1300 VA</option>
-                        <option value="2200va" class="bg-secondary">2200 VA</option>
-                        <option value="above_2200va" class="bg-secondary">Di atas 2200 VA</option>
-                        <option value="non_electricity" class="bg-secondary">Tanpa Listrik</option>
+                        <option value="900va" x-show="housingProfile.data.electricity_source !== 'no_electricity'" class="bg-secondary">900 VA</option>
+                        <option value="450va" x-show="housingProfile.data.electricity_source !== 'no_electricity'" class="bg-secondary">450 VA</option>
+                        <option value="1300va" x-show="housingProfile.data.electricity_source !== 'no_electricity'" class="bg-secondary">1300 VA</option>
+                        <option value="2200va" x-show="housingProfile.data.electricity_source !== 'no_electricity'" class="bg-secondary">2200 VA</option>
+                        <option value="above_2200va" x-show="housingProfile.data.electricity_source !== 'no_electricity'" class="bg-secondary">Di atas 2200 VA</option>
+                        <option value="non_electricity" :selected="housingProfile.data.electricity_source === 'no_electricity'" class="bg-secondary">Tanpa Listrik</option>
                     </select>
                 </div>
             </div>

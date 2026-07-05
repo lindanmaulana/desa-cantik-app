@@ -20,17 +20,17 @@
             </button>
         </div>
 
-        <form action="{{ route('housing-profile.store', ['family' => $family->id]) }}"
-            method="POST" class="p-6 space-y-5 max-h-[75vh] overflow-y-auto">
+        <form action="{{ route('housing-profile.store', $family) }}"
+            method="POST" class="p-6 space-y-5 max-h-[75vh] overflow-y-auto"
+            x-data="{ electricitySource: 'pln_metered' }">
             @csrf
-
-            <input type="hidden" name="family_id" value="{{ $family->id }}">
 
             <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
                 <div>
                     <label for="create_house_condition" class="block mb-1 text-xs font-semibold tracking-wider uppercase text-textSecondary">
                         Kondisi Kelayakan Rumah <span class="text-red-500">*</span>
                     </label>
+
                     <select id="create_house_condition" name="house_condition" required
                         class="w-full px-3 py-2 text-sm transition-all border rounded-lg border-textTertiary/40 bg-tertiary text-textPrimary focus:outline-none focus:bg-secondary focus:border-primary focus:ring-1 focus:ring-primary">
                         <option value="">-- Pilih Kondisi --</option>
@@ -43,6 +43,7 @@
                     <label for="create_house_ownership" class="block mb-1 text-xs font-semibold tracking-wider uppercase text-textSecondary">
                         Status Kepemilikan Rumah
                     </label>
+
                     <select id="create_house_ownership" name="house_ownership"
                         class="w-full px-3 py-2 text-sm transition-all border rounded-lg border-textTertiary/40 bg-tertiary text-textPrimary focus:outline-none focus:bg-secondary focus:border-primary focus:ring-1 focus:ring-primary">
                         <option value="">-- Pilih Kepemilikan --</option>
@@ -59,6 +60,7 @@
                     <label for="create_floor_material" class="block mb-1 text-xs font-semibold tracking-wider uppercase text-textSecondary">
                         Bahan Lantai Utama <span class="text-red-500">*</span>
                     </label>
+
                     <select id="create_floor_material" name="floor_material" required
                         class="w-full px-3 py-2 text-sm transition-all border rounded-lg border-textTertiary/40 bg-tertiary text-textPrimary focus:outline-none focus:bg-secondary focus:border-primary focus:ring-1 focus:ring-primary">
                         <option value="cement_brick">Ubin Semen / Bata (Default)</option>
@@ -74,9 +76,10 @@
                     <label for="create_wall_material" class="block mb-1 text-xs font-semibold tracking-wider uppercase text-textSecondary">
                         Bahan Dinding Utama <span class="text-red-500">*</span>
                     </label>
+
                     <select id="create_wall_material" name="wall_material" required
                         class="w-full px-3 py-2 text-sm transition-all border rounded-lg border-textTertiary/40 bg-tertiary text-textPrimary focus:outline-none focus:bg-secondary focus:border-primary focus:ring-1 focus:ring-primary">
-                        <option value="mansory_brick">Bata / Plesteran (Default)</option>
+                        <option value="masonry_brick">Bata / Plesteran (Default)</option>
                         <option value="reinforced_concrete">Beton Bertulang</option>
                         <option value="wood_plank">Papan Kayu</option>
                         <option value="bamboo_woven">Anyaman Bambu</option>
@@ -88,6 +91,7 @@
                     <label for="create_roof_material" class="block mb-1 text-xs font-semibold tracking-wider uppercase text-textSecondary">
                         Bahan Atap Utama <span class="text-red-500">*</span>
                     </label>
+
                     <select id="create_roof_material" name="roof_material" required
                         class="w-full px-3 py-2 text-sm transition-all border rounded-lg border-textTertiary/40 bg-tertiary text-textPrimary focus:outline-none focus:bg-secondary focus:border-primary focus:ring-1 focus:ring-primary">
                         <option value="clay_tile">Genteng Tanah (Default)</option>
@@ -104,6 +108,7 @@
                     <label for="create_water_source" class="block mb-1 text-xs font-semibold tracking-wider uppercase text-textSecondary">
                         Sumber Air Minum <span class="text-red-500">*</span>
                     </label>
+
                     <select id="create_water_source" name="water_source" required
                         class="w-full px-3 py-2 text-sm transition-all border rounded-lg border-textTertiary/40 bg-tertiary text-textPrimary focus:outline-none focus:bg-secondary focus:border-primary focus:ring-1 focus:ring-primary">
                         <option value="protected_well">Sumur Terlindung (Default)</option>
@@ -118,6 +123,7 @@
                     <label for="create_sanitation_type" class="block mb-1 text-xs font-semibold tracking-wider uppercase text-textSecondary">
                         Fasilitas Toilet / Sanitasi <span class="text-red-500">*</span>
                     </label>
+
                     <select id="create_sanitation_type" name="sanitation_type" required
                         class="w-full px-3 py-2 text-sm transition-all border rounded-lg border-textTertiary/40 bg-tertiary text-textPrimary focus:outline-none focus:bg-secondary focus:border-primary focus:ring-1 focus:ring-primary">
                         <option value="private_flush_toilet">Jamban Sendiri (Default)</option>
@@ -133,6 +139,7 @@
                     <label for="create_cooking_fuel" class="block mb-1 text-xs font-semibold tracking-wider uppercase text-textSecondary">
                         Bahan Bakar Memasak <span class="text-red-500">*</span>
                     </label>
+
                     <select id="create_cooking_fuel" name="cooking_fuel" required
                         class="w-full px-3 py-2 text-sm transition-all border rounded-lg border-textTertiary/40 bg-tertiary text-textPrimary focus:outline-none focus:bg-secondary focus:border-primary focus:ring-1 focus:ring-primary">
                         <option value="lpg_gas">Gas LPG (Default)</option>
@@ -147,7 +154,8 @@
                     <label for="create_electricity_source" class="block mb-1 text-xs font-semibold tracking-wider uppercase text-textSecondary">
                         Sumber Penerangan <span class="text-red-500">*</span>
                     </label>
-                    <select id="create_electricity_source" name="electricity_source" required
+
+                    <select id="create_electricity_source" name="electricity_source" x-model="electricitySource" required
                         class="w-full px-3 py-2 text-sm transition-all border rounded-lg border-textTertiary/40 bg-tertiary text-textPrimary focus:outline-none focus:bg-secondary focus:border-primary focus:ring-1 focus:ring-primary">
                         <option value="pln_metered">PLN (Meteran) (Default)</option>
                         <option value="pln_unmetered">PLN (Non Meteran)</option>
@@ -160,14 +168,15 @@
                     <label for="create_electricity_capacity" class="block mb-1 text-xs font-semibold tracking-wider uppercase text-textSecondary">
                         Daya Listrik <span class="text-red-500">*</span>
                     </label>
-                    <select id="create_electricity_capacity" name="electricity_capacity" required
+
+                    <select id="create_electricity_capacity" name="electricity_capacity" required :disabled="electricitySource === 'no_electricity'"
                         class="w-full px-3 py-2 text-sm transition-all border rounded-lg border-textTertiary/40 bg-tertiary text-textPrimary focus:outline-none focus:bg-secondary focus:border-primary focus:ring-1 focus:ring-primary">
-                        <option value="900va">900 VA (Default)</option>
-                        <option value="450va">450 VA</option>
-                        <option value="1300va">1300 VA</option>
-                        <option value="2200va">2200 VA</option>
-                        <option value="above_2200va">Di atas 2200 VA</option>
-                        <option value="non_electricity">Tanpa Listrik</option>
+                        <option value="900va" x-show="electricitySource !== 'no_electricity'">900 VA</option>
+                        <option value="450va" x-show="electricitySource !== 'no_electricity'">450 VA</option>
+                        <option value="1300va" x-show="electricitySource !== 'no_electricity'">1300 VA</option>
+                        <option value="2200va" x-show="electricitySource !== 'no_electricity'">2200 VA</option>
+                        <option value="above_2200va" x-show="electricitySource !== 'no_electricity'">Di atas 2200 VA</option>
+                        <option value="non_electricity" :selected="electricitySource === 'no_electricity'">Tanpa Listrik</option>
                     </select>
                 </div>
             </div>
