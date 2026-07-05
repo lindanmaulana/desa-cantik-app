@@ -4,35 +4,32 @@ services:
       context: .
       dockerfile: Dockerfile
     image: pandawa-app:prod
-    container_name: pandawa-app
     restart: always
     env_file:
       - .env
     volumes:
-      - pandawa_public_assets:/var/www/public
-      - pandawa_user_uploads:/var/www/storage/app/public
-      - ./docker/php/uploads.ini:/usr/local/etc/php/conf.d/uploads.ini
+      - pandawa_uploads:/var/www/storage/app/public
     networks:
       - pandawa-network
+    depends_on:
+      - db
 
   nginx:
     image: nginx:alpine
-    container_name: pandawa_nginx
     restart: always
     ports:
       - "80:80"
     volumes:
-      - ./nginx.conf:/etc/nginx/conf.d/default.conf
-      - pandawa_public_assets:/var/www/public:ro
-      - pandawa_user_uploads:/var/www/storage/app/public:ro
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
+      - .:/var/www:ro
+      - pandawa_uploads:/var/www/storage/app/public/:ro
     networks:
       - pandawa-network
     depends_on:
       - app
 
   db:
-    image: mysql:8.0
-    container_name: pandawa_db
+    image: mysql:8
     restart: always
     environment:
       MYSQL_DATABASE: ${DB_DATABASE}
@@ -40,18 +37,34 @@ services:
       MYSQL_USER: ${DB_USERNAME}
       MYSQL_PASSWORD: ${DB_PASSWORD}
     volumes:
-      - pandawa_mysql_data:/var/lib/mysql
+      - pandawa_mysql:/var/lib/mysql
     networks:
       - pandawa-network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u${DB_USERNAME}", "-p${DB_PASSWORD}"]
+      timeout: 5s
+      retries: 5
+
+  queue-worker:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: pandawa-app:prod
+    restart: always
+    env_file:
+      - .env
+    command: php artisan queue:work --queue=default --tries=3 --quiet
+    networks:
+      - pandawa-network
+    depends_on:
+      db:
+        condition: service_healthy
+      app:
+        condition: service_started
+
+volumes:
+  pandawa_mysql:
+  pandawa_uploads:
 
 networks:
   pandawa-network:
-    driver: bridge
-
-volumes:
-  pandawa_mysql_data:
-    driver: local
-  pandawa_public_assets:
-    driver: local
-  pandawa_user_uploads:
-    driver: local

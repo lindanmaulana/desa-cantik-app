@@ -7,3 +7,6 @@ docker-compose.yml
 Dockerfile
 nginx.conf
 public/storage
+
+bootstrap/cache/*.php
+storage/framework/cache/*
