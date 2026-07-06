@@ -15,7 +15,7 @@ return new class extends Migration
             $table->uuid('id')->primary();
 
             $table->string('sub_village', 100);
-            $table->string("area_name", 100);
+            $table->string("area_name", 100)->nullable();
             $table->string("rw", 5);
             $table->string("rt", 5);
 

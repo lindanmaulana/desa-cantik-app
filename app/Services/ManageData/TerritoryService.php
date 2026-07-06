@@ -6,6 +6,7 @@ use App\Models\Territory;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Collection;
+use phpDocumentor\Reflection\Types\Boolean;
 
 class TerritoryService
 {
@@ -67,6 +68,17 @@ class TerritoryService
             ->where('rw', $rw)
             ->orderBy('rt', 'asc')
             ->get();
+    }
+
+    public function checkDuplicateTerritory(array $data): bool
+    {
+        $isDuplicate = Territory::where('rw', $data['rw'])->where('rt', $data['rt'])->exists();
+
+        if ($isDuplicate) {
+            throw new \InvalidArgumentException("Wilayah dengan RT{$data['rw']} dan RW{$data['rw']} sudah terdaftar");
+        }
+
+        return false;
     }
 
     public function create(array $data)
