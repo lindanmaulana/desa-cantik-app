@@ -19,10 +19,10 @@ use App\Http\Controllers\Dashboard\ManageData\HousingProfileController;
 use App\Http\Controllers\Dashboard\ManageData\MsmesController;
 use App\Http\Controllers\Dashboard\ManageData\InfrastructuresController;
 use App\Http\Controllers\Dashboard\ManageData\SpatialDataController as ManageSpatialDataController;
-use App\Http\Controllers\Dashboard\Settings\VillageSettingController;
 use App\Http\Controllers\Dashboard\Statistics\EconomicController;
 use App\Http\Controllers\Dashboard\Statistics\HealthController;
 use App\Http\Controllers\Dashboard\Admin\ManageOperatorController;
+use App\Http\Controllers\Dashboard\Admin\VillageSettingController;
 
 Route::middleware(['auth'])->group(function () {
     Route::prefix('dashboard')->group(function () {

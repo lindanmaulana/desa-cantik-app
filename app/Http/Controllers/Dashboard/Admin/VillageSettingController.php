@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\Dashboard\Settings;
+namespace App\Http\Controllers\Dashboard\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\VillageSettings\StoreVillageSettingRequest;
 use App\Http\Requests\VillageSettings\UpdateVillageSettingRequest;
 use App\Http\Requests\VillageSettings\UpdateVillageLogoRequest;
 use App\Http\Requests\VillageSettings\UpdateVillageBannerRequest;
-use App\Services\Settings\VillageSettingService;
+use App\Services\Admin\VillageSettingService;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 
@@ -19,12 +19,13 @@ class VillageSettingController extends Controller
     {
         $settings = $this->villageSettingService->getSettings();
 
-        return view('dashboard.settings.index', compact('settings'));
+        return view('dashboard.admin.settings.index', compact('settings'));
     }
 
     public function store(StoreVillageSettingRequest $request)
     {
         if ($this->villageSettingService->getSettings()) {
+            dd('Kondisi IF masuk, artinya data sudah ada di DB!', $this->villageSettingService->getSettings());
             return redirect()->back()->with('error', 'Pengaturan desa sudah ada.');
         }
 

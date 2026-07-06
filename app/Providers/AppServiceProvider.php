@@ -2,7 +2,7 @@
 
 namespace App\Providers;
 
-use App\Services\Settings\VillageSettingService;
+use App\Services\Admin\VillageSettingService;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Log;

@@ -1,8 +1,6 @@
 <form :action="isEdit ? '{{ route('settings.update') }}' : '{{ route('settings.store') }}'" method="POST" class="mt-8 space-y-10">
     @csrf
-    <template x-if="isEdit">
-        @method('PUT')
-    </template>
+    <input type="hidden" name="_method" :value="isEdit ? 'PUT' : 'POST'">
 
     <div class="grid grid-cols-1 pb-10 border-b gap-x-8 gap-y-6 border-gray-900/10 md:grid-cols-3">
         <div>

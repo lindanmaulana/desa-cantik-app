@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\Settings;
+namespace App\Services\Admin;
 
 use App\Models\VillageSetting;
 use Illuminate\Http\UploadedFile;
