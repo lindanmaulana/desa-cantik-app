@@ -41,10 +41,9 @@
                 <select id="update_territory_id" name="territory_id" required x-model="family.territory_id"
                     class="w-full px-3 py-2 text-sm transition-all border rounded-lg border-textTertiary/40 bg-tertiary text-textPrimary focus:outline-none focus:bg-secondary focus:border-primary focus:ring-1 focus:ring-primary">
                     <option value="" class="bg-secondary">-- Pilih Wilayah --</option>
-                    @foreach ($territories as $territory)
-                    <option value="{{ $territory->id }}" class="bg-secondary">
-                        Dusun {{ ucfirst($territory->sub_village) }} (RT {{ $territory->rt }} / RW
-                        {{ $territory->rw }})
+                    @foreach ($territories as $id => $label)
+                    <option value="{{ $id }}" class="bg-secondary">
+                        {{ $label }})
                     </option>
                     @endforeach
                 </select>

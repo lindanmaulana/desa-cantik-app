@@ -5,14 +5,18 @@ namespace App\Services\ManageData;
 use App\Models\Territory;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
-use Illuminate\Database\Eloquent\Collection;
-use phpDocumentor\Reflection\Types\Boolean;
 
 class TerritoryService
 {
-    public function getAllTerritories(): Collection
+    public function getTerritoryOptions()
     {
-        return Territory::all();
+        $territories = Territory::select(['id', 'rt', 'rw', 'sub_village'])
+            ->get()
+            ->mapWithKeys(function ($item) {
+                return [$item->id => "Dusun {$item->sub_village} - RW {$item->rw} / RT {$item->rt}"];
+            });
+
+        return $territories;
     }
 
     public function getAll(array $request)
