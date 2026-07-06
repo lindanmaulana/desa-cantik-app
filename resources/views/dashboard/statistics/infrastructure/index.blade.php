@@ -9,7 +9,6 @@
             @include('dashboard.statistics.infrastructure.partials._filter-aggregate')
             @include('dashboard.statistics.infrastructure.partials._chart')
             @include('dashboard.statistics.infrastructure.partials._table-aggregate-village')
-            @include('dashboard.statistics.infrastructure.partials._table-aggregate-territory')
         </div>
     </div>
 
