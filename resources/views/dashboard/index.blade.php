@@ -105,7 +105,7 @@
 
                     {{-- ganti iframe sesuaikan dengan desanya --}}
                     <iframe
-                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d63362.13224381473!2d108.47197398521011!3d-6.993581459840739!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e6f105206de9acd%3A0x23809bb2c0f8e66e!2sSukaraja%2C%20Kec.%20Ciawigebang%2C%20Kabupaten%20Kuningan%2C%20Jawa%20Barat!5e0!3m2!1sid!2sid!4v1781874424452!5m2!1sid!2sid"
+                        src="https://maps.google.com/maps?q={{ $villageSettings->latitude ?? '-6.977484656144307' }},{{ $villageSettings->longitude ?? '108.48431009591388' }}&z=14&output=embed"
                         class="absolute inset-0 w-full h-full transition-opacity duration-300 border-0 opacity-90 hover:opacity-100"
                         allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
                     </iframe>

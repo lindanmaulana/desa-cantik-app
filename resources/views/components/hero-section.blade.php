@@ -1,5 +1,7 @@
 <div class="relative w-full overflow-hidden bg-center bg-cover border shadow-lg rounded-2xl border-slate-200/60"
-    @if (isset($villageSettings) && $villageSettings->hero_image) style="background-image: url('{{ asset('storage/' . $villageSettings->hero_image) }}');" @endif>
+    @if(isset($villageSettings) && $villageSettings->hero_image)
+    style="background-image: url('{{ asset('storage/' . $villageSettings->hero_image) }}');"
+    @endif>
 
     <!-- Overlay -->
     <div
