@@ -1,109 +1,42 @@
-# ===========================
-# Stage 1 - Frontend Builder
-# ===========================
-FROM node:22-alpine AS frontend
-
-WORKDIR /app
-
-COPY package*.json ./
-
-RUN npm ci
-
-COPY resources ./resources
-COPY public ./public
-COPY vite.config.* ./
-COPY tailwind.config.* ./
-COPY postcss.config.* ./
-
-RUN npm run build
-
-
-# ===========================
-# Stage 2 - Composer Builder
-# ===========================
-FROM composer:2 AS vendor
-
-WORKDIR /app
-
-COPY composer.json composer.lock ./
-
-RUN composer install \
-    --no-dev \
-    --prefer-dist \
-    --optimize-autoloader \
-    --classmap-authoritative \
-    --no-interaction \
-    --no-scripts
-
-COPY . .
-
-RUN composer dump-autoload \
-    --optimize \
-    --classmap-authoritative
-
-
-# ===========================
-# Stage 3 - Production Image
-# ===========================
-FROM php:8.3-fpm
-
-WORKDIR /var/www
-
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    libpng-dev \
-    libjpeg62-turbo-dev \
-    libfreetype6-dev \
-    libzip-dev \
-    libicu-dev \
-    libxml2-dev \
-    unzip \
-    && docker-php-ext-configure gd --with-freetype --with-jpeg \
-    && docker-php-ext-install \
-        pdo_mysql \
-        mbstring \
-        bcmath \
-        exif \
-        gd \
-        zip \
-        intl \
-        opcache \
-    && apt-get purge -y \
-    && apt-get autoremove -y \
-    && rm -rf /var/lib/apt/lists/*
-
-# PHP Production Settings
-RUN { \
-    echo "upload_max_filesize=10M"; \
-    echo "post_max_size=10M"; \
-    echo "memory_limit=256M"; \
-    echo "opcache.enable=1"; \
-    echo "opcache.memory_consumption=256"; \
-    echo "opcache.max_accelerated_files=20000"; \
-    echo "opcache.validate_timestamps=0"; \
-    echo "opcache.revalidate_freq=0"; \
-} > /usr/local/etc/php/conf.d/production.ini
-
-# Copy Laravel source
-COPY --chown=www-data:www-data . .
-
-# Copy vendor dari Composer stage
-COPY --from=vendor --chown=www-data:www-data /app/vendor ./vendor
-
-# Copy asset hasil Vite
-COPY --from=frontend --chown=www-data:www-data /app/public/build ./public/build
-
-# Permission
-RUN mkdir -p storage/framework/cache \
-    storage/framework/sessions \
-    storage/framework/views \
-    storage/framework/testing \
-    storage/logs \
-    bootstrap/cache \
- && chown -R www-data:www-data storage bootstrap/cache \
- && chmod -R 775 storage bootstrap/cache
-
-USER www-data
-
-EXPOSE 9000
-
-CMD ["php-fpm"]
+<div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4 sm:gap-6">
+    <!-- Stat 1 -->
+    <div
+        class="bg-secondary p-5 sm:p-6 rounded-2xl border border-tertiary shadow-sm hover:shadow-md transition-all flex flex-col items-center text-center justify-center min-h-[130px]">
+        <div class="p-2.5 bg-primary/10 text-primary rounded-xl mb-2.5 shrink-0">
+            <x-heroicon-o-users class="w-6 h-6" />
+        </div>
+        <span class="text-2xl font-bold tracking-tight sm:text-3xl text-textPrimary">0</span>
+        <span class="text-[11px] font-semibold text-textSecondary mt-1 uppercase tracking-wider">Total
+            Penduduk</span>
+    </div>
+    <!-- Stat 2 -->
+    <div
+        class="bg-secondary p-5 sm:p-6 rounded-2xl border border-tertiary shadow-sm hover:shadow-md transition-all flex flex-col items-center text-center justify-center min-h-[130px]">
+        <div class="p-2.5 bg-emerald-50 text-emerald-500 rounded-xl mb-2.5 shrink-0">
+            <x-heroicon-o-home class="w-6 h-6" />
+        </div>
+        <span class="text-2xl font-bold tracking-tight sm:text-3xl text-textPrimary">1.849</span>
+        <span class="text-[11px] font-semibold text-textSecondary mt-1 uppercase tracking-wider">Kepala
+            Keluarga</span>
+    </div>
+    <!-- Stat 3 -->
+    <div
+        class="bg-secondary p-5 sm:p-6 rounded-2xl border border-tertiary shadow-sm hover:shadow-md transition-all flex flex-col items-center text-center justify-center min-h-[130px]">
+        <div class="p-2.5 bg-amber-50 text-amber-500 rounded-xl mb-2.5 shrink-0">
+            <x-iconsax-out-buildings class="w-6 h-6" />
+        </div>
+        <span class="text-2xl font-bold tracking-tight sm:text-3xl text-textPrimary">0</span>
+        <span class="text-[11px] font-semibold text-textSecondary mt-1 uppercase tracking-wider">Unit
+            Perumahan</span>
+    </div>
+    <!-- Stat 4 -->
+    <div
+        class="bg-secondary p-5 sm:p-6 rounded-2xl border border-tertiary shadow-sm hover:shadow-md transition-all flex flex-col items-center text-center justify-center min-h-[130px]">
+        <div class="p-2.5 bg-cyan-50 text-cyan-500 rounded-xl mb-2.5 shrink-0">
+            <x-heroicon-o-map class="w-6 h-6" />
+        </div>
+        <span class="text-2xl font-bold tracking-tight sm:text-3xl text-textPrimary">5</span>
+        <span class="text-[11px] font-semibold text-textSecondary mt-1 uppercase tracking-wider">Dusun
+            Terdata</span>
+    </div>
+</div>
