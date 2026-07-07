@@ -1,8 +1,8 @@
-<div x-show="openCreate"
-    x-cloak
+<div x-show="openCreate" x-cloak
     class="fixed inset-0 z-50 flex items-center justify-center p-4 overflow-y-auto transition-opacity duration-300 bg-textPrimary/50 backdrop-blur-sm">
 
-    <div class="w-full max-w-xl overflow-hidden transition-all duration-300 transform scale-95 border shadow-xl bg-secondary border-textTertiary/30 rounded-2xl">
+    <div
+        class="w-full max-w-xl overflow-hidden transition-all duration-300 transform scale-95 border shadow-xl bg-secondary border-textTertiary/30 rounded-2xl">
 
         <div class="flex items-center justify-between px-6 py-4 border-b border-textTertiary/20 bg-tertiary">
             <div class="flex items-center gap-2">
@@ -20,7 +20,8 @@
             </button>
         </div>
 
-        <form action="{{ route('admin.manage-operator.store') }}" method="POST" class="p-6 space-y-4">
+        <form action="{{ route('admin.manage-operator.store') }}" method="POST" class="p-6 space-y-4"
+            x-data="{ submitting: false }" @submit="submitting = true">
             @csrf
 
             <input type="hidden" name="role" value="operator">
@@ -30,26 +31,32 @@
                 <h4 class="pb-1 text-sm font-bold border-b text-primary border-textTertiary/20">Kredensial Akun</h4>
 
                 <div>
-                    <label for="username" class="block mb-1 text-xs font-semibold tracking-wider uppercase text-textSecondary">
+                    <label for="username"
+                        class="block mb-1 text-xs font-semibold tracking-wider uppercase text-textSecondary">
                         Username Akun <span class="text-red-500">*</span>
                     </label>
-                    <input type="text" id="username" name="username" required placeholder="Contoh: admin_budi atau budi123"
+                    <input type="text" id="username" name="username" required
+                        placeholder="Contoh: admin_budi atau budi123"
                         class="w-full px-3 py-2 text-sm transition-all border rounded-lg border-textTertiary/40 bg-tertiary text-textPrimary placeholder:text-textSecondary/50 focus:outline-none focus:bg-secondary focus:border-primary focus:ring-1 focus:ring-primary">
                 </div>
 
                 <div>
-                    <label for="fullname" class="block mb-1 text-xs font-semibold tracking-wider uppercase text-textSecondary">
+                    <label for="fullname"
+                        class="block mb-1 text-xs font-semibold tracking-wider uppercase text-textSecondary">
                         Nama Lengkap Admin <span class="text-red-500">*</span>
                     </label>
-                    <input type="text" id="fullname" name="fullname" required placeholder="Contoh: Budi Santoso, S.Kom"
+                    <input type="text" id="fullname" name="fullname" required
+                        placeholder="Contoh: Budi Santoso, S.Kom"
                         class="w-full px-3 py-2 text-sm transition-all border rounded-lg border-textTertiary/40 bg-tertiary text-textPrimary placeholder:text-textSecondary/50 focus:outline-none focus:bg-secondary focus:border-primary focus:ring-1 focus:ring-primary">
                 </div>
 
                 <div>
-                    <label for="password" class="block mb-1 text-xs font-semibold tracking-wider uppercase text-textSecondary">
+                    <label for="password"
+                        class="block mb-1 text-xs font-semibold tracking-wider uppercase text-textSecondary">
                         Kata Sandi
                     </label>
-                    <input type="password" id="password" name="password" minlength="8" placeholder="Kosongkan untuk menggunakan kata sandi default ('resident')"
+                    <input type="password" id="password" name="password" minlength="8"
+                        placeholder="Kosongkan untuk menggunakan kata sandi default ('resident')"
                         class="w-full px-3 py-2 text-sm transition-all border rounded-lg border-textTertiary/40 bg-tertiary text-textPrimary placeholder:text-textSecondary/50 focus:outline-none focus:bg-secondary focus:border-primary focus:ring-1 focus:ring-primary">
                 </div>
             </div>
@@ -59,9 +66,15 @@
                     class="px-4 py-2 text-sm font-medium transition-colors border rounded-lg text-textPrimary bg-secondary border-textTertiary/40 hover:bg-tertiary focus:outline-none">
                     Batal
                 </button>
-                <button type="submit"
-                    class="px-4 py-2 text-sm font-medium transition-colors rounded-lg shadow-sm text-secondary bg-primary hover:opacity-90 focus:outline-none">
-                    Simpan & Buat Admin
+                <button type="submit" x-bind:disabled="submitting"
+                    class="flex items-center justify-center gap-2 px-4 py-2 text-sm font-medium text-secondary transition-colors bg-primary rounded-lg shadow-sm hover:opacity-90 focus:outline-none disabled:opacity-70 disabled:cursor-not-allowed min-w-[140px]">
+                    <svg x-show="submitting" x-cloak class="w-4 h-4 animate-spin" viewBox="0 0 24 24" fill="none">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
+                            stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z">
+                        </path>
+                    </svg>
+                    <span x-text="submitting ? 'Menyimpan...' : 'Simpan & Buat Admin'"></span>
                 </button>
             </div>
         </form>
