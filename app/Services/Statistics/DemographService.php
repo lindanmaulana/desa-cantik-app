@@ -135,8 +135,6 @@ class DemographService
                     'label' => "RW " . $row->rw . " / RT " . $row->rt,
                     'territory' => ['rw' => $row->rw, 'rt' => $row->rt],
 
-                    // PERBAIKAN: Selaraskan susunan baris kategori dengan Enums/Labels Gender
-                    // Baris 1 (Laki-Laki): mengambil total_male, Baris 2 (Perempuan): bernilai 0
                     'male' => [
                         (int)($row->total_male ?? 0),
                         0

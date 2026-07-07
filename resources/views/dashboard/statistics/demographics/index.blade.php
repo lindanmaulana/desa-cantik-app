@@ -20,14 +20,14 @@
     @push('scripts')
         <script>
             window.demographicsType = {
-                ageGroup: "{!! \App\Enums\DemographicsType::AGE_GROUP->value !!}",
-                gender: "{!! \App\Enums\DemographicsType::GENDER->value !!}",
-                maritalStatus: "{!! \App\Enums\DemographicsType::MARITAL_STATUS->value !!}",
-                territory: "{!! \App\Enums\DemographicsType::TERRITORY->value !!}",
-                citizenStatus: "{!! \App\Enums\DemographicsType::CITIZEN_STATUS->value !!}",
-                familyRelationship: "{!! \App\Enums\DemographicsType::FAMILY_RELATIONSHIP->value !!}",
-                ktpOwnership: "{!! \App\Enums\DemographicsType::KTP_OWNERSHIP->value !!}",
-                buildingDensity: "{!! \App\Enums\DemographicsType::BUILDING_DENSITY->value !!}"
+                ageGroup: "{!! $demographicsType::AGE_GROUP->value !!}",
+                gender: "{!! $demographicsType::GENDER->value !!}",
+                maritalStatus: "{!! $demographicsType::MARITAL_STATUS->value !!}",
+                territory: "{!! $demographicsType::TERRITORY->value !!}",
+                citizenStatus: "{!! $demographicsType::CITIZEN_STATUS->value !!}",
+                familyRelationship: "{!! $demographicsType::FAMILY_RELATIONSHIP->value !!}",
+                ktpOwnership: "{!! $demographicsType::KTP_OWNERSHIP->value !!}",
+                buildingDensity: "{!! $demographicsType::BUILDING_DENSITY->value !!}"
             };
         </script>
     @endpush

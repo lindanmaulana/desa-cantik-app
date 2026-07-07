@@ -8,9 +8,6 @@ use Illuminate\Support\Facades\DB;
 
 class HealthService
 {
-    /**
-     * Helper subquery untuk mengambil log pertumbuhan balita paling terupdate/terakhir
-     */
     private function getLatestChildGrowthLogQuery()
     {
         return DB::table('child_growth_logs as cgl1')
