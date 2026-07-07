@@ -13,6 +13,7 @@
 
         @include('dashboard.admin.manage-operators.partials._admin-create')
         @include('dashboard.admin.manage-operators.partials._admin-update')
+        @include('dashboard.admin.manage-operators.partials._admin-delete')
         <!-- Modal Update -->
 
         <!-- Stats -->

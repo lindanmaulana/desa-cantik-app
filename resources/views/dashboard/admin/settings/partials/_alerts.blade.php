@@ -20,7 +20,18 @@
 @endif
 
 @if (session('error_upload'))
-    <div class="alert alert-danger" style="background-color: #f8d7da; color: #721c24; padding: 15px; border-radius: 5px; margin-bottom: 20px;">
-        {{ session('error_upload') }}
+<div class="alert alert-danger" style="background-color: #f8d7da; color: #721c24; padding: 15px; border-radius: 5px; margin-bottom: 20px;">
+    {{ session('error_upload') }}
+</div>
+@endif
+
+@if ($errors->any())
+    <div class="p-4 mb-6 text-sm border rounded-lg text-rose-800 bg-rose-50 border-rose-200" role="alert">
+        <div class="mb-2 text-base font-semibold text-rose-900">Periksa Kembali Isian Anda:</div>
+        <ul class="space-y-1 list-disc list-inside text-rose-700">
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
     </div>
 @endif

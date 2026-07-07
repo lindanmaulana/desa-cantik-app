@@ -22,7 +22,7 @@
                 <div class="relative w-full sm:w-48">
                     <select name="rw" onchange="this.form.submit()"
                         class="appearance-none w-full bg-secondary border cursor-pointer border-textTertiary/40 text-textPrimary text-xs sm:text-sm rounded-xl focus:ring-1 focus:ring-primary focus:border-primary block p-2.5 pr-10 outline-none transition-all duration-300">
-                        <option value="all" class="cursor-pointer" {{ request('rw') === 'all' || !request('rw') ? 'selected' : '' }}>
+                        <option value="" class="cursor-pointer" {{ request('rw') === 'all' || !request('rw') ? 'selected' : '' }}>
                             -- Semua Dusun --
                         </option>
 
@@ -41,7 +41,7 @@
                 <div class="relative w-full sm:w-32">
                     <select name="rt" onchange="this.form.submit()"
                         class="appearance-none w-full bg-secondary border cursor-pointer border-textTertiary/40 text-textPrimary text-xs sm:text-sm rounded-xl focus:ring-1 focus:ring-primary focus:border-primary block p-2.5 pr-10 outline-none transition-all duration-300">
-                        <option value="all" {{ request('rt') === 'all' || !request('rt') ? 'selected' : '' }}>-- Semua RT --</option>
+                        <option value="" {{ request('rt') === 'all' || !request('rt') ? 'selected' : '' }}>-- Semua RT --</option>
 
                         @foreach($rtList as $item)
                         <option value="{{ $item->rt }}" {{ request('rt') == $item->rt ? 'selected' : '' }}>

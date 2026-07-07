@@ -3,6 +3,9 @@ export function manageAdminData() {
         openData: false,
         openCreate: false,
         openUpdate: false,
+        openDelete: false,
+        deleteRoute: "",
+
         user: {
             id: "",
             username: "",
@@ -20,6 +23,13 @@ export function manageAdminData() {
                 role: data.role || "",
             };
             this.openUpdate = true;
+        },
+
+        openDeleteModal(event) {
+            const url = event.currentTarget.dataset.url;
+            console.log("URL yang didapat:", url)
+            this.deleteRoute = url;
+            this.openDelete = true;
         },
     };
 }

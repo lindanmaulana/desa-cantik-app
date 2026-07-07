@@ -5,13 +5,18 @@ namespace App\Services\ManageData;
 use App\Models\Territory;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
-use Illuminate\Database\Eloquent\Collection;
 
 class TerritoryService
 {
-    public function getAllTerritories(): Collection
+    public function getTerritoryOptions()
     {
-        return Territory::all();
+        $territories = Territory::select(['id', 'rt', 'rw', 'sub_village'])
+            ->get()
+            ->mapWithKeys(function ($item) {
+                return [$item->id => "Dusun {$item->sub_village} - RW {$item->rw} / RT {$item->rt}"];
+            });
+
+        return $territories;
     }
 
     public function getAll(array $request)
@@ -67,6 +72,17 @@ class TerritoryService
             ->where('rw', $rw)
             ->orderBy('rt', 'asc')
             ->get();
+    }
+
+    public function checkDuplicateTerritory(array $data): bool
+    {
+        $isDuplicate = Territory::where('rw', $data['rw'])->where('rt', $data['rt'])->exists();
+
+        if ($isDuplicate) {
+            throw new \InvalidArgumentException("Wilayah dengan RT{$data['rw']} dan RW{$data['rw']} sudah terdaftar");
+        }
+
+        return false;
     }
 
     public function create(array $data)

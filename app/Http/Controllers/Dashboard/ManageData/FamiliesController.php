@@ -21,7 +21,7 @@ class FamiliesController extends Controller
     {
         $validated = $request->validated();
         $families = $this->familyService->getAll($validated);
-        $territories = $this->territoryService->getAllTerritories();
+        $territories = $this->territoryService->getTerritoryOptions();
         $counts = $this->familyService->getStats();
 
         return view('dashboard.manage-data.families.index', compact('families', 'territories', 'counts'));

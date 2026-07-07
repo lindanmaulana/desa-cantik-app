@@ -19,7 +19,7 @@ class StoreTerritoryRequest extends FormRequest
     {
         return [
             'sub_village' => ['required', 'string', 'max:100'],
-            'area_name' => ['string', 'max:100'],
+            'area_name' => ['nullable', 'string', 'max:100'],
             'rw' => ['required', 'string', 'regex:/^[0-9]{3}$/'],
             'rt' => ['required', 'string', 'regex:/^[0-9]{3}$/']
         ];
