@@ -5,6 +5,7 @@ namespace App\Services\ManageData;
 use App\Enums\Gender;
 use App\Http\Requests\Citizens\StoreCitizenRequest;
 use App\Models\Citizen;
+use App\Models\Family;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;

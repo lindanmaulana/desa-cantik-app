@@ -10,7 +10,7 @@ use App\Enums\Gender;
 use App\Enums\MaritalStatus;
 use App\Enums\Religion;
 
-class StoreCitizenRequest extends FormRequest
+class CreateCitizenRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.

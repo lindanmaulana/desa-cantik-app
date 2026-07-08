@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\Dashboard\ManageData;
 
+use App\Enums\FamilyRole;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Citizens\CreateCitizenRequest;
 use App\Http\Requests\Citizens\GetAllCitizenRequest;
-use App\Http\Requests\Citizens\StoreCitizenRequest;
 use App\Models\Citizen;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
@@ -12,6 +13,7 @@ use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\Citizens\UpdateCitizenRequest;
 use App\Services\ManageData\CitizenService;
 use App\Services\ManageData\FamilyService;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class CitizensController extends Controller
 {
@@ -28,16 +30,31 @@ class CitizensController extends Controller
         return view('dashboard.manage-data.citizens.index', compact('citizens', 'families', 'counts'));
     }
 
+    public function store() {}
 
-    public function create() {}
-
-    public function store(StoreCitizenRequest $request)
+    public function create(CreateCitizenRequest $request)
     {
         $validated = $request->validated();
 
         try {
+            $family = $this->familyService->getFamilyById($validated['family_id']);
+
+            if ($validated['family_role'] === FamilyRole::HEAD_OF_FAMILY->value) {
+                $this->familyService->hasHeadOfFamily($family);
+            }
+
             $this->citizenService->create($validated);
+
             return redirect()->route('dashboard.manage-data.citizens')->with('success', 'Data Warga berhasil ditambahkan!');
+        } catch (\InvalidArgumentException $err) {
+            return back()
+                ->withInput()
+                ->with('error', $err->getMessage());
+
+        } catch (ModelNotFoundException $err) {
+            return redirect()
+                ->back()
+                ->with('error', 'Data keluarga tidak ditemukan.');
         } catch (\Throwable $err) {
             Log::error('Gagal menyimpan warga: ' . $err->getMessage(), [
                 'user_id' => Auth::id(),

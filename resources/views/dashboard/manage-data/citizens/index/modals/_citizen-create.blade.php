@@ -20,7 +20,7 @@
             </button>
         </div>
 
-        <form action="{{ route('citizens.store') }}" method="POST" class="p-6 space-y-4 max-h-[70vh] overflow-y-auto"
+        <form action="{{ route('citizens.create') }}" method="POST" class="p-6 space-y-4 max-h-[70vh] overflow-y-auto"
             x-data="{ submitting: false }" @submit="submitting = true">
             @csrf
 

@@ -2,6 +2,7 @@
 
 namespace App\Services\ManageData;
 
+use App\Enums\FamilyRole;
 use App\Models\Family;
 use App\Models\Citizen;
 use Illuminate\Support\Facades\DB;
@@ -72,6 +73,11 @@ class FamilyService
         return $query->latest()->paginate(10)->withQueryString();
     }
 
+    public function getFamilyById(string $id)
+    {
+        return Family::findOrFail($id);
+    }
+
     public function getFamilyDetail(Family $family)
     {
         $result = $family->load([
@@ -101,6 +107,17 @@ class FamilyService
         }
 
         return false;
+    }
+
+    public function hasHeadOfFamily(Family $family): void
+    {
+        $hasHed = $family->citizens()
+            ->where('family_role', FamilyRole::HEAD_OF_FAMILY)
+            ->exists();
+
+        if ($hasHed) {
+            throw new \InvalidArgumentException("Keluarga ini sudah memiliki Kepala Keluarga.");
+        }
     }
 
     public function create(array $data)

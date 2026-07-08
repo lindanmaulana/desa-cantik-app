@@ -64,7 +64,7 @@ Route::middleware(['auth'])->group(function () {
                     Route::get('/', [CitizensController::class, 'index'])->name('dashboard.manage-data.citizens');
                     Route::get('/{citizen}/detail', [CitizensController::class, 'show'])->name('dashboard.manage-data.citizens.detail');
 
-                    Route::post('/store', [CitizensController::class, 'store'])->name('citizens.store');
+                    Route::post('/create', [CitizensController::class, 'create'])->name('citizens.create');
                     Route::put('/{citizen}/update', [CitizensController::class, 'update'])->name('citizens.update');
                     Route::delete('/{citizen}', [CitizensController::class, 'destroy'])->name('citizens.destroy');
                 });
