@@ -10,8 +10,8 @@
                     <x-heroicon-o-user-plus class="w-5 h-5" />
                 </div>
                 <div>
-                    <h3 class="text-lg font-bold text-textPrimary">Tambah Akun Admin</h3>
-                    <p class="text-xs text-textSecondary">Daftarkan administrator baru untuk mengelola sistem.</p>
+                    <h3 class="text-lg font-bold text-textPrimary">Tambah Akun Operator</h3>
+                    <p class="text-xs text-textSecondary">Daftarkan operator baru untuk mengelola sistem.</p>
                 </div>
             </div>
             <button @click="openCreate = false"
@@ -43,7 +43,7 @@
                 <div>
                     <label for="fullname"
                         class="block mb-1 text-xs font-semibold tracking-wider uppercase text-textSecondary">
-                        Nama Lengkap Admin <span class="text-red-500">*</span>
+                        Nama Lengkap Operator <span class="text-red-500">*</span>
                     </label>
                     <input type="text" id="fullname" name="fullname" required
                         placeholder="Contoh: Budi Santoso, S.Kom"
@@ -74,7 +74,7 @@
                         <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z">
                         </path>
                     </svg>
-                    <span x-text="submitting ? 'Menyimpan...' : 'Simpan & Buat Admin'"></span>
+                    <span x-text="submitting ? 'Menyimpan...' : 'Simpan & Buat Operator'"></span>
                 </button>
             </div>
         </form>

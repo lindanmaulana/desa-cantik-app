@@ -10,8 +10,8 @@
                     <x-heroicon-o-pencil-square class="w-5 h-5" />
                 </div>
                 <div>
-                    <h3 class="text-lg font-bold text-textPrimary">Ubah Akses Admin</h3>
-                    <p class="text-xs text-textSecondary">Perbarui nama lengkap atau ganti kata sandi akun administrator.
+                    <h3 class="text-lg font-bold text-textPrimary">Ubah Akses Operator</h3>
+                    <p class="text-xs text-textSecondary">Perbarui nama lengkap atau ganti kata sandi akun operator.
                     </p>
                 </div>
             </div>
@@ -45,7 +45,7 @@
                 <div>
                     <label for="edit_fullname"
                         class="block mb-1 text-xs font-semibold tracking-wider uppercase text-textSecondary">
-                        Nama Lengkap Admin <span class="text-red-500">*</span>
+                        Nama Lengkap Operator <span class="text-red-500">*</span>
                     </label>
                     <input type="text" id="edit_fullname" name="fullname" required x-model="user.fullname"
                         placeholder="Contoh: Budi Santoso, S.Kom"
