@@ -37,8 +37,9 @@ class FamilyService
         return Family::all();
     }
 
-    public function getFamilyOptions() {
-        $families = Family::select(['id', 'family_card_number'])->get()->mapWithKeys(function($item) {
+    public function getFamilyOptions()
+    {
+        $families = Family::select(['id', 'family_card_number'])->get()->mapWithKeys(function ($item) {
             return [$item->id => "KK: {$item->family_card_number}"];
         });
 
@@ -69,6 +70,20 @@ class FamilyService
         }
 
         return $query->latest()->paginate(10)->withQueryString();
+    }
+
+    public function getFamilyDetail(Family $family)
+    {
+        $result = $family->load([
+            'territory',
+            'housingProfile',
+            'citizens' => function ($query) {
+                $query->select(['id', 'family_id', 'full_name', 'id_number', 'family_role', 'gender', 'birth_date'])
+                    ->orderBy('family_role', 'asc');
+            }
+        ]);
+
+        return $result;
     }
 
     public function create(array $data)

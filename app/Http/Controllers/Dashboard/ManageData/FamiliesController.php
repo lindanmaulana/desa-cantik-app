@@ -54,13 +54,7 @@ class FamiliesController extends Controller
 
     public function show(Family $family)
     {
-        $family->load([
-            'territory',
-            'housingProfile',
-            'citizens' => function ($query) {
-                $query->orderBy('family_role', 'asc');
-            }
-        ]);
+        $family = $this->familyService->getFamilyDetail($family);
 
         return view('dashboard.manage-data.families.detail', compact('family'));
     }
