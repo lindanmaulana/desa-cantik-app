@@ -10,9 +10,9 @@
         <x-alert type="error" :message="session('error')" />
         @endif
 
-        @include('dashboard.manage-data.msmes.partials.modal._create')
-        @include('dashboard.manage-data.msmes.partials.modal._update')
-        @include('dashboard.manage-data.msmes.partials.modal._delete')
+        @include('dashboard.manage-data.msmes.modals._create')
+        @include('dashboard.manage-data.msmes.modals._update')
+        @include('dashboard.manage-data.msmes.modals._delete')
 
         @include('dashboard.manage-data.msmes.partials._stats')
         @include('dashboard.manage-data.msmes.partials._filter')
