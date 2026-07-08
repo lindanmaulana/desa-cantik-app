@@ -45,9 +45,9 @@
                             class="w-full px-3 py-2 text-sm transition-all border rounded-lg border-textTertiary/40 bg-tertiary text-textPrimary focus:outline-none focus:bg-secondary focus:border-primary focus:ring-1 focus:ring-primary">
                             <option value="" class="bg-secondary">-- Pilih Nomor KK --</option>
                             @foreach ($families as $id => $label)
-                                <option value="{{ $id }}" class="bg-secondary">
-                                    {{ $label }}
-                                </option>
+                            <option value="{{ $id }}" class="bg-secondary">
+                                {{ $label }}
+                            </option>
                             @endforeach
                         </select>
                     </div>
@@ -70,7 +70,7 @@
                             class="w-full px-3 py-2 text-sm transition-all border rounded-lg border-textTertiary/40 bg-tertiary text-textPrimary focus:outline-none focus:bg-secondary focus:border-primary focus:ring-1 focus:ring-primary">
                             <option value="" class="bg-secondary">-- Pilih Jenis Kelamin --</option>
                             @foreach ($gender::cases() as $val)
-                                <option value="{{ $val->value }}" class="bg-secondary">{{ $val->label() }}</option>
+                            <option value="{{ $val->value }}" class="bg-secondary">{{ $val->label() }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -83,7 +83,7 @@
                             class="w-full px-3 py-2 text-sm transition-all border rounded-lg border-textTertiary/40 bg-tertiary text-textPrimary focus:outline-none focus:bg-secondary focus:border-primary focus:ring-1 focus:ring-primary">
                             <option value="" class="bg-secondary">-- Pilih Hubungan --</option>
                             @foreach ($familyRole::cases() as $val)
-                                <option value="{{ $val->value }}" class="bg-secondary">{{ $val->label() }}</option>
+                            <option value="{{ $val->value }}" class="bg-secondary">{{ $val->label() }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -116,7 +116,7 @@
                             class="w-full px-3 py-2 text-sm transition-all border rounded-lg border-textTertiary/40 bg-tertiary text-textPrimary focus:outline-none focus:bg-secondary focus:border-primary focus:ring-1 focus:ring-primary">
                             <option value="" class="bg-secondary">-- Pilih Agama --</option>
                             @foreach ($religion::cases() as $val)
-                                <option value="{{ $val->value }}" class="bg-secondary">{{ $val->label() }}</option>
+                            <option value="{{ $val->value }}" class="bg-secondary">{{ $val->label() }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -129,18 +129,24 @@
                             class="w-full px-3 py-2 text-sm transition-all border rounded-lg border-textTertiary/40 bg-tertiary text-textPrimary focus:outline-none focus:bg-secondary focus:border-primary focus:ring-1 focus:ring-primary">
                             <option value="" class="bg-secondary">-- Pilih Status --</option>
                             @foreach ($maritalStatus::cases() as $val)
-                                <option value="{{ $val->value }}" class="bg-secondary">{{ $val->label() }}</option>
+                            <option value="{{ $val->value }}" class="bg-secondary">{{ $val->label() }}</option>
                             @endforeach
                         </select>
                     </div>
 
                     <div>
-                        <label for="blood_type"
-                            class="block mb-1 text-xs font-semibold tracking-wider uppercase text-textSecondary">Golongan
-                            Darah</label>
-                        <input type="text" id="blood_type" name="blood_type" maxlength="5"
-                            placeholder="Contoh: O, AB"
-                            class="w-full px-3 py-2 text-sm transition-all border rounded-lg border-textTertiary/40 bg-tertiary text-textPrimary placeholder:text-textSecondary/50 focus:outline-none focus:bg-secondary focus:border-primary focus:ring-1 focus:ring-primary">
+                        <label class="block mb-1 text-xs font-semibold tracking-wider uppercase text-textSecondary">
+                            Golongan Darah <span class="text-red-500">*</span>
+                        </label>
+                        <select name="blood_type"
+                            class="w-full px-3 py-2 text-sm transition-all border rounded-lg border-textTertiary/40 bg-tertiary text-textPrimary focus:outline-none focus:bg-secondary focus:border-primary focus:ring-1 focus:ring-primary">
+                            <option value="" class="bg-secondary">-- Pilih Golongan Darah --</option>
+                            @foreach ($bloodType::cases() as $val)
+                            <option value="{{ $val->value }}" class="bg-secondary" {{ old('blood_type') === $val->value ? 'selected' : '' }}>
+                                {{ $val->label() }}
+                            </option>
+                            @endforeach
+                        </select>
                     </div>
                 </div>
             </div>

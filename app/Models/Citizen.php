@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\BloodType;
 use App\Enums\FamilyRole;
 use App\Enums\Gender;
 use App\Enums\MaritalStatus;
@@ -39,6 +40,7 @@ class Citizen extends Model
             'family_role' => FamilyRole::class,
             'gender' => Gender::class,
             'religion' => Religion::class,
+            'blood_type' => BloodType::class,
             'marital_status' => MaritalStatus::class,
             'birth_date' => 'date'
         ];

@@ -2,17 +2,13 @@
 
 namespace App\Http\Requests\Citizens;
 
-use Illuminate\Contracts\Validation\ValidationRule;
+use App\Enums\BloodType;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 use App\Enums\FamilyRole;
 use App\Enums\Gender;
 use App\Enums\MaritalStatus;
 use App\Enums\Religion;
-use App\Http\Requests\EducationProfiles\UpdateEducationProfileRequest;
-use App\Http\Requests\EmploymentProfiles\UpdateEmploymentProfileRequest;
-use App\Http\Requests\HealthProfiles\UpdateHealthProfileRequest;
-use App\Http\Requests\HousingProfiles\UpdateHousingProfileRequest;
 
 class UpdateCitizenRequest extends FormRequest
 {
@@ -27,29 +23,16 @@ class UpdateCitizenRequest extends FormRequest
             'family_id' => ['required', Rule::exists('families', 'id')],
             'id_number' => ['required', 'string', 'max:16'],
             'full_name' => ['required', 'string', 'max:255'],
-            'family_role' => ['required', 'in:' . implode(',', array_column(FamilyRole::cases(), 'value'))],
-            'gender' => ['required', 'in:' . implode(',', array_column(Gender::cases(), 'value'))],
+            'family_role' => ['required', Rule::enum(FamilyRole::class)],
+            'gender' => ['required', Rule::enum(Gender::class)],
             'birth_place' => ['required', 'string', 'max:255'],
             'birth_date' => ['nullable', 'date'],
-            'religion' => ['required', 'in:' . implode(',', array_column(Religion::cases(), 'value'))],
-            'marital_status' => ['required', 'in:' . implode(',', array_column(MaritalStatus::cases(), 'value'))],
-            'blood_type' => ['nullable', 'string', 'max:5'],
+            'religion' => ['required', Rule::enum(Religion::class)],
+            'marital_status' => ['required', Rule::enum(MaritalStatus::class)],
+            'blood_type' => ['nullable', Rule::enum(BloodType::class)],
         ];
 
         return $citizenRules;
-
-        // $educationRules = (new UpdateEducationProfileRequest())->rules();
-        // $employmentRules = (new UpdateEmploymentProfileRequest())->rules();
-        // $healthRules     = (new UpdateHealthProfileRequest())->rules();
-        // $housingRules    = (new UpdateHousingProfileRequest())->rules();
-
-        // return array_merge(
-        //     $citizenRules,
-        //     $educationRules,
-        //     $employmentRules,
-        //     $healthRules,
-        //     $housingRules,
-        // );
     }
 
     public function messages(): array
@@ -57,22 +40,31 @@ class UpdateCitizenRequest extends FormRequest
         return [
             'family_id.required' => 'Keluarga wajib diisi',
             'family_id.exists' => 'Keluarga tidak ditemukan',
+
             'id_number.required' => 'Nomor Induk Kependudukan wajib diisi',
             'id_number.max' => 'Nomor Induk Kependudukan maksimal 16 karakter',
+
             'full_name.required' => 'Nama lengkap wajib diisi',
             'full_name.max' => 'Nama lengkap maksimal 255 karakter',
+
             'family_role.required' => 'Peran dalam keluarga wajib diisi',
-            'family_role.in' => 'Peran dalam keluarga tidak valid',
+            'family_role.enum' => 'Peran dalam keluarga tidak valid',
+
             'gender.required' => 'Jenis kelamin wajib diisi',
-            'gender.in' => 'Jenis kelamin tidak valid',
+            'gender.enum' => 'Jenis kelamin tidak valid',
+
             'birth_place.required' => 'Tempat lahir wajib diisi',
             'birth_place.max' => 'Tempat lahir maksimal 255 karakter',
+
             'birth_date.date' => 'Tanggal lahir tidak valid',
+
             'religion.required' => 'Agama wajib diisi',
-            'religion.in' => 'Agama tidak valid',
+            'religion.enum' => 'Agama tidak valid',
+
             'marital_status.required' => 'Status pernikahan wajib diisi',
-            'marital_status.in' => 'Status pernikahan tidak valid',
-            'blood_type.max' => 'Golongan darah maksimal 5 karakter',
+            'marital_status.enum' => 'Status pernikahan tidak valid',
+
+            'blood_type.enum' => 'Golongan darah tidak valid',
         ];
     }
 }

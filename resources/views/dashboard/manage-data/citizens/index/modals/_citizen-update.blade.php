@@ -138,12 +138,16 @@
                     </div>
 
                     <div>
-                        <label for="update_blood_type"
-                            class="block mb-1 text-xs font-semibold tracking-wider uppercase text-textSecondary">Golongan
-                            Darah</label>
-                        <input type="text" id="update_blood_type" name="blood_type" maxlength="5"
-                            x-model="citizen.data.blood_type" placeholder="Contoh: O, AB"
-                            class="w-full px-3 py-2 text-sm transition-all border rounded-lg border-textTertiary/40 bg-tertiary text-textPrimary placeholder:text-textSecondary/50 focus:outline-none focus:bg-secondary focus:border-primary focus:ring-1 focus:ring-primary">
+                        <label class="block mb-1 text-xs font-semibold tracking-wider uppercase text-textSecondary">
+                            Golongan Darah <span class="text-red-500">*</span>
+                        </label>
+                        <select name="blood_type" required x-model="citizen.data.blood_type"
+                            class="w-full px-3 py-2 text-sm transition-all border rounded-lg border-textTertiary/40 bg-tertiary text-textPrimary focus:outline-none focus:bg-secondary focus:border-primary focus:ring-1 focus:ring-primary">
+                            <option value="">-- Pilih Golongan Darah --</option>
+                            @foreach ($bloodType::cases() as $val)
+                            <option value="{{ $val->value }}">{{ $val->label() }}</option>
+                            @endforeach
+                        </select>
                     </div>
                 </div>
             </div>

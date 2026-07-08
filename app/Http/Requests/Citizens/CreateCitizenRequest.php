@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Citizens;
 
+use App\Enums\BloodType;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
@@ -37,7 +38,7 @@ class CreateCitizenRequest extends FormRequest
             'birth_date' => ['nullable', 'date'],
             'religion' => ['required', Rule::enum(Religion::class)],
             'marital_status' => ['required', Rule::enum(MaritalStatus::class)],
-            'blood_type' => ['nullable', 'string', 'max:5'],
+            'blood_type' => ['nullable', Rule::enum(BloodType::class)],
         ];
     }
 

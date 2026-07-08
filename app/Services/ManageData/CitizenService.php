@@ -2,6 +2,7 @@
 
 namespace App\Services\ManageData;
 
+use App\Enums\BloodType;
 use App\Enums\Gender;
 use App\Http\Requests\Citizens\StoreCitizenRequest;
 use App\Models\Citizen;
@@ -89,6 +90,8 @@ class CitizenService
     public function create(array $data): Citizen
     {
         $data['id'] = Str::uuid()->toString();
+        $data['blood_type'] = $data['blood_type'] ?? BloodType::NOT_KNOWN->value;
+
         return DB::transaction(fn() => Citizen::create($data));
     }
 

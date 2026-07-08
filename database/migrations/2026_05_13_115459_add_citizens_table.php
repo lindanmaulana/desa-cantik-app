@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\BloodType;
 use App\Enums\FamilyRole;
 use App\Enums\Gender;
 use App\Enums\MaritalStatus;
@@ -24,7 +25,7 @@ return new class extends Migration
             $table->enum('gender', array_column(Gender::cases(), 'value'))->default(Gender::MALE->value);
             $table->string('birth_place', 100);
             $table->date('birth_date')->nullable();
-            $table->string('blood_type', 5)->nullable();
+            $table->enum('blood_type', array_column(BloodType::cases(), 'value'))->default(BloodType::NOT_KNOWN->value);
             $table->enum('religion', array_column(Religion::cases(), 'value'))->default(Religion::OTHER->value);
             $table->enum('marital_status', array_column(MaritalStatus::cases(), 'value'))->default(MaritalStatus::SINGLE->value);
 
