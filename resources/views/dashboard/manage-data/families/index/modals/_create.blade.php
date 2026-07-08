@@ -20,7 +20,7 @@
             </button>
         </div>
 
-        <form action="{{ route('families.store') }}" method="POST" class="p-6 space-y-6" x-data="{ submitting: false }"
+        <form action="{{ route('families.create') }}" method="POST" class="p-6 space-y-6" x-data="{ submitting: false }"
             @submit="submitting = true">
             @csrf
 

@@ -50,7 +50,7 @@ Route::middleware(['auth'])->group(function () {
                 Route::prefix('families')->group(function () {
                     Route::get('/', [FamiliesController::class, 'index'])->name('dashboard.manage-data.families');
                     Route::get('/{family}/detail', [FamiliesController::class, 'show'])->name('dashboard.manage-data.families.detail');
-                    Route::post('/store', [FamiliesController::class, 'store'])->name('families.store');
+                    Route::post('/create', [FamiliesController::class, 'create'])->name('families.create');
                     Route::put('/{family}/update', [FamiliesController::class, 'update'])->name('families.update');
                     Route::delete('/{family}', [FamiliesController::class, 'destroy'])->name('families.destroy');
                 });

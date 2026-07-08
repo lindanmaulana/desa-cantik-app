@@ -86,6 +86,23 @@ class FamilyService
         return $result;
     }
 
+    public function checkDuplicateFamilyCardNumber(array $data, ?string $ignoreId = null): bool
+    {
+        $query = Family::where('family_card_number', $data['family_card_number']);
+
+        if ($ignoreId) {
+            $query->where('id', '!=', $ignoreId);
+        }
+
+        $isDuplicate = $query->exists();
+
+        if ($isDuplicate) {
+            throw new \InvalidArgumentException("Nomor KK {$data['family_card_number']} sudah terdaftar");
+        }
+
+        return false;
+    }
+
     public function create(array $data)
     {
         $data['id'] = Str::uuid()->toString();

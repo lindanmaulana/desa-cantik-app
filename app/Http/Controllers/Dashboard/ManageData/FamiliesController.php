@@ -28,17 +28,22 @@ class FamiliesController extends Controller
     }
 
 
-    public function create() {}
+    public function store() {}
 
-    public function store(StoreFamilyRequest $request)
+    public function create(StoreFamilyRequest $request)
     {
         $currentUser = Auth::user();
         $validated = $request->validated();
 
         try {
+            $this->familyService->checkDuplicateFamilyCardNumber($validated);
             $this->familyService->create($validated);
 
             return redirect()->back()->with('success', 'Data Keluarga berhasil ditambahkan!');
+        } catch (\InvalidArgumentException $err) {
+            return back()
+                ->withInput()
+                ->with('error', $err->getMessage());
         } catch (\Throwable $err) {
             Log::error('Gagal menyimpan keluarga: ' . $err->getMessage(), [
                 'user_id' => $currentUser->id,
@@ -67,8 +72,14 @@ class FamiliesController extends Controller
         $validated = $request->validated();
 
         try {
+            $this->familyService->checkDuplicateFamilyCardNumber($validated, $family->id);
+
             $this->familyService->update($family, $validated);
             return redirect()->back()->with('success', 'Data Keluarga berhasil diperbarui.');
+        } catch (\InvalidArgumentException $err) {
+            return back()
+                ->withInput()
+                ->with('error', $err->getMessage());
         } catch (\Throwable $err) {
             Log::error('Gagal memperbarui keluarga: ' . $err->getMessage(), [
                 'user_id' => $currentUser->id,
