@@ -24,8 +24,8 @@ class StoreFamilyRequest extends FormRequest
     {
         return [
             'territory_id' => ['required', 'exists:territories,id'],
-            'family_card_number' => ['required', 'numeric', 'digits:16'],
-            'address_detail' => ['string'],
+            'family_card_number' => ['required', 'numeric', 'digits:16', 'unique:families,family_card_number'],
+            'address_detail' => ['nullable', 'string'],
         ];
     }
 
@@ -33,7 +33,11 @@ class StoreFamilyRequest extends FormRequest
     {
         return [
             'territory_id.required' => 'Wilayah wajib diisi',
+            'territory_id.exists'         => 'Wilayah yang dipilih tidak valid.',
             'family_card_number.required' => 'Nomor Kartu Keluarga wajib diisi',
+            'family_card_number.numeric'  => 'Nomor Kartu Keluarga harus berupa angka.',
+            'family_card_number.digits'   => 'Nomor Kartu Keluarga harus tepat 16 digit.',
+            'family_card_number.unique'   => 'Nomor Kartu Keluarga sudah terdaftar di sistem.',
             'family_card_number.max' => 'Nomor Kartu Keluarga maksimal 16 karakter',
         ];
     }

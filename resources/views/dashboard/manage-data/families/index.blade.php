@@ -10,6 +10,10 @@
         <x-alert type="error" :message="session('error')" />
         @endif
 
+        @if($errors->any())
+        <x-alert type="error" :message="$errors->first()" />
+        @endif
+
         @include('dashboard.manage-data.families.index.modals._create')
         @include('dashboard.manage-data.families.index.modals._update')
         @include('dashboard.manage-data.families.index.modals._delete')
