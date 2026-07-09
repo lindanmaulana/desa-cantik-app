@@ -1,6 +1,3 @@
-
-
-
 <x-layouts.dashboard>
     <div class="flex items-center justify-center h-full">
         <x-comming-soon
