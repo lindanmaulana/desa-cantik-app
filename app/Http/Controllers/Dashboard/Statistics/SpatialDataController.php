@@ -3,61 +3,76 @@
 namespace App\Http\Controllers\Dashboard\Statistics;
 
 use App\Http\Controllers\Controller;
+use App\Services\Statistics\SpatialDataService;
+use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Facades\Log;
 
 class SpatialDataController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    public function __construct(protected SpatialDataService $spatialDataService) {}
+
+    public function index(Request $request)
     {
-        return view('dashboard.statistics.spatial-data.index');
+        $isGenerated = $request->has('generated') || session('spatial_generated');
+        $stats = [];
+        $spatialData =new LengthAwarePaginator([], 0, 5);
+
+        if ($isGenerated) {
+            try {
+                $stats = $this->spatialDataService->getSpatialStats();
+                $spatialData = $this->spatialDataService->getSpatialRegistry(5, $request->query('search'));
+            } catch (Exception $e) {
+                Log::error('Gagal memuat statistik spasial: ' . $e->getMessage(), [
+                    'exception' => $e
+                ]);
+
+                return redirect()->back()->with('error', 'Terjadi kesalahan sistem saat memproses statistik data spasial.');
+            }
+        }
+
+        return view('dashboard.statistics.spatial-data.index', compact('stats', 'spatialData', 'isGenerated'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+    public function generate()
+    {
+        try {
+            session(['spatial_generated' => true]);
+
+            return redirect()->route('dashboard.statistics.spatial-data', ['generated' => 'true'])
+                ->with('success', 'Agregat statistik spasial berhasil dihitung.');
+        } catch (Exception $e) {
+            Log::error('Gagal generate agregat spasial: ' . $e->getMessage());
+            return redirect()->back()->with('error', 'Gagal memulai proses hitung agregat.');
+        }
+    }
+
     public function create()
     {
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         //
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(string $id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(string $id)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, string $id)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
         //

@@ -252,6 +252,29 @@ Tabel khusus bersifat modular untuk melacak riwayat tumbuh kembang berkala balit
 
 ---
 
+## K. Child Growth Logs (New Module)
+
+Tabel khusus bersifat modular untuk melacak riwayat tumbuh kembang berkala balita (0-5 tahun) di Posyandu sebagai dasar perhitungan statistik stunting.
+
+### Nama Tabel: `child_growth_logs`
+
+| Field                | Tipe Data    | Constraint   | Default       | Keterangan                                                                   |
+| :------------------- | :----------- | :----------- | :------------ | :--------------------------------------------------------------------------- |
+| `id`                 | UUID         | PK, NOT NULL |               | ID unik berkas log                                                           |
+| `citizen_id`         | UUID         | FK, NOT NULL |               | Relasi ke `citizens.id` (Entitas Balita terkait)                             |
+| `measured_at`        | DATE         | NOT NULL     |               | Tanggal pelaksanaan pengukuran fisik                                         |
+| `weight`             | DECIMAL(5,2) | NOT NULL     |               | Berat badan (kg), contoh: `9.40`                                             |
+| `height`             | DECIMAL(5,2) | NOT NULL     |               | Tinggi atau panjang badan (cm), contoh: `76.50`                              |
+| `measurement_method` | ENUM         | NOT NULL     | `'recumbent'` | Opsi posisi: `'recumbent'` (telentang), `'standing'` (berdiri)               |
+| `vit_a_received`     | BOOLEAN      | NOT NULL     | `false`       | Status pemberian vitamin A bulan ini                                         |
+| `stunting_status`    | ENUM         | NOT NULL     | `'normal'`    | Hasil hitung otomatis Z-Score: `'normal'`, `'stunted'`, `'severely_stunted'` |
+| `recorded_by`        | UUID         | FK, NULLABLE | `null`        | Relasi ke `users.id` (Kader/Operator penginput data)                         |
+| `notes`              | TEXT         | NULLABLE     | `null`        | Catatan perkembangan (Contoh: "Sedang demam/diare")                          |
+| `created_at`         | TIMESTAMP    | NOT NULL     |               |                                                                              |
+| `updated_at`         | TIMESTAMP    | NOT NULL     |               |                                                                              |
+
+---
+
 # 📐 3. Nilai Enum (Enum Values Summary)
 
 - **Users (`role`)**: `['admin', 'operator', 'head_of_rw', 'head_of_rt']`

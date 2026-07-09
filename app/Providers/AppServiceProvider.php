@@ -12,17 +12,11 @@ use Illuminate\Support\Facades\URL;
 
 class AppServiceProvider extends ServiceProvider
 {
-    /**
-     * Register any application services.
-     */
     public function register(): void
     {
         //
     }
 
-    /**
-     * Bootstrap any application services.
-     */
     public function boot(VillageSettingService $villageSettingService): void
     {
         if (config('app.env') === 'production' || env('FORCE_HTTPS', false)) {
@@ -75,6 +69,7 @@ class AppServiceProvider extends ServiceProvider
             'facilityType' => \App\Enums\FacilityType::class,
             'familyRole' => \App\Enums\FamilyRole::class,
             'floorMaterial' => \App\Enums\FloorMaterial::class,
+            'featureType' => \App\Enums\FeatureType::class,
             'gender' => \App\Enums\Gender::class,
             'houseCondition' => \App\Enums\HouseCondition::class,
             'houseOwnership' => \App\Enums\HouseOwnership::class,
