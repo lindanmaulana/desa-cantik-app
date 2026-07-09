@@ -79,7 +79,7 @@ class TerritoryService
         $isDuplicate = Territory::where('rw', $data['rw'])->where('rt', $data['rt'])->exists();
 
         if ($isDuplicate) {
-            throw new \InvalidArgumentException("Wilayah dengan RT{$data['rw']} dan RW{$data['rw']} sudah terdaftar");
+            throw new \InvalidArgumentException("Wilayah dengan RT{$data['rt']} dan RW{$data['rw']} sudah terdaftar");
         }
 
         return false;

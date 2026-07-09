@@ -10,9 +10,9 @@
         <x-alert type="error" :message="session('error')" />
         @endif
 
-        @include('dashboard.manage-data.territories.partials.modal._create')
-        @include('dashboard.manage-data.territories.partials.modal._update')
-        @include('dashboard.manage-data.territories.partials.modal._delete')
+        @include('dashboard.manage-data.territories.modals._create')
+        @include('dashboard.manage-data.territories.modals._update')
+        @include('dashboard.manage-data.territories.modals._delete')
 
         @include('dashboard.manage-data.territories.partials._stats')
         @include('dashboard.manage-data.territories.partials._filter')
