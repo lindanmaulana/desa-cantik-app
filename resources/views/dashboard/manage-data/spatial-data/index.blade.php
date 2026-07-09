@@ -14,9 +14,9 @@ $featureType = App\Enums\FeatureType::class;
         <x-alert type="error" :message="session('error')" />
         @endif
 
-        @include('dashboard.manage-data.spatial-data.partials.modal._create')
-        @include('dashboard.manage-data.spatial-data.partials.modal._update')
-        @include('dashboard.manage-data.spatial-data.partials.modal._delete')
+        @include('dashboard.manage-data.spatial-data.modals._create')
+        @include('dashboard.manage-data.spatial-data.modals._update')
+        @include('dashboard.manage-data.spatial-data.modals._delete')
 
         @include('dashboard.manage-data.spatial-data.partials._stats')
         @include('dashboard.manage-data.spatial-data.partials._filter')
