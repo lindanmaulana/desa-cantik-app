@@ -26,10 +26,10 @@
                     <x-solar-hamburger-menu-broken class="size-6" />
                 </button>
 
-                <button
+                <a href="{{ route('dashboard.profile') }}"
                     class="px-5 py-2 text-sm font-semibold capitalize transition rounded-md text-secondary bg-primary hover:opacity-90">
                     {{ Auth::user()->fullname ?? 'Petugas' }}
-                </button>
+                </a>
             </header>
 
             <main

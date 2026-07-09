@@ -12,9 +12,10 @@ import { infrastructureData } from "./alpine/infrastructure";
 import initSpatialModule from "./alpine/spatial-data";
 import { renderBarChart } from "./charts/barChart";
 import { renderDonutChart } from "./charts/donutChart";
+import { manageAdminData } from "./alpine/manage-admin.js";
+import { profileData } from "./alpine/profile.js";
 import "./colors";
 import "./charts";
-import { manageAdminData } from "./alpine/manage-admin.js";
 
 Alpine.plugin(collapse);
 window.Alpine = Alpine;
@@ -28,6 +29,8 @@ document.addEventListener("alpine:init", () => {
     Alpine.data("msmeData", msmeData);
     Alpine.data("infrastructureData", infrastructureData);
     Alpine.data("manageAdminData", manageAdminData);
+
+    Alpine.data("profileData", profileData);
 
     initSpatialModule();
 
