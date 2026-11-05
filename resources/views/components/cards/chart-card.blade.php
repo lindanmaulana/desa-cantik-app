@@ -5,7 +5,7 @@
                     const values = Object.values({!! Js::from($chartData) !!});
                     return values.length === 0 || values.every(v => Number(v) === 0);
             }}"
-    x-init="if(!isEmpty()) { initChart() }" class="p-6 bg-white border border-gray-100 shadow-sm max-md:p-3 rounded-3xl max-md:rounded-xl">
+    x-init="if(!isEmpty()) { $nextTick(() => setTimeout(() => initChart(), 50)) }" class="p-6 bg-white border border-gray-100 shadow-sm max-md:p-3 rounded-3xl max-md:rounded-xl">
 
     @if($reqType)
     <div class="mb-6">
