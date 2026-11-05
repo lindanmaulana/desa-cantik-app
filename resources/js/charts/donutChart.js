@@ -7,6 +7,19 @@ export const renderDonutChart = (element, chartOptions) => {
         chart: {
             type: "donut",
             height: 500,
+            animations: {
+                enabled: true,
+                easing: "easeinout",
+                speed: 800,
+                animateGradually: {
+                    enabled: true,
+                    delay: 120,
+                },
+                dynamicAnimation: {
+                    enabled: true,
+                    speed: 350,
+                },
+            },
         },
         plotOptions: {
             pie: {

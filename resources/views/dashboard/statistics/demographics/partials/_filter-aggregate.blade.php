@@ -1,8 +1,14 @@
 <div class="p-4 bg-secondary border border-textTertiary/30 shadow-sm sm:p-8 rounded-2xl sm:rounded-3xl">
 
-    <h3 class="mb-4 sm:mb-6 text-[10px] sm:text-xs font-bold tracking-widest text-textSecondary uppercase">
+    <div class="flex flex-wrap items-center justify-between gap-3 mb-4 sm:mb-6">
+    <h3 class="text-[10px] sm:text-xs font-bold tracking-widest text-textSecondary uppercase">
         Pilih Jenis Agregat
     </h3>
+    <button type="button" class="inline-flex items-center gap-2 px-3 py-2 text-xs font-semibold transition border rounded-xl border-textTertiary/40 bg-transparent text-textSecondary hover:bg-textTertiary/10" onclick="window.location.reload()">
+        <x-iconsax-bro-refresh-2 class="size-4" />
+        Reload Agregat
+    </button>
+    </div>
 
     <div class="flex flex-wrap gap-2 sm:gap-3">
         <a href="{{ route('dashboard.statistics.demograph', ['type' => $demographicsType::AGE_GROUP->value]) }}"

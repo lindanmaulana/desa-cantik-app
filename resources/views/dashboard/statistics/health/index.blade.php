@@ -1,6 +1,6 @@
 <x-layouts.dashboard>
     <div class="px-4 space-y-6 max-md:space-y-4 sm:px-6 max-md:px-2" x-data="{
-        isGenerated: new URLSearchParams(window.location.search).has('type'),
+        isGenerated: true,
         isGenerating: false
     }">
         @include('dashboard.statistics.health.partials._header')

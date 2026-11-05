@@ -1,5 +1,5 @@
 <x-cards.chart-card id="chart-economic" :title="$currentType->labels() ? $currentType->title() : 'Statistik Ekonomi Tematik'" :subtitle="ucfirst(str_replace('_', ' ', $currentType->title())) . ' — Data Agregat Kelurahan'" :chart-data="$chartData" :chart-labels="$chartLabels"
-    :chart-type="$chartType" :req-type="request('type')" />
+    :chart-type="$chartType" :req-type="$currentType->value" />
 
 @push('scripts')
 <script>
@@ -9,7 +9,7 @@
             chartData: data,
             chartLabels: labels,
 
-            reqType: "{{ request('type') }}",
+            reqType: "{{ $currentType->value }}",
             reqRw: "{{ request('rw') }}",
 
             initChart() {

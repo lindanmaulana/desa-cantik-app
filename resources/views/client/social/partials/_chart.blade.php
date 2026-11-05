@@ -5,7 +5,7 @@
     :chart-data="$chartData"
     :chart-labels="$chartLabels"
     :chart-type="$chartType"
-    :req-type="request('type')" />
+    :req-type="$currentType->value" />
 
 @push('scripts')
 <script>
@@ -15,7 +15,7 @@
             chartData: data,
             chartLabels: labels,
 
-            reqType: "{{ request('type') }}",
+            reqType: "{{ $currentType->value }}",
             reqRw: "{{ request('rw') }}",
 
             initChart() {

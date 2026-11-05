@@ -1,4 +1,4 @@
-@if(request('type'))
+@if($currentType)
 <div x-data="socialTableComponent('table-village-social', {{ Js::from($tableAggregateVillageData) }})"
     x-init="initTable()"
     class="p-4 space-y-4 bg-white border border-gray-100 shadow-sm sm:p-6 rounded-2xl sm:rounded-3xl">
@@ -13,7 +13,7 @@
     <x-tables.aggregate-village-table
         id="table-village-social"
         :data-table="$tableAggregateVillageData"
-        :req-type="request('type')" />
+        :req-type="$currentType->value" />
 </div>
 @else
 {{-- Placeholder State saat User belum memilih jenis agregat sosial di tombol atas --}}
