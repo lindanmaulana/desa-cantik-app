@@ -26,10 +26,17 @@
                     <x-solar-hamburger-menu-broken class="size-6" />
                 </button>
 
-                <button
-                    class="px-5 py-2 text-sm font-semibold capitalize transition rounded-md text-secondary bg-primary hover:opacity-90">
-                    {{ Auth::user()->fullname ?? 'Petugas' }}
-                </button>
+                <div class="flex items-center gap-3">
+                    <a href="{{ route('home') }}"
+                        class="inline-flex items-center gap-2 px-4 py-2 text-sm font-semibold transition border rounded-md text-textSecondary border-textTertiary/30 hover:bg-tertiary hover:text-primary">
+                        <x-heroicon-o-arrow-top-right-on-square class="w-4 h-4" />
+                        <span class="hidden sm:inline">Lihat Halaman Publik</span>
+                    </a>
+                    <button
+                        class="px-5 py-2 text-sm font-semibold capitalize transition rounded-md text-secondary bg-primary hover:opacity-90">
+                        {{ Auth::user()->fullname ?? 'Petugas' }}
+                    </button>
+                </div>
             </header>
 
             <main

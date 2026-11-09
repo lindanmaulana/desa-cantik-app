@@ -38,6 +38,14 @@
                             Data
                         </a>
                     </li>
+                    <li>
+                        <a href="{{ route('sop') }}"
+                            class="inline-flex items-center text-slate-500 transition-all duration-150 hover:text-primary hover:translate-x-1 group">
+                            <span
+                                class="opacity-0 w-0 transition-all duration-150 group-hover:opacity-100 group-hover:w-3 text-primary">→</span>SOP
+                                Permintaan Data
+                        </a>
+                    </li>
                 </ul>
             </div>
 

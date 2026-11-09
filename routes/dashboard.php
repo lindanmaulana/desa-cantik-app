@@ -23,11 +23,18 @@ use App\Http\Controllers\Dashboard\Statistics\EconomicController;
 use App\Http\Controllers\Dashboard\Statistics\HealthController;
 use App\Http\Controllers\Dashboard\Admin\ManageOperatorController;
 use App\Http\Controllers\Dashboard\Admin\VillageSettingController;
+use App\Http\Controllers\Dashboard\GuestbookController;
 
 Route::middleware(['auth'])->group(function () {
     Route::prefix('dashboard')->group(function () {
         Route::middleware(['role:admin,operator'])->group(function () {
             Route::get('/', [HomeController::class, 'index'])->name('dashboard');
+            Route::prefix('guestbook')->group(function () {
+                Route::get('/', [GuestbookController::class, 'index'])->name('dashboard.guestbook');
+                Route::get('/{guestbookEntry}', [GuestbookController::class, 'show'])->name('dashboard.guestbook.show');
+                Route::put('/{guestbookEntry}/status', [GuestbookController::class, 'updateStatus'])->name('dashboard.guestbook.status');
+                Route::delete('/{guestbookEntry}', [GuestbookController::class, 'destroy'])->name('dashboard.guestbook.destroy');
+            });
 
             Route::prefix('statistics')->group(function () {
                 Route::get('/demograph', [DemographController::class, 'index'])->name('dashboard.statistics.demograph');

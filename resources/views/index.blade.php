@@ -143,7 +143,7 @@
 
                 <!-- Action Card / Call to Action -->
                 <div
-                    class="bg-primary p-6 sm:p-8 rounded-2xl shadow-lg shadow-primary/10 flex flex-col justify-between min-h-[200px] md:col-span-2 lg:col-span-1">
+                    class="order-last bg-primary p-6 sm:p-8 rounded-2xl shadow-lg shadow-primary/10 flex flex-col justify-between min-h-[200px] lg:order-none lg:col-span-1">
                     <div class="space-y-2">
                         <h4 class="text-base font-bold tracking-wide sm:text-lg text-secondary">Akses Data Lengkap</h4>
                         <p class="text-xs font-normal leading-relaxed text-secondary/90">
@@ -165,6 +165,30 @@
                                 <span>Login Sekarang</span>
                             </x-button-link>
                         @endauth
+                    </div>
+                </div>
+
+                <div
+                    class="order-first flex min-h-[250px] flex-col items-center justify-between rounded-2xl border border-primary/20 bg-secondary p-6 text-center shadow-sm transition-all hover:shadow-md sm:p-8 lg:order-none lg:col-span-3 lg:col-start-1">
+                    <div class="flex flex-col items-center space-y-3.5">
+                        <div class="p-3 bg-primary/10 text-primary rounded-xl w-fit">
+                            <x-heroicon-o-book-open class="w-6 h-6" />
+                        </div>
+                        <div>
+                            <h4 class="text-base font-bold text-textPrimary sm:text-lg">Buku Tamu Desa</h4>
+                            <p class="mt-2 text-xs font-normal leading-relaxed text-textSecondary">
+                                Rencanakan kunjungan dan isi buku tamu sebelum datang ke kantor
+                                {{ $villageSettings->village_name ?? '-' }}.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="flex w-full justify-center pt-4">
+                        <x-button-link :href="route('guestbook.index')" variant="outline" size="md" class="w-auto"
+                            loading-key="card-guestbook" loading-text="Membuka Buku Tamu...">
+                            <x-iconsax-bro-arrow-square-right class="w-4 h-4" />
+                            <span>Isi Buku Tamu</span>
+                        </x-button-link>
                     </div>
                 </div>
             </div>

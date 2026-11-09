@@ -27,6 +27,7 @@ class VillageSetting extends Model
         'app_title',
         'village_logo',
         'hero_image',
+        'sop_diagram_path',
         'office_address',
         'postal_code',
         'official_email',
