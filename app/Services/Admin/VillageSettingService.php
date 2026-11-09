@@ -87,4 +87,44 @@ class VillageSettingService
             return $settings;
         });
     }
+
+    public function updateSopDiagram(UploadedFile $file): VillageSetting
+    {
+        return DB::transaction(function () use ($file) {
+            $settings = VillageSetting::firstOrFail();
+
+            if ($settings->sop_diagram_path && Storage::disk('public')->exists($settings->sop_diagram_path)) {
+                Storage::disk('public')->delete($settings->sop_diagram_path);
+            }
+
+            $path = $file->store('village/sop', 'public');
+
+            $settings->update([
+                'sop_diagram_path' => $path,
+            ]);
+
+            Cache::forget($this->cacheKey);
+
+            return $settings;
+        });
+    }
+
+    public function deleteSopDiagram(): VillageSetting
+    {
+        return DB::transaction(function () {
+            $settings = VillageSetting::firstOrFail();
+
+            if ($settings->sop_diagram_path && Storage::disk('public')->exists($settings->sop_diagram_path)) {
+                Storage::disk('public')->delete($settings->sop_diagram_path);
+            }
+
+            $settings->update([
+                'sop_diagram_path' => null,
+            ]);
+
+            Cache::forget($this->cacheKey);
+
+            return $settings;
+        });
+    }
 }

@@ -6,6 +6,7 @@ use App\Http\Controllers\Client\EconomyClientController;
 use App\Http\Controllers\Client\InfrastructureClientController;
 use App\Http\Controllers\Client\MsmeClientController;
 use App\Http\Controllers\Client\SocialClientController;
+use App\Http\Controllers\Client\GuestbookController;
 use App\Http\Controllers\ProfileController;
 
 use Illuminate\Support\Facades\Route;
@@ -25,6 +26,16 @@ Route::prefix('/')->group(function () {
     Route::get('spacial-data', [ClientController::class, 'spacialData'])->name('statistik.spacial-data');
     Route::get('analisis-data', [ClientController::class, 'analisis'])->name('analisis');
   });
+  Route::get('buku-tamu', [GuestbookController::class, 'index'])->name('guestbook.index');
+  Route::post('buku-tamu', [GuestbookController::class, 'store'])
+    ->middleware('throttle:6,1')
+    ->name('guestbook.store');
+  Route::get('sop', [ClientController::class, 'sop'])->name('sop');
+});
+
+Route::middleware(['auth', 'role:admin'])->group(function () {
+  Route::post('/sop/diagram', [ClientController::class, 'updateSopDiagram'])->name('sop.diagram.update');
+  Route::delete('/sop/diagram', [ClientController::class, 'deleteSopDiagram'])->name('sop.diagram.destroy');
 });
 
 Route::middleware(['auth', 'role:admin'])->group(function () {

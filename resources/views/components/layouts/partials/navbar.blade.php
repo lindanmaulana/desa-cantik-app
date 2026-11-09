@@ -24,6 +24,18 @@
                     <span>Beranda</span>
                 </a>
             </div>
+            <div class="relative">
+                <a href="{{ route('guestbook.index') }}"
+                    class="block px-3 lg:px-4 py-1.5 rounded-lg text-xs font-semibold tracking-wide transition-all duration-200 {{ request()->routeIs('guestbook.*') ? 'bg-white text-primary shadow-sm' : 'text-slate-600 hover:text-primary hover:bg-white/50' }}">
+                    <span>Buku Tamu</span>
+                </a>
+            </div>
+            <div class="relative">
+                <a href="{{ route('sop') }}"
+                    class="block px-3 lg:px-4 py-1.5 rounded-lg text-xs font-semibold tracking-wide transition-all duration-200 {{ request()->routeIs('sop') ? 'bg-white text-primary shadow-sm' : 'text-slate-600 hover:text-primary hover:bg-white/50' }}">
+                    <span>SOP</span>
+                </a>
+            </div>
 
             <div class="relative" x-data="{ open: false }" @mouseenter="open = true" @mouseleave="open = false">
                 <button
@@ -167,6 +179,14 @@
             <a href="{{ route('home') }}"
                 class="block rounded-xl px-3 py-3 text-sm font-semibold transition-colors {{ request()->routeIs('home') ? 'bg-primary/10 text-primary' : 'text-slate-600 hover:bg-slate-50 hover:text-primary' }}">
                 Beranda
+            </a>
+            <a href="{{ route('guestbook.index') }}"
+                class="block rounded-xl px-3 py-3 text-sm font-semibold transition-colors {{ request()->routeIs('guestbook.*') ? 'bg-primary/10 text-primary' : 'text-slate-600 hover:bg-slate-50 hover:text-primary' }}">
+                Buku Tamu
+            </a>
+            <a href="{{ route('sop') }}"
+                class="block rounded-xl px-3 py-3 text-sm font-semibold transition-colors {{ request()->routeIs('sop') ? 'bg-primary/10 text-primary' : 'text-slate-600 hover:bg-slate-50 hover:text-primary' }}">
+                SOP Permintaan Data
             </a>
 
             <div x-data="{ localOpen: {{ request()->routeIs('statistik.*') ? 'true' : 'false' }} }">
