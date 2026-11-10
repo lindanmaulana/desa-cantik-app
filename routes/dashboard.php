@@ -128,6 +128,8 @@ Route::middleware(['auth'])->group(function () {
                 Route::put('/update', [VillageSettingController::class, 'update'])->name('settings.update');
                 Route::put('/update-logo', [VillageSettingController::class, 'updateLogo'])->name('settings.update-logo');
                 Route::put('/update-banner', [VillageSettingController::class, 'updateBanner'])->name('settings.update-banner');
+                Route::delete('/delete-logo', [VillageSettingController::class, 'deleteLogo'])->name('settings.delete-logo');
+                Route::delete('/delete-banner', [VillageSettingController::class, 'deleteBanner'])->name('settings.delete-banner');
             });
 
             Route::prefix('manage-operators')->group(function () {

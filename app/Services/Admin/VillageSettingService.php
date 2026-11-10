@@ -88,6 +88,38 @@ class VillageSettingService
         });
     }
 
+    public function deleteLogo(): VillageSetting
+    {
+        return DB::transaction(function () {
+            $settings = VillageSetting::firstOrFail();
+
+            if ($settings->village_logo && Storage::disk('public')->exists($settings->village_logo)) {
+                Storage::disk('public')->delete($settings->village_logo);
+            }
+
+            $settings->update(['village_logo' => null]);
+            Cache::forget($this->cacheKey);
+
+            return $settings;
+        });
+    }
+
+    public function deleteBanner(): VillageSetting
+    {
+        return DB::transaction(function () {
+            $settings = VillageSetting::firstOrFail();
+
+            if ($settings->hero_image && Storage::disk('public')->exists($settings->hero_image)) {
+                Storage::disk('public')->delete($settings->hero_image);
+            }
+
+            $settings->update(['hero_image' => null]);
+            Cache::forget($this->cacheKey);
+
+            return $settings;
+        });
+    }
+
     public function updateSopDiagram(UploadedFile $file): VillageSetting
     {
         return DB::transaction(function () use ($file) {
