@@ -98,4 +98,36 @@ class VillageSettingController extends Controller
             return redirect()->back()->with('error', 'Gagal memperbarui banner. Silakan coba lagi.');
         }
     }
+
+    public function deleteLogo()
+    {
+        try {
+            $this->villageSettingService->deleteLogo();
+
+            return redirect()->back()->with('success', 'Logo resmi desa berhasil dihapus.');
+        } catch (\Throwable $err) {
+            Log::error('Gagal menghapus logo desa: ' . $err->getMessage(), [
+                'user_id' => Auth::id(),
+                'trace' => $err->getTraceAsString(),
+            ]);
+
+            return redirect()->back()->with('error', 'Gagal menghapus logo. Silakan coba lagi.');
+        }
+    }
+
+    public function deleteBanner()
+    {
+        try {
+            $this->villageSettingService->deleteBanner();
+
+            return redirect()->back()->with('success', 'Banner utama berhasil dihapus.');
+        } catch (\Throwable $err) {
+            Log::error('Gagal menghapus banner desa: ' . $err->getMessage(), [
+                'user_id' => Auth::id(),
+                'trace' => $err->getTraceAsString(),
+            ]);
+
+            return redirect()->back()->with('error', 'Gagal menghapus banner. Silakan coba lagi.');
+        }
+    }
 }
