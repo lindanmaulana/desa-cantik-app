@@ -24,6 +24,7 @@ use App\Http\Controllers\Dashboard\Statistics\HealthController;
 use App\Http\Controllers\Dashboard\Admin\ManageOperatorController;
 use App\Http\Controllers\Dashboard\Admin\VillageSettingController;
 use App\Http\Controllers\Dashboard\GuestbookController;
+use App\Http\Controllers\Dashboard\PublicationController;
 
 Route::middleware(['auth'])->group(function () {
     Route::prefix('dashboard')->group(function () {
@@ -34,6 +35,13 @@ Route::middleware(['auth'])->group(function () {
                 Route::get('/{guestbookEntry}', [GuestbookController::class, 'show'])->name('dashboard.guestbook.show');
                 Route::put('/{guestbookEntry}/status', [GuestbookController::class, 'updateStatus'])->name('dashboard.guestbook.status');
                 Route::delete('/{guestbookEntry}', [GuestbookController::class, 'destroy'])->name('dashboard.guestbook.destroy');
+            });
+            Route::prefix('publications')->group(function () {
+                Route::get('/', [PublicationController::class, 'index'])->name('dashboard.publications.index');
+                Route::post('/', [PublicationController::class, 'store'])->name('dashboard.publications.store');
+                Route::get('/{publication}/edit', [PublicationController::class, 'edit'])->name('dashboard.publications.edit');
+                Route::put('/{publication}', [PublicationController::class, 'update'])->name('dashboard.publications.update');
+                Route::delete('/{publication}', [PublicationController::class, 'destroy'])->name('dashboard.publications.destroy');
             });
 
             Route::prefix('statistics')->group(function () {

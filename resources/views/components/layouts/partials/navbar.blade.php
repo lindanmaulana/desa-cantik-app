@@ -36,6 +36,22 @@
                     <span>SOP</span>
                 </a>
             </div>
+            <div class="relative" x-data="{ open: false }" @mouseenter="open = true" @mouseleave="open = false">
+                <button
+                    class="flex items-center gap-1 px-3 lg:px-4 py-1.5 rounded-lg text-xs font-semibold tracking-wide transition-all duration-200 {{ request()->routeIs('publications.*') ? 'bg-white text-primary shadow-sm' : 'text-slate-600 hover:text-primary hover:bg-white/50' }}">
+                    <span>Publikasi</span>
+                    <svg class="h-3.5 w-3.5 opacity-70 transition-transform duration-200" :class="{ 'rotate-180': open }" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7" />
+                    </svg>
+                </button>
+                <div x-show="open" x-cloak x-transition class="absolute left-1/2 z-50 w-[430px] -translate-x-1/2 pt-3" style="display: none;">
+                    <div class="grid grid-cols-2 gap-1 rounded-2xl border border-slate-100 bg-white p-3 shadow-xl">
+                        @foreach (['profil-desa' => 'Profil Desa', 'monografi-desa' => 'Monografi Desa', 'infografis' => 'Infografis', 'publikasi' => 'Publikasi', 'metadata-statistik' => 'Metadata Statistik'] as $publicationCategory => $publicationLabel)
+                            <a href="{{ route('publications.index', ['category' => $publicationCategory]) }}" class="rounded-xl p-3 text-xs font-bold uppercase tracking-wider text-slate-800 transition hover:bg-slate-50 hover:text-primary {{ request()->routeIs('publications.*') && request()->route('category') === $publicationCategory ? 'bg-primary/5 text-primary' : '' }}">{{ $publicationLabel }}</a>
+                        @endforeach
+                    </div>
+                </div>
+            </div>
 
             <div class="relative" x-data="{ open: false }" @mouseenter="open = true" @mouseleave="open = false">
                 <button
@@ -188,6 +204,20 @@
                 class="block rounded-xl px-3 py-3 text-sm font-semibold transition-colors {{ request()->routeIs('sop') ? 'bg-primary/10 text-primary' : 'text-slate-600 hover:bg-slate-50 hover:text-primary' }}">
                 SOP Permintaan Data
             </a>
+            <div x-data="{ localOpen: {{ request()->routeIs('publications.*') ? 'true' : 'false' }} }">
+                <button @click="localOpen = !localOpen"
+                    class="flex w-full items-center justify-between rounded-xl px-3 py-3 text-sm font-semibold transition-colors {{ request()->routeIs('publications.*') ? 'bg-primary/10 text-primary' : 'text-slate-600 hover:bg-slate-50 hover:text-primary' }}">
+                    <span>Publikasi & Dokumen</span>
+                    <svg class="h-4 w-4 opacity-60 transition-transform duration-300" :class="{ 'rotate-180': localOpen }" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                    </svg>
+                </button>
+                <div x-show="localOpen" x-collapse class="mt-1 space-y-0.5 border-l-2 border-primary/20 pl-4">
+                    @foreach (['profil-desa' => 'Profil Desa', 'monografi-desa' => 'Monografi Desa', 'infografis' => 'Infografis', 'publikasi' => 'Publikasi', 'metadata-statistik' => 'Metadata Statistik'] as $publicationCategory => $publicationLabel)
+                        <a href="{{ route('publications.index', ['category' => $publicationCategory]) }}" class="block rounded-lg px-3 py-2 text-xs font-medium hover:bg-slate-50 {{ request()->route('category') === $publicationCategory ? 'font-bold text-primary' : 'text-slate-600' }}">{{ $publicationLabel }}</a>
+                    @endforeach
+                </div>
+            </div>
 
             <div x-data="{ localOpen: {{ request()->routeIs('statistik.*') ? 'true' : 'false' }} }">
                 <button @click="localOpen = !localOpen"

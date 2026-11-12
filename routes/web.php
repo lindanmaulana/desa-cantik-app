@@ -7,6 +7,7 @@ use App\Http\Controllers\Client\InfrastructureClientController;
 use App\Http\Controllers\Client\MsmeClientController;
 use App\Http\Controllers\Client\SocialClientController;
 use App\Http\Controllers\Client\GuestbookController;
+use App\Http\Controllers\Client\PublicationController;
 use App\Http\Controllers\ProfileController;
 
 use Illuminate\Support\Facades\Route;
@@ -31,6 +32,9 @@ Route::prefix('/')->group(function () {
     ->middleware('throttle:6,1')
     ->name('guestbook.store');
   Route::get('sop', [ClientController::class, 'sop'])->name('sop');
+  Route::get('publikasi/{category?}', [PublicationController::class, 'index'])->name('publications.index');
+  Route::get('publikasi/{publication}/preview', [PublicationController::class, 'preview'])->name('publications.preview');
+  Route::get('publikasi/{publication}/download', [PublicationController::class, 'download'])->name('publications.download');
 });
 
 Route::middleware(['auth', 'role:admin'])->group(function () {
