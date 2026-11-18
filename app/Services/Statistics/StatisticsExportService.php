@@ -38,14 +38,33 @@ class StatisticsExportService
 
     public function all(?string $rw = null, ?string $rt = null): array
     {
-        return [
-            $this->module('demograph', DemographicsType::AGE_GROUP->value, $rw, $rt),
-            $this->module('social', SocialType::RELIGION->value, $rw, $rt),
-            $this->module('health', HealthType::STUNTING_STATUS->value, $rw, $rt),
-            $this->module('economic', EconomicType::OCCUPATION->value, $rw, $rt),
-            $this->module('msme', MsmeType::BUSINESS_SECTOR->value, $rw, $rt),
-            $this->module('infrastructure', InfrastructureType::FACILITY_TYPE->value, $rw, $rt),
-        ];
+        $reports = [];
+
+        foreach ([DemographicsType::AGE_GROUP, DemographicsType::GENDER, DemographicsType::MARITAL_STATUS, DemographicsType::TERRITORY, DemographicsType::CITIZEN_STATUS] as $type) {
+            $reports[] = $this->module('demograph', $type->value, $rw, $rt);
+        }
+
+        foreach (SocialType::cases() as $type) {
+            $reports[] = $this->module('social', $type->value, $rw, $rt);
+        }
+
+        foreach (HealthType::cases() as $type) {
+            $reports[] = $this->module('health', $type->value, $rw, $rt);
+        }
+
+        foreach (EconomicType::cases() as $type) {
+            $reports[] = $this->module('economic', $type->value, $rw, $rt);
+        }
+
+        foreach (MsmeType::cases() as $type) {
+            $reports[] = $this->module('msme', $type->value, $rw, $rt);
+        }
+
+        foreach (InfrastructureType::cases() as $type) {
+            $reports[] = $this->module('infrastructure', $type->value, $rw, $rt);
+        }
+
+        return $reports;
     }
 
     private function demograph(?string $type, ?string $rw, ?string $rt): array
@@ -64,7 +83,7 @@ class StatisticsExportService
             ? ($data['labels'] ?? [])
             : $type->labels();
 
-        return $this->genderRows('Demografi', $type->labels()[0] ?? 'Demografi', $labels, $data);
+        return $this->genderRows('Demografi', $this->demographTitle($type), $labels, $data);
     }
 
     private function social(?string $type, ?string $rw, ?string $rt): array
@@ -159,6 +178,18 @@ class StatisticsExportService
         $values = $rows->pluck('total')->all();
 
         return $this->datasetRows('Infrastruktur', $type->title(), $labels, $values);
+    }
+
+    private function demographTitle(DemographicsType $type): string
+    {
+        return match ($type) {
+            DemographicsType::AGE_GROUP => 'Kelompok Umur',
+            DemographicsType::GENDER => 'Jenis Kelamin',
+            DemographicsType::MARITAL_STATUS => 'Status Perkawinan',
+            DemographicsType::TERRITORY => 'Keberadaan Wilayah',
+            DemographicsType::CITIZEN_STATUS => 'Status Penduduk',
+            default => 'Demografi',
+        };
     }
 
     private function genderRows(string $module, string $title, array $labels, array $data): array
