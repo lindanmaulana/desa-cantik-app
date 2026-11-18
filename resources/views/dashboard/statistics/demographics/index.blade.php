@@ -10,6 +10,7 @@
             x-transition:enter="transition ease-out duration-500 delay-200"
             x-transition:enter-start="opacity-0 translate-y-8" x-transition:enter-end="opacity-100 translate-y-0">
             @include('dashboard.statistics.demographics.partials._stats-card')
+            @include('dashboard.statistics.partials._export-actions', ['module' => 'demograph'])
             @include('dashboard.statistics.demographics.partials._filter-aggregate')
             @include('dashboard.statistics.demographics.partials._chart')
             @include('dashboard.statistics.demographics.partials._table-aggregate-village')

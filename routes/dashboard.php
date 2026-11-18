@@ -1,30 +1,31 @@
 <?php
 
+use App\Http\Controllers\Dashboard\Admin\ManageOperatorController;
+use App\Http\Controllers\Dashboard\Admin\VillageSettingController;
+use App\Http\Controllers\Dashboard\GuestbookController;
 use App\Http\Controllers\Dashboard\HomeController;
 use App\Http\Controllers\Dashboard\ManageData\ChildGrowthLogsController;
+use App\Http\Controllers\Dashboard\ManageData\CitizensController;
+use App\Http\Controllers\Dashboard\ManageData\EducationProfileController;
+use App\Http\Controllers\Dashboard\ManageData\EmploymentProfileController;
+use App\Http\Controllers\Dashboard\ManageData\FamiliesController;
+use App\Http\Controllers\Dashboard\ManageData\HealthProfileController;
+use App\Http\Controllers\Dashboard\ManageData\HousingProfileController;
+use App\Http\Controllers\Dashboard\ManageData\InfrastructuresController;
+use App\Http\Controllers\Dashboard\ManageData\MsmesController;
+use App\Http\Controllers\Dashboard\ManageData\SpatialDataController as ManageSpatialDataController;
 use App\Http\Controllers\Dashboard\ManageData\TerritoriesController;
 use App\Http\Controllers\Dashboard\PandawaAnalysisController;
+use App\Http\Controllers\Dashboard\PublicationController;
 use App\Http\Controllers\Dashboard\Statistics\DemographController;
+use App\Http\Controllers\Dashboard\Statistics\EconomicController;
+use App\Http\Controllers\Dashboard\Statistics\HealthController;
 use App\Http\Controllers\Dashboard\Statistics\InfrastructureController;
 use App\Http\Controllers\Dashboard\Statistics\MsmeController;
 use App\Http\Controllers\Dashboard\Statistics\SocialController;
 use App\Http\Controllers\Dashboard\Statistics\SpatialDataController;
+use App\Http\Controllers\Dashboard\Statistics\StatisticsExportController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Dashboard\ManageData\FamiliesController;
-use App\Http\Controllers\Dashboard\ManageData\CitizensController;
-use App\Http\Controllers\Dashboard\ManageData\EducationProfileController;
-use App\Http\Controllers\Dashboard\ManageData\EmploymentProfileController;
-use App\Http\Controllers\Dashboard\ManageData\HealthProfileController;
-use App\Http\Controllers\Dashboard\ManageData\HousingProfileController;
-use App\Http\Controllers\Dashboard\ManageData\MsmesController;
-use App\Http\Controllers\Dashboard\ManageData\InfrastructuresController;
-use App\Http\Controllers\Dashboard\ManageData\SpatialDataController as ManageSpatialDataController;
-use App\Http\Controllers\Dashboard\Statistics\EconomicController;
-use App\Http\Controllers\Dashboard\Statistics\HealthController;
-use App\Http\Controllers\Dashboard\Admin\ManageOperatorController;
-use App\Http\Controllers\Dashboard\Admin\VillageSettingController;
-use App\Http\Controllers\Dashboard\GuestbookController;
-use App\Http\Controllers\Dashboard\PublicationController;
 
 Route::middleware(['auth'])->group(function () {
     Route::prefix('dashboard')->group(function () {
@@ -52,6 +53,10 @@ Route::middleware(['auth'])->group(function () {
                 Route::get('/msme', [MsmeController::class, 'index'])->name('dashboard.statistics.msme');
                 Route::get('/infrastructure', [InfrastructureController::class, 'index'])->name('dashboard.statistics.infrastructure');
                 Route::get('/spatial-data', [SpatialDataController::class, 'index'])->name('dashboard.statistics.spatial-data');
+                Route::get('/export/all/excel', [StatisticsExportController::class, 'allExcel'])->name('dashboard.statistics.export.all-excel');
+                Route::get('/export/all/pdf', [StatisticsExportController::class, 'allPdf'])->name('dashboard.statistics.export.all-pdf');
+                Route::get('/export/{module}/excel', [StatisticsExportController::class, 'excel'])->name('dashboard.statistics.export.excel');
+                Route::get('/export/{module}/pdf', [StatisticsExportController::class, 'pdf'])->name('dashboard.statistics.export.pdf');
             });
 
             Route::prefix('manage-data')->group(function () {
@@ -126,7 +131,7 @@ Route::middleware(['auth'])->group(function () {
                 });
             });
 
-            Route::get("/pandawa-analysis", [PandawaAnalysisController::class, 'index'])->name('dashboard.pandawa-analysis');
+            Route::get('/pandawa-analysis', [PandawaAnalysisController::class, 'index'])->name('dashboard.pandawa-analysis');
         });
 
         Route::middleware(['role:admin'])->group(function () {
